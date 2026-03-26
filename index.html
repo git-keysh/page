@@ -1,2 +1,234 @@
-Process of building 
-Started 3/24/2025
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyshaun Sookdar | Enter the Mind</title>
+    <style>
+        /* Base Reset & Styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden; /* Prevents scrolling during intro */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Stages Setup */
+        .stage {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .stage.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- STAGE 1: Profile Intro --- */
+        #profile-img {
+            width: 200px; /* Adjust based on your image size */
+            opacity: 0;
+            transform: scale(1) translateY(0);
+            transition: all 1s ease-in-out;
+            animation: fadeIn 2s forwards;
+        }
+        
+        /* Class added via JS after 1s delay */
+        #profile-img.shrink-up {
+            transform: scale(0.85) translateY(-20px);
+        }
+
+        #name-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: all 1s ease-out;
+        }
+        
+        /* Class added via JS */
+        #name-text.slide-down {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #prompt-text {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #888;
+            opacity: 0;
+            cursor: pointer;
+            transition: opacity 1s ease-in;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        /* Class added via JS */
+        #prompt-text.show {
+            opacity: 1;
+        }
+
+        /* --- STAGE 2: Video & Glow --- */
+        #glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 300px; height: 300px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, rgba(0,0,0,0) 70%);
+            transition: background 3s ease-in-out;
+            z-index: 1;
+        }
+        
+        #glow.purple {
+            background: radial-gradient(circle, rgba(128, 0, 128, 0.6) 0%, rgba(0,0,0,0) 70%);
+            width: 100vw; height: 100vh; /* Expands to fill screen */
+        }
+
+        #intro-video {
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* --- STAGE 3: Static --- */
+        #static-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Television_static.gif/800px-Television_static.gif');
+            background-size: cover;
+            opacity: 0;
+            z-index: 10;
+            mix-blend-mode: screen;
+            transition: opacity 2s ease-in;
+        }
+
+        /* Keyframes */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stage1" class="stage active">
+        <img src="cdn/assets/me.png" alt="Keyshaun Sookdar" id="profile-img">
+        <h1 id="name-text">Keyshaun Sookdar</h1>
+        <p id="prompt-text">Click anywhere to enter the mind of Keyshaun.</p>
+    </div>
+
+    <div id="stage2" class="stage">
+        <div id="glow"></div>
+        <video id="intro-video" src="cdn/assets/intro.mp4" playsinline></video>
+    </div>
+
+    <div id="stage3" class="stage">
+        <div id="static-overlay"></div>
+        <audio id="static-audio" src="https://www.soundjay.com/mechanical/sounds/tv-static-05.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileImg = document.getElementById('profile-img');
+            const nameText = document.getElementById('name-text');
+            const promptText = document.getElementById('prompt-text');
+            
+            const stage1 = document.getElementById('stage1');
+            const stage2 = document.getElementById('stage2');
+            const video = document.getElementById('intro-video');
+            const glow = document.getElementById('glow');
+            
+            const staticOverlay = document.getElementById('static-overlay');
+            const staticAudio = document.getElementById('static-audio');
+
+            let introStarted = false;
+
+            // Step 1: Initial animations after page load
+            setTimeout(() => {
+                profileImg.classList.add('shrink-up');
+                
+                setTimeout(() => {
+                    nameText.classList.add('slide-down');
+                    
+                    setTimeout(() => {
+                        promptText.classList.add('show');
+                    }, 500); // Prompt appears slightly after name
+                }, 800); // Name slides down after image shrinks
+            }, 1000); // 1 second delay before image shrinks
+
+            // Step 2: Handle Click Event
+            document.body.addEventListener('click', () => {
+                // Ensure this only triggers once
+                if (introStarted) return;
+                introStarted = true;
+
+                // Fade out Stage 1, Fade in Stage 2
+                stage1.classList.remove('active');
+                stage2.classList.add('active');
+
+                // Start video logic
+                setTimeout(() => {
+                    video.play();
+                    
+                    // Trigger the transition at exactly 23 seconds
+                    setTimeout(() => {
+                        triggerStaticTransition();
+                    }, 23000);
+
+                }, 1500); // Give it a moment to fade in before playing
+            });
+
+            // Step 3: Transition to Static and redirect
+            function triggerStaticTransition() {
+                // Fade out video
+                video.style.opacity = '0';
+                
+                // Change gold glow to purple and expand it
+                glow.classList.add('purple');
+
+                // Start static visual and audio
+                setTimeout(() => {
+                    staticOverlay.style.opacity = '0.4'; // Starts subtle
+                    staticAudio.volume = 0.2;
+                    staticAudio.play();
+
+                    // Ramp up the static intensity
+                    setTimeout(() => {
+                        staticOverlay.style.opacity = '0.9'; // Gets rough and vibrant
+                        staticAudio.volume = 1.0; // Gets loud
+                        
+                        // Redirect to home.html after the climax
+                        setTimeout(() => {
+                            window.location.href = 'home.html';
+                        }, 2500); // 2.5 seconds of heavy static before jumping
+
+                    }, 2000); // 2 seconds of light static
+
+                }, 1000); // Wait for video to fade out
+            }
+        });
+    </script>
+</body>
+</html>
