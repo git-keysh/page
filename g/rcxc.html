@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RCXC | Global IT Challenge</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #9d00ff; --glass: rgba(15, 15, 15, 0.8); }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            width: 95%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- DIFFICULTY BAR --- */
+        .diff-bar {
+            display: flex;
+            background: #111;
+            padding: 5px;
+            border-radius: 12px;
+            gap: 5px;
+        }
+        .diff-opt {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #555;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .diff-opt.active { background: var(--accent); color: white; }
+
+        /* --- GAME ELEMENTS --- */
+        .option-btn {
+            width: 100%;
+            padding: 18px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            text-align: left;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+        .option-btn:active { transform: scale(0.98); background: rgba(157, 0, 255, 0.2); }
+        .option-btn.correct { background: #22c55e !important; border-color: #22c55e; }
+        .option-btn.wrong { background: #ef4444 !important; border-color: #ef4444; }
+
+        /* Timer Progress */
+        .timer-container { width: 100%; height: 6px; background: #111; border-radius: 3px; margin: 20px 0; overflow: hidden; }
+        #timer-bar { width: 100%; height: 100%; background: var(--accent); transition: width 0.1s linear; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="lobby" class="glass-panel">
+        <h1 class="text-3xl font-bold tracking-tighter mb-2">RCXC GLOBAL</h1>
+        <p class="text-zinc-500 text-sm mb-8">System: Online | Questions: 150</p>
+
+        <div class="space-y-6">
+            <div>
+                <label class="text-[10px] uppercase text-zinc-500 tracking-widest block mb-2">Player Name</label>
+                <input type="text" id="p-name" placeholder="Enter Nickname..." class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+                <label class="text-[10px] uppercase text-zinc-500 tracking-widest block mb-2">Difficulty Range</label>
+                <div class="diff-bar" id="diff-selector">
+                    <div class="diff-opt active" data-range="Easy">Easy</div>
+                    <div class="diff-opt" data-range="Medium">Medium</div>
+                    <div class="diff-opt" data-range="Hard">Hard</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-[10px] uppercase text-zinc-500 tracking-widest block mb-2">Timer (sec)</label>
+                    <input type="number" id="p-time" value="15" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase text-zinc-500 tracking-widest block mb-2">Mode</label>
+                    <select id="p-mode" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none appearance-none">
+                        <option value="training">Solo Training</option>
+                        <option value="global">Global Duel</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="initGame()" class="w-full bg-white text-black font-bold py-5 rounded-2xl hover:bg-purple-500 hover:text-white transition shadow-xl">START INITIALIZATION</button>
+        </div>
+    </div>
+
+    <div id="game-ui" class="glass-panel hidden">
+        <div class="flex justify-between items-center mb-4">
+            <span id="current-player" class="text-xs font-bold text-purple-400">TRAINING MODE</span>
+            <span id="score-display" class="text-xs font-mono">SCORE: 0</span>
+        </div>
+        
+        <h2 id="question-text" class="text-xl font-bold mb-6 leading-tight">Loading question...</h2>
+        
+        <div id="options-container">
+            </div>
+
+        <div class="timer-container">
+            <div id="timer-bar"></div>
+        </div>
+    </div>
+
+    <div id="results-ui" class="glass-panel hidden text-center">
+        <h1 class="text-4xl font-bold mb-4">FINISH</h1>
+        <p id="final-stats" class="text-zinc-400 mb-8"></p>
+        <button onclick="location.reload()" class="w-full border border-white/20 py-4 rounded-xl uppercase tracking-widest text-xs font-bold hover:bg-white hover:text-black transition">Return to Lobby</button>
+    </div>
+
+    <script>
+        let db = [];
+        let activeQuestions = [];
+        let qIdx = 0;
+        let score = 0;
+        let timeLeft = 0;
+        let timerInterval;
+
+        // Difficulty selection logic
+        document.querySelectorAll('.diff-opt').forEach(opt => {
+            opt.addEventListener('click', () => {
+                document.querySelectorAll('.diff-opt').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+            });
+        });
+
+        async function initGame() {
+            const name = document.getElementById('p-name').value || "Player";
+            const time = parseInt(document.getElementById('p-time').value);
+            const range = document.querySelector('.diff-opt.active').dataset.range;
+            
+            // 1. Fetch the 150 questions
+            try {
+                const response = await fetch('storage/rcxc-database.json');
+                const data = await response.json();
+                db = data.questions;
+            } catch (e) {
+                alert("Database not found! Ensure storage/rcxc-database.json exists.");
+                return;
+            }
+
+            // 2. Filter by Difficulty
+            activeQuestions = db.filter(q => q.difficulty === range);
+            // Shuffle and pick 20
+            activeQuestions = activeQuestions.sort(() => Math.random() - 0.5).slice(0, 20);
+
+            // 3. Switch UI
+            document.getElementById('lobby').classList.add('hidden');
+            document.getElementById('game-ui').classList.remove('hidden');
+            document.getElementById('current-player').innerText = `${name.toUpperCase()} // ${range}`;
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (qIdx >= activeQuestions.length) return endGame();
+            
+            clearInterval(timerInterval);
+            const q = activeQuestions[qIdx];
+            document.getElementById('question-text').innerText = q.question;
+            
+            // Combine and Shuffle Options (1 Correct + 4 Wrong)
+            const options = [q.correct_answer, ...q.wrong_answers].sort(() => Math.random() - 0.5);
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt, q.correct_answer, btn);
+                container.appendChild(btn);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            const max = parseInt(document.getElementById('p-time').value);
+            timeLeft = max;
+            const bar = document.getElementById('timer-bar');
+            
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                bar.style.width = (timeLeft / max) * 100 + "%";
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(null, activeQuestions[qIdx].correct_answer);
+                }
+            }, 100);
+        }
+
+        function checkAnswer(selected, correct, btn) {
+            clearInterval(timerInterval);
+            const btns = document.querySelectorAll('.option-btn');
+            
+            btns.forEach(b => {
+                b.disabled = true;
+                if (b.innerText === correct) b.classList.add('correct');
+            });
+
+            if (selected === correct) {
+                score++;
+                document.getElementById('score-display').innerText = `SCORE: ${score}`;
+            } else if (btn) {
+                btn.classList.add('wrong');
+            }
+
+            setTimeout(() => {
+                qIdx++;
+                loadQuestion();
+            }, 1200);
+        }
+
+        function endGame() {
+            document.getElementById('game-ui').classList.add('hidden');
+            document.getElementById('results-ui').classList.remove('hidden');
+            document.getElementById('final-stats').innerText = `You answered ${score} out of ${activeQuestions.length} correctly.`;
+        }
+    </script>
+</body>
+</html>

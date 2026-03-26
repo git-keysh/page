@@ -1,0 +1,1324 @@
+{
+  "metadata": {
+    "game_title": "RCXC Global Challenge",
+    "total_questions": 500,
+    "last_updated": "2026-03-26"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "Which component is known as the 'brain' of the computer?",
+      "correct_answer": "CPU",
+      "wrong_answers": ["RAM", "Hard Drive", "GPU", "Motherboard"]
+    },
+    {
+      "id": 2,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which of these is an example of an Operating System?",
+      "correct_answer": "Windows 11",
+      "wrong_answers": ["Google Chrome", "Microsoft Word", "Adobe Photoshop", "Python"]
+    },
+    {
+      "id": 3,
+      "difficulty": "Medium",
+      "category": "Networking",
+      "question": "What does 'HTTPS' stand for?",
+      "correct_answer": "Hypertext Transfer Protocol Secure",
+      "wrong_answers": [
+        "High Tension Text Protocol System",
+        "Hyperlink Transfer Program Safe",
+        "Home Text Processing System",
+        "Hypertext Transfer Path Selection"
+      ]
+    },
+    {
+      "id": 4,
+      "difficulty": "Hard",
+      "category": "Programming",
+      "question": "Which error occurs when a program attempts to divide by zero?",
+      "correct_answer": "Runtime Error",
+      "wrong_answers": ["Syntax Error", "Logic Error", "Compilation Error", "Semantic Error"]
+    },
+    {
+      "id": 5,
+      "difficulty": "Medium",
+      "category": "Data Representation",
+      "question": "Convert the binary number 1011 to decimal.",
+      "correct_answer": "11",
+      "wrong_answers": ["9", "10", "13", "15"]
+    },
+    {
+      "id": 6,
+      "difficulty": "Easy",
+      "category": "Storage",
+      "question": "Which storage medium is generally the fastest for booting an OS?",
+      "correct_answer": "SSD",
+      "wrong_answers": ["HDD", "DVD-ROM", "Flash Drive", "Magnetic Tape"]
+    },
+    {
+      "id": 7,
+      "difficulty": "Hard",
+      "category": "Database",
+      "question": "In a relational database, what is a 'Foreign Key' used for?",
+      "correct_answer": "Linking two tables together",
+      "wrong_answers": [
+        "Encrypting private data",
+        "Deleting duplicate records",
+        "Sorting data alphabetically",
+        "Creating a unique ID for a single table"
+      ]
+    },
+    {
+      "id": 8,
+      "difficulty": "Medium",
+      "category": "Spreadsheets",
+      "question": "Which symbol is required at the beginning of every Excel formula?",
+      "correct_answer": "=",
+      "wrong_answers": ["+", "@", "$", "#"]
+    },
+    {
+      "id": 9,
+      "difficulty": "Easy",
+      "category": "Security",
+      "question": "What is the primary purpose of a firewall?",
+      "correct_answer": "Filtering network traffic",
+      "wrong_answers": [
+        "Speeding up the CPU",
+        "Backing up files",
+        "Cleaning hardware dust",
+        "Scanning for physical viruses"
+      ]
+    },
+    {
+      "id": 10,
+      "difficulty": "Hard",
+      "category": "Logic Gates",
+      "question": "Which gate outputs '1' only when both inputs are different?",
+      "correct_answer": "XOR",
+      "wrong_answers": ["AND", "OR", "NAND", "NOR"]
+    },
+    {
+      "id": 11,
+      "difficulty": "Easy",
+      "category": "Productivity",
+      "question": "What is the shortcut for 'Undo' in most software?",
+      "correct_answer": "Ctrl + Z",
+      "wrong_answers": ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + Y"]
+    },
+    {
+      "id": 12,
+      "difficulty": "Medium",
+      "category": "Web Dev",
+      "question": "Which HTML tag is used to create a hyperlink?",
+      "correct_answer": "<a>",
+      "wrong_answers": ["<link>", "<href>", "<url>", "<nav>"]
+    },
+    {
+      "id": 13,
+      "difficulty": "Medium",
+      "category": "Ethics",
+      "question": "What is 'Phishing'?",
+      "correct_answer": "Fraudulent attempts to obtain sensitive info via email",
+      "wrong_answers": [
+        "A method to increase WiFi signal",
+        "Searching for files on a hard drive",
+        "Updating software drivers",
+        "Using a computer for marine research"
+      ]
+    },
+    {
+      "id": 14,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "Which device is used to enter text into a computer?",
+      "correct_answer": "Keyboard",
+      "wrong_answers": ["Monitor", "Printer", "Speaker", "Scanner"]
+    },
+    {
+      "id": 15,
+      "difficulty": "Hard",
+      "category": "Programming",
+      "question": "What is the value of 'X' after this pseudocode: X=5, Y=2, X=X*Y+3?",
+      "correct_answer": "13",
+      "wrong_answers": ["10", "15", "25", "8"]
+    },
+    {
+      "id": 16,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "Which of these is 'Volatile' memory?",
+      "correct_answer": "RAM",
+      "wrong_answers": ["ROM", "SSD", "Hard Drive", "CD-RW"]
+    },
+    {
+      "id": 17,
+      "difficulty": "Easy",
+      "category": "File Management",
+      "question": "Which file extension is common for an image?",
+      "correct_answer": ".png",
+      "wrong_answers": [".mp3", ".exe", ".txt", ".html"]
+    },
+    {
+      "id": 18,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is the default port number for HTTP?",
+      "correct_answer": "80",
+      "wrong_answers": ["443", "21", "25", "110"]
+    },
+    {
+      "id": 19,
+      "difficulty": "Medium",
+      "category": "Operating Systems",
+      "question": "What is 'GUI'?",
+      "correct_answer": "Graphical User Interface",
+      "wrong_answers": [
+        "General User Integration",
+        "Global Unit Identifier",
+        "Graphics Universal Index",
+        "General Utility Interface"
+      ]
+    },
+    {
+      "id": 20,
+      "difficulty": "Easy",
+      "category": "Cloud Computing",
+      "question": "Which of these is a cloud storage service?",
+      "correct_answer": "Google Drive",
+      "wrong_answers": ["VLC Player", "Notepad", "Task Manager", "Disk Cleanup"]
+    },
+    {
+      "id": 21,
+      "difficulty": "Hard",
+      "category": "Data Structures",
+      "question": "Which data structure follows the FIFO (First-In, First-Out) principle?",
+      "correct_answer": "Queue",
+      "wrong_answers": ["Stack", "Array", "Binary Tree", "Linked List"]
+    },
+    {
+      "id": 22,
+      "difficulty": "Medium",
+      "category": "Spreadsheets",
+      "question": "What function adds a range of cells?",
+      "correct_answer": "SUM",
+      "wrong_answers": ["ADD", "TOTAL", "COUNT", "PLUS"]
+    },
+    {
+      "id": 23,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "Which is an example of an input device?",
+      "correct_answer": "Mouse",
+      "wrong_answers": ["Printer", "Monitor", "Plotter", "Speaker"]
+    },
+    {
+      "id": 24,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What is a 'variable'?",
+      "correct_answer": "A named storage location for data",
+      "wrong_answers": [
+        "A type of hardware cable",
+        "A permanent file on the disk",
+        "A bug in the code",
+        "A specific type of monitor"
+      ]
+    },
+    {
+      "id": 25,
+      "difficulty": "Hard",
+      "category": "Database",
+      "question": "What does SQL stand for?",
+      "correct_answer": "Structured Query Language",
+      "wrong_answers": [
+        "Simple Queue Logic",
+        "Standard Query List",
+        "System Quantified Layer",
+        "Sequential Query Language"
+      ]
+    },
+    {
+      "id": 26,
+      "difficulty": "Easy",
+      "category": "Security",
+      "question": "Which of these is a strong password?",
+      "correct_answer": "P@ssw0rd_2026!",
+      "wrong_answers": ["12345678", "password", "qwerty", "admin123"]
+    },
+    {
+      "id": 27,
+      "difficulty": "Medium",
+      "category": "Networking",
+      "question": "What does 'LAN' stand for?",
+      "correct_answer": "Local Area Network",
+      "wrong_answers": [
+        "Long Access Node",
+        "Legal Area Network",
+        "Large Array Network",
+        "Linked Access Network"
+      ]
+    },
+    {
+      "id": 28,
+      "difficulty": "Hard",
+      "category": "Hardware",
+      "question": "What is the purpose of the Northbridge chipset?",
+      "correct_answer": "Managing high-speed communication between CPU and RAM",
+      "wrong_answers": [
+        "Handling USB connections",
+        "Supplying power to the fans",
+        "Storing the BIOS settings",
+        "Controlling the mouse cursor"
+      ]
+    },
+    {
+      "id": 29,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which software is used for creating presentations?",
+      "correct_answer": "PowerPoint",
+      "wrong_answers": ["Excel", "Access", "Word", "Outlook"]
+    },
+    {
+      "id": 30,
+      "difficulty": "Medium",
+      "category": "Ethics",
+      "question": "What is 'Plagiarism'?",
+      "correct_answer": "Taking someone else's work as your own",
+      "wrong_answers": [
+        "Installing illegal software",
+        "Sending spam emails",
+        "Breaking into a computer system",
+        "Creating a computer virus"
+      ]
+    },
+    {
+      "id": 31,
+      "difficulty": "Hard",
+      "category": "Data Representation",
+      "question": "What is the hexadecimal value for the decimal number 15?",
+      "correct_answer": "F",
+      "wrong_answers": ["E", "10", "A", "G"]
+    },
+    {
+      "id": 32,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What is 'Wi-Fi' used for?",
+      "correct_answer": "Wireless network connection",
+      "wrong_answers": [
+        "Wired internet connection",
+        "Charging mobile devices",
+        "Printing documents",
+        "Cleaning hard drives"
+      ]
+    },
+    {
+      "id": 33,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What does 'BIOS' stand for?",
+      "correct_answer": "Basic Input Output System",
+      "wrong_answers": [
+        "Binary Input Operating System",
+        "Board Integrated Output System",
+        "Basic Internal Operating System",
+        "Built In Output System"
+      ]
+    },
+    {
+      "id": 34,
+      "difficulty": "Hard",
+      "category": "Security",
+      "question": "What is 'Encryption'?",
+      "correct_answer": "Converting data into a secret code",
+      "wrong_answers": [
+        "Deleting files permanently",
+        "Compressing large folders",
+        "Updating the antivirus",
+        "Formatting a hard drive"
+      ]
+    },
+    {
+      "id": 35,
+      "difficulty": "Easy",
+      "category": "Database",
+      "question": "What is a 'Record' in a database?",
+      "correct_answer": "A complete set of data for one entity",
+      "wrong_answers": [
+        "A single column",
+        "The name of the database",
+        "A type of query",
+        "A software bug"
+      ]
+    },
+    {
+      "id": 36,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "Which of these is a loop structure?",
+      "correct_answer": "FOR",
+      "wrong_answers": ["IF", "VAR", "PRINT", "INT"]
+    },
+    {
+      "id": 37,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is an 'IP Address'?",
+      "correct_answer": "A unique numerical label for a device on a network",
+      "wrong_answers": [
+        "The physical location of a computer",
+        "The speed of the internet connection",
+        "The name of the computer user",
+        "The serial number of the motherboard"
+      ]
+    },
+    {
+      "id": 38,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "Which part of the computer is used to display visuals?",
+      "correct_answer": "Monitor",
+      "wrong_answers": ["CPU", "RAM", "Modem", "Scanner"]
+    },
+    {
+      "id": 39,
+      "difficulty": "Medium",
+      "category": "Software",
+      "question": "What is 'Open Source' software?",
+      "correct_answer": "Software whose source code is freely available",
+      "wrong_answers": [
+        "Software that is always free to buy",
+        "Software that doesn't require an OS",
+        "Software used for opening doors",
+        "Software created by a single person"
+      ]
+    },
+    {
+      "id": 40,
+      "difficulty": "Hard",
+      "category": "Spreadsheets",
+      "question": "In Excel, what does 'Absolute Cell Referencing' use?",
+      "correct_answer": "$ sign",
+      "wrong_answers": ["& sign", "% sign", "! sign", "# sign"]
+    },
+    {
+      "id": 41,
+      "difficulty": "Easy",
+      "category": "Ethics",
+      "question": "What is 'Cyberbullying'?",
+      "correct_answer": "Using technology to harass others",
+      "wrong_answers": [
+        "Playing games online",
+        "Browsing the web",
+        "Buying things on the internet",
+        "Creating a social media profile"
+      ]
+    },
+    {
+      "id": 42,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What is the purpose of a GPU?",
+      "correct_answer": "Processing graphics and images",
+      "wrong_answers": [
+        "Storing large files",
+        "Managing network connections",
+        "Controlling the power supply",
+        "Connecting the keyboard"
+      ]
+    },
+    {
+      "id": 43,
+      "difficulty": "Hard",
+      "category": "Programming",
+      "question": "What is a 'Compiler'?",
+      "correct_answer": "Translates high-level code into machine code",
+      "wrong_answers": [
+        "A tool for designing icons",
+        "A type of hardware cable",
+        "A storage device",
+        "A software for browsing the web"
+      ]
+    },
+    {
+      "id": 44,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What is a 'Modem' used for?",
+      "correct_answer": "Connecting to the internet",
+      "wrong_answers": [
+        "Typing documents",
+        "Printing photos",
+        "Storing music",
+        "Playing videos"
+      ]
+    },
+    {
+      "id": 45,
+      "difficulty": "Medium",
+      "category": "Database",
+      "question": "What is a 'Primary Key'?",
+      "correct_answer": "A unique identifier for a record",
+      "wrong_answers": [
+        "A password for the database",
+        "The first column in a table",
+        "A secondary table link",
+        "A tool for sorting data"
+      ]
+    },
+    {
+      "id": 46,
+      "difficulty": "Hard",
+      "category": "Data Representation",
+      "question": "How many values can be represented by 4 bits?",
+      "correct_answer": "16",
+      "wrong_answers": ["8", "4", "32", "64"]
+    },
+    {
+      "id": 47,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which of these is a web browser?",
+      "correct_answer": "Firefox",
+      "wrong_answers": ["Excel", "Photoshop", "Spotify", "Windows"]
+    },
+    {
+      "id": 48,
+      "difficulty": "Medium",
+      "category": "Security",
+      "question": "What is a 'Trojan Horse' in computing?",
+      "correct_answer": "Malware disguised as legitimate software",
+      "wrong_answers": [
+        "A type of fast computer",
+        "A secure hardware device",
+        "An encrypted file",
+        "A social media bot"
+      ]
+    },
+    {
+      "id": 49,
+      "difficulty": "Hard",
+      "category": "Operating Systems",
+      "question": "What is 'Multitasking'?",
+      "correct_answer": "Running multiple processes simultaneously",
+      "wrong_answers": [
+        "Having multiple users on one PC",
+        "Using multiple monitors",
+        "Installing multiple OS versions",
+        "Connecting multiple printers"
+      ]
+    },
+    {
+      "id": 50,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "Which of these is a permanent storage device?",
+      "correct_answer": "Hard Drive",
+      "wrong_answers": ["RAM", "CPU Cache", "Registers", "Video Memory"]
+    },
+    {
+      "id": 51,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What does 'USB' stand for?",
+      "correct_answer": "Universal Serial Bus",
+      "wrong_answers": ["Universal System Backup", "Unified Serial Buffer", "Universal Storage Bus", "Uninterruptible System Bus"]
+    },
+    {
+      "id": 52,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which of these is an example of an email client?",
+      "correct_answer": "Microsoft Outlook",
+      "wrong_answers": ["Google Chrome", "Microsoft Teams", "Adobe Reader", "Slack"]
+    },
+    {
+      "id": 53,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What does 'DNS' stand for?",
+      "correct_answer": "Domain Name System",
+      "wrong_answers": ["Digital Network Service", "Data Name Server", "Dynamic Name System", "Domain Network Socket"]
+    },
+    {
+      "id": 54,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "Which language is primarily used for iOS app development?",
+      "correct_answer": "Swift",
+      "wrong_answers": ["Kotlin", "Java", "C#", "Python"]
+    },
+    {
+      "id": 55,
+      "difficulty": "Hard",
+      "category": "Data Representation",
+      "question": "What is the decimal equivalent of the hexadecimal number 'A5'?",
+      "correct_answer": "165",
+      "wrong_answers": ["155", "175", "95", "205"]
+    },
+    {
+      "id": 56,
+      "difficulty": "Easy",
+      "category": "Storage",
+      "question": "Which of these has the largest storage capacity?",
+      "correct_answer": "1 TB",
+      "wrong_answers": ["1 GB", "1 MB", "1 KB", "1 PB"]
+    },
+    {
+      "id": 57,
+      "difficulty": "Medium",
+      "category": "Database",
+      "question": "What is the purpose of an 'Index' in a database?",
+      "correct_answer": "To speed up data retrieval",
+      "wrong_answers": ["To encrypt data", "To delete duplicate data", "To create a backup", "To link two tables"]
+    },
+    {
+      "id": 58,
+      "difficulty": "Hard",
+      "category": "Spreadsheets",
+      "question": "What is a 'Pivot Table' used for?",
+      "correct_answer": "Summarizing and analyzing data",
+      "wrong_answers": ["Creating charts", "Writing macros", "Formatting cells", "Calculating loan payments"]
+    },
+    {
+      "id": 59,
+      "difficulty": "Easy",
+      "category": "Security",
+      "question": "What is a 'VPN' used for?",
+      "correct_answer": "Creating a secure, encrypted connection",
+      "wrong_answers": ["Speeding up the CPU", "Cleaning up disk space", "Blocking pop-up ads", "Updating drivers"]
+    },
+    {
+      "id": 60,
+      "difficulty": "Medium",
+      "category": "Logic Gates",
+      "question": "Which gate outputs '0' only if all inputs are '1'?",
+      "correct_answer": "NAND",
+      "wrong_answers": ["AND", "OR", "NOR", "XOR"]
+    },
+    {
+      "id": 61,
+      "difficulty": "Hard",
+      "category": "Productivity",
+      "question": "What is the shortcut for 'Paste Special' in many applications?",
+      "correct_answer": "Ctrl + Alt + V",
+      "wrong_answers": ["Ctrl + P", "Ctrl + Shift + V", "Alt + V", "Ctrl + V"]
+    },
+    {
+      "id": 62,
+      "difficulty": "Easy",
+      "category": "Web Dev",
+      "question": "What does 'CSS' stand for?",
+      "correct_answer": "Cascading Style Sheets",
+      "wrong_answers": ["Creative Style System", "Computer Style Syntax", "Coded Style Sheets", "Central Style Source"]
+    },
+    {
+      "id": 63,
+      "difficulty": "Medium",
+      "category": "Ethics",
+      "question": "What is 'Social Engineering'?",
+      "correct_answer": "Manipulating people into divulging confidential information",
+      "wrong_answers": ["Building a social media network", "Designing user interfaces", "Engineering social software", "Managing online communities"]
+    },
+    {
+      "id": 64,
+      "difficulty": "Hard",
+      "category": "Hardware",
+      "question": "Which expansion slot is commonly used for graphics cards?",
+      "correct_answer": "PCI Express",
+      "wrong_answers": ["ISA", "AGP", "PCI", "SATA"]
+    },
+    {
+      "id": 65,
+      "difficulty": "Easy",
+      "category": "Programming",
+      "question": "What is the result of '7 % 2' in many programming languages?",
+      "correct_answer": "1",
+      "wrong_answers": ["0", "3.5", "2", "7"]
+    },
+    {
+      "id": 66,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What is the main function of the Power Supply Unit (PSU)?",
+      "correct_answer": "Converts AC power to DC power for components",
+      "wrong_answers": ["Stores data", "Processes graphics", "Manages network traffic", "Cools the CPU"]
+    },
+    {
+      "id": 67,
+      "difficulty": "Hard",
+      "category": "File Management",
+      "question": "What is a 'ZIP' file?",
+      "correct_answer": "An archive that compresses one or more files",
+      "wrong_answers": ["A system file for Windows", "A type of encrypted document", "A bootable file", "A type of image file"]
+    },
+    {
+      "id": 68,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What does 'ISP' stand for?",
+      "correct_answer": "Internet Service Provider",
+      "wrong_answers": ["Internal System Protocol", "Internet Security Protocol", "Integrated Service Provider", "Interface Standard Program"]
+    },
+    {
+      "id": 69,
+      "difficulty": "Medium",
+      "category": "Operating Systems",
+      "question": "What is a 'Kernel'?",
+      "correct_answer": "The core part of an operating system",
+      "wrong_answers": ["A type of application", "A file system", "A user interface", "A security firewall"]
+    },
+    {
+      "id": 70,
+      "difficulty": "Hard",
+      "category": "Cloud Computing",
+      "question": "What does 'IaaS' stand for?",
+      "correct_answer": "Infrastructure as a Service",
+      "wrong_answers": ["Internet as a Service", "Integration as a Service", "Intelligence as a Service", "Interface as a Service"]
+    },
+    {
+      "id": 71,
+      "difficulty": "Easy",
+      "category": "Data Structures",
+      "question": "Which data structure follows the LIFO (Last-In, First-Out) principle?",
+      "correct_answer": "Stack",
+      "wrong_answers": ["Queue", "Array", "Tree", "Graph"]
+    },
+    {
+      "id": 72,
+      "difficulty": "Medium",
+      "category": "Spreadsheets",
+      "question": "What does the 'VLOOKUP' function do?",
+      "correct_answer": "Searches for a value in the first column of a table",
+      "wrong_answers": ["Looks up a value vertically", "Formats a table", "Creates a chart", "Sums a range of values"]
+    },
+    {
+      "id": 73,
+      "difficulty": "Hard",
+      "category": "Hardware",
+      "question": "What is the purpose of thermal paste?",
+      "correct_answer": "To improve heat transfer between CPU and cooler",
+      "wrong_answers": ["To glue components together", "To clean the motherboard", "To prevent short circuits", "To lubricate fans"]
+    },
+    {
+      "id": 74,
+      "difficulty": "Easy",
+      "category": "Programming",
+      "question": "What is an 'Algorithm'?",
+      "correct_answer": "A step-by-step procedure to solve a problem",
+      "wrong_answers": ["A type of programming language", "A software bug", "A hardware component", "A database table"]
+    },
+    {
+      "id": 75,
+      "difficulty": "Medium",
+      "category": "Database",
+      "question": "Which command is used to retrieve data from a database?",
+      "correct_answer": "SELECT",
+      "wrong_answers": ["GET", "EXTRACT", "QUERY", "RETRIEVE"]
+    },
+    {
+      "id": 76,
+      "difficulty": "Hard",
+      "category": "Security",
+      "question": "What is 'Ransomware'?",
+      "correct_answer": "Malware that encrypts data and demands payment",
+      "wrong_answers": ["A type of antivirus", "A spam filter", "A password manager", "A secure payment system"]
+    },
+    {
+      "id": 77,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What is a 'Router' used for?",
+      "correct_answer": "Directing traffic between networks",
+      "wrong_answers": ["Storing files", "Printing documents", "Connecting peripherals", "Powering a computer"]
+    },
+    {
+      "id": 78,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What type of memory is 'ROM'?",
+      "correct_answer": "Non-volatile memory",
+      "wrong_answers": ["Volatile memory", "Cache memory", "Virtual memory", "Flash memory"]
+    },
+    {
+      "id": 79,
+      "difficulty": "Hard",
+      "category": "Software",
+      "question": "What is a 'Daemon'?",
+      "correct_answer": "A background process that runs without user intervention",
+      "wrong_answers": ["A type of virus", "A user interface", "A software license", "A debugging tool"]
+    },
+    {
+      "id": 80,
+      "difficulty": "Easy",
+      "category": "Ethics",
+      "question": "What is 'Digital Footprint'?",
+      "correct_answer": "The trail of data you leave behind when using the internet",
+      "wrong_answers": ["A type of biometric scanner", "A hardware device", "A social media profile", "An antivirus software"]
+    },
+    {
+      "id": 81,
+      "difficulty": "Medium",
+      "category": "Data Representation",
+      "question": "How many bytes are in a kilobyte (KB)?",
+      "correct_answer": "1024",
+      "wrong_answers": ["1000", "512", "2048", "100"]
+    },
+    {
+      "id": 82,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is the difference between TCP and UDP?",
+      "correct_answer": "TCP is connection-oriented, UDP is connectionless",
+      "wrong_answers": ["TCP is faster than UDP", "UDP is more reliable than TCP", "TCP uses ports, UDP does not", "UDP is for video, TCP is for text"]
+    },
+    {
+      "id": 83,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "What is a 'Peripheral' device?",
+      "correct_answer": "An external device connected to a computer",
+      "wrong_answers": ["The central processing unit", "The main motherboard", "The internal power supply", "The operating system"]
+    },
+    {
+      "id": 84,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What is 'Recursion'?",
+      "correct_answer": "When a function calls itself",
+      "wrong_answers": ["A type of loop", "A data structure", "A variable type", "An error in code"]
+    },
+    {
+      "id": 85,
+      "difficulty": "Hard",
+      "category": "Operating Systems",
+      "question": "What is a 'Page Fault'?",
+      "correct_answer": "When a program tries to access memory not currently loaded",
+      "wrong_answers": ["A hardware failure", "A network error", "A user permission error", "A printer issue"]
+    },
+    {
+      "id": 86,
+      "difficulty": "Easy",
+      "category": "Database",
+      "question": "Which of these is a popular database management system?",
+      "correct_answer": "MySQL",
+      "wrong_answers": ["Windows", "Photoshop", "Chrome", "Python"]
+    },
+    {
+      "id": 87,
+      "difficulty": "Medium",
+      "category": "Spreadsheets",
+      "question": "What is a 'Macro'?",
+      "correct_answer": "A set of automated actions or commands",
+      "wrong_answers": ["A large cell", "A type of chart", "A formula error", "A data filter"]
+    },
+    {
+      "id": 88,
+      "difficulty": "Hard",
+      "category": "Security",
+      "question": "What is 'Two-Factor Authentication' (2FA)?",
+      "correct_answer": "A security process requiring two different forms of identification",
+      "wrong_answers": ["Two different passwords", "Two separate accounts", "Two different computers", "Two different network connections"]
+    },
+    {
+      "id": 89,
+      "difficulty": "Easy",
+      "category": "Web Dev",
+      "question": "What does 'HTTP' stand for?",
+      "correct_answer": "Hypertext Transfer Protocol",
+      "wrong_answers": ["Hypertext Transport Protocol", "High Transfer Text Protocol", "Hyperlink Text Protocol", "High Text Transfer Program"]
+    },
+    {
+      "id": 90,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What is the function of a 'Cooler'?",
+      "correct_answer": "To dissipate heat from components",
+      "wrong_answers": ["To power the computer", "To store data", "To improve sound", "To connect to the internet"]
+    },
+    {
+      "id": 91,
+      "difficulty": "Hard",
+      "category": "Programming",
+      "question": "What is 'Polymorphism'?",
+      "correct_answer": "The ability of objects to take on many forms",
+      "wrong_answers": ["A type of virus", "A debugging method", "A data structure", "A network protocol"]
+    },
+    {
+      "id": 92,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What is a 'MAC Address'?",
+      "correct_answer": "A unique identifier assigned to a network interface controller",
+      "wrong_answers": ["A type of Apple computer", "A password for Wi-Fi", "An internet service plan", "A software license key"]
+    },
+    {
+      "id": 93,
+      "difficulty": "Medium",
+      "category": "Data Representation",
+      "question": "What is the binary representation of the decimal number 7?",
+      "correct_answer": "111",
+      "wrong_answers": ["101", "110", "100", "011"]
+    },
+    {
+      "id": 94,
+      "difficulty": "Hard",
+      "category": "Database",
+      "question": "What is 'Normalization'?",
+      "correct_answer": "Organizing data to reduce redundancy and improve integrity",
+      "wrong_answers": ["Encrypting database fields", "Backing up the database", "Indexing all tables", "Deleting old records"]
+    },
+    {
+      "id": 95,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "What is a 'Compiler'?",
+      "correct_answer": "Translates source code into machine code",
+      "wrong_answers": ["A text editor", "A version control system", "A type of database", "A web browser"]
+    },
+    {
+      "id": 96,
+      "difficulty": "Medium",
+      "category": "Ethics",
+      "question": "What is 'Netiquette'?",
+      "correct_answer": "The correct or acceptable way of communicating on the internet",
+      "wrong_answers": ["A type of network security", "An internet connection standard", "A social media platform", "A hardware device"]
+    },
+    {
+      "id": 97,
+      "difficulty": "Hard",
+      "category": "Operating Systems",
+      "question": "What is a 'System Call'?",
+      "correct_answer": "How a program requests a service from the OS kernel",
+      "wrong_answers": ["A phone call for tech support", "A user interface command", "A hardware interrupt", "A network request"]
+    },
+    {
+      "id": 98,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "What is a 'Motherboard'?",
+      "correct_answer": "The main circuit board connecting all components",
+      "wrong_answers": ["The data storage unit", "The power supply", "The graphics processor", "The network card"]
+    },
+    {
+      "id": 99,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What does 'API' stand for?",
+      "correct_answer": "Application Programming Interface",
+      "wrong_answers": ["Advanced Program Integration", "Application Protocol Interface", "Automated Programming Interface", "Application Process Instruction"]
+    },
+    {
+      "id": 100,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is a 'DDoS' attack?",
+      "correct_answer": "Overwhelming a server with traffic to make it unavailable",
+      "wrong_answers": ["A data encryption method", "A type of virus", "A physical theft of hardware", "A phishing scam"]
+    },
+    {
+      "id": 101,
+      "difficulty": "Easy",
+      "category": "Security",
+      "question": "What does 'Malware' stand for?",
+      "correct_answer": "Malicious Software",
+      "wrong_answers": ["Manual Software", "Management Software", "Maintenance Software", "Media Software"]
+    },
+    {
+      "id": 102,
+      "difficulty": "Medium",
+      "category": "Data Structures",
+      "question": "What is a 'Linked List'?",
+      "correct_answer": "A linear collection of data elements whose order is not given by their physical placement",
+      "wrong_answers": ["A type of array", "A spreadsheet", "A database table", "A queue"]
+    },
+    {
+      "id": 103,
+      "difficulty": "Hard",
+      "category": "Hardware",
+      "question": "What does 'M.2' refer to?",
+      "correct_answer": "A form factor for expansion cards and SSDs",
+      "wrong_answers": ["A type of RAM", "A processor socket", "A USB version", "A power connector"]
+    },
+    {
+      "id": 104,
+      "difficulty": "Easy",
+      "category": "Spreadsheets",
+      "question": "What is a 'Cell' in a spreadsheet?",
+      "correct_answer": "The intersection of a row and a column",
+      "wrong_answers": ["A type of chart", "A formula", "A worksheet tab", "A data filter"]
+    },
+    {
+      "id": 105,
+      "difficulty": "Medium",
+      "category": "Web Dev",
+      "question": "What is 'JavaScript' primarily used for?",
+      "correct_answer": "Adding interactivity to web pages",
+      "wrong_answers": ["Styling web pages", "Structuring web content", "Managing databases", "Securing servers"]
+    },
+    {
+      "id": 106,
+      "difficulty": "Hard",
+      "category": "Programming",
+      "question": "What is 'Encapsulation'?",
+      "correct_answer": "Bundling data with methods that operate on that data",
+      "wrong_answers": ["Hiding data from users", "Combining multiple classes", "A type of loop", "A debugging technique"]
+    },
+    {
+      "id": 107,
+      "difficulty": "Easy",
+      "category": "Storage",
+      "question": "Which of these is a type of optical disc?",
+      "correct_answer": "Blu-ray",
+      "wrong_answers": ["SSD", "HDD", "USB Flash Drive", "SD Card"]
+    },
+    {
+      "id": 108,
+      "difficulty": "Medium",
+      "category": "Database",
+      "question": "What does 'CRUD' stand for?",
+      "correct_answer": "Create, Read, Update, Delete",
+      "wrong_answers": ["Copy, Run, Update, Delete", "Create, Retrieve, Upload, Download", "Compile, Run, Undo, Debug", "Connect, Request, Use, Disconnect"]
+    },
+    {
+      "id": 109,
+      "difficulty": "Hard",
+      "category": "Security",
+      "question": "What is a 'Rootkit'?",
+      "correct_answer": "A collection of software tools that enable unauthorized access to a computer",
+      "wrong_answers": ["A type of antivirus", "A password manager", "A hardware firewall", "A backup utility"]
+    },
+    {
+      "id": 110,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What does 'SSID' stand for in Wi-Fi?",
+      "correct_answer": "Service Set Identifier",
+      "wrong_answers": ["Secure System ID", "Signal Strength ID", "Serial Set ID", "Simple Security ID"]
+    },
+    {
+      "id": 111,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What is the difference between DDR4 and DDR5?",
+      "correct_answer": "DDR5 is faster and more efficient",
+      "wrong_answers": ["DDR4 is for laptops, DDR5 for desktops", "DDR5 is older technology", "There is no difference", "DDR4 uses more power"]
+    },
+    {
+      "id": 112,
+      "difficulty": "Hard",
+      "category": "Operating Systems",
+      "question": "What is a 'Semaphore'?",
+      "correct_answer": "A variable used to control access to a common resource",
+      "wrong_answers": ["A type of file", "A user interface element", "A network protocol", "A hardware device"]
+    },
+    {
+      "id": 113,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which of these is a version control system?",
+      "correct_answer": "Git",
+      "wrong_answers": ["Docker", "Jenkins", "Nginx", "MySQL"]
+    },
+    {
+      "id": 114,
+      "difficulty": "Medium",
+      "category": "Data Representation",
+      "question": "What is ASCII?",
+      "correct_answer": "A character encoding standard for electronic communication",
+      "wrong_answers": ["A type of image format", "A video compression standard", "A network protocol", "A database query language"]
+    },
+    {
+      "id": 115,
+      "difficulty": "Hard",
+      "category": "Logic Gates",
+      "question": "Which gate is equivalent to an AND gate followed by a NOT gate?",
+      "correct_answer": "NAND",
+      "wrong_answers": ["NOR", "XOR", "OR", "XNOR"]
+    },
+    {
+      "id": 116,
+      "difficulty": "Easy",
+      "category": "Productivity",
+      "question": "What is the shortcut for 'Print' in most software?",
+      "correct_answer": "Ctrl + P",
+      "wrong_answers": ["Ctrl + N", "Ctrl + S", "Ctrl + O", "Ctrl + F"]
+    },
+    {
+      "id": 117,
+      "difficulty": "Medium",
+      "category": "Cloud Computing",
+      "question": "What is 'SaaS'?",
+      "correct_answer": "Software as a Service",
+      "wrong_answers": ["Security as a Service", "Storage as a Service", "System as a Service", "Server as a Service"]
+    },
+    {
+      "id": 118,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is the purpose of a 'Subnet Mask'?",
+      "correct_answer": "To divide an IP address into network and host portions",
+      "wrong_answers": ["To hide the IP address", "To encrypt network traffic", "To increase network speed", "To assign a MAC address"]
+    },
+    {
+      "id": 119,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "What is a 'Scanner' used for?",
+      "correct_answer": "Converting physical documents into digital images",
+      "wrong_answers": ["Printing documents", "Displaying images", "Storing data", "Connecting to the internet"]
+    },
+    {
+      "id": 120,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What is an 'Array'?",
+      "correct_answer": "A collection of elements identified by index or key",
+      "wrong_answers": ["A type of function", "A loop structure", "A conditional statement", "A variable name"]
+    },
+    {
+      "id": 121,
+      "difficulty": "Hard",
+      "category": "Database",
+      "question": "What is a 'Stored Procedure'?",
+      "correct_answer": "Pre-compiled SQL code saved in the database",
+      "wrong_answers": ["A backup of the database", "A type of index", "A query optimizer", "A database user account"]
+    },
+    {
+      "id": 122,
+      "difficulty": "Easy",
+      "category": "Security",
+      "question": "What is a 'Spyware'?",
+      "correct_answer": "Software that secretly monitors user activity",
+      "wrong_answers": ["Software that speeds up the PC", "A type of firewall", "An antivirus program", "A backup tool"]
+    },
+    {
+      "id": 123,
+      "difficulty": "Medium",
+      "category": "Web Dev",
+      "question": "What is the role of a 'Backend' developer?",
+      "correct_answer": "Focuses on server-side logic and databases",
+      "wrong_answers": ["Designs the user interface", "Writes HTML and CSS", "Manages project timelines", "Tests software for bugs"]
+    },
+    {
+      "id": 124,
+      "difficulty": "Hard",
+      "category": "Hardware",
+      "question": "What is 'Overclocking'?",
+      "correct_answer": "Running a component at a higher speed than intended by the manufacturer",
+      "wrong_answers": ["Installing new hardware", "Updating software drivers", "Cleaning internal components", "Increasing storage capacity"]
+    },
+    {
+      "id": 125,
+      "difficulty": "Easy",
+      "category": "File Management",
+      "question": "Which file extension is common for a text file?",
+      "correct_answer": ".txt",
+      "wrong_answers": [".docx", ".pdf", ".jpg", ".mp4"]
+    },
+    {
+      "id": 126,
+      "difficulty": "Medium",
+      "category": "Operating Systems",
+      "question": "What is 'Virtual Memory'?",
+      "correct_answer": "Using disk space as an extension of RAM",
+      "wrong_answers": ["A type of cloud storage", "A virtual machine", "A dedicated graphics memory", "A network drive"]
+    },
+    {
+      "id": 127,
+      "difficulty": "Hard",
+      "category": "Spreadsheets",
+      "question": "What does the 'INDEX-MATCH' combination do?",
+      "correct_answer": "A more flexible alternative to VLOOKUP",
+      "wrong_answers": ["Creates a chart", "Formats cells", "Sums values", "Filters data"]
+    },
+    {
+      "id": 128,
+      "difficulty": "Easy",
+      "category": "Ethics",
+      "question": "What is 'Copyright'?",
+      "correct_answer": "A legal right granting the creator exclusive rights to their work",
+      "wrong_answers": ["A type of software license", "A security protocol", "A file format", "A programming language"]
+    },
+    {
+      "id": 129,
+      "difficulty": "Medium",
+      "category": "Data Structures",
+      "question": "What is a 'Binary Tree'?",
+      "correct_answer": "A tree data structure where each node has at most two children",
+      "wrong_answers": ["A type of array", "A linked list", "A stack", "A queue"]
+    },
+    {
+      "id": 130,
+      "difficulty": "Hard",
+      "category": "Networking",
+      "question": "What is 'Bandwidth'?",
+      "correct_answer": "The maximum rate of data transfer across a network",
+      "wrong_answers": ["The physical size of a cable", "The number of devices on a network", "The strength of a Wi-Fi signal", "The latency of a connection"]
+    },
+    {
+      "id": 131,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "What is a 'Webcam'?",
+      "correct_answer": "A camera that feeds or streams an image to a computer",
+      "wrong_answers": ["A device for scanning documents", "A type of monitor", "A speaker", "A microphone"]
+    },
+    {
+      "id": 132,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What is 'Debugging'?",
+      "correct_answer": "The process of finding and fixing errors in code",
+      "wrong_answers": ["Writing new code", "Designing software architecture", "Testing user interface", "Managing databases"]
+    },
+    {
+      "id": 133,
+      "difficulty": "Hard",
+      "category": "Security",
+      "question": "What is 'Cryptography'?",
+      "correct_answer": "The practice of secure communication techniques",
+      "wrong_answers": ["Breaking into computers", "A type of virus", "A network protocol", "A hardware security module"]
+    },
+    {
+      "id": 134,
+      "difficulty": "Easy",
+      "category": "Storage",
+      "question": "Which of these is a non-volatile storage medium?",
+      "correct_answer": "SSD",
+      "wrong_answers": ["RAM", "Cache", "Registers", "DRAM"]
+    },
+    {
+      "id": 135,
+      "difficulty": "Medium",
+      "category": "Database",
+      "question": "What is a 'Query'?",
+      "correct_answer": "A request for data or information from a database",
+      "wrong_answers": ["A type of database", "A backup file", "A user account", "A software bug"]
+    },
+    {
+      "id": 136,
+      "difficulty": "Hard",
+      "category": "Logic Gates",
+      "question": "What is the output of a NOR gate if both inputs are 0?",
+      "correct_answer": "1",
+      "wrong_answers": ["0", "Undefined", "Depends on the circuit", "No output"]
+    },
+    {
+      "id": 137,
+      "difficulty": "Easy",
+      "category": "Productivity",
+      "question": "What is the shortcut for 'Copy' in most software?",
+      "correct_answer": "Ctrl + C",
+      "wrong_answers": ["Ctrl + X", "Ctrl + V", "Ctrl + Z", "Ctrl + A"]
+    },
+    {
+      "id": 138,
+      "difficulty": "Medium",
+      "category": "Web Dev",
+      "question": "What does 'AJAX' stand for?",
+      "correct_answer": "Asynchronous JavaScript and XML",
+      "wrong_answers": ["Advanced Java and XML", "Asynchronous JSON and XHTML", "Active JavaScript and XSLT", "Automated JavaScript and XML"]
+    },
+    {
+      "id": 139,
+      "difficulty": "Hard",
+      "category": "Operating Systems",
+      "question": "What is a 'Deadlock'?",
+      "correct_answer": "A situation where two or more processes are unable to proceed because each is waiting for the other",
+      "wrong_answers": ["A hardware failure", "A network timeout", "A memory leak", "A user permission error"]
+    },
+    {
+      "id": 140,
+      "difficulty": "Easy",
+      "category": "Hardware",
+      "question": "What is the function of a 'Speaker'?",
+      "correct_answer": "To output audio sound",
+      "wrong_answers": ["To input audio", "To display video", "To store data", "To connect to the internet"]
+    },
+    {
+      "id": 141,
+      "difficulty": "Medium",
+      "category": "Programming",
+      "question": "What is 'Inheritance' in object-oriented programming?",
+      "correct_answer": "A mechanism where a new class derives properties from an existing class",
+      "wrong_answers": ["A type of loop", "A way to handle errors", "A data structure", "A debugging tool"]
+    },
+    {
+      "id": 142,
+      "difficulty": "Hard",
+      "category": "Data Representation",
+      "question": "What is the 8-bit binary representation of the decimal number -1 in Two's complement?",
+      "correct_answer": "11111111",
+      "wrong_answers": ["10000001", "00000001", "11111110", "10000000"]
+    },
+    {
+      "id": 143,
+      "difficulty": "Easy",
+      "category": "Networking",
+      "question": "What is a 'Switch' in networking?",
+      "correct_answer": "A device that connects devices within a network and forwards data",
+      "wrong_answers": ["A device that connects different networks", "A wireless access point", "A modem", "A firewall"]
+    },
+    {
+      "id": 144,
+      "difficulty": "Medium",
+      "category": "Security",
+      "question": "What is 'Hashing'?",
+      "correct_answer": "Transforming data into a fixed-size string of characters",
+      "wrong_answers": ["Encrypting data", "Compressing files", "Backing up data", "Deleting data"]
+    },
+    {
+      "id": 145,
+      "difficulty": "Hard",
+      "category": "Spreadsheets",
+      "question": "What is a 'Nested IF' statement?",
+      "correct_answer": "An IF function inside another IF function",
+      "wrong_answers": ["A formula that sums multiple ranges", "A chart with multiple data series", "A macro that repeats", "A conditional formatting rule"]
+    },
+    {
+      "id": 146,
+      "difficulty": "Easy",
+      "category": "Software",
+      "question": "Which of these is a media player?",
+      "correct_answer": "VLC",
+      "wrong_answers": ["Excel", "PowerPoint", "Outlook", "Access"]
+    },
+    {
+      "id": 147,
+      "difficulty": "Medium",
+      "category": "Hardware",
+      "question": "What is the purpose of a 'Heatsink'?",
+      "correct_answer": "To absorb and dissipate heat from a component",
+      "wrong_answers": ["To generate heat", "To store energy", "To connect components", "To amplify sound"]
+    },
+    {
+      "id": 148,
+      "difficulty": "Hard",
+      "category": "Database",
+      "question": "What is a 'Transaction' in database terms?",
+      "correct_answer": "A unit of work performed within a database management system",
+      "wrong_answers": ["A single query", "A table relationship", "A backup operation", "A user login"]
+    },
+    {
+      "id": 149,
+      "difficulty": "Easy",
+      "category": "Ethics",
+      "question": "What is 'Digital Divide'?",
+      "correct_answer": "The gap between those who have access to technology and those who do not",
+      "wrong_answers": ["A type of security breach", "A social media platform", "A hardware failure", "A software bug"]
+    },
+    {
+      "id": 150,
+      "difficulty": "Medium",
+      "category": "Cloud Computing",
+      "question": "What is 'PaaS'?",
+      "correct_answer": "Platform as a Service",
+      "wrong_answers": ["Program as a Service", "Protocol as a Service", "Process as a Service", "Performance as a Service"]
+    }
+  ]
+}
