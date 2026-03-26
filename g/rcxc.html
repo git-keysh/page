@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RCXC | Global Multiplayer Duel</title>
+    <title>RCXC | Pass The Phone</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #9d00ff; }
         body {
             background: #000;
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
             overflow: hidden;
             height: 100vh;
-            transition: background 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: background 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex; align-items: center; justify-content: center;
         }
 
         /* --- 20 DYNAMIC PLAYER COLOR PROFILES --- */
@@ -33,55 +30,45 @@
         .p-18 { background: #EE82EE; color: black; } .p-19 { background: #808000; color: white; }
 
         .glass-panel {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(30px);
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(25px);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 32px;
+            border-radius: 35px;
             width: 92%;
             max-width: 480px;
             padding: 2.5rem;
             position: relative;
             z-index: 10;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
 
-        /* --- ANIMATIONS --- */
+        /* --- HIGH QUALITY TRANSITION --- */
         @keyframes passIn {
-            0% { transform: scale(0.6); opacity: 0; filter: blur(15px); }
-            50% { transform: scale(1.1); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.5) translateY(50px); opacity: 0; filter: blur(20px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0px); }
         }
         .pass-screen {
             position: fixed; inset: 0; z-index: 100; display: none;
-            align-items: center; justify-content: center; text-align: center;
+            flex-direction: column; align-items: center; justify-content: center; text-align: center;
         }
         .pass-text {
-            font-size: 3.5rem; font-weight: 900; text-transform: uppercase;
-            animation: passIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            text-shadow: 0 0 30px rgba(255,255,255,0.4);
+            font-size: 3.5rem; font-weight: 900; line-height: 1;
+            animation: passIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        /* --- GAMEPLAY UI --- */
         .option-btn {
             width: 100%; padding: 22px; margin-bottom: 12px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px; text-align: left;
             font-size: 16px; font-weight: 600; transition: 0.2s;
         }
         .option-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.2); }
-        .option-btn.correct { background: #22c55e !important; color: white; border-color: #22c55e; }
+        .option-btn.correct { background: #22c55e !important; color: white; border-color: #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); }
         .option-btn.wrong { background: #ef4444 !important; color: white; border-color: #ef4444; }
 
         .timer-strip { position: fixed; top: 0; left: 0; height: 10px; background: #fff; width: 100%; transition: width 0.1s linear; z-index: 1000; }
         
-        #player-tag { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
-            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-        }
-
         .hidden { display: none; }
     </style>
 </head>
@@ -92,16 +79,17 @@
     </audio>
 
     <div id="pass-overlay" class="pass-screen">
-        <div id="pass-content" class="pass-text">PASS TO NEXT</div>
+        <div class="text-[12px] uppercase tracking-[0.5em] mb-4 opacity-70 font-bold" id="round-tag">ROUND 1 / 20</div>
+        <div id="pass-content" class="pass-text">PASS TO <br> PLAYER</div>
     </div>
 
     <div id="lobby" class="glass-panel">
         <h1 class="text-4xl font-black tracking-tighter mb-1">RCXC GLOBAL</h1>
-        <p class="text-zinc-500 text-[10px] uppercase tracking-[0.3em] mb-8">Multiplayer Synchronization Engine</p>
+        <p class="text-zinc-500 text-[10px] uppercase tracking-[0.3em] mb-8">Rotation Multiplayer Engine</p>
 
         <div class="space-y-6">
             <div>
-                <label class="text-[10px] uppercase text-zinc-400 tracking-widest block mb-2">Participant Names (Comma Separated)</label>
+                <label class="text-[10px] uppercase text-zinc-400 tracking-widest block mb-2">Players (Comma Separated)</label>
                 <input type="text" id="p-names" value="Nigel, Kyler, Keyshaun" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl outline-none focus:border-purple-500 font-medium">
             </div>
 
@@ -120,7 +108,7 @@
                 </div>
             </div>
 
-            <button onclick="setupGame()" class="w-full bg-white text-black font-black py-6 rounded-3xl shadow-[0_20px_40px_rgba(255,255,255,0.15)] active:scale-95 transition">INITIALIZE SESSION</button>
+            <button onclick="setupGame()" class="w-full bg-white text-black font-black py-6 rounded-3xl shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:scale-95 transition">START DUEL</button>
         </div>
     </div>
 
@@ -128,19 +116,18 @@
         <div class="timer-strip" id="t-bar"></div>
         <div class="flex justify-between items-center mb-8">
             <span id="player-tag" class="text-[11px] font-black uppercase tracking-widest px-4 py-2 rounded-full border-2 border-current">PLAYER</span>
-            <span id="q-count" class="text-[10px] font-mono opacity-50 uppercase">Stage: 1/20</span>
+            <span id="q-count" class="text-[10px] font-mono opacity-50">QUESTION 1/20</span>
         </div>
         
-        <h2 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 leading-tight tracking-tight">Loading Protocol...</h2>
-        
+        <h2 id="q-text" class="text-2xl font-bold mb-10 leading-tight">Syncing...</h2>
         <div id="options-box" class="space-y-1"></div>
     </div>
 
     <div id="end-ui" class="glass-panel hidden text-center">
-        <h1 class="text-4xl font-black mb-2">SESSION OVER</h1>
-        <p class="text-zinc-500 text-xs uppercase tracking-widest mb-10">Global Ranking Results</p>
+        <h1 class="text-4xl font-black mb-1">LEADERBOARD</h1>
+        <p class="text-zinc-500 text-[10px] uppercase tracking-widest mb-10">Match Conclusion</p>
         <div id="leaderboard" class="space-y-3 mb-10 text-left"></div>
-        <button onclick="location.reload()" class="w-full py-5 bg-white/5 border border-white/10 rounded-2xl text-xs uppercase font-bold tracking-widest hover:bg-white hover:text-black transition">Restart Challenge</button>
+        <button onclick="location.reload()" class="w-full py-5 bg-white text-black rounded-2xl text-xs uppercase font-black tracking-widest">Rematch</button>
     </div>
 
     <script>
@@ -148,9 +135,9 @@
         const AUDIO = document.getElementById('game-audio');
         
         let players = [];
-        let pIdx = 0; 
-        let qIdx = 0; 
-        const qPerPerson = 20;
+        let pIdx = 0; // Index of the current player in the rotation
+        let currentRound = 0; // Which question number we are on (0 to 19)
+        const totalRounds = 20;
         let timer;
         let timeLeft;
 
@@ -159,7 +146,7 @@
             const names = namesInput.split(',').map(n => n.trim()).filter(n => n.length > 0);
             const diff = document.getElementById('p-diff').value;
             
-            if (names.length === 0) return alert("Enter player names.");
+            if (names.length === 0) return;
 
             players = names.map(n => ({ name: n, score: 0, questions: [] }));
 
@@ -168,23 +155,17 @@
                 const data = await res.json();
                 const filtered = data.questions.filter(q => q.difficulty === diff);
                 
-                if (filtered.length < qPerPerson) {
-                    alert(`Not enough ${diff} questions in database! Check JSON.`);
-                    return;
-                }
-
-                // Randomize and distribute questions
                 let pool = [...filtered].sort(() => Math.random() - 0.5);
                 players.forEach(p => {
-                    p.questions = pool.splice(0, qPerPerson);
+                    p.questions = pool.splice(0, totalRounds);
                 });
 
                 document.getElementById('lobby').classList.add('hidden');
-                AUDIO.volume = 0.5;
+                AUDIO.volume = 0.4;
                 AUDIO.play();
                 startTurnTransition();
             } catch (e) {
-                alert("Database Sync Failed. Check URL.");
+                alert("Database Error.");
             }
         }
 
@@ -195,12 +176,12 @@
 
             document.getElementById('game-ui').classList.add('hidden');
             
-            // Apply Dynamic Color and Text Logic
             const colorClass = `p-${pIdx % 20}`;
             document.body.className = colorClass; 
             overlay.className = `pass-screen ${colorClass}`;
             
-            content.innerText = `PASS TO ${currentPlayer.name.toUpperCase()}`;
+            document.getElementById('round-tag').innerText = `ROUND ${currentRound + 1} / ${totalRounds}`;
+            content.innerHTML = `PASS TO <br> ${currentPlayer.name.toUpperCase()}`;
             overlay.style.display = 'flex';
 
             setTimeout(() => {
@@ -212,10 +193,10 @@
 
         function loadQuestion() {
             const p = players[pIdx];
-            const q = p.questions[qIdx];
+            const q = p.questions[currentRound];
             
             document.getElementById('player-tag').innerText = p.name;
-            document.getElementById('q-count').innerText = `Stage: ${qIdx + 1}/${qPerPerson}`;
+            document.getElementById('q-count').innerText = `QUESTION ${currentRound + 1}/${totalRounds}`;
             document.getElementById('q-text').innerText = q.question;
             
             const options = [q.correct_answer, ...q.wrong_answers].sort(() => Math.random() - 0.5);
@@ -244,7 +225,7 @@
                 bar.style.width = (timeLeft / max) * 100 + "%";
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    check(null, players[pIdx].questions[qIdx].correct_answer);
+                    check(null, players[pIdx].questions[currentRound].correct_answer);
                 }
             }, 100);
         }
@@ -257,23 +238,26 @@
                 if (b.innerText === correct) b.classList.add('correct');
             });
 
-            if (selected === correct) {
-                players[pIdx].score++;
-            } else if (btn) {
-                btn.classList.add('wrong');
-            }
+            if (selected === correct) players[pIdx].score++;
+            else if (btn) btn.classList.add('wrong');
 
             setTimeout(() => {
-                qIdx++;
-                if (qIdx >= qPerPerson) {
-                    qIdx = 0;
-                    pIdx++;
-                    if (pIdx >= players.length) return endSession();
-                    startTurnTransition();
-                } else {
-                    loadQuestion();
+                // MOVE TO NEXT PLAYER
+                pIdx++;
+
+                // IF ALL PLAYERS FINISHED THIS ROUND
+                if (pIdx >= players.length) {
+                    pIdx = 0;
+                    currentRound++;
                 }
-            }, 1200);
+
+                // IF ALL ROUNDS ARE FINISHED
+                if (currentRound >= totalRounds) {
+                    endSession();
+                } else {
+                    startTurnTransition();
+                }
+            }, 1300);
         }
 
         function endSession() {
@@ -284,14 +268,22 @@
 
             const board = document.getElementById('leaderboard');
             board.innerHTML = '';
-            players.sort((a,b) => b.score - a.score).forEach((p, i) => {
+            
+            // Sort leaderboard by score
+            const sorted = [...players].sort((a,b) => b.score - a.score);
+            
+            sorted.forEach((p, i) => {
+                const colorIdx = players.indexOf(p) % 20;
                 board.innerHTML += `
-                    <div class="flex justify-between items-center p-5 bg-white/5 rounded-2xl border-l-4 ${i === 0 ? 'border-yellow-400' : 'border-zinc-700'}">
+                    <div class="flex justify-between items-center p-5 bg-white/5 rounded-2xl border-l-4 p-${colorIdx}">
                         <div class="flex flex-col">
-                            <span class="text-[10px] uppercase opacity-40">Rank #${i+1}</span>
+                            <span class="text-[10px] uppercase opacity-50 font-black">Rank ${i+1}</span>
                             <span class="font-bold text-lg">${p.name}</span>
                         </div>
-                        <span class="font-mono text-2xl font-bold">${p.score}/${qPerPerson}</span>
+                        <div class="text-right">
+                            <span class="font-mono text-2xl font-black">${p.score}</span>
+                            <span class="text-[10px] opacity-40 block">POINTS</span>
+                        </div>
                     </div>
                 `;
             });
