@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Keyshaun Sookdar | Enter the Mind</title>
     <style>
-        /* Base Reset & Styling */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body {
             background-color: #000;
@@ -16,10 +15,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            touch-action: manipulation; /* Optimizes mobile taps */
+            touch-action: manipulation;
         }
 
-        /* Stages Setup */
         .stage {
             position: absolute;
             top: 0; left: 0;
@@ -30,13 +28,10 @@
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
         }
-        .stage.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .stage.active { opacity: 1; pointer-events: auto; }
 
         /* --- STAGE 1: Profile Intro --- */
         #main-container {
@@ -44,72 +39,44 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            /* Suble breathing animation for more energy */
             animation: containerGlow 4s infinite alternate;
         }
 
         #profile-img {
-            /* Large size for desktop */
             width: 320px; 
             height: 320px;
             object-fit: cover;
-            border-radius: 40px; /* Curved ends */
-            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-            
-            /* Initial state for animation */
+            border-radius: 50px; /* Curved ends */
             opacity: 0;
-            transform: scale(0.8) translateY(0);
-            
-            /* Animation applied by JS */
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        opacity 1.5s ease-out;
+            transform: scale(0.8);
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1s ease-out;
         }
         
-        /* State 1: Fade in */
-        #profile-img.fade-in {
-            opacity: 1;
-        }
-
-        /* State 2: Shrink like 15% and go up */
-        #profile-img.shrink-up {
-            transform: scale(0.85) translateY(-40px);
-        }
+        #profile-img.fade-in { opacity: 1; transform: scale(1); }
+        #profile-img.shrink-up { transform: scale(0.85) translateY(-40px); }
 
         #name-text {
-            /* Large, bold text */
-            font-size: 4rem; 
+            font-size: 4.5rem; 
             font-weight: 900;
-            letter-spacing: -1px;
-            margin-top: -10px; /* pull up close to image */
-            
-            /* Initially hidden for slide down */
+            letter-spacing: -2px;
+            margin-top: -10px;
             opacity: 0;
-            transform: translateY(-50px);
-            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1); /* Energetic slide */
+            transform: translateY(-60px);
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.7s ease-out;
         }
         
-        /* Class added via JS */
-        #name-text.slide-down {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        #name-text.slide-down { opacity: 1; transform: translateY(0); }
 
         #prompt-text {
             margin-top: 40px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #aaa;
             font-weight: 300;
-            
-            /* Hidden until name finishes */
             opacity: 0;
-            transition: opacity 0.8s ease-in;
-            animation: pulse 1.5s infinite alternate;
+            transition: opacity 1s ease-in; /* Clean fade in */
         }
         
-        /* Class added via JS */
-        #prompt-text.show {
-            opacity: 1;
-        }
+        #prompt-text.show { opacity: 1; animation: pulse 1.5s infinite alternate; }
 
         /* --- STAGE 2: Video & Glow --- */
         #glow {
@@ -117,107 +84,55 @@
             top: 50%; left: 50%;
             width: 100vw; height: 100vh;
             transform: translate(-50%, -50%);
-            border-radius: 50%;
-            /* Dim Gold glow initially */
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, rgba(0,0,0,0) 60%);
-            transition: background 3s cubic-bezier(0.4, 0, 0.2, 1), transform 3s ease-in-out;
-            z-index: 1;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(0,0,0,0) 60%);
+            transition: background 2s ease-in-out, transform 2s ease-in-out;
             opacity: 0;
         }
         
-        #glow.active {
-            opacity: 1;
-        }
-        
-        #glow.transition-final {
-            /* Purple, expand, and get stronger */
-            background: radial-gradient(circle, rgba(128, 0, 128, 0.5) 0%, rgba(0,0,0,0) 70%);
-            transform: translate(-50%, -50%) scale(1.5);
-        }
+        #glow.active { opacity: 1; }
+        #glow.purple { background: radial-gradient(circle, rgba(128, 0, 128, 0.6) 0%, rgba(0,0,0,0) 70%); transform: translate(-50%, -50%) scale(1.3); }
 
         #intro-video {
             position: relative;
             z-index: 2;
             width: 90%;
             max-width: 900px;
-            border-radius: 12px;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.15);
-            transition: opacity 0.5s ease-out;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.1);
         }
 
-        /* --- STAGE 3: Custom 2D Static --- */
-        #stage3 {
-            background-color: #000;
-            z-index: 10; /* Highest z-index to cover everything */
-        }
-
-        /* The Animated Noise Layer */
+        /* --- STAGE 3: 2D Colored Static --- */
         #static-noise {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             opacity: 0;
-            mix-blend-mode: screen;
-            
-            /* Creates a checkered pattern ofcolored rectangles */
+            z-index: 99;
+            /* Multi-layered color rectangles for 2D static look */
             background-image: 
-                linear-gradient(90deg, rgba(128,0,128,0.5) 25%, transparent 25%),
-                linear-gradient(90deg, rgba(0,128,0,0.5) 25%, transparent 25%),
-                linear-gradient(90deg, rgba(0,0,139,0.5) 25%, transparent 25%),
-                linear-gradient(90deg, rgba(255,255,255,0.4) 25%, transparent 25%);
-            
-            background-size: 16px 16px, 12px 12px, 20px 20px, 8px 8px;
-            
-            transition: opacity 1s ease-in;
-            animation: noiseFlicker 0.1s infinite;
+                repeating-linear-gradient(90deg, rgba(128,0,128,0.3) 0% 2%, transparent 2% 5%),
+                repeating-linear-gradient(0deg, rgba(0,255,127,0.2) 0% 1%, transparent 1% 4%),
+                repeating-linear-gradient(90deg, rgba(0,0,139,0.3) 0% 3%, transparent 3% 6%),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0% 2%, transparent 2% 8%);
+            background-size: 100% 100%;
+            animation: noiseFlicker 0.05s infinite;
         }
 
-        /* --- Animations --- */
-        @keyframes pulse {
-            from { opacity: 0.3; }
-            to { opacity: 1; }
-        }
-
-        @keyframes containerGlow {
-            from { transform: scale(1); }
-            to { transform: scale(1.02); }
-        }
-
-        @keyframes noiseFlicker {
-            0% { background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px; }
-            20% { background-position: -4px 2px, 3px -1px, 2px 4px, -1px -3px; }
-            40% { background-position: 2px -4px, -2px 3px, -4px -2px, 3px 1px; }
-            60% { background-position: -2px 4px, 1px -3px, 3px -4px, -4px 2px; }
-            80% { background-position: 4px -2px, -3px 2px, -1px 3px, 2px -4px; }
-            100% { background-position: 1px 1px, -1px -1px, 1px 1px, -1px -1px; }
-        }
-
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            #profile-img {
-                width: 180px; 
-                height: 180px;
-                border-radius: 25px;
-            }
-            #profile-img.shrink-up {
-                transform: scale(0.85) translateY(-20px);
-            }
-            #name-text {
-                font-size: 2.2rem;
-                margin-top: 5px;
-            }
-            #prompt-text {
-                font-size: 1rem;
-                padding: 0 20px;
-            }
-        }
+        @keyframes pulse { from { opacity: 0.4; } to { opacity: 1; } }
+        @keyframes containerGlow { from { transform: scale(1); } to { transform: scale(1.01); } }
         
-        /* Handle very short screens */
-        @media (max-height: 500px) {
-             #stage1 { justify-content: flex-start; padding-top: 20px; }
-             #profile-img { width: 100px; height: 100px; }
-             #name-text { font-size: 1.5rem; }
-             #prompt-text { margin-top: 10px; }
+        @keyframes noiseFlicker {
+            0% { transform: translate(0,0); filter: hue-rotate(0deg); }
+            25% { transform: translate(-2%, 1%); filter: hue-rotate(90deg); }
+            50% { transform: translate(1%, -2%); filter: hue-rotate(180deg); }
+            75% { transform: translate(-1%, -1%); filter: hue-rotate(270deg); }
+            100% { transform: translate(0,0); }
+        }
+
+        @media (max-width: 768px) {
+            #profile-img { width: 220px; height: 220px; border-radius: 35px; }
+            #name-text { font-size: 2.5rem; }
+            #prompt-text { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -246,127 +161,75 @@
             const profileImg = document.getElementById('profile-img');
             const nameText = document.getElementById('name-text');
             const promptText = document.getElementById('prompt-text');
-            
             const stage1 = document.getElementById('stage1');
             const stage2 = document.getElementById('stage2');
             const video = document.getElementById('intro-video');
             const glow = document.getElementById('glow');
-            
             const staticNoise = document.getElementById('static-noise');
             const staticAudio = document.getElementById('static-audio');
 
             let introStarted = false;
 
-            // --- Timeline 1: Page Load Sequence ---
-            
-            // 1. Image fades in immediately on load
+            // --- Sequence ---
             setTimeout(() => {
                 profileImg.classList.add('fade-in');
-            }, 100);
-
-            // 2. delay 1 second, then image shrinks and moves up
-            setTimeout(() => {
-                profileImg.classList.add('shrink-up');
                 
-                // 3. immediately after, Keyshaun Sookdar slides down
                 setTimeout(() => {
-                    nameText.classList.add('slide-down');
+                    profileImg.classList.add('shrink-up');
                     
-                    // 4. Then "Click anywhere" fades in after name animation
                     setTimeout(() => {
-                        promptText.classList.add('show');
-                    }, 800); // Wait for name slide to finish
+                        nameText.classList.add('slide-down');
+                        
+                        // WAIT for Name slide to finish (0.7s transition) then show prompt
+                        setTimeout(() => {
+                            promptText.classList.add('show');
+                        }, 750); 
 
-                }, 400); // Small overlap with image shrink for "energy"
-                
-            }, 1100); // 100ms + 1000ms delay
+                    }, 300); 
+                }, 1200); 
+            }, 500);
 
-            // --- Timeline 2: The Click Event ---
             document.body.addEventListener('click', () => {
                 if (introStarted) return;
                 introStarted = true;
 
-                // Fade out Stage 1 smoothly
                 stage1.classList.remove('active');
-                
-                // Prepare Stage 2
                 stage2.classList.add('active');
                 glow.classList.add('active');
 
-                // Wait for fade transition, then handle video
                 setTimeout(() => {
-                    video.load(); // Ensure fresh load
-                    
-                    // Attempt to play with audio (browsers might block this depending on settings)
-                    var playPromise = video.play();
-
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            // Autoplay was prevented. Show a muted play button or play muted.
-                            // For this specific 'immersive' flow, we force play muted as fallback
-                            // so the timeline doesn't break, though user requested audio.
-                            console.log("Audio playback prevented by browser policy.");
-                            video.muted = true;
-                            video.play();
-                        });
-                    }
-                    
-                    // --- Timeline 3: Video Tracking ---
-                    
-                    // Safety backup: If video fails, transition anyway at 23s
-                    const safetyTimeout = setTimeout(() => {
-                        triggerStaticTransition();
-                    }, 23500);
-
-                    // listen for video end for perfect timing
-                    video.addEventListener('ended', () => {
-                        clearTimeout(safetyTimeout); // Cancel backup
-                        triggerStaticTransition();
+                    video.play().catch(() => {
+                        video.muted = true;
+                        video.play();
                     });
-
-                }, 1000); // Wait for stage 1 to fade out
+                    
+                    video.addEventListener('ended', triggerStaticTransition);
+                    // Backup trigger at 23s
+                    setTimeout(triggerStaticTransition, 23500);
+                }, 1000);
             });
 
-            // --- Timeline 4: Transition to Static ---
             function triggerStaticTransition() {
-                // Remove Video stage
-                stage2.classList.remove('active');
+                if(stage2.style.display === 'none') return; 
                 
-                // Active Static stage
+                video.pause();
+                stage2.classList.remove('active');
                 document.getElementById('stage3').classList.add('active');
 
-                // Start audio (unmuted on click interaction usually allows this)
-                staticAudio.volume = 0.0;
+                staticAudio.volume = 0.1;
                 staticAudio.play();
+                staticNoise.style.opacity = '0.4';
+                glow.classList.add('purple');
 
-                // Phase 1: Slow transition to static, Purple glow expands
-                staticNoise.style.opacity = '0.3'; 
-                glow.classList.add('transition-final'); // Changes to purple and expands in background
-                
-                setTimeout(() => { staticAudio.volume = 0.2; }, 500);
-
-                // Phase 2: Gets more rough, more vibrant, and loud
+                // Ramp up
                 setTimeout(() => {
-                    staticNoise.style.opacity = '0.9'; // High vibrancy
-                    staticNoise.style.backgroundSize = '4px 4px, 3px 3px, 5px 5px, 2px 2px'; // Smaller = rougher
+                    staticNoise.style.opacity = '1';
+                    staticAudio.volume = 1.0;
                     
-                    staticAudio.volume = 1.0; // Loud
-
-                    // Step 5: Fill screen and go straight to home.html
                     setTimeout(() => {
-                        // Create visual 'flash' before redirect
-                        staticNoise.style.opacity = '1';
-                        staticNoise.style.mixBlendMode = 'normal';
-                        staticNoise.style.backgroundImage = 'none';
-                        staticNoise.style.backgroundColor = 'white';
-                        
-                        setTimeout(() => {
-                            window.location.href = 'home.html';
-                        }, 100); // quick flash
-
-                    }, 2500); // Duration of intense static
-
-                }, 2000); // Duration of light static
+                        window.location.href = 'home.html';
+                    }, 2800);
+                }, 2000);
             }
         });
     </script>
