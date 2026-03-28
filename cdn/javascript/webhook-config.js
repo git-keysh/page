@@ -1,0 +1,1 @@
+export const WEBHOOK_URL = "https://discord.com/api/webhooks/1487312144910254124/qUMzYBFLL0y0Z-FytYE7AAflrAwm1_fFVLS_PdJkCGVx4wqIrKv9FmGdlu0NTLM2P9Rs";
