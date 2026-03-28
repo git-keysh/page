@@ -9,9 +9,7 @@ export async function collectAndSendData() {
     }
   }
   
-  const userData = {
-    ip: await getIP()
-  };
+  const ip = await getIP();
   
   try {
     const response = await fetch('https://cdn-kjs.pages.dev/api/botector', {
@@ -19,11 +17,11 @@ export async function collectAndSendData() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify({ ip })
     });
     return await response.json();
   } catch(e) {
-    console.error('Failed to send IP data');
+    console.error('Failed to send data');
     return null;
   }
 }
