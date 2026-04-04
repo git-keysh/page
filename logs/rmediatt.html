@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Real Media Marketing | Deployment Terminal Logs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: #0a0c10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* full terminal experience */
+    .terminal {
+      background: #0c0f14;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-header {
+      background: #111317;
+      border-bottom: 1px solid #2a2f3a;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 10px;
+    }
+    .window-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: all 0.1s ease;
+    }
+    .close { background: #ff5f56; }
+    .minimize { background: #ffbd2e; }
+    .maximize { background: #27c93f; }
+    .window-btn:hover { opacity: 0.8; transform: scale(1.05); }
+
+    .terminal-title {
+      color: #9ca3af;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      font-family: 'Inter', monospace;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terminal-title span:first-child {
+      color: #10b981;
+    }
+
+    .terminal-status {
+      font-size: 0.7rem;
+      background: #1a1d24;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #6ee7b7;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-content {
+      flex: 1;
+      padding: 1.8rem;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #2c303a #0c0f14;
+    }
+
+    .terminal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    .terminal-content::-webkit-scrollbar-track {
+      background: #0c0f14;
+    }
+    .terminal-content::-webkit-scrollbar-thumb {
+      background: #2c303a;
+      border-radius: 6px;
+    }
+
+    /* log line styling */
+    .log-entry {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+      font-size: 0.85rem;
+    }
+
+    .prompt {
+      color: #6ee7b7;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .command {
+      color: #f0f0f0;
+    }
+
+    .output-line {
+      color: #b9c3d4;
+      margin-left: 1.2rem;
+      border-left: 1px solid #2a2f3a;
+      padding-left: 1rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .output-success {
+      color: #34d399;
+    }
+
+    .output-info {
+      color: #60a5fa;
+    }
+
+    .output-warning {
+      color: #fbbf24;
+    }
+
+    .output-muted {
+      color: #6b7280;
+    }
+
+    .highlight {
+      color: #f472b6;
+    }
+
+    .url-highlight {
+      color: #2dd4bf;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .separator {
+      border-top: 1px solid #23272f;
+      margin: 1rem 0;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background-color: #6ee7b7;
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .timestamp {
+      color: #4b5563;
+      font-size: 0.7rem;
+      margin-right: 12px;
+      user-select: none;
+    }
+
+    .log-group {
+      margin-bottom: 1rem;
+    }
+
+    .badge-deploy {
+      background: #1e293b;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-status {
+      background: #080b0f;
+      border-top: 1px solid #1f242c;
+      padding: 0.6rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.7rem;
+      color: #6b7280;
+      font-family: 'Inter', monospace;
+    }
+
+    @media (max-width: 640px) {
+      .terminal-content {
+        padding: 1rem;
+      }
+      .output-line {
+        margin-left: 0.5rem;
+        padding-left: 0.7rem;
+      }
+      .timestamp {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="flex items-center gap-4">
+      <div class="window-controls">
+        <div class="window-btn close"></div>
+        <div class="window-btn minimize"></div>
+        <div class="window-btn maximize"></div>
+      </div>
+      <div class="terminal-title">
+        <span>●</span> realmedia@deployment:~/rmediatt
+        <span class="text-gray-600 text-xs ml-1">— zsh</span>
+      </div>
+    </div>
+    <div class="terminal-status">
+      🔄 LIVE STREAM | Firebase Hosting Logs
+    </div>
+  </div>
+
+  <div class="terminal-content" id="logContainer">
+    <!-- full deployment logs in terminal style -->
+    <div class="log-group">
+      <div class="badge-deploy">SESSION START: 2026-04-04 14:28:32 UTC</div>
+      
+      <div class="log-entry">
+        <span class="timestamp">[14:28:35]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase --version</span>
+      </div>
+      <div class="output-line">15.13.0</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:28:38]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase login --reauth</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Already logged in as <span class="highlight">deploy@realmedia-marketing.com</span></div>
+      <div class="output-line"><span class="output-info">i</span> Authentication persisted · valid token expires in 9h</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:28:44]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase projects:list</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Project: <span class="highlight">rmediatt-prod</span> (ID: rmediatt-production) · location: us-central1</div>
+      <div class="output-line"><span class="output-success">✔</span> Project: rmediatt-staging · location: europe-west1</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:28:50]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase use rmediatt-prod</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Now using project: <span class="highlight">rmediatt-prod</span> (production environment)</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:28:54]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase target:apply hosting realmedia-main rmediatt-live</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Target 'realmedia-main' configured for hosting resource 'rmediatt-live'</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:29:02]</span>
+        <span class="prompt">$</span>
+        <span class="command"> npm run build:production</span>
+      </div>
+      <div class="output-line"><span class="output-info">›</span> Building for production... (vite + react)</div>
+      <div class="output-line"><span class="output-success">✓</span> transpiling modules ... done in 2.3s</div>
+      <div class="output-line"><span class="output-success">✓</span> optimizing chunks: 48 modules transformed</div>
+      <div class="output-line"><span class="output-success">✓</span> dist/ index.html + assets (gzip: 412KB total)</div>
+      <div class="output-line"><span class="output-muted">📦</span> Main bundle: 284KB · chunk size optimal</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:29:18]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase deploy --only hosting --message "deploy: invoice + terminal logs integration"</span>
+      </div>
+      <div class="output-line"><span class="output-info">i</span> deploying hosting (56 files detected, including 404.html & _headers)</div>
+      <div class="output-line"><span class="output-info">i</span> preparing upload: 56 files (total 1.8MB)</div>
+      <div class="output-line"><span class="output-success">✔</span> [hosting] file upload complete — CDN edge upload finished in 1.2s</div>
+      <div class="output-line"><span class="output-success">✔</span> [hosting] release rollout started — version: 20260404T142932</div>
+      <div class="output-line"><span class="output-success">✔</span> [hosting] release complete — all instances updated globally</div>
+      <div class="output-line"><span class="output-info">🌍</span> Live URL: <span class="url-highlight">https://rmediatt.web.app</span></div>
+      <div class="output-line"><span class="output-info">🔗</span> Custom domain: <span class="url-highlight">https://realmedia.tt</span> (SSL active, A+ rating)</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:29:42]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase hosting:channel:deploy live --expires 30d</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Channel 'live' created/updated with latest release</div>
+      <div class="output-line"><span class="output-info">📎</span> Preview channel: <span class="url-highlight">https://rmediatt--live.web.app</span> (expires in 30 days)</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:29:51]</span>
+        <span class="prompt">$</span>
+        <span class="command"> curl -I https://rmediatt.web.app</span>
+      </div>
+      <div class="output-line">HTTP/2 200 <span class="output-success">OK</span></div>
+      <div class="output-line">server: Firebase/1.0</div>
+      <div class="output-line">cache-control: public, max-age=3600</div>
+      <div class="output-line">x-cache: HIT (edge node: MIA)</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:30:02]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase hosting:clone rmediatt-prod:live rmediatt-prod:backup</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Snapshot backup created: <span class="highlight">backup-20260404</span> (rollback ready)</div>
+
+      <div class="separator"></div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:30:12]</span>
+        <span class="prompt">▶</span>
+        <span class="command"> POST-DEPLOYMENT VERIFICATION</span>
+      </div>
+      <div class="output-line"><span class="output-success">✅</span> Global CDN propagation: <span class="output-success">135+ edge locations active</span></div>
+      <div class="output-line"><span class="output-success">✅</span> SSL certificate (Let's Encrypt) valid until: July 2026</div>
+      <div class="output-line"><span class="output-success">✅</span> HTTP Strict Transport Security (HSTS) enabled</div>
+      <div class="output-line"><span class="output-success">✅</span> 301 redirect rules: www → non-www applied</div>
+      <div class="output-line"><span class="output-success">✅</span> Custom 404 page: configured & tested</div>
+      <div class="output-line"><span class="output-info">⚡</span> Lighthouse performance score: 99/100 (First Contentful Paint: 0.5s)</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:30:28]</span>
+        <span class="prompt">$</span>
+        <span class="command"> firebase functions:log --only hosting-health</span>
+      </div>
+      <div class="output-line"><span class="output-success">✔</span> Health check: status 200 OK · response time 48ms · uptime 99.999%</div>
+      <div class="output-line"><span class="output-muted">ℹ</span> No errors reported — deployment fully operational</div>
+
+      <div class="log-entry">
+        <span class="timestamp">[14:30:35]</span>
+        <span class="prompt">#</span>
+        <span class="command"> Deployment summary — commit: a7f3e91 (main)</span>
+      </div>
+      <div class="output-line"><span class="output-success">✨</span> Status: <span class="output-success">SUCCESSFUL</span> · duration: 2m 14s</div>
+      <div class="output-line"><span class="output-success">📊</span> Bandwidth: 1.2MB uploaded · 0 errors · 0 warnings</div>
+      <div class="output-line"><span class="output-success">🔐</span> Security headers: X-Frame-Options, X-Content-Type-Options enforced</div>
+      
+      <div class="log-entry mt-3">
+        <span class="timestamp">[14:30:42]</span>
+        <span class="prompt">➜</span>
+        <span class="command"> tail -f /var/log/firebase-hosting.log</span>
+        <span class="cursor-blink"></span>
+      </div>
+      <div class="output-line output-muted">Waiting for additional events... (live session active)</div>
+      <div class="output-line output-muted">[14:31:01] Edge request: /invoice — cache HIT (Singapore)</div>
+      <div class="output-line output-muted">[14:31:22] Edge request: /logs/terminal — cache MISS → origin fetch → stored</div>
+      <div class="output-line output-muted">[14:31:45] Real-time metric: 98.4% CDN hit rate (last 5 min)</div>
+    </div>
+  </div>
+
+  <div class="footer-status">
+    <div class="flex gap-4">
+      <span>🟢 DEPLOYMENT: LIVE (v2.4.1)</span>
+      <span>📡 Firebase Hosting (Genesis)</span>
+      <span>⚡ Edge: Cloudflare + Google Frontend</span>
+    </div>
+    <div class="font-mono text-emerald-400/70">
+      ~/rmediatt (prod) ➤ last deploy: 2026-04-04T14:30
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const container = document.getElementById('logContainer');
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+
+    const fakeLiveUpdates = () => {
+      const logGroup = document.querySelector('.log-group');
+      if (!logGroup) return;
+
+      const messages = [
+        { text: "[14:32:17] Edge node (FRA) reports 100% uptime · 0 errors", type: "muted" },
+        { text: "[14:32:44] Security scan: no vulnerabilities detected (Snyk)", type: "success" },
+        { text: "[14:33:09] Crawler (Googlebot) fetched /robots.txt → 200 OK", type: "info" },
+        { text: "[14:33:31] Custom domain realmedia.tt → CDN certificate renewed", type: "highlight" },
+        { text: "[14:34:02] Analytics: +2.3k requests last hour · 0.04% error rate", type: "muted" },
+      ];
+
+      let idx = 0;
+      const interval = setInterval(() => {
+        if (idx >= messages.length) {
+          clearInterval(interval);
+          const finalEntry = document.createElement('div');
+          finalEntry.className = 'log-entry mt-2';
+          finalEntry.innerHTML = `<span class="timestamp">[14:35:00]</span>
+            <span class="prompt">✓</span>
+            <span class="command"> Deployment session stable — logs streaming completed. ready for production traffic.</span>`;
+          logGroup.appendChild(finalEntry);
+          const lastLine = document.createElement('div');
+          lastLine.className = 'output-line output-success mt-1';
+          lastLine.innerText = '✔ All systems nominal · invoice integration verified · payment gateway ready';
+          logGroup.appendChild(lastLine);
+          container.scrollTop = container.scrollHeight;
+          return;
+        }
+
+        const msg = messages[idx];
+        const newEntry = document.createElement('div');
+        newEntry.className = 'log-entry';
+        let colorClass = 'output-muted';
+        if (msg.type === 'success') colorClass = 'output-success';
+        else if (msg.type === 'info') colorClass = 'output-info';
+        else if (msg.type === 'highlight') colorClass = 'highlight';
+        
+        newEntry.innerHTML = `<span class="timestamp">${msg.text.substring(0, 10)}</span>
+          <span class="prompt">↳</span>
+          <span class="command ${colorClass}">${msg.text.substring(11)}</span>`;
+        logGroup.appendChild(newEntry);
+        
+        const spacer = document.createElement('div');
+        spacer.className = 'output-line';
+        logGroup.appendChild(spacer);
+        
+        container.scrollTop = container.scrollHeight;
+        idx++;
+      }, 2800);
+    };
+
+    setTimeout(() => {
+      fakeLiveUpdates();
+    }, 800);
+  })();
+</script>
+</body>
+</html>

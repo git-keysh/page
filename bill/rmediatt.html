@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Real Media Marketing | Professional Invoice & Payment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgba(10, 12, 18, 1) 0%, #05070A 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .logs-container {
+      scrollbar-width: thin;
+      scrollbar-color: #2c2f36 #0f1117;
+    }
+    .logs-container::-webkit-scrollbar {
+      width: 5px;
+    }
+    .logs-container::-webkit-scrollbar-track {
+      background: #0f1117;
+      border-radius: 10px;
+    }
+    .logs-container::-webkit-scrollbar-thumb {
+      background: #2c2f36;
+      border-radius: 10px;
+    }
+
+    .receipt-card {
+      transition: all 0.2s ease;
+    }
+
+    .pay-btn {
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .pay-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 20px -12px rgba(0,0,0,0.4);
+    }
+    .pay-btn:active {
+      transform: translateY(1px);
+    }
+
+    .log-line {
+      border-left: 2px solid rgba(0, 255, 156, 0.3);
+      padding-left: 12px;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        padding: 1rem;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="w-full max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+
+    <div class="receipt-card bg-white dark:bg-white text-gray-900 rounded-2xl shadow-2xl flex flex-col transition-all duration-200 h-full">
+      <div class="p-6 md:p-8 flex flex-col h-full">
+
+        <div class="flex flex-wrap justify-between items-start gap-3 border-b border-gray-200 pb-5">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Real Media</span>
+              <span class="text-gray-500 font-medium text-lg">(VON)</span>
+            </div>
+            <div class="text-sm text-gray-500 mt-1">Professional Invoice / Official Receipt</div>
+          </div>
+          <div class="bg-emerald-50 px-3 py-1 rounded-full text-emerald-700 text-xs font-semibold border border-emerald-200 shadow-sm">
+            ✓ Ready to pay
+          </div>
+        </div>
+
+        <div class="flex-1 mt-6 space-y-6">
+          <div class="bg-gray-50 rounded-xl p-5">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-gray-800 text-sm uppercase tracking-wide">Invoice #RMI-2404</h3>
+              <span class="text-xs text-gray-500">Issued: April 2026</span>
+            </div>
+            <div class="space-y-3">
+              <div class="flex justify-between text-gray-700 text-sm">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 bg-gray-400 rounded-full"></span>Domain registration (web.app / 1 year)</span>
+                <span class="font-medium">120.00 TTD</span>
+              </div>
+              <div class="flex justify-between text-gray-700 text-sm">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 bg-gray-400 rounded-full"></span>Premium DNS Management</span>
+                <span class="font-medium">5.00 TTD</span>
+              </div>
+              <div class="flex justify-between text-gray-700 text-sm">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 bg-gray-400 rounded-full"></span>Deployment & Setup</span>
+                <span class="font-medium">115.00 TTD</span>
+              </div>
+              <div class="flex justify-between text-gray-700 text-sm pt-1 border-t border-dashed border-gray-300">
+                <span class="font-medium">Welcome Discount</span>
+                <span class="text-emerald-600">-11.42 TTD</span>
+              </div>
+              <div class="flex justify-between items-center pt-2 mt-1 border-t-2 border-gray-200 text-gray-900">
+                <span class="font-bold text-base">First-Time Payment (total)</span>
+                <span class="text-xl font-extrabold tracking-tight">108.58 TTD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-amber-50/40 rounded-xl p-4 text-sm text-gray-700 border border-amber-100">
+            <div class="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span><strong class="font-semibold">Renewal notice:</strong> Domain renews annually at standard rate. Multi-year payment available — request via WhatsApp.</span>
+            </div>
+          </div>
+
+          <div class="mt-2">
+            <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Choose payment method</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="handlePayment('Crypto (USDT/BTC)')" class="pay-btn bg-gradient-to-r from-indigo-900 to-indigo-800 hover:from-indigo-800 hover:to-indigo-700 text-white rounded-xl py-3 px-2 font-semibold text-sm shadow-md flex items-center justify-center gap-2 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Crypto
+              </button>
+              <button onclick="handlePayment('Cash (in-person)')" class="pay-btn bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white rounded-xl py-3 px-2 font-semibold text-sm shadow-md flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+                Cash
+              </button>
+              <button onclick="handlePayment('Online Banking / Wire')" class="pay-btn bg-gradient-to-r from-emerald-800 to-teal-800 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl py-3 px-2 font-semibold text-sm shadow-md flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="7" y1="15" x2="7.01" y2="15"/><line x1="17" y1="15" x2="17.01" y2="15"/></svg>
+                Online Banking
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-4 text-[11px] text-gray-400 border-t border-gray-100 pt-4 flex justify-between items-center">
+            <span>🔒 SSL Encrypted • Real Media Marketing</span>
+            <span class="font-mono">https://rmediatt.web.app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-[#0C0E13] rounded-2xl shadow-2xl border border-gray-800/60 flex flex-col h-full overflow-hidden backdrop-blur-sm">
+      <div class="px-6 pt-6 pb-3 border-b border-gray-800 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="h-3 w-3 rounded-full bg-emerald-400 animate-pulse"></div>
+            <span class="text-emerald-300 font-mono text-sm font-semibold tracking-wide">deployment@live</span>
+          </div>
+          <div class="text-xs text-gray-400 font-mono mt-1">live logs · firebase hosting · edge</div>
+        </div>
+        <div class="bg-black/40 rounded-lg px-3 py-1.5 border border-gray-700">
+          <span class="text-[11px] text-gray-300 font-mono">🔗 https://keyshaun.pages.dev/logs/rmediatt</span>
+        </div>
+      </div>
+
+      <div class="logs-container flex-1 overflow-y-auto p-5 font-mono text-[13px] leading-relaxed" style="max-height: 480px; min-height: 380px;">
+        <div class="space-y-2">
+          <div class="log-line text-emerald-300">
+            <span class="text-gray-500">admin@key.sh/server/web/rmediatt~</span> firebase --version
+          </div>
+          <div class="text-gray-200 pl-5">15.13.0</div>
+          
+          <div class="log-line text-emerald-300 mt-3">
+            <span class="text-gray-500">admin@key.sh/server/web/rmediatt~</span> firebase login
+          </div>
+          <div class="text-gray-300 pl-5">✔ Already logged in as <span class="text-cyan-300">patrobloxgaming15@gmail.com</span></div>
+          
+          <div class="log-line text-emerald-300 mt-3">
+            <span class="text-gray-500">admin@key.sh/server/web/rmediatt~</span> firebase init hosting
+          </div>
+          <div class="text-gray-300 pl-5">✔ Using existing project: <span class="text-yellow-300">rmediatt</span><br>
+          ✔ Hosting setup complete<br>
+          ✔ Public directory: <span class="text-amber-200">public/</span><br>
+          ✔ Configure as SPA? No (standard site)<br>
+          ✔ Auto builds with GitHub: disabled<br>
+          <span class="text-gray-400">+ Files generated: 404.html, index.html, firebase.json, .firebaserc</span>
+          </div>
+          
+          <div class="log-line text-emerald-300 mt-3">
+            <span class="text-gray-500">admin@key.sh/server/web/rmediatt~</span> firebase deploy --only hosting
+          </div>
+          <div class="text-gray-200 pl-5">
+            <span class="text-blue-300">i</span> deploying hosting (36 files detected)<br>
+            <span class="text-green-300">✔</span> upload complete — all assets optimized<br>
+            <span class="text-green-300">✔</span> release complete (CDN propagation)<br>
+            <span class="text-white">✨ Hosting URL:</span> <span class="text-emerald-300 underline decoration-emerald-500/30">https://rmediatt.web.app</span>
+          </div>
+
+          <div class="log-line text-emerald-300 mt-4">
+            <span class="text-gray-500">[system]</span> Last deployment: ✅ active
+          </div>
+          <div class="text-gray-400 text-[11px] pl-5 border-l border-gray-700 mt-1">
+            • Global edge network • Custom domain ready • Real-time redirects active
+          </div>
+        </div>
+
+        <div class="mt-6 pt-3 border-t border-gray-800/80 text-gray-500 text-[11px] flex flex-wrap justify-between gap-2">
+          <div>🟢 Build status: <span class="text-emerald-400">success</span></div>
+          <div>📅 Last updated: April 04, 2026 14:32 UTC</div>
+          <div>⚡ Performance grade: A+ (Lighthouse)</div>
+        </div>
+      </div>
+
+      <div class="px-6 py-3 bg-black/40 border-t border-gray-800 text-xs text-gray-400 flex flex-wrap justify-between items-center gap-2">
+        <div class="flex gap-3">
+          <span>🌐 301 redirects active</span>
+          <span>📡 DNS: Cloudflare proxied</span>
+        </div>
+        <div class="font-mono text-emerald-300/80 text-[11px] tracking-wide">rmediatt.web.app → production</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 text-center text-gray-500 text-xs flex flex-wrap justify-center gap-x-6 gap-y-2">
+    <span>© 2026 Real Media Marketing — digital presence solutions</span>
+    <span class="hidden md:inline-block">•</span>
+    <span>⚡ 24/7 support via WhatsApp & email</span>
+    <span class="hidden md:inline-block">•</span>
+    <span>🔐 Payment receipts issued instantly</span>
+  </div>
+</div>
+
+<script>
+  const PHONE_NUMBER = "18687393193";
+  
+  function handlePayment(method) {
+    const totalAmount = "108.58 TTD";
+    const invoiceRef = "RMI-2404";
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    
+    let message = `Hello Real Media Marketing team,%0A%0A`;
+    message += `I would like to proceed with payment via *${method}* for the professional web services.%0A`;
+    message += `📄 Invoice: ${invoiceRef}%0A`;
+    message += `💰 Total Amount: ${totalAmount}%0A`;
+    message += `📅 Date: ${currentDate}%0A%0A`;
+    message += `Please confirm the next steps or provide payment details. I'm ready to complete the transaction.%0A%0A`;
+    message += `Regards, (New Client - Real Media)`;
+    
+    const encodedMsg = message;
+    const whatsappURL = `https://wa.me/${PHONE_NUMBER}?text=${encodedMsg}`;
+    
+    window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+    
+    console.log(`[Payment Intent] ${method} selected — redirecting to WhatsApp with order summary.`);
+  }
+  
+  const btns = document.querySelectorAll('.pay-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      this.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 120);
+    });
+  });
+  
+  document.body.style.overflow = 'auto';
+  document.documentElement.style.overflow = 'auto';
+  document.documentElement.style.height = 'auto';
+  document.body.style.height = 'auto';
+  
+  const logsUrlElement = document.querySelector('.bg-black\\/40.rounded-lg');
+  if (logsUrlElement) {
+    logsUrlElement.style.cursor = 'pointer';
+    logsUrlElement.addEventListener('click', () => {
+      const urlText = "https://keyshaun.pages.dev/logs/rmediatt";
+      navigator.clipboard.writeText(urlText).then(() => {
+        const originalHTML = logsUrlElement.innerHTML;
+        logsUrlElement.innerHTML = `<span class="text-emerald-300 text-[11px]">✓ Copied!</span>`;
+        setTimeout(() => {
+          logsUrlElement.innerHTML = originalHTML;
+        }, 1500);
+      }).catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
