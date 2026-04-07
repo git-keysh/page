@@ -1,7 +1,100 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>Keyshaun Sookdar | Lead Architect</title><link rel="icon" href="favicon.ico"><script src="https://cdn.tailwindcss.com/3.4.17"></script><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="cdn/javascript/ks-css.css"></head>
-<body class="p-6 md:p-12"><div id="loader-overlay"><div id="spinner">/</div><div id="loading-text" class="text-xs uppercase tracking-widest text-zinc-500 font-mono">Initializing System</div><button id="permission-btn" class="doubles-btn">Click me for a doubles</button></div>
-<canvas id="spark-canvas"></canvas><audio id="bg-audio" loop><source src="cdn/audio/keep steady.mp3" type="audio/mpeg"></audio>
-<header class="relative z-50 flex justify-between items-center mb-10"><div class="flex items-center gap-6"><img src="cdn/assets/banner2.png" class="w-20 h-20 rounded-full border-2 border-purple-500/30"><div><h1 class="text-3xl md:text-5xl font-bold tracking-tighter">Keyshaun Sookdar</h1><p class="text-[10px] md:text-xs uppercase tracking-[0.4em] text-zinc-500">Full-Stack Architect — T&T</p></div></div><div class="hidden md:block text-right"><div id="clock" class="text-2xl font-light text-white">00:00:00</div></div></header>
-<main class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch h-[70vh] main-content"><div class="md:col-span-4 flex flex-col gap-6"><div class="glass-card p-8 flex-1"><h2 class="text-xs uppercase tracking-widest text-purple-500 mb-6">Development Narrative</h2><p class="text-zinc-300 leading-relaxed text-lg font-light">Started at <span class="text-white font-bold">13</span>. Founder of <span class="text-white">WeTechWSS</span>. I engineer high-performance software and integrated hardware solutions with a focus on <span class="italic">Quality over Quantity.</span></p></div><div class="h-40 glass-card overflow-hidden"><img src="cdn/assets/banner.png" class="w-full h-full object-cover opacity-40 hover:opacity-100 transition duration-700"></div></div><div class="md:col-span-5"><div class="glass-card h-full overflow-hidden"><video id="main-video" src="cdn/assets/aaaa.mp4" loop playsinline class="w-full h-full object-cover opacity-80"></video></div></div><div class="md:col-span-3 flex flex-col gap-6"><div class="credit-card shadow-2xl flex-1 flex flex-col justify-between"><div><p class="text-[10px] text-zinc-500 uppercase tracking-widest mb-8">Identity & Linkage</p><div class="space-y-6"><a href="mailto:KSookdar@proton.me" class="block hover:text-purple-400 transition"><p class="text-[10px] text-zinc-600 uppercase">Direct Mail</p><p class="text-md">KSookdar@proton.me</p></a><a href="tel:+18687393193" class="block hover:text-purple-400 transition"><p class="text-[10px] text-zinc-600 uppercase">Phone Instance</p><p class="text-md">+1 (868) 739-3193</p></a><a href="https://www.instagram.com/keyshaun.dev/" target="_blank" class="block hover:text-purple-400 transition"><p class="text-[10px] text-zinc-600 uppercase">Instagram</p><p class="text-md">instagram.com/keyshaun.dev</p></a><a href="https://www.facebook.com/Keyshaun%20Sookdar" target="_blank" class="block hover:text-purple-400 transition"><p class="text-[10px] text-zinc-600 uppercase">Facebook</p><p class="text-md">facebook.com/Keyshaun Sookdar</p></a></div></div><div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center"><span class="text-sm font-bold tracking-widest">KEYS.DEV</span><img src="favicon.ico" class="w-6 h-6 grayscale opacity-50"></div></div></div></main>
-<div id="gesture-zone" onclick="toggleMenu()"><div class="gesture-bar"></div></div><div id="nav-menu"><button onclick="toggleMenu()" class="absolute top-10 right-10 text-zinc-500 hover:text-white uppercase font-bold tracking-widest">Close [X]</button><nav class="flex flex-col gap-4 text-center"><a href="j.html" class="nav-link">Journal</a><a href="hr.html" class="nav-link">Hire Me</a><a href="lib.html" class="nav-link">Library</a><a href="workshop/index.html" class="nav-link">Workshop</a><a href="gallery.html" class="nav-link">Gallery</a></nav></div>
-<script src="cdn/javascript/ks-js.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Keyshaun Sookdar | Full-Stack Architect</title>
+    <meta name="description" content="Keyshaun Sookdar — Full-Stack Architect, founder of WeTechWSS.">
+    <meta name="author" content="Keyshaun Sookdar">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cdn/javascript/ks-css.css">
+    <link rel="icon" href="cdn/assets/me.png">
+</head>
+<body>
+
+<div id="split-overlay">
+    <div id="split-top"></div>
+    <div id="split-bottom"></div>
+</div>
+
+<div id="main-content">
+
+    <audio id="bg-audio" loop>
+        <source src="cdn/audio/Divine Failure.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="top-row">
+        <div class="top-left">
+            <div class="name">KEYSHAUN SOOKDAR</div>
+            <div class="title">FULL-STACK ARCHITECT</div>
+            <div class="meta">16 ◆ ENTERPRISE, CHAGUANAS ◆ TRINIDAD & TOBAGO</div>
+        </div>
+        <div class="top-right">
+            <div class="identity-card">
+                <div class="identity-label">IDENTITY & LINKAGE</div>
+                <a href="mailto:KSookdar@proton.me" class="identity-line">✧ KSookdar@proton.me</a>
+                <a href="tel:+18687393193" class="identity-line">✧ +1 (868) 739-3193</a>
+                <a href="https://www.instagram.com/keyshaun.dev/" target="_blank" class="identity-line">✧ @keyshaun.dev</a>
+                <a href="https://www.facebook.com/Keyshaun%20Sookdar" target="_blank" class="identity-line">✧ /Keyshaun Sookdar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-row">
+        <div class="nav-bar">
+            <a href="j.html">JOURNAL</a>
+            <a href="hr.html">HIRE ME</a>
+            <a href="lib.html">LIBRARY</a>
+            <a href="workshop/index.html">WORKSHOP</a>
+            <a href="gallery.html">GALLERY</a>
+        </div>
+    </div>
+
+    <div class="center-video-wrapper">
+        <div class="video-frame">
+            <video id="main-video" src="cdn/assets/home.mp4" playsinline></video>
+        </div>
+    </div>
+
+    <div class="bottom-content">
+        <div class="bottom-left">
+            <div class="glassy-card">
+                <div class="card-label">ORIGIN STORY</div>
+                <div class="story-text">Started at <span class="highlight">13</span>. A game called <span class="highlight">"Lifting Simulator"</span> on Roblox sparked everything. A never-ending simulator that taught me to never stop.</div>
+                <div class="story-text mt">Watched creators build worlds. Learned 3D physics. Started with <span class="highlight">Assembly and pseudocode</span> — closest to binary. Learned how machines think, atom by atom.</div>
+                <div class="story-text mt italic">The never-ending pursuit. Every line is a step. Every system is a lesson. From metal to cloud, binary to bytes — I build with intention.</div>
+                <div class="quote">"Quality over quantity. Always."</div>
+            </div>
+        </div>
+
+        <div class="bottom-right">
+            <div class="glassy-card">
+                <div class="card-label">JOURNAL / PHILOSOPHY</div>
+                <div class="story-text">I don't chase trends — I chase understanding. From the metal to the cloud, from binary to bytes, I build with intention.</div>
+                <div class="story-text mt">The never-ending pursuit of mastery. Every line of code is a step forward. Every system built is a lesson learned.</div>
+                <div class="divider"></div>
+                <div class="founding">FOUNDER — WeTechWSS</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gesture-zone">
+        <div class="gesture-bar"></div>
+    </div>
+
+    <div id="nav-menu">
+        <button id="close-menu">[CLOSE]</button>
+        <div class="nav-links">
+            <a href="j.html">JOURNAL</a>
+            <a href="hr.html">HIRE ME</a>
+            <a href="lib.html">LIBRARY</a>
+            <a href="workshop/index.html">WORKSHOP</a>
+            <a href="gallery.html">GALLERY</a>
+        </div>
+    </div>
+</div>
+
+<script src="cdn/javascript/permissionhandler.js"></script>
+<script src="cdn/javascript/ks-js.js"></script>
+</body>
+</html>
