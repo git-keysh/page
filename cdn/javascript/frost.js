@@ -50,17 +50,18 @@ document.addEventListener("DOMContentLoaded",function(){
         video.autoplay = true;
         video.loop = false;
         video.controls = false;
-        
+
         if(rotateLeft && isMobile){
-            video.style.width = "auto";
-            video.style.height = "100%";
-            video.style.transform = "rotate(-90deg)";
-            video.style.transformOrigin = "center center";
+    video.style.width = "100%";
+    video.style.height = "100%";
+    video.style.objectFit = "contain";
+    video.style.transform = "rotate(-90deg) scale(1.4)";
+    video.style.transformOrigin = "center center";
         } else {
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.objectFit = "contain";
-        }
+    video.style.width = "100%";
+    video.style.height = "100%";
+    video.style.objectFit = "contain";
+}
         
         videoContainer.appendChild(video);
         currentVideo = video;
