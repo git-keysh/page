@@ -71,11 +71,13 @@ document.addEventListener("DOMContentLoaded",function(){
         video.style.left = "0";
         video.style.width = "100%";
         video.style.height = "100%";
-        video.style.objectFit = "contain";
+        video.style.objectFit = "cover";
         
         if(rotateForMobile && isMobile){
-            video.style.transform = "rotate(90deg)";
+            video.style.transform = "rotate(90deg) scale(1.2)";
             video.style.transformOrigin = "center center";
+            video.style.width = "auto";
+            video.style.height = "100%";
         }
         
         videoContainer.innerHTML = "";

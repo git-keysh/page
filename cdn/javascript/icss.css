@@ -11,19 +11,14 @@ body{background-color:#000;color:#fff;font-family:'SF Pro Display',-apple-system
 #prompt-text{margin-top:40px;font-size:1.3rem;color:#aaa;font-weight:300;opacity:0;transition:opacity 1s ease-in;}
 #prompt-text.show{opacity:1;animation:pulse 1.5s infinite alternate;}
 #video-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;display:none;justify-content:center;align-items:center;background:#000;}
-#video-container video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;}
+#video-container video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
 @keyframes pulse{from{opacity:.4;}to{opacity:1;}}
 @keyframes containerGlow{from{transform:scale(1);}to{transform:scale(1.01);}}
 @media(max-width:768px){#profile-img{width:220px;height:220px;border-radius:35px;}#name-text{font-size:2.5rem;}#prompt-text{font-size:1.1rem;}}
-@media (max-width: 768px) and (orientation: portrait){
+@media (max-width: 768px){
     #video-container video{
         width:100%;
-        height:auto;
-    }
-}
-@media (max-width: 768px) and (orientation: landscape){
-    #video-container video{
-        width:auto;
         height:100%;
+        object-fit:cover;
     }
 }
