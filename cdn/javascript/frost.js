@@ -8,8 +8,26 @@ document.addEventListener("DOMContentLoaded",function(){
     let isPlaying = false;
     let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     let hasVisited = localStorage.getItem("hasVisitedKeyshaun") === "true";
+    let audioUnlocked = false;
     
-    // Animation sequence for stage 1
+    function unlockAudioContext(){
+        if(audioUnlocked) return;
+        let silentVideo = document.createElement("video");
+        silentVideo.muted = false;
+        silentVideo.volume = 0.1;
+        silentVideo.play().then(function(){
+            silentVideo.pause();
+            silentVideo.currentTime = 0;
+            audioUnlocked = true;
+            console.log("Audio unlocked");
+        }).catch(function(e){
+            console.log("Audio unlock failed:", e);
+        });
+    }
+    
+    document.body.addEventListener("click", unlockAudioContext);
+    document.body.addEventListener("touchstart", unlockAudioContext);
+    
     setTimeout(function(){
         profileImg.classList.add("fade-in");
         setTimeout(function(){
@@ -25,15 +43,13 @@ document.addEventListener("DOMContentLoaded",function(){
         },1200)
     },500);
     
-    // Function to fade out stage 1
     function fadeOutStage1(callback){
         stage1.style.transition = "opacity 0.8s cubic-bezier(0.4,0,0.2,1)";
         stage1.style.opacity = "0";
         setTimeout(callback, 800);
     }
     
-    // Function to play video full screen with unmuted audio
-    function playVideo(videoSrc, callback, rotateLeft = false){
+    function playVideo(videoSrc, callback, rotateForMobile = false){
         videoContainer.style.display = "flex";
         videoContainer.style.opacity = "0";
         videoContainer.style.transition = "opacity 0.5s ease";
@@ -50,32 +66,35 @@ document.addEventListener("DOMContentLoaded",function(){
         video.autoplay = true;
         video.loop = false;
         video.controls = false;
-
-        if(rotateLeft && isMobile){
-    video.style.width = "100%";
-    video.style.height = "100%";
-    video.style.objectFit = "contain";
-    video.style.transform = "rotate(-90deg) scale(1.4)";
-    video.style.transformOrigin = "center center";
-        } else {
-    video.style.width = "100%";
-    video.style.height = "100%";
-    video.style.objectFit = "contain";
-}
+        video.style.position = "absolute";
+        video.style.top = "0";
+        video.style.left = "0";
+        video.style.width = "100%";
+        video.style.height = "100%";
+        video.style.objectFit = "contain";
         
+        if(rotateForMobile && isMobile){
+            video.style.transform = "rotate(90deg)";
+            video.style.transformOrigin = "center center";
+        }
+        
+        videoContainer.innerHTML = "";
         videoContainer.appendChild(video);
         currentVideo = video;
         
-        let playPromise = video.play();
-        if(playPromise !== undefined){
-            playPromise.catch(function(error){
-                console.log("Autoplay prevented, retrying with user interaction");
-                document.body.addEventListener("click", function retryPlay(){
-                    video.play().catch(function(){});
-                    document.body.removeEventListener("click", retryPlay);
-                }, {once: true});
-            });
+        function attemptPlay(){
+            let playPromise = video.play();
+            if(playPromise !== undefined){
+                playPromise.then(function(){
+                    console.log("Playing:", videoSrc);
+                }).catch(function(error){
+                    console.log("Autoplay failed, retrying:", error);
+                    setTimeout(attemptPlay, 500);
+                });
+            }
         }
+        
+        attemptPlay();
         
         video.addEventListener("ended", function(){
             videoContainer.style.transition = "opacity 0.5s ease";
@@ -88,7 +107,6 @@ document.addEventListener("DOMContentLoaded",function(){
         });
     }
     
-    // Function to handle mobile rotation flow
     function startMobileFlow(){
         fadeOutStage1(function(){
             playVideo("cdn/assets/rotation.mp4", function(){
@@ -96,25 +114,23 @@ document.addEventListener("DOMContentLoaded",function(){
                     playVideo("cdn/assets/itvrt.mp4", function(){
                         setTimeout(function(){
                             window.location.href = "home.html";
-                        }, 300);
+                        }, 2000);
                     }, true);
                 }, 500);
             });
         });
     }
     
-    // Function to handle desktop flow
     function startDesktopFlow(){
         fadeOutStage1(function(){
             playVideo("cdn/assets/itvrt.mp4", function(){
                 setTimeout(function(){
                     window.location.href = "home.html";
-                }, 100);
+                }, 2000);
             });
         });
     }
     
-    // Main logic for starting the experience
     function startExperience(){
         if(isPlaying) return;
         isPlaying = true;
@@ -130,7 +146,6 @@ document.addEventListener("DOMContentLoaded",function(){
         }
     }
     
-    // Second visit: auto-start after 1 second
     if(hasVisited){
         promptText.style.display = "none";
         setTimeout(function(){
@@ -138,9 +153,16 @@ document.addEventListener("DOMContentLoaded",function(){
         }, 1000);
     }
     
-    // First visit: wait for click
     document.body.addEventListener("click", function(){
         if(!hasVisited && !isPlaying){
+            unlockAudioContext();
+            startExperience();
+        }
+    });
+    
+    document.body.addEventListener("touchstart", function(){
+        if(!hasVisited && !isPlaying){
+            unlockAudioContext();
             startExperience();
         }
     });

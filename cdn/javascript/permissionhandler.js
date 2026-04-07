@@ -1,15 +1,6 @@
-// Permission handler to ensure unmuted audio on all browsers
 (function(){
-    // Preload videos to establish audio context
-    let videosToPreload = [];
+    let videosToPreload = ["cdn/assets/rotation.mp4", "cdn/assets/itvrt.mp4"];
     
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-        videosToPreload = ["cdn/assets/rotation.mp4", "cdn/assets/itvrt.mp4"];
-    } else {
-        videosToPreload = ["cdn/assets/itvrt.mp4"];
-    }
-    
-    // Preload videos
     videosToPreload.forEach(function(src){
         let video = document.createElement("video");
         video.preload = "auto";
@@ -18,7 +9,6 @@
         video.load();
     });
     
-    // Function to unlock audio on user interaction
     function unlockAudio(){
         let testVideo = document.createElement("video");
         testVideo.muted = false;
@@ -28,17 +18,19 @@
             playPromise.then(function(){
                 testVideo.pause();
                 testVideo.currentTime = 0;
-            }).catch(function(){
-                // Audio will be unlocked on actual play
+                console.log("Audio permission granted");
+            }).catch(function(e){
+                console.log("Audio still locked:", e);
             });
         }
         document.body.removeEventListener("click", unlockAudio);
         document.body.removeEventListener("touchstart", unlockAudio);
+        document.body.removeEventListener("touchend", unlockAudio);
     }
     
-    // Add event listeners to unlock audio on first user interaction
     document.body.addEventListener("click", unlockAudio);
     document.body.addEventListener("touchstart", unlockAudio);
+    document.body.addEventListener("touchend", unlockAudio);
     
-    console.log("Permission handler ready - audio will be unmuted on playback");
+    console.log("Permission handler ready - waiting for user interaction");
 })();
