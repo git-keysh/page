@@ -12,6 +12,80 @@ body{background-color:#000;color:#fff;font-family:'SF Pro Display',-apple-system
 #prompt-text.show{opacity:1;animation:pulse 1.5s infinite alternate;}
 #video-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;display:none;justify-content:center;align-items:center;background:#000;}
 #video-container video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;}
+#video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    overflow: hidden;
+}
+
+#video-container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.dust-left, .dust-right {
+    position: fixed;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 1s ease;
+    mix-blend-mode: screen;
+}
+
+.dust-left {
+    left: 0;
+    background: radial-gradient(circle at center, rgba(255, 20, 147, 0.6) 0%, rgba(255, 20, 147, 0) 70%);
+    box-shadow: 0 0 100px rgba(255, 20, 147, 0.4);
+}
+
+.dust-right {
+    right: 0;
+    background: radial-gradient(circle at center, rgba(0, 255, 127, 0.6) 0%, rgba(0, 255, 127, 0) 70%);
+    box-shadow: 0 0 100px rgba(0, 255, 127, 0.4);
+}
+
+.dust-left.active, .dust-right.active {
+    opacity: 1;
+}
+
+.dust-left.combined, .dust-right.combined {
+    transition: all 0.5s ease;
+}
+
+#dust-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1002;
+    mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+    .dust-left, .dust-right {
+        width: 50%;
+    }
+}
 @keyframes pulse{from{opacity:.4;}to{opacity:1;}}
 @keyframes containerGlow{from{transform:scale(1);}to{transform:scale(1.01);}}
 @media(max-width:768px){#profile-img{width:220px;height:220px;border-radius:35px;}#name-text{font-size:2.5rem;}#prompt-text{font-size:1.1rem;}}

@@ -9,6 +9,144 @@ document.addEventListener("DOMContentLoaded",async function(){
     let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     let hasVisited = localStorage.getItem("hasVisitedKeyshaun") === "true";
     let permissionGranted = false;
+    let dustElements = null;
+    let dustCanvas = null;
+    let ctx = null;
+    let particles = [];
+    let dustActive = false;
+    
+    function createDustElements(){
+        if(document.querySelector(".dust-left")) return;
+        
+        const leftDust = document.createElement("div");
+        leftDust.className = "dust-left";
+        const rightDust = document.createElement("div");
+        rightDust.className = "dust-right";
+        document.body.appendChild(leftDust);
+        document.body.appendChild(rightDust);
+        
+        dustCanvas = document.createElement("canvas");
+        dustCanvas.id = "dust-canvas";
+        document.body.appendChild(dustCanvas);
+        ctx = dustCanvas.getContext("2d");
+        
+        function resizeCanvas(){
+            dustCanvas.width = window.innerWidth;
+            dustCanvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+        
+        dustElements = { left: leftDust, right: rightDust };
+        
+        setTimeout(() => {
+            leftDust.classList.add("active");
+            rightDust.classList.add("active");
+            dustActive = true;
+            animateDust();
+        }, 3000);
+    }
+    
+    function animateDust(){
+        if(!dustActive) return;
+        
+        if(ctx){
+            ctx.clearRect(0, 0, dustCanvas.width, dustCanvas.height);
+            
+            particles.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02;
+                
+                if(p.life <= 0){
+                    particles.splice(i,1);
+                } else {
+                    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                    gradient.addColorStop(0, p.color);
+                    gradient.addColorStop(1, "transparent");
+                    ctx.fillStyle = gradient;
+                    ctx.globalAlpha = p.life * 0.8;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+        }
+        
+        requestAnimationFrame(animateDust);
+    }
+    
+    function addDustParticle(x, y, isLeft){
+        const color = isLeft ? "rgba(255, 20, 147, 0.8)" : "rgba(0, 255, 127, 0.8)";
+        particles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4 - 2,
+            size: Math.random() * 15 + 5,
+            life: 1,
+            color: color
+        });
+    }
+    
+    function handleMouseMove(e){
+        if(!dustActive) return;
+        
+        const x = e.clientX;
+        const y = e.clientY;
+        const screenWidth = window.innerWidth;
+        
+        const isLeft = x < screenWidth / 2;
+        
+        for(let i = 0; i < 5; i++){
+            addDustParticle(x + (Math.random() - 0.5) * 30, y + (Math.random() - 0.5) * 30, isLeft);
+        }
+        
+        if(dustElements){
+            if(isLeft){
+                dustElements.left.style.transform = `translateX(${Math.min(30, (screenWidth/2 - x) / 20)}px)`;
+            } else {
+                dustElements.right.style.transform = `translateX(${Math.max(-30, (screenWidth/2 - x) / 20)}px)`;
+            }
+        }
+    }
+    
+    function handleTouchMove(e){
+        e.preventDefault();
+        const touch = e.touches[0];
+        if(touch){
+            handleMouseMove(touch);
+        }
+    }
+    
+    function combineDust(){
+        if(!dustElements) return;
+        
+        dustElements.left.style.transition = "all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+        dustElements.right.style.transition = "all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+        
+        dustElements.left.style.transform = "translateX(100%)";
+        dustElements.right.style.transform = "translateX(-100%)";
+        dustElements.left.style.opacity = "0";
+        dustElements.right.style.opacity = "0";
+        
+        for(let i = 0; i < 100; i++){
+            setTimeout(() => {
+                addDustParticle(
+                    Math.random() * window.innerWidth,
+                    Math.random() * window.innerHeight,
+                    Math.random() > 0.5
+                );
+            }, i * 20);
+        }
+        
+        setTimeout(() => {
+            if(dustElements.left) dustElements.left.remove();
+            if(dustElements.right) dustElements.right.remove();
+            if(dustCanvas) dustCanvas.remove();
+            dustActive = false;
+        }, 2000);
+    }
     
     if(window.checkAutoplayPermission){
         await window.checkAutoplayPermission();
@@ -54,7 +192,6 @@ document.addEventListener("DOMContentLoaded",async function(){
         video.style.position = "absolute";
         video.style.top = "50%";
         video.style.left = "50%";
-        video.style.transform = "translate(-50%, -50%)";
         
         if(permissionGranted){
             video.muted = false;
@@ -70,27 +207,41 @@ document.addEventListener("DOMContentLoaded",async function(){
             if(window.setMobileVideoRotation){
                 window.setMobileVideoRotation(true);
             }
+            video.style.width = "auto";
+            video.style.height = "100%";
+            video.style.transform = "translate(-50%, -50%) rotate(90deg)";
+            video.style.objectFit = "cover";
         } else if(isMobile){
             if(window.setMobileVideoRotation){
                 window.setMobileVideoRotation(false);
             }
-        }
-        
-        if(isMobile){
-            video.style.maxWidth = "100%";
-            video.style.maxHeight = "100%";
-            video.style.width = "auto";
-            video.style.height = "auto";
-            video.style.objectFit = "contain";
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.transform = "translate(-50%, -50%)";
+            video.style.objectFit = "cover";
         } else {
             video.style.width = "100%";
             video.style.height = "100%";
-            video.style.objectFit = "contain";
+            video.style.transform = "translate(-50%, -50%)";
+            video.style.objectFit = "cover";
         }
+        
+        video.style.minWidth = "100%";
+        video.style.minHeight = "100%";
         
         try {
             await video.play();
             console.log("Playing:", videoSrc);
+            
+            if(videoSrc.includes("itvrt.mp4")){
+                createDustElements();
+                document.addEventListener("mousemove", handleMouseMove);
+                document.addEventListener("touchmove", handleTouchMove, { passive: false });
+                
+                setTimeout(() => {
+                    combineDust();
+                }, 8000);
+            }
         } catch(error) {
             console.log("Play failed:", error);
             video.muted = true;

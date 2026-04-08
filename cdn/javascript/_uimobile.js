@@ -1,48 +1,28 @@
 (function(){
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    if(!isMobile) return;
-    
     function fixMobileVideo(videoElement, isRotated = false){
         if(!videoElement) return;
         
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
-        const screenRatio = screenWidth / screenHeight;
-        
-        let videoWidth = 848;
-        let videoHeight = 478;
         
         if(isRotated){
-            videoWidth = 478;
-            videoHeight = 848;
-        }
-        
-        const videoRatio = videoWidth / videoHeight;
-        
-        let scaleWidth, scaleHeight;
-        
-        if(videoRatio > screenRatio){
-            scaleWidth = screenWidth;
-            scaleHeight = screenWidth / videoRatio;
+            videoElement.style.width = screenHeight + "px";
+            videoElement.style.height = screenWidth + "px";
+            videoElement.style.transform = "translate(-50%, -50%) rotate(90deg)";
         } else {
-            scaleHeight = screenHeight;
-            scaleWidth = screenHeight * videoRatio;
+            videoElement.style.width = "100%";
+            videoElement.style.height = "100%";
+            videoElement.style.transform = "translate(-50%, -50%)";
         }
         
         videoElement.style.position = "absolute";
         videoElement.style.top = "50%";
         videoElement.style.left = "50%";
-        videoElement.style.transform = "translate(-50%, -50%)";
-        videoElement.style.width = scaleWidth + "px";
-        videoElement.style.height = scaleHeight + "px";
+        videoElement.style.objectFit = "cover";
         videoElement.style.maxWidth = "none";
         videoElement.style.maxHeight = "none";
-        videoElement.style.objectFit = "contain";
-        
-        if(isRotated){
-            videoElement.style.transform = "translate(-50%, -50%) rotate(90deg)";
-        }
     }
     
     function observeVideoContainer(){
@@ -89,5 +69,5 @@
     
     observeVideoContainer();
     
-    console.log("Mobile video fixer loaded");
+    console.log("Mobile video fixer loaded - full screen cover mode");
 })();
