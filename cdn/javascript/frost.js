@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded",async function(){
     let profileImg = document.getElementById("profile-img");
     let nameText = document.getElementById("name-text");
     let promptText = document.getElementById("prompt-text");
@@ -8,25 +8,10 @@ document.addEventListener("DOMContentLoaded",function(){
     let isPlaying = false;
     let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     let hasVisited = localStorage.getItem("hasVisitedKeyshaun") === "true";
-    let audioUnlocked = false;
+    let permissionGranted = false;
     
-    function unlockAudioContext(){
-        if(audioUnlocked) return;
-        let silentVideo = document.createElement("video");
-        silentVideo.muted = false;
-        silentVideo.volume = 0.1;
-        silentVideo.play().then(function(){
-            silentVideo.pause();
-            silentVideo.currentTime = 0;
-            audioUnlocked = true;
-            console.log("Audio unlocked");
-        }).catch(function(e){
-            console.log("Audio unlock failed:", e);
-        });
-    }
-    
-    document.body.addEventListener("click", unlockAudioContext);
-    document.body.addEventListener("touchstart", unlockAudioContext);
+    await window.checkAutoplayPermission();
+    permissionGranted = localStorage.getItem("autoplayPermission") === "granted";
     
     setTimeout(function(){
         profileImg.classList.add("fade-in");
@@ -49,7 +34,7 @@ document.addEventListener("DOMContentLoaded",function(){
         setTimeout(callback, 800);
     }
     
-    function playVideo(videoSrc, callback, rotateForMobile = false){
+    async function playVideo(videoSrc, callback, rotateForMobile = false){
         videoContainer.style.display = "flex";
         videoContainer.style.opacity = "0";
         videoContainer.style.transition = "opacity 0.5s ease";
@@ -62,8 +47,6 @@ document.addEventListener("DOMContentLoaded",function(){
         video.src = videoSrc;
         video.playsInline = true;
         video.webkitPlaysInline = true;
-        video.muted = false;
-        video.autoplay = true;
         video.loop = false;
         video.controls = false;
         video.style.position = "absolute";
@@ -71,32 +54,43 @@ document.addEventListener("DOMContentLoaded",function(){
         video.style.left = "0";
         video.style.width = "100%";
         video.style.height = "100%";
-        video.style.objectFit = "cover";
+        
+        if(isMobile){
+            video.style.objectFit = "cover";
+        } else {
+            video.style.objectFit = "contain";
+        }
         
         if(rotateForMobile && isMobile){
-            video.style.transform = "rotate(90deg) scale(1.2)";
+            video.style.transform = "rotate(90deg)";
             video.style.transformOrigin = "center center";
             video.style.width = "auto";
             video.style.height = "100%";
+        }
+        
+        if(permissionGranted){
+            video.muted = false;
+        } else {
+            video.muted = true;
         }
         
         videoContainer.innerHTML = "";
         videoContainer.appendChild(video);
         currentVideo = video;
         
-        function attemptPlay(){
-            let playPromise = video.play();
-            if(playPromise !== undefined){
-                playPromise.then(function(){
-                    console.log("Playing:", videoSrc);
-                }).catch(function(error){
-                    console.log("Autoplay failed, retrying:", error);
-                    setTimeout(attemptPlay, 500);
-                });
+        try {
+            await video.play();
+            console.log("Playing:", videoSrc);
+        } catch(error) {
+            console.log("Play failed:", error);
+            video.muted = true;
+            try {
+                await video.play();
+                console.log("Playing muted:", videoSrc);
+            } catch(e2) {
+                console.log("Cannot play even muted");
             }
         }
-        
-        attemptPlay();
         
         video.addEventListener("ended", function(){
             videoContainer.style.transition = "opacity 0.5s ease";
@@ -157,14 +151,12 @@ document.addEventListener("DOMContentLoaded",function(){
     
     document.body.addEventListener("click", function(){
         if(!hasVisited && !isPlaying){
-            unlockAudioContext();
             startExperience();
         }
     });
     
     document.body.addEventListener("touchstart", function(){
         if(!hasVisited && !isPlaying){
-            unlockAudioContext();
             startExperience();
         }
     });
