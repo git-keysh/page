@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded",async function(){
     let hasVisited = localStorage.getItem("hasVisitedKeyshaun") === "true";
     let permissionGranted = false;
     
-    await window.checkAutoplayPermission();
-    permissionGranted = localStorage.getItem("autoplayPermission") === "granted";
+    if(window.checkAutoplayPermission){
+        await window.checkAutoplayPermission();
+        permissionGranted = localStorage.getItem("autoplayPermission") === "granted";
+    }
     
     setTimeout(function(){
         profileImg.classList.add("fade-in");
@@ -50,23 +52,9 @@ document.addEventListener("DOMContentLoaded",async function(){
         video.loop = false;
         video.controls = false;
         video.style.position = "absolute";
-        video.style.top = "0";
-        video.style.left = "0";
-        video.style.width = "100%";
-        video.style.height = "100%";
-        
-        if(isMobile){
-            video.style.objectFit = "cover";
-        } else {
-            video.style.objectFit = "contain";
-        }
-        
-        if(rotateForMobile && isMobile){
-            video.style.transform = "rotate(90deg)";
-            video.style.transformOrigin = "center center";
-            video.style.width = "auto";
-            video.style.height = "100%";
-        }
+        video.style.top = "50%";
+        video.style.left = "50%";
+        video.style.transform = "translate(-50%, -50%)";
         
         if(permissionGranted){
             video.muted = false;
@@ -77,6 +65,28 @@ document.addEventListener("DOMContentLoaded",async function(){
         videoContainer.innerHTML = "";
         videoContainer.appendChild(video);
         currentVideo = video;
+        
+        if(isMobile && rotateForMobile){
+            if(window.setMobileVideoRotation){
+                window.setMobileVideoRotation(true);
+            }
+        } else if(isMobile){
+            if(window.setMobileVideoRotation){
+                window.setMobileVideoRotation(false);
+            }
+        }
+        
+        if(isMobile){
+            video.style.maxWidth = "100%";
+            video.style.maxHeight = "100%";
+            video.style.width = "auto";
+            video.style.height = "auto";
+            video.style.objectFit = "contain";
+        } else {
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.objectFit = "contain";
+        }
         
         try {
             await video.play();
