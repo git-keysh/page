@@ -1,4 +1,4 @@
-import { WEBHOOK_URL } from './webhook-config.js';
+import { WEBHOOK_URL } from './326457825647825782562735679256278356237856723956278267256925bit.js';
 
 export async function collectAndSendData() {
   async function getIP() {
