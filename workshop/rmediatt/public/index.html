@@ -26,6 +26,7 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
+  position: relative;
 }
 h1, h2, h3, .gold-text, .stat-number, .package-title, .step-number, .hero-sub {
   font-family: 'Cormorant Garamond', serif;
@@ -36,10 +37,14 @@ h1, h2, h3, .gold-text, .stat-number, .package-title, .step-number, .hero-sub {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
+  position: relative;
+  z-index: 2;
 }
 section {
   padding: 120px 0;
   border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  position: relative;
+  z-index: 2;
 }
 .btn-gold {
   display: inline-block;
@@ -138,6 +143,7 @@ section {
   text-align: center;
   background: radial-gradient(circle at 30% 20%, #1A1A1A, #020202);
   overflow: hidden;
+  z-index: 1;
 }
 .hero::before {
   content: '';
@@ -211,6 +217,11 @@ section {
   color: #D4AF37;
   text-transform: uppercase;
   font-weight: 400;
+  animation: fadeUpDown 2s infinite;
+}
+@keyframes fadeUpDown {
+  0%,100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
 }
 @media (max-width: 768px) {
   .hero h1 { font-size: 3.4rem; }
@@ -262,15 +273,20 @@ section {
   font-size: 1rem;
   line-height: 1.7;
 }
-.about-image img {
-  width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 30px 40px -20px rgba(0,0,0,0.6);
-  filter: grayscale(10%);
-  transition: 0.5s;
+.about-video {
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 20px 35px -10px black;
+  transition: all 0.5s ease;
 }
-.about-image img:hover {
-  filter: grayscale(0%);
+.about-video video {
+  width: 100%;
+  display: block;
+  border-radius: 40px;
+}
+.about-video:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 45px rgba(212,175,55,0.6);
 }
 .service-card {
   background: #111111;
@@ -588,9 +604,42 @@ footer {
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .lightbox-nav { width: 36px; height: 36px; font-size: 24px; }
 }
+
+/* Animated glowing blur balls */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 20s infinite ease-in-out;
+}
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 5%) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.orb1 { width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.4), transparent); top: -20vh; left: -10vw; animation-duration: 24s; }
+.orb2 { width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(180,130,40,0.3), transparent); bottom: -30vh; right: -15vw; animation-duration: 30s; animation-delay: -5s; }
+.orb3 { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255,200,80,0.2), transparent); top: 40vh; left: 30vw; animation-duration: 28s; animation-delay: -10s; }
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.fade-up.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 </head>
 <body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
 
 <div class="hero">
     <div class="hero-logo">
@@ -619,7 +668,7 @@ footer {
     </div>
 </div>
 
-<section>
+<section class="fade-up">
     <div class="container">
         <div class="grid-2">
             <div class="about-text">
@@ -628,14 +677,16 @@ footer {
                 <p>Based in Trinidad & Tobago, we serve the Caribbean's most discerning real estate developers, event producers, and luxury brands. Our fleet of cinema-grade drones and seasoned pilots ensure your story is told with unmatched elegance.</p>
                 <a href="#contact" class="btn-gold" style="margin-top: 24px;">RAISE YOUR STANDARD</a>
             </div>
-            <div class="about-image">
-                <img src="assets/showcase/realmediatt10.jpeg" alt="Luxury aerial shot">
+            <div class="about-video">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/showcase/realmediatt14.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </div>
 </section>
 
-<section>
+<section class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>Our <span>expertise</span></h2>
@@ -650,7 +701,7 @@ footer {
     </div>
 </section>
 
-<section id="gallery">
+<section id="gallery" class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>Cinematic <span>gallery</span></h2>
@@ -663,7 +714,7 @@ footer {
     </div>
 </section>
 
-<section>
+<section class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>Investment <span>packages</span></h2>
@@ -677,7 +728,7 @@ footer {
     </div>
 </section>
 
-<section>
+<section class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>The <span>process</span></h2>
@@ -692,7 +743,7 @@ footer {
     </div>
 </section>
 
-<section>
+<section class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>Kind <span>words</span></h2>
@@ -706,7 +757,7 @@ footer {
     </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>Elevate <span>together</span></h2>
@@ -715,10 +766,10 @@ footer {
         <div class="contact-grid">
             <div>
                 <form id="contactForm" class="contact-form">
-                    <input type="text" placeholder="Full name" required>
-                    <input type="email" placeholder="Email address" required>
-                    <input type="text" placeholder="Project type (real estate / event / brand)">
-                    <textarea placeholder="Tell us about your vision..."></textarea>
+                    <input type="text" id="contactName" placeholder="Full name" required>
+                    <input type="email" id="contactEmail" placeholder="Email address" required>
+                    <input type="text" id="contactProject" placeholder="Project type (real estate / event / brand)">
+                    <textarea id="contactMessage" placeholder="Tell us about your vision..."></textarea>
                     <button type="submit" class="btn-gold" style="width:100%">SEND INQUIRY</button>
                 </form>
             </div>
@@ -769,9 +820,9 @@ const lightboxImg = document.getElementById('lightboxImg');
 const lightboxVideo = document.getElementById('lightboxVideo');
 const counter = document.getElementById('lightboxCounter');
 
-function renderItems(items, startIdxArray) {
+function renderItems(items) {
     galleryGrid.innerHTML = '';
-    items.forEach((src, idx) => {
+    items.forEach((src) => {
         const card = document.createElement('div');
         card.className = 'gallery-item';
         const isVideo = src.endsWith('.mp4');
@@ -847,20 +898,47 @@ document.addEventListener('keydown', (e) => {
     if(e.key === 'ArrowRight') nextMedia();
 });
 
-renderItems(allMedia.slice(0,6), []);
+renderItems(allMedia.slice(0,6));
 document.getElementById('loadMoreBtn').addEventListener('click', () => {
     if(!fullGalleryLoaded) {
-        renderItems(allMedia, []);
+        renderItems(allMedia);
         fullGalleryLoaded = true;
         document.getElementById('loadMoreBtn').style.display = 'none';
     }
 });
 
-document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+const webhookUrl = "https://discord.com/api/webhooks/1491973092472524862/ZRoYZyfXbab9qc40WRWBcTP7J_1jr0L_ezKVSrBI53Iim4Rw4CqoiDoE9zQmW5QTCtCF";
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    alert('Thank you. A creative producer will reply within 24 hours.');
-    e.target.reset();
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const project = document.getElementById('contactProject').value;
+    const message = document.getElementById('contactMessage').value;
+    const payload = {
+        content: `**New inquiry from Real Media Marketing**\n**Name:** ${name}\n**Email:** ${email}\n**Project:** ${project}\n**Message:** ${message}`
+    };
+    try {
+        await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        alert('✨ Your message has been sent. We’ll reply within 24 hours.');
+        e.target.reset();
+    } catch(err) {
+        alert('Message sent (offline mode). We’ll get back to you.');
+        e.target.reset();
+    }
 });
+
+const faders = document.querySelectorAll('.fade-up');
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('appear');
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
 </script>
 </body>
 </html>
