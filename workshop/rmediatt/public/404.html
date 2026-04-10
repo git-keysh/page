@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Page Not Found</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+        text-align: center;
+    }
+    .container {
+        background: linear-gradient(145deg, #1c1c1c, #121212);
+        padding: 50px 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3), 0 4px 10px rgba(0,0,0,0.5);
+        max-width: 400px;
+        width: 90%;
+        position: relative;
+    }
+    h1 {
+        font-size: 64px;
+        color: #ffa500;
+        margin: 0 0 16px;
+        text-shadow: 0 0 12px #ffa500, 0 0 24px #ffd700;
+    }
+    h2 {
+        font-size: 24px;
+        margin: 0 0 16px;
+        color: #fff;
+    }
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #ccc;
+        margin-bottom: 24px;
+    }
+    a.email-link {
+        color: #00bfff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-bottom: 16px;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    a.email-link:hover {
+        text-shadow: 0 0 12px #00bfff;
+    }
+    a.dev-link {
+        display: inline-block;
+        margin-top: 16px;
+        color: #ffa500;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid #ffa500;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+    a.dev-link:hover {
+        background: #ffa500;
+        color: #000;
+        box-shadow: 0 0 16px #ffa500;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>I don't seem to know this page</h2>
+        <p>Please message the developer at:</p>
+        <a href="mailto:KSookdar@proton.me" class="email-link">KSookdar@proton.me</a>
+        <a href="https://keyshaun.pages.dev" target="_blank" class="dev-link">Visit Developer's Page</a>
+    </div>
+</body>
+</html>
