@@ -11,18 +11,30 @@
       0% { opacity: 0; transform: translateX(10px); }
       100% { opacity: 1; transform: translateX(0); }
     }
+    .clean-hero {
+      background: #fefaf5;
+      border-radius: 48px;
+      padding: 32px 24px;
+      margin-bottom: 30px;
+      border: 1px solid #e6ddd2;
+    }
+    .clean-hero h2 { font-size: 2.6rem; font-weight: 600; color: #1c1c28; }
+    .order-hero-btn {
+      background: #1e1e2f;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 700;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
     .clean-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .clean-header h2 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: #1c1c28;
-      letter-spacing: -0.02em;
     }
     .carousel-track {
       display: flex;
@@ -31,15 +43,8 @@
       scroll-snap-type: x mandatory;
       padding: 10px 4px 20px;
       scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
     }
-    .carousel-track::-webkit-scrollbar {
-      height: 5px;
-    }
-    .carousel-track::-webkit-scrollbar-thumb {
-      background: #aaa;
-      border-radius: 20px;
-    }
+    .carousel-track::-webkit-scrollbar { height: 5px; }
     .clean-card {
       flex: 0 0 260px;
       scroll-snap-align: start;
@@ -47,75 +52,75 @@
       border-radius: 38px;
       padding: 18px 16px 22px;
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.3s;
       border: 1px solid #f0ebe6;
-      transform: scale(0.98);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .clean-card:hover {
-      transform: scale(1);
-      box-shadow: 0 20px 30px -8px rgba(0,0,0,0.12);
-    }
+    .clean-card:hover { transform: scale(1.01); box-shadow: 0 20px 30px -8px rgba(0,0,0,0.12); }
     .clean-card img {
       width: 100%;
       aspect-ratio: 1/1;
       object-fit: cover;
       border-radius: 28px;
-      background: #eae3db;
-      transition: filter 0.2s;
     }
-    .clean-card h4 {
-      margin: 14px 0 4px;
-      font-weight: 650;
-      font-size: 1.3rem;
+    .clean-card h4 { margin: 14px 0 4px; font-weight: 650; }
+    .price { font-weight: 600; color: #1e1e2f; }
+    .clean-btn {
+      background: #1e1e2f;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 30px;
+      margin-top: 14px;
+      font-weight: 700;
+      cursor: pointer;
     }
-    .price {
-      font-weight: 600;
-      color: #1e1e2f;
-    }
-    .clean-note {
-      margin-top: 30px;
-      font-style: italic;
-      color: #5f5f74;
-    }
-    @media (min-width: 640px) {
-      .clean-card {
-        flex: 0 0 280px;
-      }
-    }
+    .clean-note { margin-top: 30px; font-style: italic; }
   </style>
+  <div class="clean-hero">
+    <h2>MINIMAL.<br>MAX IMPACT.</h2>
+    <p style="margin:10px 0;">Premium blanks, free shipping.</p>
+    <button class="order-hero-btn order-now-btn">DESIGN YOURS →</button>
+  </div>
   <div class="clean-header">
-    <h2>CLEAN CUT · ESSENTIALS</h2>
-    <span style="font-weight: 500;">swipe →</span>
+    <h2 style="font-size:2rem;">CLEAN CUT</h2>
+    <span>swipe →</span>
   </div>
   <div class="carousel-track">
     <div class="clean-card">
-      <img src="https://printify.com/wp-content/uploads/2025/04/Gildan-5000-unisex-heavy-cotton-tee-1024x1024.png" alt="Gildan tee">
+      <img src="https://printify.com/wp-content/uploads/2025/04/Gildan-5000-unisex-heavy-cotton-tee-1024x1024.png" alt="Gildan">
       <h4>HEAVY COTTON</h4>
       <span class="price">$26</span>
+      <button class="clean-btn">ORDER</button>
     </div>
     <div class="clean-card">
-      <img src="https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997" alt="Heather grey">
+      <img src="https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997" alt="Heather">
       <h4>SOFT WASH</h4>
       <span class="price">$32</span>
+      <button class="clean-btn">ORDER</button>
     </div>
     <div class="clean-card">
-      <img src="https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200" alt="Ethnic print">
+      <img src="https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200" alt="Ethnic">
       <h4>ETHNIC VIBE</h4>
       <span class="price">$39</span>
+      <button class="clean-btn">ORDER</button>
     </div>
     <div class="clean-card">
-      <img src="https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634" alt="Personalised">
+      <img src="https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634" alt="Custom">
       <h4>CUSTOM NAME</h4>
       <span class="price">$44</span>
+      <button class="clean-btn">ORDER</button>
     </div>
     <div class="clean-card">
-      <img src="https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929" alt="Couple tee">
+      <img src="https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929" alt="Couple">
       <h4>MATCHING SET</h4>
       <span class="price">$52</span>
+      <button class="clean-btn">ORDER</button>
     </div>
   </div>
-  <div class="clean-note">
-    ⚡ free worldwide shipping · 2-4 days
+  <div class="clean-note">⚡ free worldwide shipping · 2-4 days</div>
+  <div style="margin:40px 0 20px; background:#f4efe9; border-radius:40px; padding:20px;">
+    <h3>🎨 Bulk order? We got you.</h3>
+    <button class="clean-btn" style="width:auto; padding:12px 30px;">GET QUOTE</button>
   </div>
 </div>
