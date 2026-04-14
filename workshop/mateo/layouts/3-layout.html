@@ -1,95 +1,26 @@
 <!-- layouts/3-layout.html -->
 <div class="layout-vivid">
   <style>
-    .layout-vivid {
-      padding: 18px 14px 30px;
-      max-width: 1400px;
-      margin: 0 auto;
-      animation: vividPop 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes vividPop {
-      0% { opacity: 0; transform: scale(0.96) translateY(12px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .vivid-banner {
-      background: radial-gradient(circle at 0% 30%, #b2562a, #1e1e2f);
-      border-radius: 48px;
-      padding: 30px 20px;
-      color: white;
-      margin-bottom: 30px;
-    }
+    .layout-vivid { padding: 18px 14px 30px; max-width: 1400px; margin: 0 auto; animation: vividPop 0.55s; }
+    @keyframes vividPop { 0% { opacity: 0; transform: scale(0.96) translateY(12px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    .vivid-banner { background: radial-gradient(circle at 0% 30%, #b2562a, #1e1e2f); border-radius: 48px; padding: 30px 20px; color: white; margin-bottom: 30px; }
     .vivid-banner h2 { font-size: 2.8rem; font-weight: 800; }
-    .masonry-grid {
-      column-count: 2;
-      column-gap: 16px;
-    }
-    .masonry-item {
-      break-inside: avoid;
-      margin-bottom: 18px;
-      background: #fefcf9;
-      border-radius: 32px;
-      padding: 14px 12px 18px;
-      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.12);
-      transition: all 0.25s;
-      border: 1px solid #ede6df;
-    }
-    .masonry-item:hover { transform: translateY(-6px); }
+    .masonry-grid { column-count: 2; column-gap: 16px; }
+    .masonry-item { break-inside: avoid; margin-bottom: 18px; background: #fefcf9; border-radius: 32px; padding: 14px 12px 18px; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.12); }
     .masonry-item img { width: 100%; border-radius: 26px; }
-    .masonry-item h4 { margin: 14px 0 4px; font-weight: 700; font-size: 1.4rem; }
-    .order-masonry {
-      background: #1e1e2f;
-      color: white;
-      border: none;
-      width: 100%;
-      padding: 12px;
-      border-radius: 30px;
-      margin-top: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    .order-masonry { background: #1e1e2f; color: white; border: none; width: 100%; padding: 12px; border-radius: 30px; margin-top: 12px; font-weight: 700; cursor: pointer; }
     @media (min-width: 640px) { .masonry-grid { column-count: 3; } }
   </style>
   <div class="vivid-banner">
     <h2>VIVID FLOW</h2>
-    <p style="font-size:1.3rem;">Art-driven. Limited drops.</p>
     <button class="order-hero-btn" style="background:white; color:#1e1e2f; margin-top:20px; padding:14px 28px; border-radius:40px; font-weight:800; border:none;">SHOP COLLECTION</button>
   </div>
   <div class="masonry-grid">
-    <div class="masonry-item">
-      <img src="https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg">
-      <h4>DESERT DYE</h4>
-      <p>$36 · pigment</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
-    <div class="masonry-item">
-      <img src="https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200">
-      <h4>TRIBAL SPIRIT</h4>
-      <p>$42 · waterbased</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
-    <div class="masonry-item">
-      <img src="https://ucsdguardian.org/wp-content/uploads/2025/05/Michael-Ho-Charlie-Kirk1-1200x800.jpg">
-      <h4>STREET CULT</h4>
-      <p>$48 · oversized</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
-    <div class="masonry-item">
-      <img src="https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929">
-      <h4>DUO REAR</h4>
-      <p>$52 · puff</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
-    <div class="masonry-item">
-      <img src="https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634">
-      <h4>MONOGRAM</h4>
-      <p>$45 · embroidery</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
-    <div class="masonry-item">
-      <img src="https://printify.com/wp-content/uploads/2025/04/Gildan-5000-unisex-heavy-cotton-tee-1024x1024.png">
-      <h4>HEAVYWEIGHT</h4>
-      <p>$30 · classic</p>
-      <button class="order-masonry">ORDER NOW</button>
-    </div>
+    <div class="masonry-item"><img src="https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg"><h4>DESERT DYE</h4><p>$36 · pigment</p><button class="order-masonry">ORDER NOW</button></div>
+    <div class="masonry-item"><img src="https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200"><h4>TRIBAL SPIRIT</h4><p>$42</p><button class="order-masonry">ORDER NOW</button></div>
+    <div class="masonry-item"><img src="https://ucsdguardian.org/wp-content/uploads/2025/05/Michael-Ho-Charlie-Kirk1-1200x800.jpg"><h4>STREET CULT</h4><p>$48</p><button class="order-masonry">ORDER NOW</button></div>
+    <div class="masonry-item"><img src="https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929"><h4>DUO REAR</h4><p>$52</p><button class="order-masonry">ORDER NOW</button></div>
+    <div class="masonry-item"><img src="https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634"><h4>MONOGRAM</h4><p>$45</p><button class="order-masonry">ORDER NOW</button></div>
+    <div class="masonry-item"><img src="https://printify.com/wp-content/uploads/2025/04/Gildan-5000-unisex-heavy-cotton-tee-1024x1024.png"><h4>HEAVYWEIGHT</h4><p>$30</p><button class="order-masonry">ORDER NOW</button></div>
   </div>
 </div>
