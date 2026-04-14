@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Mateo Shirt Designs</title>
+  <title>Mateo Shirt Designs · Print That Speaks</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       background: #f5f3f0;
@@ -19,14 +18,13 @@
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
-
     .app-header {
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 40;
       background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       padding: 12px 20px;
       display: flex;
       align-items: center;
@@ -34,7 +32,6 @@
       border-bottom: 1px solid rgba(0,0,0,0.05);
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
-
     .brand {
       font-weight: 700;
       font-size: 1.6rem;
@@ -45,7 +42,46 @@
       color: transparent;
       transform: translateZ(0);
     }
-
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .cart-icon {
+      background: #1e1e2f;
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #ff5e57;
+      color: white;
+      border-radius: 30px;
+      min-width: 22px;
+      height: 22px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+      font-weight: 700;
+      border: 2px solid white;
+    }
     .change-layout-btn {
       background: #1e1e2f;
       color: white;
@@ -55,20 +91,16 @@
       font-weight: 600;
       font-size: 0.9rem;
       letter-spacing: 0.3px;
-      backdrop-filter: blur(4px);
       box-shadow: 0 6px 14px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
       border: 1px solid rgba(255,255,255,0.1);
       will-change: transform;
+      backdrop-filter: blur(4px);
     }
-
-    .change-layout-btn:active {
+    .change-layout-btn:active, .cart-icon:active {
       transform: scale(0.94);
-      background: #2f2f44;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-
     .selection-screen {
       flex: 1;
       display: flex;
@@ -78,7 +110,6 @@
       padding: 24px 16px;
       animation: fadeSlideUp 0.45s ease-out;
     }
-
     .selection-title {
       font-size: 2rem;
       font-weight: 700;
@@ -87,7 +118,6 @@
       color: #1e1e2f;
       text-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
-
     .layout-cards {
       display: flex;
       flex-wrap: wrap;
@@ -96,7 +126,6 @@
       max-width: 1100px;
       width: 100%;
     }
-
     .layout-card {
       flex: 1 1 240px;
       min-width: 220px;
@@ -110,14 +139,11 @@
       border: 1px solid rgba(255,255,255,0.5);
       backdrop-filter: blur(4px);
       transform: translateY(0);
-      will-change: transform, box-shadow;
     }
-
     .layout-card:hover {
       transform: translateY(-10px) scale(1.02);
       box-shadow: 0 30px 45px -12px rgba(0,0,0,0.25);
     }
-
     .card-preview {
       height: 140px;
       background: #e9e4dd;
@@ -130,41 +156,25 @@
       color: #2a2a3a;
       background-size: cover;
       background-position: center;
-      transition: transform 0.2s;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .layout-card h3 {
       font-size: 1.7rem;
       font-weight: 700;
       margin-bottom: 6px;
       color: #1e1e2f;
     }
-
-    .layout-card p {
-      color: #5a5a6e;
-      font-weight: 500;
-    }
-
     #layout-container {
       flex: 1;
       width: 100%;
       transition: opacity 0.3s;
     }
-
     .hidden {
       display: none !important;
     }
-
     @keyframes fadeSlideUp {
       0% { opacity: 0; transform: translateY(16px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
-    .fade-in {
-      animation: fadeSlideUp 0.4s ease-out;
-    }
-
     .global-footer {
       padding: 16px;
       text-align: center;
@@ -172,34 +182,73 @@
       color: #7a7a8a;
       border-top: 1px solid rgba(0,0,0,0.03);
     }
-
     button {
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+    }
+    .cart-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 20px;
+      right: 20px;
+      background: #1e1e2f;
+      color: white;
+      padding: 16px 22px;
+      border-radius: 60px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 100;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .cart-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .view-cart-btn {
+      background: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 700;
+      color: #1e1e2f;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header class="app-header">
     <span class="brand">MATEO SHIRT DESIGNS</span>
-    <button class="change-layout-btn" id="changeLayoutBtn">CHANGE LAYOUT</button>
+    <div class="header-actions">
+      <button class="cart-icon" id="cartButton">🛒<span class="cart-count" id="cartCount">0</span></button>
+      <button class="change-layout-btn" id="changeLayoutBtn">CHANGE LAYOUT</button>
+    </div>
   </header>
 
   <div id="selectionScreen" class="selection-screen">
     <h2 class="selection-title">Choose your vibe</h2>
     <div class="layout-cards">
       <div class="layout-card" data-layout="1">
-        <div class="card-preview" style="background-image: url('https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg'); background-size: cover;"></div>
+        <div class="card-preview" style="background-image: url('https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg');"></div>
         <h3>URBAN EDGE</h3>
         <p>Bold · Grid · Animated</p>
       </div>
       <div class="layout-card" data-layout="2">
-        <div class="card-preview" style="background-image: url('https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997'); background-size: cover;"></div>
+        <div class="card-preview" style="background-image: url('https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997');"></div>
         <h3>CLEAN CUT</h3>
         <p>Minimal · Carousel · Smooth</p>
       </div>
       <div class="layout-card" data-layout="3">
-        <div class="card-preview" style="background-image: url('https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200'); background-size: cover;"></div>
+        <div class="card-preview" style="background-image: url('https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200');"></div>
         <h3>VIVID FLOW</h3>
         <p>Masonry · Dynamic · Rich</p>
       </div>
@@ -208,8 +257,13 @@
 
   <div id="layoutContainer" class="hidden"></div>
 
+  <div id="cartToast" class="cart-toast">
+    <span id="toastMessage">Added to cart</span>
+    <button class="view-cart-btn" id="viewCartToastBtn">VIEW CART →</button>
+  </div>
+
   <footer class="global-footer">
-    <span>© Mateo Shirt Designs — Print that speaks</span>
+    <span>© Mateo Shirt Designs — Print that speaks. Demo site.</span>
   </footer>
 
   <script src="layout.js" defer></script>
