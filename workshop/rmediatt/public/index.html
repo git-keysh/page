@@ -605,7 +605,6 @@ footer {
   .lightbox-nav { width: 36px; height: 36px; font-size: 24px; }
 }
 
-/* Animated glowing blur balls */
 .bg-orb {
   position: fixed;
   border-radius: 50%;
@@ -907,27 +906,36 @@ document.getElementById('loadMoreBtn').addEventListener('click', () => {
     }
 });
 
-const webhookUrl = "https://discord.com/api/webhooks/1491973092472524862/ZRoYZyfXbab9qc40WRWBcTP7J_1jr0L_ezKVSrBI53Iim4Rw4CqoiDoE9zQmW5QTCtCF";
+const API_ENDPOINT = 'https://cdn-kjs.pages.dev/api/inquiry/rmediatt';
+
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
     const project = document.getElementById('contactProject').value;
     const message = document.getElementById('contactMessage').value;
-    const payload = {
-        content: `**New inquiry from Real Media Marketing**\n**Name:** ${name}\n**Email:** ${email}\n**Project:** ${project}\n**Message:** ${message}`
-    };
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = 'SENDING...';
+    submitBtn.disabled = true;
     try {
-        await fetch(webhookUrl, {
+        const response = await fetch(API_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({ name, email, project, message })
         });
-        alert('✨ Your message has been sent. We’ll reply within 24 hours.');
-        e.target.reset();
-    } catch(err) {
-        alert('Message sent (offline mode). We’ll get back to you.');
-        e.target.reset();
+        if (response.ok) {
+            alert('✨ Your inquiry has been sent. We’ll reply within 24 hours.');
+            e.target.reset();
+        } else {
+            alert('Unable to send. Please email us directly at RealMediaMarketing@proton.me');
+        }
+    } catch (error) {
+        console.error('API error:', error);
+        alert('Unable to send. Please email us directly at RealMediaMarketing@proton.me');
+    } finally {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
     }
 });
 
