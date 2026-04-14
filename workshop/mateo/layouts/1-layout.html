@@ -1,0 +1,103 @@
+<!-- layouts/1-layout.html -->
+<div class="layout-urban">
+  <style>
+    .layout-urban {
+      padding: 20px 16px 30px;
+      max-width: 1300px;
+      margin: 0 auto;
+      animation: urbanFade 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    @keyframes urbanFade {
+      0% { opacity: 0; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .urban-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 18px;
+    }
+    .urban-card {
+      background: #ffffffdd;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 14px 10px 20px;
+      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.5);
+      transform: translateY(0);
+      will-change: transform;
+    }
+    .urban-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 40px -12px #1e1e2f33;
+    }
+    .urban-card img {
+      width: 100%;
+      aspect-ratio: 1/1.1;
+      object-fit: cover;
+      border-radius: 24px;
+      background: #d9d2c5;
+      transition: transform 0.4s;
+      will-change: transform;
+    }
+    .urban-card:hover img {
+      transform: scale(1.02);
+    }
+    .urban-card h4 {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1f1f2e;
+    }
+    .urban-card p {
+      color: #4e4e62;
+      font-weight: 500;
+    }
+    .urban-header {
+      margin-bottom: 28px;
+    }
+    .urban-header h2 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #1e1e2f;
+    }
+  </style>
+  <div class="urban-header">
+    <h2>URBAN EDGE · HEAVYWEIGHT</h2>
+    <p style="font-weight: 500; opacity: 0.7;">Bold prints · limited stock</p>
+  </div>
+  <div class="urban-grid">
+    <div class="urban-card">
+      <img src="https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg" alt="Garment dyed tee">
+      <h4>GARMENT DYE</h4>
+      <p>$34 · pigment print</p>
+    </div>
+    <div class="urban-card">
+      <img src="https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997" alt="Heather grey lion">
+      <h4>HEATHER LION</h4>
+      <p>$38 · DTF glow</p>
+    </div>
+    <div class="urban-card">
+      <img src="https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634" alt="Personalised print">
+      <h4>CUSTOM SCRIPT</h4>
+      <p>$42 · puff ink</p>
+    </div>
+    <div class="urban-card">
+      <img src="https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929" alt="Couple back print">
+      <h4>DUO BACKPRINT</h4>
+      <p>$48 · oversized</p>
+    </div>
+    <div class="urban-card">
+      <img src="https://printify.com/wp-content/uploads/2025/04/Gildan-5000-unisex-heavy-cotton-tee-1024x1024.png" alt="Gildan heavy cotton">
+      <h4>GILDAN 5000</h4>
+      <p>$29 · classic fit</p>
+    </div>
+    <div class="urban-card">
+      <img src="https://ucsdguardian.org/wp-content/uploads/2025/05/Michael-Ho-Charlie-Kirk1-1200x800.jpg" alt="Lifestyle shot">
+      <h4>STATEMENT TEE</h4>
+      <p>$45 · photo real</p>
+    </div>
+  </div>
+</div>
