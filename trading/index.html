@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Day Trading</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0;font-family:'Inter',sans-serif;background:#f7f9fc;color:#0f1720}.main{display:flex;padding:60px 8%;gap:50px}.left{flex:1}.right{width:450px}h1{font-size:46px;margin-bottom:10px}p{color:#4b5563;line-height:1.6}.video-box{position:relative}video{width:100%;border-radius:12px}.watch{margin-top:10px;width:100%;padding:14px;background:#0f1720;color:#fff;border:none;border-radius:8px;cursor:pointer}.small{font-size:13px;color:#6b7280;margin-top:8px}.dropdown{margin-top:25px}.btn{width:100%;padding:18px;text-align:left;border:none;background:#eaf2ff;border-radius:10px;cursor:pointer;margin-bottom:10px;font-size:16px}.content{max-height:0;overflow:hidden;transition:max-height .4s ease;background:#fff;border-radius:10px;padding:0 18px}.content p{padding:14px 0}.section{margin-top:50px}.method{background:#fff;padding:25px;border-radius:12px;border:1px solid #e5eaf0}.partnership{margin-top:50px;background:#0f1720;color:#fff;padding:35px;border-radius:14px}.cta{margin-top:20px;padding:14px;width:100%;background:#25D366;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px}.notice{margin-top:18px;font-size:12px;color:#cbd5e1}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s}.overlay.active{opacity:1;pointer-events:all}.overlay video{width:94%;max-width:1300px;border-radius:16px;transform:scale(.8);transition:.3s}.overlay.active video{transform:scale(1)}@media(max-width:900px){.main{flex-direction:column}.right{width:100%}.overlay video{width:96%}}</style>
+</head>
+<body>
+
+<div class="main">
+
+<div class="left">
+    <h1>You should start day trading right now</h1>
+    <p>This is about understanding money, not chasing luck. The market moves every day whether you participate or not. The difference is whether you understand how to take advantage of it.</p>
+
+    <div class="dropdown">
+
+        <button class="btn" onclick="t(this)">What is day trading?</button>
+        <div class="content"><p>Day trading is buying and selling assets within the same day. Traders focus on short-term price movement rather than long-term holding, using structure, timing, and probability to generate income.</p></div>
+
+        <button class="btn" onclick="t(this)">Why do people day trade?</button>
+        <div class="content"><p>Because it allows faster results and control. Instead of waiting months or years, traders aim to generate consistent returns daily or weekly depending on their system.</p></div>
+
+        <button class="btn" onclick="t(this)">Is it guaranteed money?</button>
+        <div class="content"><p>No. Nothing in markets is guaranteed. Profit comes from discipline, proper risk management, and consistency over time. Without that, people lose.</p></div>
+
+        <button class="btn" onclick="t(this)">Is it illegal?</button>
+        <div class="content"><p>No. Trading is legal worldwide when done through regulated brokers or prop firms. You are simply participating in financial markets.</p></div>
+
+        <button class="btn" onclick="t(this)">Do I need to be smart?</button>
+        <div class="content"><p>You don’t need to be a genius. You need patience, emotional control, and the ability to follow a system without deviating.</p></div>
+
+        <button class="btn" onclick="t(this)">How much can you realistically make?</button>
+        <div class="content"><p>It depends on capital and consistency. With larger accounts like $100K, even small percentage gains can translate into meaningful payouts.</p></div>
+
+        <button class="btn" onclick="t(this)">Why use a $100K account?</button>
+        <div class="content"><p>Larger accounts allow trades to breathe. Smaller accounts often get destroyed by spreads and commissions, especially when trading gold.</p></div>
+
+        <button class="btn" onclick="t(this)">What platform do traders use?</button>
+        <div class="content"><p>Most traders use TradingView for charting and connect it to their broker or prop firm account to execute trades efficiently.</p></div>
+
+    </div>
+
+    <div class="section method">
+        <h2>METHOD</h2>
+        <p>1. Buy a funded account from a prop firm</p>
+        <p>2. Choose the $100K option for flexibility and better payouts</p>
+        <p>3. Download TradingView and set up your charts</p>
+        <p>4. Connect your broker account</p>
+        <p>5. Learn structure, support/resistance, and timing</p>
+        <p>6. Follow a system instead of guessing</p>
+        <p>7. Pass evaluation and withdraw profits during payout phases</p>
+    </div>
+
+    <div class="partnership">
+        <h2>Start Partnership</h2>
+        <p>You buy, we organize.</p>
+        <p>Once you purchase a prop firm account, we take over the full process. We handle trading, journaling, and execution while maintaining structured risk management.</p>
+        <p>Profit share typically ranges from 60–80% after firm fees depending on performance.</p>
+
+        <p><strong>Managers</strong><br>
+        Keyshaun S. and Jaden A.<br>
+        Experienced traders with proven consistency.</p>
+
+        <p><strong>Risk</strong><br>
+        Low, but not zero.<br>
+        Jaden: 89% win rate<br>
+        Keyshaun: 77% win rate</p>
+
+        <button class="cta" onclick="startWhatsApp()">Start Partnership</button>
+
+        <div class="notice">
+        YOU ARE PURCHASING A PROP ACCOUNT WITH YOUR OWN MONEY. MANAGEMENT IS HANDLED BY THE TRADERS. PROFITS COME AFTER PAYOUT PHASES. LOSSES ARE POSSIBLE.
+        </div>
+    </div>
+
+</div>
+
+<div class="right">
+    <div class="video-box">
+        <video autoplay muted loop>
+            <source src="__media.mp4">
+        </video>
+        <button class="watch" onclick="openPlayer()">Watch</button>
+        <div class="small">
+            Keyshaun trading gold on a $100K simulation account generating $6,206.86, showing realistic execution and potential outcomes.
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closePlayer(event)">
+    <video id="player" controls>
+        <source src="__media.mp4">
+    </video>
+</div>
+
+<script>
+function t(btn){
+    let c = btn.nextElementSibling
+    c.style.maxHeight = c.style.maxHeight ? null : c.scrollHeight + "px"
+}
+
+function openPlayer(){
+    let o = document.getElementById("overlay")
+    let v = document.getElementById("player")
+    o.classList.add("active")
+    v.muted = false
+    v.play()
+}
+
+function closePlayer(e){
+    if(e.target.id === "overlay"){
+        let o = document.getElementById("overlay")
+        let v = document.getElementById("player")
+        o.classList.remove("active")
+        v.pause()
+        v.currentTime = 0
+    }
+}
+
+function startWhatsApp(){
+    let msg = encodeURIComponent("I'm interested in the partnership. I understand the risks and want to get started.")
+    window.open("https://wa.me/18687393193?text=" + msg, "_blank")
+}
+</script>
+
+</body>
+</html>
