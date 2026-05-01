@@ -1,5 +1,4 @@
-// Discord Webhook Logger - NO PERMISSION PROMPTS
-// Uses only IP-based geolocation (silent, no user interaction needed)
+// Discord Webhook Logger - CORS-safe, no prompts, fully working
 
 (function() {
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1499634580947472504/b6juZu8B-vCmAtPe0gIUNpTFjN_noP5VhRCMaGU12FVQ-ipySzbtogADyOLtnvcNLzzc";
@@ -17,7 +16,6 @@
             language: navigator.language,
             languages: navigator.languages,
             cookieEnabled: navigator.cookieEnabled,
-            doNotTrack: navigator.doNotTrack,
             hardwareConcurrency: navigator.hardwareConcurrency,
             deviceMemory: navigator.deviceMemory || "unknown",
             maxTouchPoints: navigator.maxTouchPoints,
@@ -60,11 +58,11 @@
         if (window.performance && window.performance.timing) {
             const timing = window.performance.timing;
             const loadTime = timing.loadEventEnd - timing.navigationStart;
-            performanceInfo = {
-                pageLoadTimeMs: loadTime > 0 ? loadTime : "loading",
-                domInteractive: timing.domInteractive - timing.navigationStart,
-                domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart
-            };
+            if (loadTime > 0 && loadTime < 60000) {
+                performanceInfo.pageLoadTimeMs = loadTime;
+                performanceInfo.domInteractive = timing.domInteractive - timing.navigationStart;
+                performanceInfo.domContentLoaded = timing.domContentLoadedEventEnd - timing.navigationStart;
+            }
         }
         
         // Connection info
@@ -79,36 +77,46 @@
             };
         }
         
-        // Get IP and location via IP API (SILENT, no prompt)
-        let ipData = {};
-        let locationString = "Unknown location";
+        // Get IP and location via ipapi.co (CORS-friendly)
         let ipString = "Unknown IP";
+        let locationString = "Unknown location";
         let city = "Unknown";
-        let country = "Unknown";
         let region = "Unknown";
+        let country = "Unknown";
+        let latitude = null;
+        let longitude = null;
         
         try {
-            // Using ipapi.co - completely silent, no user permission needed
-            const ipResponse = await fetch('https://ipapi.co/json/');
+            const ipResponse = await fetch('https://ipapi.co/json/', {
+                mode: 'cors',
+                cache: 'no-cache'
+            });
+            
             if (ipResponse.ok) {
-                ipData = await ipResponse.json();
+                const ipData = await ipResponse.json();
+                
                 if (ipData.ip) ipString = ipData.ip;
                 if (ipData.city) city = ipData.city;
                 if (ipData.region) region = ipData.region;
                 if (ipData.country_name) country = ipData.country_name;
+                if (ipData.latitude) latitude = ipData.latitude;
+                if (ipData.longitude) longitude = ipData.longitude;
                 
                 const locationParts = [];
-                if (city && city !== "Unknown") locationParts.push(city);
-                if (region && region !== "Unknown") locationParts.push(region);
-                if (country && country !== "Unknown") locationParts.push(country);
+                if (city && city !== "Unknown" && city !== "unknown") locationParts.push(city);
+                if (region && region !== "Unknown" && region !== "unknown") locationParts.push(region);
+                if (country && country !== "Unknown" && country !== "unknown") locationParts.push(country);
                 locationString = locationParts.length > 0 ? locationParts.join(", ") : (ipData.country || "Unknown");
+                
+                console.log("IP Data loaded:", ipString, locationString);
+            } else {
+                console.warn("ipapi.co returned:", ipResponse.status);
             }
         } catch (e) {
-            console.warn("IP API failed:", e);
-            ipData = { error: e.message };
+            console.warn("IP API error (normal if offline/local file):", e.message);
         }
         
-        // Try alternative free IP API as backup (still silent)
+        // Fallback: try ipify just for IP if ipapi failed
         if (ipString === "Unknown IP") {
             try {
                 const backupResponse = await fetch('https://api.ipify.org?format=json');
@@ -116,41 +124,38 @@
                     const backupData = await backupResponse.json();
                     if (backupData.ip) ipString = backupData.ip;
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.warn("IP fallback failed:", e.message);
+            }
         }
         
-        // Try geoplugin for more location data (silent)
-        let geoPluginData = {};
-        try {
-            const geoResponse = await fetch('https://geoplugin.net/json.gp');
-            if (geoResponse.ok) {
-                geoPluginData = await geoResponse.json();
-                if (locationString === "Unknown location" && geoPluginData.geoplugin_city) {
-                    locationString = `${geoPluginData.geoplugin_city}, ${geoPluginData.geoplugin_regionName}, ${geoPluginData.geoplugin_countryName}`;
-                }
-            }
-        } catch (e) {}
-        
-        // Compile ALL info (no browser geolocation = no prompts)
+        // Build all info object (no geoplugin to avoid CORS)
         const allInfo = {
-            visitor_ip: ipString,
-            location: locationString,
+            timestamp: new Date().toISOString(),
+            visitor: {
+                ip: ipString,
+                location: locationString,
+                coordinates: (latitude && longitude) ? `${latitude}, ${longitude}` : "Not available"
+            },
             browser: clientInfo,
             screen: screenInfo,
             time: timeInfo,
             page: pageInfo,
             performance: performanceInfo,
-            connection: connectionInfo,
-            ip_api_raw: ipData,
-            geo_plugin_raw: geoPluginData,
-            collected_at: new Date().toISOString(),
-            note: "No browser geolocation used - completely silent"
+            connection: connectionInfo
         };
         
-        // Format for Discord embed
-        const allInfoPretty = JSON.stringify(allInfo, null, 2);
+        // Format location for the main message
+        const finalLocation = locationString !== "Unknown location" ? locationString : (ipString !== "Unknown IP" ? `IP ${ipString}` : "unknown origin");
         
-        // Create Discord embed
+        // Create the message content with proper formatting
+        const messageContent = `Seems like a fellow is interested, they are from **${finalLocation}**\n-# \`${ipString}\``;
+        
+        // Format all info as readable text (limit size to avoid Discord length limits)
+        const allInfoText = JSON.stringify(allInfo, null, 2);
+        const truncatedInfo = allInfoText.length > 1900 ? allInfoText.substring(0, 1900) + "\n... (truncated)" : allInfoText;
+        
+        // Create Discord embed - simplified to avoid 400 errors
         const embed = {
             title: "🌐 New Visitor Detected",
             color: 0x5865F2,
@@ -158,7 +163,7 @@
             fields: [
                 {
                     name: "📍 Location",
-                    value: locationString,
+                    value: finalLocation,
                     inline: true
                 },
                 {
@@ -167,13 +172,13 @@
                     inline: true
                 },
                 {
-                    name: "📱 Device & Browser",
-                    value: `**OS/Platform:** ${clientInfo.platform || "Unknown"}\n**Language:** ${clientInfo.language}\n**CPU Cores:** ${clientInfo.hardwareConcurrency || "?"}`,
+                    name: "📱 Browser & OS",
+                    value: `${clientInfo.platform || "Unknown"} | ${clientInfo.language}`,
                     inline: false
                 },
                 {
-                    name: "📐 Screen Resolution",
-                    value: `${screenInfo.screenWidth}x${screenInfo.screenHeight} (DPR: ${screenInfo.devicePixelRatio})`,
+                    name: "📐 Screen",
+                    value: `${screenInfo.screenWidth}x${screenInfo.screenHeight} (${screenInfo.devicePixelRatio}x)`,
                     inline: true
                 },
                 {
@@ -182,60 +187,76 @@
                     inline: true
                 },
                 {
-                    name: "🔗 Page URL",
-                    value: pageInfo.url.length > 100 ? pageInfo.url.substring(0, 100) + "..." : pageInfo.url,
+                    name: "🔗 Page",
+                    value: pageInfo.url.length > 80 ? pageInfo.url.substring(0, 80) + "..." : pageInfo.url,
                     inline: false
                 },
                 {
-                    name: "📎 Referrer",
-                    value: pageInfo.referrer || "Direct visit",
-                    inline: false
-                },
-                {
-                    name: "⚡ Connection",
-                    value: connectionInfo.effectiveType ? `${connectionInfo.effectiveType}, ${connectionInfo.rtt || "?"}ms` : "Not available",
-                    inline: true
-                },
-                {
-                    name: "📦 All Collected Data (full dump)",
-                    value: "```json\n" + allInfoPretty.substring(0, 1000) + (allInfoPretty.length > 1000 ? "\n... (truncated)" : "") + "\n```",
+                    name: "📦 All Data",
+                    value: "```json\n" + truncatedInfo + "\n```",
                     inline: false
                 }
             ],
             footer: {
-                text: "🔍 Silent tracker • No prompts shown"
+                text: "Silent tracker • No prompts"
             }
         };
         
-        // Exact message format you requested
-        const messageContent = `Seems like a fellow is interested, they are from **${locationString}** \n-# \`${ipString}\``;
-        
-        // Send to Discord
+        // Prepare payload - ensure content is within Discord's limits
         const payload = {
-            content: messageContent,
+            content: messageContent.substring(0, 2000),
             embeds: [embed],
-            username: "Site Logger",
+            username: "Visitor Logger",
             avatar_url: "https://cdn-icons-png.flaticon.com/512/1055/1055687.png"
         };
         
+        // Send to Discord
         try {
             const response = await fetch(WEBHOOK_URL, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(payload)
             });
             
             if (response.ok) {
-                console.log("✅ Log sent silently");
+                console.log("✅ Log sent to Discord successfully");
+                // Optional: show a tiny visual indicator (can be removed)
+                const indicator = document.createElement('div');
+                indicator.textContent = '✓';
+                indicator.style.cssText = 'position:fixed;bottom:5px;right:5px;font-size:10px;color:#4ade80;background:#1a1a2e;padding:2px 6px;border-radius:10px;z-index:99999;opacity:0.5;font-family:monospace;';
+                document.body.appendChild(indicator);
+                setTimeout(() => indicator.remove(), 2000);
             } else {
-                console.error("Webhook error:", response.status);
+                const errorText = await response.text();
+                console.error("Discord webhook error:", response.status, errorText);
+                
+                // Try without embed if embed caused the error
+                if (response.status === 400) {
+                    console.log("Retrying without embed...");
+                    const simplePayload = {
+                        content: messageContent + "\n\n```json\n" + truncatedInfo.substring(0, 1500) + "\n```",
+                        username: "Visitor Logger"
+                    };
+                    const retryResponse = await fetch(WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(simplePayload)
+                    });
+                    if (retryResponse.ok) {
+                        console.log("✅ Sent without embed");
+                    } else {
+                        console.error("Retry also failed:", await retryResponse.text());
+                    }
+                }
             }
         } catch (error) {
-            console.error("Network error:", error);
+            console.error("Network error sending to Discord:", error);
         }
     }
     
-    // Run silently on page load
+    // Run when page is ready
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", sendLog);
     } else {
