@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CSEC Principles of Accounts | Complete Learning Guide | Keyshaun Sookdar</title>
+    <meta name="description" content="Professional study resource for CSEC Principles of Accounts by Keyshaun Sookdar. Covers accounting fundamentals, double entry, financial statements, partnerships, companies, and more with practical examples.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #eef2f5;
+            font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* Watermark overlay - subtle but readable */
+        .watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.08;
+            font-size: 5rem;
+            font-weight: 800;
+            color: #1e3a4d;
+            transform: rotate(-25deg);
+            white-space: pre;
+            font-family: 'Arial Black', 'Inter', sans-serif;
+            letter-spacing: 4px;
+            user-select: none;
+        }
+
+        /* Main container - elegant card layout */
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Button toolbar */
+        .toolbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+        }
+
+        .download-btn {
+            background: #1a4a6f;
+            border: none;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: #0f3b5c;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px -8px rgba(0,0,0,0.2);
+        }
+
+        .credit-summary {
+            font-size: 0.8rem;
+            background: #f0f4f9;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #2c5a7a;
+            font-weight: 500;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0b2b3b 0%, #1a4a6f 100%);
+            color: white;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-sub {
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            padding-top: 0.75rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 0.25rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content body */
+        .content-body {
+            padding: 2.5rem;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 2.8rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #0f3b2c;
+            border-left: 6px solid #d4af37;
+            padding-left: 1rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.3px;
+        }
+
+        .subsection-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e4a6b;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #e6edf2;
+        }
+
+        .topic-card {
+            background: #f9fbfd;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.8rem;
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .topic-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.05);
+        }
+
+        .topic-heading {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e4663;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .topic-number {
+            background: #eef2f6;
+            color: #2c5a7a;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-right: 0.5rem;
+        }
+
+        .example-box {
+            background: #ffffff;
+            border-left: 4px solid #d4af37;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            font-size: 0.95rem;
+            color: #2c3e44;
+        }
+
+        .example-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.8px;
+            color: #b68b40;
+            margin-bottom: 0.3rem;
+        }
+
+        .equation {
+            font-family: 'Courier New', 'Fira Code', monospace;
+            background: #eef2f6;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            display: inline-block;
+            font-weight: 500;
+            margin: 0.7rem 0;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .table-mini {
+            background: white;
+            border-radius: 14px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            border: 1px solid #e2edf2;
+        }
+
+        .table-mini table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .table-mini th, .table-mini td {
+            border: 1px solid #dce5ec;
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+        }
+
+        .table-mini th {
+            background: #eef3f7;
+            font-weight: 600;
+        }
+
+        .bullet-list {
+            margin: 0.8rem 0 0.8rem 1.4rem;
+            list-style-type: none;
+        }
+
+        .bullet-list li {
+            margin-bottom: 0.4rem;
+            position: relative;
+            padding-left: 1.3rem;
+        }
+
+        .bullet-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #e2e8f0, transparent);
+        }
+
+        .footer-note {
+            background: #f2f5f9;
+            padding: 1.5rem;
+            border-radius: 18px;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid #e4eaf1;
+        }
+
+        .resources-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .resource-link {
+            background: white;
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            border: 1px solid #cbdde9;
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: #1c6e8f;
+            transition: 0.2s;
+        }
+
+        .resource-link:hover {
+            background: #eaf2f7;
+            border-color: #9bb7cd;
+        }
+
+        @media (max-width: 680px) {
+            .content-body {
+                padding: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .toolbar {
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            .toolbar, .download-btn, .watermark {
+                display: none;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .document-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .topic-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Watermark -->
+<div class="watermark">KEYSHAUN SOOKDAR • CSEC POA • KEYSHAUN SOOKDAR • CSEC POA</div>
+
+<div class="document-container" id="reportContainer">
+    <!-- Toolbar with DOCX download button and summary credit -->
+    <div class="toolbar">
+        <span class="credit-summary">Summary by Keyshaun Sookdar</span>
+        <a class="download-btn" id="downloadDocxBtn" download="POA By Keyshaun.docx" href="#">
+            <span>📄</span> Download DOCX Guide
+        </a>
+    </div>
+
+    <div class="hero">
+        <div class="hero-badge">CSEC® Syllabus Aligned • Author: Keyshaun Sookdar</div>
+        <h1>Principles of Accounts</h1>
+        <div class="hero-sub">Complete Learning Guide — Enhanced with Practical Examples</div>
+        <p style="max-width: 700px; margin: 1.2rem auto 0; opacity: 0.85; font-size: 1rem;">Master accounting fundamentals, financial statements, partnerships, companies, and internal controls. Build career-ready skills in finance and business.</p>
+    </div>
+
+    <div class="content-body" id="pdfContent">
+        <!-- Introduction Section -->
+        <div class="section">
+            <div class="section-title">Foundations of Accounting</div>
+            <p><strong>Principles of Accounts</strong> helps you understand how businesses track, manage, and interpret money. It focuses on how financial information is recorded and used to make sound decisions. The subject builds a strong foundation for careers in business, finance, and accounting.</p>
+            <br>
+            <div class="example-box">
+                <div class="example-label">WHY ACCOUNTING MATTERS</div>
+                A small bakery uses accounting to see if it is making a profit or loss each month. It supports planning (buying new ovens), control (tracking cash to prevent theft), and overall decision-making while promoting financial responsibility.
+            </div>
+            <p><strong>Skills you will develop:</strong> understanding accounting terminology, applying double-entry recording, analyzing financial data, and making informed judgments. For example, comparing profit across years helps decide whether to expand operations.</p>
+            <p><strong>Internal control systems</strong> protect assets, ensure record accuracy, and reduce fraud. Common controls include separation of duties (cash handler vs. cash recorder) and regular audits.</p>
+            <p><em>Examination format:</em> multiple-choice questions, structured problem-solving, and a school-based assessment. Each part tests knowledge, application skills, and analytical reasoning.</p>
+        </div>
+
+        <!-- Core Topics: using topic cards for readability -->
+        <div class="section">
+            <div class="section-title">Core Topics — Illustrated with Examples</div>
+
+            <!-- 1. Accounting Fundamentals -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">01</span> Accounting Fundamentals</div>
+                <p><strong>Assets</strong> – resources owned (cash, inventory, equipment). <strong>Liabilities</strong> – debts owed (bank loans, supplier bills). <strong>Capital</strong> – owner's investment. <strong>Revenue</strong> – income from sales/services. <strong>Expenses</strong> – costs to earn revenue (rent, wages).</p>
+                <div class="equation">Assets = Liabilities + Owner's Equity (Capital)</div>
+                <div class="example-box">
+                    <div class="example-label">PRACTICAL EXAMPLE</div>
+                    A business has $10,000 in total assets and $4,000 in liabilities. The owner's capital equals $6,000. This equation must always balance.
+                </div>
+            </div>
+
+            <!-- 2. Double Entry System -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">02</span> Double Entry System</div>
+                <p>Every transaction affects at least two accounts, ensuring records stay balanced and accurate. Debits must equal credits.</p>
+                <div class="example-box">
+                    <div class="example-label">WORKED EXAMPLE</div>
+                    Purchase inventory for $1,000 cash.<br>
+                    • Inventory account increases by $1,000 (debit – asset increase).<br>
+                    • Cash account decreases by $1,000 (credit – asset decrease).
+                </div>
+            </div>
+
+            <!-- 3. Books of Original Entry -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">03</span> Books of Original Entry (Journals)</div>
+                <p>Transactions are first recorded in specialized journals before posting to ledgers.</p>
+                <ul class="bullet-list">
+                    <li><strong>Sales Journal</strong> – only credit sales. E.g., Sold goods on credit to ABC Ltd for $500.</li>
+                    <li><strong>Purchases Journal</strong> – credit purchases. E.g., Bought inventory from XYZ Co for $300.</li>
+                    <li><strong>Cash Book</strong> – records cash and bank transactions. E.g., Received $200 cash from customer.</li>
+                    <li><strong>General Journal</strong> – returns, corrections, adjustments. E.g., Returned faulty goods worth $50 to XYZ Co.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Ledger Accounts -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">04</span> Ledger Accounts (T-Accounts)</div>
+                <p>All transactions are grouped by account. Each T-account shows debits (left) and credits (right).</p>
+                <div class="table-mini">
+                    <table>
+                        <caption style="caption-side: top; text-align: left; font-weight: 600; margin-bottom: 6px;">Cash Account (example)</caption>
+                        <thead>
+                            <tr><th>Debit (Money In)</th><th>Credit (Money Out)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>$1,000 (sales)</td><td>$300 (rent)</td></tr>
+                            <tr><td>$500 (loan)</td><td>$200 (supplies)</td></tr>
+                            <tr><td><strong>Balance: $1,000</strong></td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5. Trial Balance -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">05</span> Trial Balance</div>
+                <p>A list of all ledger balances used to verify that total debits equal total credits.</p>
+                <div class="table-mini">
+                    <table>
+                        <thead><tr><th>Account</th><th>Debit ($)</th><th>Credit ($)</th></tr></thead>
+                        <tbody>
+                            <tr><td>Cash</td><td>5,000</td><td></td></tr>
+                            <tr><td>Inventory</td><td>2,000</td><td></td></tr>
+                            <tr><td>Bank Loan</td><td></td><td>3,000</td></tr>
+                            <tr><td>Capital</td><td></td><td>4,000</td></tr>
+                            <tr style="background:#f4f9fe;"><td><strong>Total</strong></td><td><strong>7,000</strong></td><td><strong>7,000</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 6. Financial Statements -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">06</span> Financial Statements</div>
+                <p><strong>Income Statement (Profit & Loss)</strong> – Revenue minus expenses = Net Profit.<br>
+                <strong>Statement of Financial Position (Balance Sheet)</strong> – Shows assets, liabilities, and equity at a specific date.</p>
+                <div class="grid-2col">
+                    <div class="example-box">
+                        <div class="example-label">INCOME STATEMENT</div>
+                        Revenue: $20,000<br>
+                        Expenses: $12,000<br>
+                        <strong>Net Profit: $8,000</strong>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-label">BALANCE SHEET EXTRACT</div>
+                        Assets: $50,000<br>
+                        Liabilities: $20,000<br>
+                        Equity: $30,000 (derived from $50,000 - $20,000)
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Adjustments -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">07</span> Adjustments (Accruals, Prepayments, Depreciation)</div>
+                <p>Adjusting entries ensure financial statements reflect the true financial position.</p>
+                <ul class="bullet-list">
+                    <li><strong>Depreciation:</strong> Allocating asset cost over useful life. Machine costing $10,000 with 5-year life → $2,000 depreciation per year.</li>
+                    <li><strong>Accruals:</strong> Expenses incurred but not yet paid. Wages owing at month end: $500.</li>
+                    <li><strong>Prepayments:</strong> Expenses paid in advance. Paid $1,200 annual insurance; each month $100 is expense, the rest is prepaid.</li>
+                </ul>
+            </div>
+
+            <!-- 8. Control Systems -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">08</span> Control Systems & Fraud Prevention</div>
+                <p>Protect assets and ensure reliability of records. Separation of duties, supervision, and audits reduce fraud risk.</p>
+                <div class="example-box">
+                    <div class="example-label">REAL-WORLD CONTROL</div>
+                    A retail store requires two employees to count cash at closing: one records the total, the other deposits it in the safe. This separation reduces theft opportunity.
+                </div>
+            </div>
+
+            <!-- 9. Partnership Accounts -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">09</span> Partnership Accounts</div>
+                <p>Profit-sharing ratios, capital contributions, drawings, and interest on capital are key features.</p>
+                <div class="example-box">
+                    <div class="example-label">PROFIT SHARING EXAMPLE</div>
+                    Ali and Ben share profits 60% and 40%. If net profit is $50,000: Ali receives $30,000, Ben receives $20,000. Partners may also have drawings and interest on capital.
+                </div>
+            </div>
+
+            <!-- 10. Company Accounts -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">10</span> Company Accounts (Shares, Dividends)</div>
+                <p>Corporations raise capital through shares and distribute profits as dividends.</p>
+                <div class="example-box">
+                    <div class="example-label">SHARE CAPITAL & DIVIDENDS</div>
+                    A company issues 10,000 shares at $5 each → share capital = $50,000. If profit is $20,000 and the board declares a $5,000 dividend, shareholders receive $0.50 per share.
+                </div>
+            </div>
+
+            <!-- 11. Non-Profit Organizations -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">11</span> Non-Profit Organizations</div>
+                <p>Clubs and societies use "excess of income over expenditure" instead of profit. Key items: subscriptions, fundraising, grants.</p>
+                <div class="example-box">
+                    <div class="example-label">SPORTS CLUB EXAMPLE</div>
+                    Membership fees: $10,000; Rent: $3,000; Fundraising profit: $2,000. Excess of income over expenditure = $9,000 (not called net profit).
+                </div>
+            </div>
+
+            <!-- 12. Manufacturing Accounts -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">12</span> Manufacturing Accounts</div>
+                <p>Calculates cost of production for goods manufactured internally.</p>
+                <div class="example-box">
+                    <div class="example-label">PRODUCTION COST</div>
+                    Direct materials: $8,000<br>
+                    Direct labor: $5,000<br>
+                    Factory overhead: $2,000<br>
+                    <strong>Total production cost = $15,000</strong><br>
+                    If 1,000 units are made, cost per unit = $15.
+                </div>
+            </div>
+
+            <!-- 13. Payroll Accounts -->
+            <div class="topic-card">
+                <div class="topic-heading"><span class="topic-number">13</span> Payroll Accounting</div>
+                <p>Recording gross wages, statutory deductions (PAYE, NIS/NHI), and net pay to employees.</p>
+                <div class="example-box">
+                    <div class="example-label">PAYROLL CALCULATION</div>
+                    Gross wages: $3,000<br>
+                    Deductions: PAYE tax $400, NIS $150, union fees $50<br>
+                    Net pay to employee: $2,400<br>
+                    Employer records gross wages as expense and deductions as liabilities payable to authorities.
+                </div>
+            </div>
+        </div>
+
+        <!-- Study & exam strategy -->
+        <hr>
+        <div class="section">
+            <div class="section-title">Study Framework & Exam Success</div>
+            <div class="grid-2col" style="margin-bottom: 1.2rem;">
+                <div class="example-box" style="background:#fefaf5;">
+                    <div class="example-label">EFFECTIVE PRACTICE</div>
+                    <ul class="bullet-list" style="margin-top: 0;">
+                        <li>Work through past paper questions (CXC structured problems).</li>
+                        <li>Understand logic behind double entry instead of memorizing.</li>
+                        <li>Focus on neat presentation and clear labeling of accounts.</li>
+                        <li>Always verify trial balance before preparing financial statements.</li>
+                    </ul>
+                </div>
+                <div class="example-box" style="background:#fefaf5;">
+                    <div class="example-label">KEY SKILLS ASSESSED</div>
+                    <ul class="bullet-list" style="margin-top: 0;">
+                        <li>Knowledge: definitions and accounting rules.</li>
+                        <li>Application: record transactions and prepare financial statements.</li>
+                        <li>Analysis: interpret ratios and identify errors.</li>
+                        <li>Judgment: recommend decisions based on financial data.</li>
+                    </ul>
+                </div>
+            </div>
+            <p>Regular practice develops accuracy and speed. The syllabus progresses from basic principles to complex topics like company and manufacturing accounts. Use internal control knowledge to answer case-study questions about fraud prevention.</p>
+        </div>
+
+        <!-- Resources section -->
+        <div class="section">
+            <div class="section-title">Official & Supplementary Resources</div>
+            <p>Access past papers, syllabus guides, and specimen exams from the following trusted platforms:</p>
+            <div class="resources-list">
+                <a href="https://www.scribd.com/document/819976921/Csec-Poa-January-2025-p2" class="resource-link" target="_blank" rel="noopener">Scribd – CSEC POA Jan 2025 Paper 2</a>
+                <a href="https://cxcpastpapers.org/csec-principle-of-accounts-past-papers/" class="resource-link" target="_blank" rel="noopener">CXC Past Papers (POA)</a>
+                <a href="https://www.csecpastpapers.com/poa" class="resource-link" target="_blank" rel="noopener">CSEC Past Papers – POA</a>
+                <a href="https://www.cxc.org/SiteAssets/syllabusses/CSEC/CSEC%20Principles%20of%20Accounts.pdf" class="resource-link" target="_blank" rel="noopener">Official CXC Syllabus (PDF)</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: #4a6272;">Always refer to the latest CXC syllabus for examinable content and updates.</p>
+        </div>
+
+        <!-- footer callout -->
+        <div class="footer-note">
+            <strong>Study with purpose</strong> — Accounting is the language of business. Mastering these principles opens doors to entrepreneurship, finance, and professional accountancy. Practice consistently and aim for accuracy and clarity in every entry.
+        </div>
+        <p style="text-align: center; font-size: 0.75rem; margin-top: 2rem; color: #6c869b;">CSEC Principles of Accounts — Enhanced Learning Guide | Created by Keyshaun Sookdar | Professional reference for students and educators</p>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const downloadBtn = document.getElementById('downloadDocxBtn');
+        
+        // IMPORTANT: You need to place your actual DOCX file in the same folder as this HTML file
+        // The file should be named exactly "POA By Keyshaun.docx"
+        // Update the path below if your file is located in a subfolder like "POA_by_Keyshaun/POA By Keyshaun.docx"
+        
+        const docxFilePath = 'POA By Keyshaun.docx';
+        
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Create an anchor element to trigger download
+            const link = document.createElement('a');
+            link.href = docxFilePath;
+            link.download = 'POA By Keyshaun.docx';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    })();
+</script>
+
+</body>
+</html>
