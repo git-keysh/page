@@ -7,176 +7,709 @@
 
 <title>Start Day Trading</title>
 
-<meta name="description" content="Learn what day trading is, how it works, and how traders use structured systems to understand and navigate the financial markets.">
-<meta name="keywords" content="day trading, trading, forex, gold trading, prop firm, trading education, financial markets, TradingView, risk management, technical analysis">
-<meta name="author" content="Keyshaun">
-<meta name="publisher" content="Keyshaun">
-<meta name="creator" content="Keyshaun">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="bingbot" content="index, follow">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box
+}
 
-<meta name="theme-color" content="#0f1720">
-<meta name="color-scheme" content="light dark">
-<meta name="language" content="en">
-<meta name="content-language" content="en">
-<meta name="rating" content="general">
+body{
+font-family:'Inter',sans-serif;
+background:#071018;
+color:#fff;
+overflow-x:hidden
+}
 
-<link rel="canonical" href="https://keyshaun.pages.dev/trading/">
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#1f4fff22,transparent 30%),
+radial-gradient(circle at bottom right,#00ffae15,transparent 30%),
+#071018;
+z-index:-1
+}
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Start Day Trading">
-<meta property="og:description" content="Learn how day trading works and how traders use structured systems, timing, and risk management.">
-<meta property="og:url" content="https://keyshaun.pages.dev/trading/">
-<meta property="og:site_name" content="Keyshaun Trading">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://keyshaun.pages.dev/preview.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+.main{
+display:flex;
+gap:50px;
+padding:60px 7%
+}
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Start Day Trading">
-<meta name="twitter:description" content="Understand how day trading works and how traders approach the market with structure and discipline.">
-<meta name="twitter:image" content="https://keyshaun.pages.dev/preview.jpg">
-<meta name="twitter:site" content="@keyshaun">
+.left{
+flex:1
+}
 
-<meta name="application-name" content="Keyshaun Trading">
-<meta name="apple-mobile-web-app-title" content="Trading">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
+.right{
+width:450px
+}
 
-<link rel="icon" href="https://keyshaun.pages.dev/favicon.ico">
-<link rel="apple-touch-icon" href="https://keyshaun.pages.dev/apple-touch-icon.png">
-<link rel="manifest" href="https://keyshaun.pages.dev/manifest.json">
+.hero{
+margin-bottom:35px
+}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+.hero h1{
+font-size:58px;
+font-weight:800;
+line-height:1.05;
+margin-bottom:18px
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>body{margin:0;font-family:'Inter',sans-serif;background:#f7f9fc;color:#0f1720}.main{display:flex;padding:60px 8%;gap:50px}.left{flex:1}.right{width:450px}h1{font-size:46px;margin-bottom:10px}p{color:#4b5563;line-height:1.6}.video-box{position:relative}video{width:100%;border-radius:12px}.watch{margin-top:10px;width:100%;padding:14px;background:#0f1720;color:#fff;border:none;border-radius:8px;cursor:pointer}.small{font-size:13px;color:#6b7280;margin-top:8px}.dropdown{margin-top:25px}.btn{width:100%;padding:18px;text-align:left;border:none;background:#eaf2ff;border-radius:10px;cursor:pointer;margin-bottom:10px;font-size:16px}.content{max-height:0;overflow:hidden;transition:max-height .4s ease;background:#fff;border-radius:10px;padding:0 18px}.content p{padding:14px 0}.section{margin-top:50px}.method{background:#fff;padding:25px;border-radius:12px;border:1px solid #e5eaf0}.partnership{margin-top:50px;background:#0f1720;color:#fff;padding:35px;border-radius:14px}.cta{margin-top:20px;padding:14px;width:100%;background:#25D366;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px}.notice{margin-top:18px;font-size:12px;color:#cbd5e1}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s}.overlay.active{opacity:1;pointer-events:all}.overlay video{width:94%;max-width:1300px;border-radius:16px;transform:scale(.8);transition:.3s}.overlay.active video{transform:scale(1)}@media(max-width:900px){.main{flex-direction:column}.right{width:100%}.overlay video{width:96%}}</style>
-<script src="coin.js"></script>
+.hero span{
+background:linear-gradient(90deg,#3b82f6,#00ffaa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent
+}
+
+.hero p{
+font-size:18px;
+color:#b8c2d0;
+line-height:1.7;
+max-width:850px
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:35px
+}
+
+.card{
+background:#101b26;
+border:1px solid #1f2d3d;
+padding:24px;
+border-radius:18px;
+backdrop-filter:blur(10px)
+}
+
+.card h2{
+font-size:32px;
+margin-bottom:6px
+}
+
+.card p{
+color:#8ea0b6;
+font-size:14px
+}
+
+.dropdown{
+margin-top:40px
+}
+
+.btn{
+width:100%;
+padding:22px;
+border:none;
+background:#111d2b;
+color:#fff;
+text-align:left;
+border-radius:14px;
+cursor:pointer;
+margin-bottom:12px;
+font-size:17px;
+font-weight:600;
+transition:.25s
+}
+
+.btn:hover{
+background:#162638
+}
+
+.content{
+max-height:0;
+overflow:hidden;
+transition:max-height .4s ease;
+background:#0f1823;
+border-radius:14px;
+padding:0 20px;
+border:1px solid #1c2a39
+}
+
+.content p{
+padding:18px 0;
+line-height:1.8;
+color:#c8d4e0
+}
+
+.section{
+margin-top:50px
+}
+
+.big-box{
+background:#0f1823;
+border:1px solid #1c2a39;
+padding:35px;
+border-radius:20px
+}
+
+.big-box h2{
+font-size:32px;
+margin-bottom:18px
+}
+
+.big-box p{
+line-height:1.8;
+color:#c7d2df
+}
+
+.tab-buttons{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:30px;
+margin-bottom:25px
+}
+
+.tab-btn{
+padding:14px 18px;
+background:#162332;
+border:none;
+border-radius:12px;
+cursor:pointer;
+color:#fff;
+font-weight:700;
+transition:.2s
+}
+
+.tab-btn.active{
+background:#2563eb
+}
+
+.tab-content{
+display:none;
+background:#101b26;
+border:1px solid #223041;
+padding:28px;
+border-radius:18px;
+margin-bottom:18px
+}
+
+.tab-content.active{
+display:block
+}
+
+.tab-content h3{
+font-size:27px;
+margin-bottom:14px
+}
+
+.tab-content ul{
+padding-left:18px;
+margin-top:15px
+}
+
+.tab-content li{
+margin-bottom:12px;
+line-height:1.7;
+color:#d3dce7
+}
+
+.warning{
+margin-top:18px;
+padding:16px;
+border-radius:12px;
+background:#3a1d1d;
+border:1px solid #7f1d1d;
+color:#fecaca
+}
+
+.good{
+margin-top:18px;
+padding:16px;
+border-radius:12px;
+background:#0f2d23;
+border:1px solid #065f46;
+color:#bbf7d0
+}
+
+.video-box{
+position:sticky;
+top:30px;
+background:#0f1823;
+border:1px solid #1d2c3d;
+padding:18px;
+border-radius:20px
+}
+
+video{
+width:100%;
+border-radius:16px
+}
+
+.watch{
+margin-top:12px;
+width:100%;
+padding:15px;
+background:#2563eb;
+border:none;
+border-radius:12px;
+font-weight:700;
+color:#fff;
+cursor:pointer
+}
+
+.small{
+margin-top:12px;
+font-size:14px;
+color:#9fb0c2;
+line-height:1.7
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:.3s;
+backdrop-filter:blur(8px)
+}
+
+.overlay.active{
+opacity:1;
+pointer-events:all
+}
+
+.overlay video{
+width:94%;
+max-width:1300px;
+border-radius:18px;
+transform:scale(.85);
+transition:.3s
+}
+
+.overlay.active video{
+transform:scale(1)
+}
+
+.footer-box{
+margin-top:60px;
+background:linear-gradient(145deg,#132030,#0b121b);
+padding:40px;
+border-radius:22px;
+border:1px solid #243447
+}
+
+.footer-box h2{
+font-size:34px;
+margin-bottom:14px
+}
+
+.footer-box p{
+line-height:1.8;
+color:#c9d3de
+}
+
+.cta{
+margin-top:25px;
+padding:16px;
+width:100%;
+border:none;
+border-radius:14px;
+background:#25D366;
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+color:#fff
+}
+
+.notice{
+margin-top:18px;
+font-size:13px;
+line-height:1.8;
+color:#8fa2b8
+}
+
+@media(max-width:1000px){
+
+.main{
+flex-direction:column
+}
+
+.right{
+width:100%
+}
+
+.hero h1{
+font-size:44px
+}
+
+}
+</style>
 </head>
+
 <body>
 
 <div class="main">
 
 <div class="left">
-    <h1>You should start day trading right now</h1>
-    <p>This is about understanding money, not chasing luck. The market moves every day whether you participate or not. The difference is whether you understand how to take advantage of it.</p>
 
-    <div class="dropdown">
+<div class="hero">
+<h1>Learn <span>XAUUSD Trading</span> The Right Way</h1>
 
-        <button class="btn" onclick="t(this)">What is day trading?</button>
-        <div class="content"><p>Day trading is buying and selling assets within the same day. Traders focus on short-term price movement rather than long-term holding, using structure, timing, and probability to generate income.</p></div>
+<p>
+This page was made to help people in Trinidad & Tobago understand modern trading systems, prop firms, payouts, risk management, crypto withdrawals, and how people are building income online through structured trading instead of gambling.
+</p>
 
-        <button class="btn" onclick="t(this)">Why do people day trade?</button>
-        <div class="content"><p>Because it allows faster results and control. Instead of waiting months or years, traders aim to generate consistent returns daily or weekly depending on their system.</p></div>
+<div class="stats">
 
-        <button class="btn" onclick="t(this)">Is it guaranteed money?</button>
-        <div class="content"><p>No. Nothing in markets is guaranteed. Profit comes from discipline, proper risk management, and consistency over time. Without that, people lose.</p></div>
+<div class="card">
+<h2>XAUUSD</h2>
+<p>Gold vs USD market trading</p>
+</div>
 
-        <button class="btn" onclick="t(this)">Is it illegal?</button>
-        <div class="content"><p>No. Trading is legal worldwide when done through regulated brokers or prop firms. You are simply participating in financial markets.</p></div>
+<div class="card">
+<h2>24/5</h2>
+<p>Global market access</p>
+</div>
 
-        <button class="btn" onclick="t(this)">Do I need to be smart?</button>
-        <div class="content"><p>You don’t need to be a genius. You need patience, emotional control, and the ability to follow a system without deviating.</p></div>
+<div class="card">
+<h2>Prop Firms</h2>
+<p>Trade funded capital</p>
+</div>
 
-        <button class="btn" onclick="t(this)">How much can you realistically make?</button>
-        <div class="content"><p>It depends on capital and consistency. With larger accounts like $100K, even small percentage gains can translate into meaningful payouts.</p></div>
+<div class="card">
+<h2>Crypto</h2>
+<p>Modern payout systems</p>
+</div>
 
-        <button class="btn" onclick="t(this)">Why use a $100K account?</button>
-        <div class="content"><p>Larger accounts allow trades to breathe. Smaller accounts often get destroyed by spreads and commissions, especially when trading gold.</p></div>
+</div>
+</div>
 
-        <button class="btn" onclick="t(this)">What platform do traders use?</button>
-        <div class="content"><p>Most traders use TradingView for charting and connect it to their broker or prop firm account to execute trades efficiently.</p></div>
+<div class="dropdown">
 
-    </div>
+<button class="btn" onclick="t(this)">What is XAUUSD?</button>
+<div class="content">
+<p>
+XAUUSD means Gold against the United States Dollar. Traders speculate on whether gold price will rise or fall. Gold is one of the most volatile and actively traded assets in the world.
+</p>
+</div>
 
-    <div class="section method">
-        <h2>METHOD</h2>
-        <p>1. Buy a funded account from a prop firm</p>
-        <p>2. Choose the $100K option for flexibility and better payouts</p>
-        <p>3. Download TradingView and set up your charts</p>
-        <p>4. Connect your broker account</p>
-        <p>5. Learn structure, support/resistance, and timing</p>
-        <p>6. Follow a system instead of guessing</p>
-        <p>7. Pass evaluation and withdraw profits during payout phases</p>
-    </div>
+<button class="btn" onclick="t(this)">Is trading gambling?</button>
+<div class="content">
+<p>
+No. Professional trading is based on probability, structure, risk management, and psychology. Gambling relies on emotion and randomness. Real traders use systems and strict rules.
+</p>
+</div>
 
-    <div class="partnership">
-        <h2>Start Partnership</h2>
-        <p>You buy, we organize.</p>
-        <p>Once you purchase a prop firm account, we take over the full process. We handle trading, journaling, and execution while maintaining structured risk management.</p>
-        <p>Profit share typically ranges from 60–80% after firm fees depending on performance.</p>
+<button class="btn" onclick="t(this)">What is a prop firm?</button>
+<div class="content">
+<p>
+A prop firm allows traders to trade large simulated funded accounts after passing an evaluation. Instead of risking huge personal money, traders prove consistency and receive payout splits from profits.
+</p>
+</div>
 
-        <p><strong>Managers</strong><br>
-        Keyshaun S. and Jaden A.<br>
-        Experienced traders with proven consistency.</p>
+<button class="btn" onclick="t(this)">Can Trinidadians actually get payouts?</button>
+<div class="content">
+<p>
+Yes. Many traders in Trinidad & Tobago use Visa debit cards, crypto payouts, Binance, Wise, PayPal, or P2P systems to receive money internationally.
+</p>
+</div>
 
-        <p><strong>Risk</strong><br>
-        Low, but not zero.<br>
-        Jaden: 89% win rate<br>
-        Keyshaun: 77% win rate</p>
+<button class="btn" onclick="t(this)">Why do traders prefer gold?</button>
+<div class="content">
+<p>
+Gold moves aggressively and creates opportunities daily. It reacts heavily to news events, liquidity, and session timing, which makes it attractive for skilled traders.
+</p>
+</div>
 
-        <button class="cta" onclick="startWhatsApp()">Start Partnership</button>
+<button class="btn" onclick="t(this)">Can I start with no money?</button>
+<div class="content">
+<p>
+Most prop firms require challenge fees. However, demo accounts allow you to practice completely free before risking money.
+</p>
+</div>
 
-        <div class="notice">
-        YOU ARE PURCHASING A PROP ACCOUNT WITH YOUR OWN MONEY. MANAGEMENT IS HANDLED BY THE TRADERS. PROFITS COME AFTER PAYOUT PHASES. LOSSES ARE POSSIBLE.
-        </div>
-    </div>
+<button class="btn" onclick="t(this)">What destroys most traders?</button>
+<div class="content">
+<p>
+Overleveraging, revenge trading, greed, emotional decision making, and lack of risk management.
+</p>
+</div>
+
+<button class="btn" onclick="t(this)">What platforms are used?</button>
+<div class="content">
+<p>
+Most traders use TradingView, MetaTrader 5, MetaTrader 4, and funded account dashboards from prop firms.
+</p>
+</div>
+
+</div>
+
+<div class="section big-box">
+
+<h2>8 METHODS To Start Trading In Trinidad & Tobago</h2>
+
+<div class="tab-buttons">
+
+<button class="tab-btn active" onclick="openTab(event,'m1')">Method 1</button>
+<button class="tab-btn" onclick="openTab(event,'m2')">Method 2</button>
+<button class="tab-btn" onclick="openTab(event,'m3')">Method 3</button>
+<button class="tab-btn" onclick="openTab(event,'m4')">Method 4</button>
+<button class="tab-btn" onclick="openTab(event,'m5')">Method 5</button>
+<button class="tab-btn" onclick="openTab(event,'m6')">Method 6</button>
+<button class="tab-btn" onclick="openTab(event,'m7')">Under 18 #1</button>
+<button class="tab-btn" onclick="openTab(event,'m8')">Under 18 #2</button>
+
+</div>
+
+<div class="tab-content active" id="m1">
+<h3>Method 1 — Visa Debit + Prop Firm</h3>
+
+<ul>
+<li>Open a Trinidad bank account with online purchases enabled</li>
+<li>Use a Visa Debit card</li>
+<li>Purchase a prop firm challenge online</li>
+<li>Trade on MT5 or TradingView</li>
+<li>Receive payouts after passing</li>
+<li>Best for beginners entering funded trading</li>
+</ul>
+
+<div class="good">
+Works well for Trinidad users with Scotiabank, Republic Bank, RBC, or First Citizens cards.
+</div>
+</div>
+
+<div class="tab-content" id="m2">
+<h3>Method 2 — Crypto Payout Route</h3>
+
+<ul>
+<li>Pass a prop firm challenge</li>
+<li>Receive USDT payouts</li>
+<li>Convert USDT into BTC or keep stablecoins</li>
+<li>Use Binance P2P or crypto ATMs/services</li>
+<li>Withdraw physical cash or transfer locally</li>
+</ul>
+
+<div class="good">
+This is one of the most common Caribbean payout systems today.
+</div>
+</div>
+
+<div class="tab-content" id="m3">
+<h3>Method 3 — Demo Practice First</h3>
+
+<ul>
+<li>Use demo accounts to practice free</li>
+<li>Learn risk management</li>
+<li>Understand stop losses and sessions</li>
+<li>Track results before risking money</li>
+<li>Build consistency before buying challenges</li>
+</ul>
+
+<div class="warning">
+Never rush into live trading emotionally.
+</div>
+</div>
+
+<div class="tab-content" id="m4">
+<h3>Method 4 — Personal Broker Account</h3>
+
+<ul>
+<li>Create an account with a broker</li>
+<li>Deposit personal capital</li>
+<li>Trade your own money directly</li>
+<li>No challenge rules</li>
+<li>Full freedom but higher personal risk</li>
+</ul>
+
+<div class="warning">
+Most beginners lose because they overleverage personal accounts.
+</div>
+</div>
+
+<div class="tab-content" id="m5">
+<h3>Method 5 — Copy Trading</h3>
+
+<ul>
+<li>Connect your account to experienced traders</li>
+<li>Trades copy automatically</li>
+<li>Can help beginners learn execution</li>
+<li>Still carries risk</li>
+<li>Research traders carefully</li>
+</ul>
+
+<div class="warning">
+Avoid fake signal sellers and fake profits online.
+</div>
+</div>
+
+<div class="tab-content" id="m6">
+<h3>Method 6 — Team / Partnership Trading</h3>
+
+<ul>
+<li>Purchase a prop firm challenge</li>
+<li>Experienced traders manage execution</li>
+<li>Profit split agreement is arranged</li>
+<li>Risk management is handled professionally</li>
+<li>Useful for busy individuals</li>
+</ul>
+
+<div class="warning">
+Always understand risks before entering partnerships.
+</div>
+</div>
+
+<div class="tab-content" id="m7">
+<h3>Under 18 Method #1 — Parent Supervised Demo Trading</h3>
+
+<ul>
+<li>Learn trading using demo accounts only</li>
+<li>No real money required</li>
+<li>Study market structure and psychology</li>
+<li>Use TradingView and educational resources</li>
+<li>Practice discipline early</li>
+</ul>
+
+<div class="warning">
+People under 18 should use parental supervision and avoid risking real money independently.
+</div>
+</div>
+
+<div class="tab-content" id="m8">
+<h3>Under 18 Method #2 — Parent Controlled Funded Account</h3>
+
+<ul>
+<li>A parent or guardian creates the account legally</li>
+<li>The student learns execution and analysis</li>
+<li>Parents supervise finances and withdrawals</li>
+<li>Focus on education rather than gambling</li>
+<li>Use low-risk trading only</li>
+</ul>
+
+<div class="warning">
+Always follow your country's laws and age requirements for financial services.
+</div>
+</div>
+
+</div>
+
+<div class="section big-box">
+
+<h2>Full Trinidad Trading Setup</h2>
+
+<ul style="padding-left:20px;line-height:2;color:#d5dce5">
+
+<li>Bank Account — Visa Debit with international purchases</li>
+<li>Trading Platform — TradingView + MetaTrader 5</li>
+<li>Broker or Prop Firm — funded account providers</li>
+<li>Crypto Wallet — Binance or another exchange</li>
+<li>Payout Route — USDT → BTC → cash or bank transfer</li>
+<li>Risk Management — Never risk more than 1% per trade</li>
+<li>Security — Enable 2FA on every account</li>
+<li>Journal — Track every trade and mistake</li>
+
+</ul>
+
+</div>
+
+<div class="footer-box">
+
+<h2>Start Partnership</h2>
+
+<p>
+You purchase the funded account. Trading, structure, execution, and risk management are handled professionally.
+</p>
+
+<p style="margin-top:18px">
+This is not guaranteed income. Losses are possible. Markets involve risk and discipline is required.
+</p>
+
+<button class="cta" onclick="startWhatsApp()">
+Start Partnership
+</button>
+
+<div class="notice">
+TRADING INVOLVES RISK. PROP FIRMS HAVE RULES INCLUDING DAILY DRAWDOWN LIMITS. NEVER TRADE MONEY YOU CANNOT AFFORD TO LOSE. EDUCATIONAL PURPOSES ONLY.
+</div>
+
+</div>
 
 </div>
 
 <div class="right">
-    <div class="video-box">
-        <video autoplay muted loop>
-            <source src="__media.mp4">
-        </video>
-        <button class="watch" onclick="openPlayer()">Watch</button>
-        <div class="small">
-            Keyshaun trading gold on a $100K simulation account generating $6,206.86, showing realistic execution and potential outcomes.
-        </div>
-    </div>
+
+<div class="video-box">
+
+<video autoplay muted loop>
+<source src="__media.mp4">
+</video>
+
+<button class="watch" onclick="openPlayer()">
+Watch Trading Preview
+</button>
+
+<div class="small">
+Live XAUUSD execution example showing realistic structure, liquidity movement, and risk management on a funded account environment.
+</div>
+
+</div>
+
 </div>
 
 </div>
 
 <div class="overlay" id="overlay" onclick="closePlayer(event)">
-    <video id="player" controls>
-        <source src="__media.mp4">
-    </video>
+<video id="player" controls>
+<source src="__media.mp4">
+</video>
 </div>
 
 <script>
+
 function t(btn){
-    let c = btn.nextElementSibling
-    c.style.maxHeight = c.style.maxHeight ? null : c.scrollHeight + "px"
+let c = btn.nextElementSibling
+c.style.maxHeight = c.style.maxHeight ? null : c.scrollHeight + "px"
+}
+
+function openTab(evt,id){
+
+let tabs = document.querySelectorAll(".tab-content")
+let btns = document.querySelectorAll(".tab-btn")
+
+tabs.forEach(tab=>{
+tab.classList.remove("active")
+})
+
+btns.forEach(btn=>{
+btn.classList.remove("active")
+})
+
+document.getElementById(id).classList.add("active")
+evt.currentTarget.classList.add("active")
 }
 
 function openPlayer(){
-    let o = document.getElementById("overlay")
-    let v = document.getElementById("player")
-    o.classList.add("active")
-    v.muted = false
-    v.play()
+let o = document.getElementById("overlay")
+let v = document.getElementById("player")
+o.classList.add("active")
+v.muted = false
+v.play()
 }
 
 function closePlayer(e){
-    if(e.target.id === "overlay"){
-        let o = document.getElementById("overlay")
-        let v = document.getElementById("player")
-        o.classList.remove("active")
-        v.pause()
-        v.currentTime = 0
-    }
+if(e.target.id === "overlay"){
+let o = document.getElementById("overlay")
+let v = document.getElementById("player")
+o.classList.remove("active")
+v.pause()
+v.currentTime = 0
+}
 }
 
 function startWhatsApp(){
-    let msg = encodeURIComponent("I'm interested in the partnership. I understand the risks and want to get started.")
-    window.open("https://wa.me/18687393193?text=" + msg, "_blank")
+let msg = encodeURIComponent("I'm interested in learning more about trading and funded accounts.")
+window.open("https://wa.me/18687393193?text="+msg,"_blank")
 }
+
 </script>
 
 </body>
