@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CSEC IT Booklet • Flowcharts & Past Papers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fe;
+      font-family: 'Inter', sans-serif;
+      color: #121826;
+      line-height: 1.45;
+    }
+
+    .book-wrapper {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.8rem 1.5rem 3.5rem;
+    }
+
+    /* header area */
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid #dceaf3;
+      padding-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #14471c, #1f6e43);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+    .sub {
+      font-family: 'Inter', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      color: #2b5e3b;
+      background: #e2f0e6;
+      display: inline-block;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      margin-top: 0.7rem;
+    }
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+    .badge {
+      background: #eef3fc;
+      padding: 0.25rem 1rem;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #1e5a7d;
+      border: 1px solid #cbdde9;
+    }
+
+    /* section headings */
+    .section-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1.2rem 0;
+      padding-left: 0.6rem;
+      border-left: 5px solid #2f8b5a;
+    }
+    .subsection {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.8rem;
+      color: #1e5f42;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* card grid */
+    .grid-2col, .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+      margin: 1.2rem 0;
+    }
+    .info-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.3rem;
+      border: 1px solid #e2edf7;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .info-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #1c5a3c;
+    }
+    .info-card p, .info-card li {
+      font-size: 0.92rem;
+      color: #2c3e4e;
+    }
+    .code-snip {
+      background: #0f1724;
+      border-radius: 18px;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: #cbd5e6;
+      overflow-x: auto;
+    }
+
+    /* ===== FLOWCHART PROPER SHAPES ===== */
+    .flowchart-panel {
+      background: #ffffffec;
+      border-radius: 32px;
+      padding: 1.5rem;
+      margin: 1.8rem 0;
+      border: 1px solid #cde0ef;
+    }
+    .flow-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    /* symbol shapes */
+    .flow-start {
+      background: #d9e8f5;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      text-align: center;
+      min-width: 160px;
+      border: 1px solid #b6cee6;
+    }
+    .flow-process {
+      background: #eef3fc;
+      padding: 0.6rem 1.8rem;
+      border-radius: 12px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 200px;
+      border: 1px solid #c2d8ed;
+    }
+    .flow-io {
+      background: #fef6e0;
+      padding: 0.6rem 1.5rem;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+      text-align: center;
+      min-width: 190px;
+      font-weight: 500;
+      border: 1px solid #e2cba4;
+    }
+    .flow-decision {
+      background: #ffe2cf;
+      padding: 0.8rem 1rem;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      text-align: center;
+      min-width: 180px;
+      font-weight: 600;
+      border: 1px solid #daad7a;
+    }
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: #6790b0;
+      font-weight: 300;
+    }
+    .loop-back {
+      background: #f1f5f9;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 0.2rem;
+    }
+
+    /* tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+    }
+    .styled-table th {
+      background: #e4edf6;
+      padding: 0.65rem;
+      text-align: left;
+    }
+    .styled-table td {
+      padding: 0.65rem;
+      border-bottom: 1px solid #eaeef3;
+    }
+
+    /* past paper section */
+    .paper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .paper-item {
+      background: white;
+      border-radius: 60px;
+      border: 1px solid #d6e4f0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .paper-btn {
+      background: #eef2f7;
+      border: none;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.1s linear;
+      color: #1a5d7a;
+    }
+    .paper-btn:hover {
+      background: #dee6ef;
+      transform: scale(0.96);
+    }
+    .pdf-preview {
+      display: none;
+      margin-top: 1rem;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid #c2daef;
+    }
+    .pdf-preview iframe {
+      width: 100%;
+      height: 460px;
+      border: none;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      border-top: 1px solid #cfe0ed;
+      padding: 1.8rem 0.5rem;
+      font-size: 0.8rem;
+      color: #4a697f;
+    }
+    @media (max-width: 680px) {
+      .book-wrapper {
+        padding: 1rem;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .flow-io, .flow-decision, .flow-process, .flow-start {
+        min-width: 140px;
+        font-size: 0.75rem;
+      }
+      .flow-decision {
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      }
+      .flow-io {
+        clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="book-wrapper">
+  <div class="hero">
+    <h1>📘 CSEC IT • complete booklet</h1>
+    <div class="sub">Liquid down by Keyshaun Sookdar</div>
+    <div class="badge-bar">
+      <span class="badge">cybersecurity</span>
+      <span class="badge">databases</span>
+      <span class="badge">pseudocode & flowcharts</span>
+      <span class="badge">networks + telecommuting</span>
+      <span class="badge">spreadsheets</span>
+    </div>
+  </div>
+
+  <!-- THEORY CARDS -->
+  <div class="section-title">🔐 core security & data management</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>cybersecurity vs computer security</h3><p><strong>Cybersecurity</strong> protects online assets, networks, cloud data.<br><strong>Computer security</strong> focuses on physical machines, local storage & peripherals.</p></div>
+    <div class="info-card"><h3>software security solutions</h3><p><strong>Firewall</strong> – filters traffic, blocks intrusion.<br><strong>Antivirus</strong> – detects malware.<br><em>Firewall benefit:</em> prevents unauthorised network access.</p></div>
+    <div class="info-card"><h3>file organization: serial vs sequential</h3><p>Serial: records appended as they arrive.<br>Sequential: sorted by key, used for magnetic tape archives.</p></div>
+    <div class="info-card"><h3>threats matching (past paper)</h3><p>Electronic eavesdropping → monitor communication.<br>Identity theft → gather personal info.<br>Industrial espionage → competitor advantage.</p></div>
+  </div>
+
+  <!-- DATABASE SECTION -->
+  <div class="section-title">🗄️ database essentials</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>primary & foreign keys</h3><p><strong>Inventory primary key:</strong> ItemNo<br><strong>Foreign key:</strong> SupplierID (links to Suppliers).<br>Query for TekBiz: <span class="code-snip" style="background:#eef3fc; color:#1a3b4e;">SELECT * FROM Inventory WHERE SupplierID='TB19230';</span></p></div>
+    <div class="info-card"><h3>grouping in reports</h3><p>Organises records with same value (e.g., Region) to show subtotals, averages — increases readability.</p></div>
+    <div class="info-card"><h3>farmers & farm relationship</h3><p>Link ID No. (Farmers) ↔ FarmerID (Farm). Query displays Jack Smith, Banana, Orange for FarmerID 1.</p></div>
+    <div class="info-card"><h3>calculated fields in query</h3><p>Course average derived using calculated field: <code>(Math+English+Bio+Physics+Chem+CS+Lang)/7</code></p></div>
+  </div>
+
+  <!-- FLOWCHART WITH PROPER SHAPES (WHILE LOOP example) -->
+  <div class="section-title">📐 flowchart · correct symbols (while loop)</div>
+  <div class="flowchart-panel">
+    <div class="flow-vertical">
+      <!-- start (oval) -->
+      <div class="flow-start">🔵 START</div>
+      <div class="flow-arrow">▼</div>
+      <!-- process -->
+      <div class="flow-process">total ← 0, count ← 0</div>
+      <div class="flow-arrow">▼</div>
+      <!-- input parallelogram -->
+      <div class="flow-io">📥 Read age</div>
+      <div class="flow-arrow">▼</div>
+      <!-- decision diamond -->
+      <div class="flow-decision">age ≠ 999 ?</div>
+      <div class="flow-arrow">▼</div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
+        <span style="font-size:0.85rem; font-weight:500;">YES branch →</span>
+        <div class="flow-process">total ← total + age<br>count ← count + 1</div>
+        <div class="flow-io">📥 Read age</div>
+        <div class="loop-back">↺ loop back to decision</div>
+      </div>
+      <div class="flow-arrow">⬇️ (NO / exit)</div>
+      <div class="flow-process">average ← total / count</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-io">📤 OUTPUT count, average</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-start">🔴 STOP</div>
+    </div>
+    <p style="margin-top: 1rem; font-size:0.8rem; background:#f3f7fb; padding:0.4rem 1rem; border-radius: 20px;">✅ While loop condition tested at start — repeats until age=999</p>
+  </div>
+
+  <!-- ALGORITHM + IPO examples -->
+  <div class="section-title">🧩 algorithms & pseudocode</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>characteristics of algorithms</h3><p>1. finite & unambiguous<br>2. effective steps<br>3. zero or more inputs, one or more outputs<br>4. terminates after finite steps</p></div>
+    <div class="info-card"><h3>total distance (50 employees)</h3><div class="code-snip">START<br>totalDist ← 0<br>FOR i=1 TO 50<br>  INPUT name, distance<br>  totalDist ← totalDist + distance<br>NEXT<br>OUTPUT totalDist<br>END</div></div>
+    <div class="info-card"><h3>coffee shop sales (IPO)</h3><p>Input: shopName, Jan..Apr sales<br>Processing: total=sum, avg=total/4<br>Output: shopName, total, avg</p><div class="code-snip">READ shopName, s1,s2,s3,s4<br>total ← s1+s2+s3+s4<br>avg ← total/4<br>PRINT shopName, total, avg</div></div>
+    <div class="info-card"><h3>payroll overtime (rate snippet)</h3><div class="code-snip">IF hoursWorked > 40 THEN<br>  overtimePay ← (hoursWorked-40)*6<br>  pay ← (40*5)+overtimePay<br>ELSE<br>  pay ← hoursWorked*5<br>ENDIF</div></div>
+  </div>
+
+  <!-- SPREADSHEETS & FUNCTIONS -->
+  <div class="section-title">📊 spreadsheet mastery</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>COUNTIF & pivot example</h3><p>=COUNTIF(B3:B10,"Tennis") → counts Tennis activities.<br>PivotTable: drag Salesperson to Rows, Order Amount to Values → total per salesperson.</p></div>
+    <div class="info-card"><h3>VLOOKUP parameters</h3><p>=VLOOKUP(lookup_value, table_array, col_index, [range])<br>P1: value to search, P2: table range, P3: column index, P4: FALSE for exact match.</p></div>
+    <div class="info-card"><h3>logistics hub chart</h3><p>Clustered column chart created from A2:G7 → Insert → Column Chart. Sorting applied on Shipping Line (ascending).</p></div>
+    <div class="info-card"><h3>IF function syntax</h3><p>=IF(logical_test, value_if_true, value_if_false)<br>Example: =IF(G8>300,"GOOD","POOR")</p></div>
+  </div>
+
+  <!-- VALIDATION + VERIFICATION -->
+  <div class="section-title">✔️ validation & verification</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>validation checks</h3><p>Range (0-100), Format (XXX-999999), Presence (not empty), Consistency (age matches DOB), Length (password min 8).</p></div>
+    <div class="info-card"><h3>double data entry</h3><p>User enters age twice; system compares both entries. If mismatch → error message → re-enter.</p></div>
+    <div class="info-card"><h3>verification methods</h3><p>Visual check: compare screen with original paper. Double entry: enter twice and compare.</p></div>
+    <div class="info-card"><h3>word count in MS Word</h3><p>Highlight text → Review tab → Word Count, or view status bar.</p></div>
+  </div>
+
+  <!-- NETWORKS AND URL -->
+  <div class="section-title">🌐 networks & web technologies</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>WAN / LAN / intranet</h3><p>WAN connects remote LANs (different cities). Intranet: private. Extranet: external authorized access.</p></div>
+    <div class="info-card"><h3>cloud vs local storage</h3><p>Cloud: off-site, accessible from anywhere, automatic backup. Local: physical control, faster intranet access.</p></div>
+    <div class="info-card"><h3>URL components</h3><p><strong>https://</strong> protocol · <strong>www.cxc.org</strong> domain · <strong>/results</strong> path</p></div>
+    <div class="info-card"><h3>hyperlink definition</h3><p>Clickable element linking to another webpage, file, or section. Used in navigation bars, image links, call-to-action buttons.</p></div>
+  </div>
+
+  <!-- security threats extended -->
+  <div class="section-title">🛡️ threats & countermeasures</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>ransomware & DoS</h3><p>Ransomware encrypts files + demands payment. DoS attack overloads server, making service unavailable.</p></div>
+    <div class="info-card"><h3>phishing & industrial espionage</h3><p>Phishing via email/SMS: trick users into credentials. Espionage: stealing trade secrets from competitors.</p></div>
+    <div class="info-card"><h3>firewall & antivirus</h3><p>Firewall filters network traffic; antivirus scans & removes malware.</p></div>
+    <div class="info-card"><h3>vulnerability vs threat</h3><p>Vulnerability: weakness (e.g., outdated software). Threat: danger that exploits weakness (hacker).</p></div>
+  </div>
+
+  <!-- PAST PAPERS (8 PDFs) -->
+  <div class="section-title">📄 past papers & answer booklets</div>
+  <div class="paper-list" id="paperList">
+    <div class="paper-item"><span><strong>f.pdf</strong> – Paper 2 (General)</span><button class="paper-btn" data-pdf="f.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>ff.pdf</strong> – Paper 2 variant</span><button class="paper-btn" data-pdf="ff.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>ff-answers.pdf</strong> – solutions booklet</span><button class="paper-btn" data-pdf="ff-answeres.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>fff.pdf</strong> – exam paper 3</span><button class="paper-btn" data-pdf="fff.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>fff-answers.pdf</strong> – answers</span><button class="paper-btn" data-pdf="fff-answers.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>ffffff.pdf</strong> – paper 4</span><button class="paper-btn" data-pdf="ffffff.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>fffffff.pdf</strong> – paper 5</span><button class="paper-btn" data-pdf="fffffff.pdf">preview</button></div>
+    <div class="paper-item"><span><strong>ffffffff.pdf</strong> – paper 6</span><button class="paper-btn" data-pdf="ffffffff.pdf">preview</button></div>
+  </div>
+  <div id="pdfPreviewContainer" class="pdf-preview">
+    <iframe id="pdfFrame" src=""></iframe>
+  </div>
+
+  <!-- FLOWCHART IMAGES & EXTRA VISUALS -->
+  <div class="section-title">🖼️ flowchart diagrams (exam materials)</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>flowchart explained symbols</h3><img src="flowchartexplained.png" alt="flowchart symbols" style="width:100%; border-radius: 20px; margin-top: 8px; border:1px solid #cde0ef;"></div>
+    <div class="info-card"><h3>pseudocode & flowchart mapping</h3><img src="pseudocode.jpg" alt="pseudocode image" style="width:100%; border-radius: 20px; margin-top: 8px;"></div>
+    <div class="info-card"><h3>algorithm flowchart sample</h3><img src="flowchart.jpg" alt="algorithm flowchart" style="width:100%; border-radius: 20px;"></div>
+  </div>
+
+  <!-- Investment IPO + pseudocode -->
+  <div class="subsection">📈 ROI algorithm (IPO chart)</div>
+  <div class="flowchart-panel">
+    <table class="styled-table">
+      <thead><tr><th>Input</th><th>Processing</th><th>Output</th></tr></thead>
+      <tbody><tr><td>initialInvestment, rate</td><td>roi = (initialInvest + (initialInvest * rate/100)) - initialInvest</td><td>Return on Investment</td></tr></tbody>
+    </table>
+    <div class="code-snip">START<br> PRINT "Enter investment & rate"<br> READ initInv, rate<br> roi ← (initInv + (initInv * rate/100)) - initInv<br> PRINT "ROI: $", roi<br> STOP</div>
+  </div>
+
+  <!-- extra glossary -->
+  <div class="section-title">📖 concise glossary</div>
+  <div class="grid-2col">
+    <div class="info-card"><h3>serial vs sequential</h3><p>Serial: arrival order; Sequential: sorted by key — ideal for tape storage.</p></div>
+    <div class="info-card"><h3>primary / foreign key</h3><p>Primary: unique identifier (ItemNo). Foreign: link to another table (SupplierID).</p></div>
+    <div class="info-card"><h3>syntax error</h3><p>violates language grammar (e.g., missing quote, misspelled keyword).</p></div>
+    <div class="info-card"><h3>telecommuting advantage</h3><p>Reduced commute, flexible hours, lower office costs.</p></div>
+    <div class="info-card"><h3>while vs repeat until</h3><p>While checks condition before; Repeat until executes at least once.</p></div>
+    <div class="info-card"><h3>grouping in reports</h3><p>aggregates data by categories, e.g., total sales per region.</p></div>
+  </div>
+
+  <footer>
+    🧪 CSEC Information Technology • full mastery booklet • based on past papers 2024–2026 • Liquid down by Keyshaun Sookdar
+  </footer>
+</div>
+
+<script>
+  const previewDiv = document.getElementById('pdfPreviewContainer');
+  const iframe = document.getElementById('pdfFrame');
+  const btns = document.querySelectorAll('.paper-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const pdfSrc = btn.getAttribute('data-pdf');
+      iframe.src = pdfSrc;
+      previewDiv.style.display = 'block';
+      previewDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
