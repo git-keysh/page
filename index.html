@@ -146,6 +146,7 @@
   "description":"Full-Stack Architect specializing in high-performance systems, software engineering, and cybersecurity."
 }
 </script>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -161,21 +162,23 @@
 
 <a 
 href="https://www.instagram.com/keyshaun.dev/" 
-target="_blank" 
+target="_blank"
 class="bottom-social"
+id="instagramBtn"
 >
     <img src="cdn/icons/instagram.png" alt="Instagram">
     <span>keyshaun.dev</span>
 </a>
 
-<a 
-href="home.html"
-onclick="window.open('https://www.instagram.com/keyshaun.dev/','_blank')"
-class="bottom-social"
->
-    <img src="cdn/icons/instagram.png" alt="Instagram">
-    <span>keyshaun.dev</span>
-</a>
+<script>
+document.addEventListener("click", function () {
+    window.location.href = "home.html";
+});
+
+document.getElementById("instagramBtn").addEventListener("click", function (e) {
+    e.stopPropagation();
+});
+</script>
 
 <script src="cdn/javascript/permissionhandler.js"></script>
 <script type="module" src="https://keyshaun.pages.dev/cdn/javascript/client-tector.js"></script>
