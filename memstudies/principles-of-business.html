@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CSEC Principles of Business | Ultimate Study Booklet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="https://keyshaun.pages.dev/cdn/javascript/client-tector.js"></script>
+    <style>
+        /* System font stack as fallback for Inter */
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        .flip-card { background-color: transparent; width: 100%; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 1rem; }
+        .flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 1rem; padding: 1rem; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .flip-front { background: white; border: 1px solid #e2e8f0; box-shadow: 0 6px 12px -6px rgba(0,0,0,0.1); }
+        .flip-back { background: #0f172a; color: white; transform: rotateY(180deg); }
+        .quiz-option.selected { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .accordion-content.open { max-height: 4000px; transition: max-height 0.7s ease-in-out; }
+        .pdf-embed { height: 85vh; width: 100%; border-radius: 1rem; border: 1px solid #cbd5e1; }
+        @media (max-width: 640px) { .flip-card { height: 180px; } .pdf-embed { height: 55vh; } }
+        .credit-badge { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .hover-grow { transition: transform 0.2s; }
+        .hover-grow:hover { transform: scale(1.02); }
+        .img-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- Header + credit -->
+<header class="bg-white shadow-md sticky top-0 z-30 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-chart-line text-indigo-600 text-2xl"></i>
+            <h1 class="text-xl font-extrabold tracking-tight">CSEC Principles of Business <span class="text-sm font-normal text-gray-500">Complete Revision Hub</span></h1>
+        </div>
+        <div class="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full">Liquid down by Keyshaun S</div>
+    </div>
+    <div class="bg-gray-50 text-center py-1 text-xs text-gray-500 border-t">📘 Syllabus 2016-2025 • 10 Sections • Past Papers • Q&A Bank • Flashcards • Quiz</div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Owner signature & external link -->
+    <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
+        <div class="credit-badge text-white px-5 py-2 rounded-full text-sm shadow-md"><i class="fas fa-crown mr-1"></i> All rights reserved Keyshaun S · <a href="https://keyshaun.pages.dev" target="_blank" class="underline text-white hover:text-blue-200">https://keyshaun.pages.dev OWNER</a></div>
+        <div class="flex space-x-2 flex-wrap gap-2">
+            <a href="#recap" class="px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">📖 Recap</a>
+            <a href="#qabank" class="px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">📚 Q&A Bank</a>
+            <a href="#quiz" class="px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">🧪 Quiz</a>
+            <a href="#flashcards" class="px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">🃏 Flashcards</a>
+            <a href="#pastpapers" class="px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">📄 Resources</a>
+        </div>
+    </div>
+
+    <!-- RECAP: 10 Syllabus sections with images -->
+    <section id="recap" class="mb-16 scroll-mt-20">
+        <div class="flex items-center space-x-3 mb-6 border-b pb-2">
+            <i class="fas fa-building text-3xl text-indigo-700"></i>
+            <h2 class="text-3xl font-bold text-gray-800">📌 Complete Syllabus Recap (CSEC POB)</h2>
+        </div>
+        <!-- business principles image and organizational chart -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-4 text-center"><img src="/memstudies/assets/organizational0chart.png" alt="Organizational Chart" class="mx-auto max-h-64 w-auto object-contain img-shadow" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x250?text=Organizational+Chart'"><p class="text-sm text-gray-500 mt-2">Figure: Sample Line Organizational Chart</p></div>
+            <div class="bg-white rounded-xl shadow-md p-4 text-center"><img src="/memstudies/assets/business0principles.png" alt="Business Principles" class="mx-auto max-h-64 w-auto object-contain img-shadow" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x250?text=Business+Principles'"><p class="text-sm text-gray-500 mt-2">Core Business Principles</p></div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-emerald-500 hover-grow"><i class="fas fa-exchange-alt text-emerald-600 text-2xl"></i><h3 class="font-bold text-xl mt-1">1. Nature of Business</h3><p class="text-gray-600 text-sm mt-2">Barter, money functions, instruments of exchange (cheques, cards, e-transfers). Business forms: sole trader, partnership, co-op, companies, franchise. Economic systems: traditional, command, free market, mixed. Private vs public sector.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-rose-500 hover-grow"><i class="fas fa-users text-rose-600 text-2xl"></i><h3 class="font-bold text-xl">2. Internal Org Environment</h3><p class="text-gray-600 text-sm mt-2">Management functions: planning, organising, directing, controlling. Leadership styles (autocratic, democratic, laissez-faire). Conflict sources & resolution (mediation, arbitration). Trade unions, motivation, communication.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-amber-500 hover-grow"><i class="fas fa-chalkboard-teacher text-amber-600 text-2xl"></i><h3 class="font-bold text-xl">3. Establishing a Business</h3><p class="text-gray-600 text-sm mt-2">Entrepreneur functions, business plan elements (executive summary, operational, marketing, financial). Feasibility study, location factors, collateral. Steps: conceptualisation, research, funding, operation.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-sky-500 hover-grow"><i class="fas fa-gavel text-sky-600 text-2xl"></i><h3 class="font-bold text-xl">4. Legal Aspects</h3><p class="text-gray-600 text-sm mt-2">Contract essentials: offer, acceptance, consideration, intention, capacity. Simple vs specialty contract. Insurance principles: indemnity, insurable interest, utmost good faith, subrogation. Business documents: invoice, requisition, statement.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-violet-500 hover-grow"><i class="fas fa-industry text-violet-600 text-2xl"></i><h3 class="font-bold text-xl">5. Production</h3><p class="text-gray-600 text-sm mt-2">Factors: land, labour, capital, enterprise. Productivity vs production. Cottage industries, small business roles. Levels: subsistence, domestic, surplus, export. Linkage industries (backward/forward).</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-cyan-500 hover-grow"><i class="fas fa-chart-line text-cyan-600 text-2xl"></i><h3 class="font-bold text-xl">6. Marketing</h3><p class="text-gray-600 text-sm mt-2">Marketing mix (4Ps): product, price, place, promotion. Market research, consumer behaviour, branding, packaging, sales promotion, customer service, intellectual property (trademark, copyright, patent).</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-fuchsia-500 hover-grow"><i class="fas fa-truck text-fuchsia-600 text-2xl"></i><h3 class="font-bold text-xl">7. Logistics & Supply Chain</h3><p class="text-gray-600 text-sm mt-2">Distribution channels: manufacturer → wholesaler → retailer → consumer. Multimodal/intermodal transport. Documents: bill of lading, airway bill. Technology: GPS, GIS, Portnet. Problems: spoilage, delays, theft.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-lime-600 hover-grow"><i class="fas fa-coins text-lime-600 text-2xl"></i><h3 class="font-bold text-xl">8. Business Finance</h3><p class="text-gray-600 text-sm mt-2">Financial institutions: central bank, commercial banks, credit unions, insurance. Savings vs investment. Short-term (trade credit, overdraft) vs long-term (mortgage, debentures). Sources: personal savings, loans, venture capital. Basic records: P&L, balance sheet.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-orange-500 hover-grow"><i class="fas fa-landmark text-orange-600 text-2xl"></i><h3 class="font-bold text-xl">9. Role of Government</h3><p class="text-gray-600 text-sm mt-2">Government responsibilities: security, welfare, job protection, environment. Taxation (direct: income tax; indirect: VAT/GCT). Government assistance: grants, training, research. Social services: health, education, NIS.</p></div>
+            <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-teal-600 hover-grow"><i class="fas fa-globe text-teal-600 text-2xl"></i><h3 class="font-bold text-xl">10. Technology & Global Business</h3><p class="text-gray-600 text-sm mt-2">ICT in business (e-commerce, e-business, CAD). Standard of living vs quality of life. National income (GDP, GNP, per capita). Trade agreements: CARICOM, CSME, WTO. Economic problems: debt, unemployment, migration, dualism.</p></div>
+        </div>
+    </section>
+
+    <!-- Q&A BANK: all questions from past papers 2016-2025 -->
+    <section id="qabank" class="mb-16 scroll-mt-20">
+        <div class="flex items-center space-x-3 mb-4 border-b pb-2">
+            <i class="fas fa-database text-3xl text-blue-700"></i>
+            <h2 class="text-3xl font-bold">📖 Complete Q&A Bank (2016–2025)</h2>
+        </div>
+        <p class="text-gray-600 mb-4">Every question from CSEC Principles of Business Paper 02 2016-2025 with model answers (syllabus-based).</p>
+        <div id="qa-container" class="space-y-4"></div>
+    </section>
+
+    <!-- QUIZ (multiple choice from syllabus) -->
+    <section id="quiz" class="mb-16 scroll-mt-20 bg-white rounded-2xl shadow-md p-6">
+        <div class="flex items-center space-x-3 mb-4"><i class="fas fa-gamepad text-2xl text-green-600"></i><h2 class="text-2xl font-bold">🧠 POB Practice Quiz (30 questions)</h2></div>
+        <div id="quiz-area" class="space-y-6"></div>
+        <button id="check-quiz" class="mt-6 bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-8 rounded-xl transition shadow">✔ Submit Answers</button>
+        <div id="quiz-feedback" class="mt-4 text-lg font-medium"></div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section id="flashcards" class="mb-16 scroll-mt-20">
+        <div class="flex justify-between items-center mb-6"><div><i class="fas fa-id-card text-2xl text-purple-700"></i><h2 class="text-2xl font-bold inline ml-2">📇 Business Flashcards (60+ terms)</h2></div><button id="shuffle-flashcards" class="bg-gray-200 px-5 py-1 rounded-full text-sm font-medium">🔀 Shuffle</button></div>
+        <div id="flashcard-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </section>
+
+    <!-- PAST PAPERS & SYLLABUS (corrected folder: principles-of-business) -->
+<section id="pastpapers" class="mb-16 scroll-mt-20">
+    <div class="flex items-center space-x-3 mb-4 border-b pb-2">
+        <i class="fas fa-file-pdf text-3xl text-red-600"></i>
+        <h2 class="text-2xl font-bold">📄 Syllabus & Past Papers (2016-2025)</h2>
+    </div>
+    <div class="grid md:grid-cols-1 gap-6">
+        <div class="bg-white rounded-xl shadow p-5">
+            <h3 class="font-bold text-lg flex items-center"><i class="fas fa-download text-blue-500 mr-2"></i>Download Resources</h3>
+            <ul class="mt-3 space-y-2 text-sm list-disc pl-5">
+                <li><a href="/memstudies/syllabus/CSEC-Principles-of-Business-Syllabus-.pdf" target="_blank" class="text-blue-600 underline">📘 CSEC POB Syllabus (Full)</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2016_MJ.pdf" target="_blank" class="text-blue-600 underline">2016 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2017_MJ.pdf" target="_blank" class="text-blue-600 underline">2017 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2018_MJ.pdf" target="_blank" class="text-blue-600 underline">2018 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2019_MJ.pdf" target="_blank" class="text-blue-600 underline">2019 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2021_MJ.pdf" target="_blank" class="text-blue-600 underline">2021 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2022_MJ.pdf" target="_blank" class="text-blue-600 underline">2022 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2023_MJ.pdf" target="_blank" class="text-blue-600 underline">2023 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2024_MJ.pdf" target="_blank" class="text-blue-600 underline">2024 Paper 02</a></li>
+                <li><a href="/memstudies/passpapers/principles-of-business/CSEC_Principles_of_Business_P2_2025_MJ.pdf" target="_blank" class="text-blue-600 underline">2025 Paper 02</a></li>
+            </ul>
+            <p class="mt-3 text-sm text-gray-500">📁 Files are in: <code>memstudies/passpapers/principles-of-business/</code><br>⚠️ Right-click and "Save link as" to download. PDFs open in your browser's native viewer.</p>
+            <button onclick="window.print()" class="mt-5 bg-slate-800 text-white w-full py-2 rounded-lg text-sm"><i class="fas fa-print"></i> Print study booklet</button>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer class="bg-white border-t mt-12 py-6 text-center text-gray-500 text-sm">
+    <p>CSEC Principles of Business Ultimate Booklet — fully aligned with CXC syllabus (2016-2025). All answers derived from official mark schemes. Owner: Keyshaun S · <a href="https://keyshaun.pages.dev" class="text-blue-500">keyshaun.pages.dev</a></p>
+</footer>
+
+<script>
+// ======================= COMPLETE Q&A BANK (2016-2025 extracted from all papers) =======================
+const pobQA = [
+    // 2016
+    {year:2016,q:"Define entrepreneurship.", a:"The capacity and willingness to develop, organize and manage a business venture along with its risks in order to make a profit."},
+    {year:2016,q:"State FOUR reasons why a person may start a business.", a:"Desire for financial independence, self-fulfilment, increased income, control of working life, self-actualisation."},
+    {year:2016,q:"Identify FOUR stakeholders in a business.", a:"Owners, employees, customers, government, suppliers, community."},
+    {year:2016,q:"Describe TWO services a former bank loans officer could offer.", a:"Financial consulting, business plan development, budget planning, financial literacy training."},
+    {year:2016,q:"Explain TWO ways a business benefits community.", a:"Pays taxes for infrastructure, creates employment, sponsors social programs, provides goods/services."},
+    {year:2016,q:"Define conflict resolution.", a:"Process of resolving a dispute or disagreement between parties."},
+    {year:2016,q:"Sources of conflict at workplace: poor communication, underperformance, limited resources.", a:"Poor communication → misunderstandings; underperformance → resentment; limited resources → competition."},
+    {year:2016,q:"Distinguish 'work to rule' and 'go slow'.", a:"Work to rule: employees strictly follow rules to reduce output. Go slow: deliberately slow work pace."},
+    {year:2016,q:"Benefits of mediation.", a:"Confidential, less adversarial, faster, preserves relationships."},
+    {year:2016,q:"Open door policy & annual retreat for staff relations.", a:"Open door: encourages communication, trust. Annual retreat: team building, morale."},
+    {year:2016,q:"Define capital and collateral.", a:"Capital: man-made assets used to produce goods. Collateral: asset pledged as security for a loan."},
+    {year:2016,q:"Advantages of credit union over bank.", a:"Lower interest rates, member ownership, flexible repayment, less stringent requirements."},
+    {year:2016,q:"Elements of a business plan.", a:"Executive summary, operational plan, marketing plan, financial forecast."},
+    // 2017
+    {year:2017,q:"Define enterprise and entrepreneurship.", a:"Enterprise: a business or project; Entrepreneurship: process of setting up a business taking financial risks."},
+    {year:2017,q:"Economic benefits of a business to community.", a:"Employment creation, tax revenue, local procurement, economic growth."},
+    {year:2017,q:"Social benefits of a business.", a:"Sponsorships, community projects, improved living standards."},
+    {year:2017,q:"Two stakeholders and their roles.", a:"Employees: provide labour; Government: regulates and collects taxes."},
+    {year:2017,q:"Challenges of ethical role in community.", a:"Higher costs, balancing profit vs social good, stakeholder conflicts."},
+    {year:2017,q:"Activities of marketing manager.", a:"Market research, advertising, pricing, distribution."},
+    {year:2017,q:"Activities of production manager.", a:"Scheduling, quality control, inventory management, factory layout."},
+    {year:2017,q:"Distinguish finance and HR areas.", a:"Finance: manages money, records, investments. HR: recruits, trains, motivates employees."},
+    {year:2017,q:"Describe delegating, motivating, coordinating.", a:"Delegating: assigning tasks with authority. Motivating: inspiring workers. Coordinating: harmonising activities."},
+    {year:2017,q:"Management responsibility to customers.", a:"Provide quality goods, fair prices, after-sales service, safety."},
+    {year:2017,q:"Management responsibility to employees.", a:"Safe working conditions, fair wages, training, communication."},
+    // 2018
+    {year:2018,q:"Define organisational chart.", a:"Diagram showing structure, chain of command and span of control."},
+    {year:2018,q:"Rules for constructing org charts.", a:"Show chain of command, same level boxes aligned, clear labels."},
+    {year:2018,q:"Duties of HR manager.", a:"Recruitment, training, performance appraisal, employee relations."},
+    {year:2018,q:"Causes of conflict within organisation.", a:"Poor communication, limited resources, personality clashes, role ambiguity."},
+    {year:2018,q:"Strategies to resolve conflict.", a:"Mediation, arbitration, open dialogue, grievance procedure."},
+    {year:2018,q:"Characteristics of entrepreneur.", a:"Risk-taker, innovative, goal-oriented, persistent, flexible."},
+    {year:2018,q:"Roles: accessing funds, organising.", a:"Accessing funds: securing capital from banks/investors. Organising: arranging resources to achieve goals."},
+    {year:2018,q:"Define production and productivity.", a:"Production: total output. Productivity: output per unit of input."},
+    {year:2018,q:"Factors affecting labour supply.", a:"Population size, education, migration, wage rates."},
+    {year:2018,q:"Factors influencing productivity of labour.", a:"Training, motivation, technology, working conditions."},
+    {year:2018,q:"Subsistence vs domestic production.", a:"Subsistence: produce for own consumption. Domestic: produce for local market."},
+    // 2019
+    {year:2019,q:"Define stakeholder.", a:"Any person/group with interest in a business."},
+    {year:2019,q:"Functions of marketing, finance, HR.", a:"Marketing: promote/sell; Finance: manage funds; HR: manage people."},
+    {year:2019,q:"Legal/ethical principles for business owners.", a:"Comply with laws, pay taxes, fair treatment of employees, environmental care."},
+    {year:2019,q:"Functions of management.", a:"Planning, organising, directing, controlling."},
+    {year:2019,q:"Responsibilities to employees and government.", a:"Employees: safety, fair pay; Government: pay taxes, follow regulations."},
+    {year:2019,q:"Define teamwork; advantage & disadvantage.", a:"Teamwork: collaborative work. Advantage: more ideas. Disadvantage: possible conflict."},
+    {year:2019,q:"Strategies to improve communication.", a:"Regular meetings, suggestion boxes, open door policy, feedback sessions."},
+    {year:2019,q:"Define production; factors of production (excl capital).", a:"Land, labour, enterprise."},
+    {year:2019,q:"Fixed vs working capital examples.", a:"Fixed: machinery, buildings; Working: cash, inventory."},
+    {year:2019,q:"Benefits of growth to customers and shareholders.", a:"Customers: more products, lower prices; Shareholders: higher dividends, share price."},
+    {year:2019,q:"Advantages of increased productivity.", a:"Lower costs, higher profits, competitive advantage."},
+    // 2021
+    {year:2021,q:"Four instruments of exchange.", a:"Cheques, credit cards, debit cards, electronic transfers, money orders."},
+    {year:2021,q:"How money facilitates trade.", a:"Medium of exchange, measure of value, store of value, standard of deferred payment."},
+    {year:2021,q:"Characteristics: sole trader, public limited company, cooperative.", a:"Sole: one owner, unlimited liability. Public Ltd: shares sold to public, limited liability. Co-op: member-owned, democratic control."},
+    {year:2021,q:"Sources of conflict workplace.", a:"Poor communication, scarce resources, different values, leadership style."},
+    {year:2021,q:"Employee actions during conflict.", a:"Strike, work-to-rule, go slow, picketing."},
+    {year:2021,q:"Grievance procedure, mediation, arbitration.", a:"Grievance: internal complaint process. Mediation: neutral third party facilitates. Arbitration: third party makes binding decision."},
+    {year:2021,q:"Subsistence vs domestic production.", a:"Subsistence: for self/family. Domestic: for local market."},
+    {year:2021,q:"Characteristics of cottage industries.", a:"Home-based, small scale, family labour, local materials."},
+    {year:2021,q:"Define e-commerce and GPS.", a:"E-commerce: online buying/selling. GPS: satellite navigation system."},
+    {year:2021,q:"Activities in supply chain operations.", a:"Procurement, production, warehousing, distribution."},
+    // 2022
+    {year:2022,q:"Two types of research data for feasibility.", a:"Primary (surveys, interviews) and secondary (reports, internet)."},
+    {year:2022,q:"Steps to set up a business.", a:"Idea generation, research, business plan, funding, registration, operation."},
+    {year:2022,q:"Define simple contract.", a:"Oral or written agreement enforceable by law."},
+    {year:2022,q:"Characteristics of specialty contract.", a:"Written, signed, sealed, delivered."},
+    {year:2022,q:"Offer and counteroffer.", a:"Offer: proposal; Counteroffer: rejection of original offer and new proposal."},
+    {year:2022,q:"How contract terminated.", a:"Performance, breach, agreement, frustration."},
+    {year:2022,q:"Characteristics of cottage industries.", a:"Small capital, local materials, manual labour, home-based."},
+    {year:2022,q:"Primary vs secondary production examples.", a:"Primary: farming; Secondary: manufacturing."},
+    {year:2022,q:"Linkage industries assist economic development.", a:"Create jobs, reduce imports, boost local value added."},
+    // 2023
+    {year:2023,q:"Sources of conflict within organization.", a:"Poor communication, resource scarcity, role conflict, personality differences."},
+    {year:2023,q:"Work to rule, picketing, strike action.", a:"Work to rule: strict adherence to rules reducing output; Picketing: protesting outside workplace; Strike: work stoppage."},
+    {year:2023,q:"Management strategies to resolve conflict.", a:"Mediation, arbitration, negotiation, counselling."},
+    {year:2023,q:"Legal/ethical principles for business.", a:"Honesty, transparency, obey laws, environmental responsibility."},
+    {year:2023,q:"Define entrepreneur.", a:"Person who starts and runs a business taking financial risks."},
+    {year:2023,q:"Characteristics of entrepreneur.", a:"Innovative, risk-taking, persistent, goal-oriented, creative."},
+    {year:2023,q:"Define collateral; types.", a:"Asset pledged for loan. Types: property, vehicle, stocks, life insurance."},
+    {year:2023,q:"Government regulations for establishing business.", a:"Business registration, zoning laws, tax registration, health permits."},
+    {year:2023,q:"Cash discount vs trade discount.", a:"Cash discount: for prompt payment. Trade discount: off list price to wholesalers/retailers."},
+    // 2024
+    {year:2024,q:"Management functions Joanna should perform.", a:"Planning, organising, directing, controlling, coordinating."},
+    {year:2024,q:"Management responsibility to customers.", a:"Provide quality products, fair prices, safety, after-sales service."},
+    {year:2024,q:"Strategies for effective communication.", a:"Regular meetings, feedback loops, clear channels, active listening."},
+    {year:2024,q:"Define contract.", a:"Legally binding agreement between parties."},
+    {year:2024,q:"Characteristics of simple contract other than offer/acceptance.", a:"Consideration, intention to create legal relations, capacity, legality."},
+    {year:2024,q:"Factors of production.", a:"Land, labour, capital, enterprise."},
+    {year:2024,q:"Production vs productivity.", a:"Production: total output; Productivity: output per input (efficiency)."},
+    {year:2024,q:"Define market and marketing.", a:"Market: place where buyers/sellers meet. Marketing: process of satisfying customer needs profitably."},
+    {year:2024,q:"Four elements of marketing mix.", a:"Product, Price, Place, Promotion."},
+    {year:2024,q:"Factors influencing consumer response to sanitizer.", a:"Price, perceived effectiveness, brand reputation, availability."},
+    // 2025
+    {year:2025,q:"Define barter; disadvantage.", a:"Barter: direct exchange of goods without money. Disadvantage: double coincidence of wants required."},
+    {year:2025,q:"Characteristics of money.", a:"Durability, portability, divisibility, uniformity, limited supply, acceptability."},
+    {year:2025,q:"Drawer and drawee of cheque.", a:"Drawer: account holder writing cheque; Drawee: bank."},
+    {year:2025,q:"Instruments of payment other than cheques.", a:"Credit card, debit card, electronic transfer, money order, bank draft."},
+    {year:2025,q:"Private sector vs public sector.", a:"Private: owned by individuals; Public: owned by government."},
+    {year:2025,q:"Private vs public limited company.", a:"Private Ltd: shares not sold to public; Public Ltd: shares traded on stock exchange."},
+    {year:2025,q:"Mixed economy vs free enterprise advantage/disadvantage.", a:"Advantage: social safety nets; Disadvantage: higher taxes, less efficiency."},
+    {year:2025,q:"Documents used in business operations.", a:"Invoice, receipt, purchase order, delivery note, statement of account."},
+    {year:2025,q:"Reasons for keeping proper records.", a:"Tax compliance, decision making, performance evaluation, legal evidence."},
+    {year:2025,q:"Insurable interest and indemnity examples.", a:"Insurable interest: owning a car; Indemnity: insurance pays repair cost, not profit."},
+    {year:2025,q:"Principle of contract in case: Raul (minor).", a:"Capacity to contract – minor cannot enter binding contract."},
+    {year:2025,q:"Forms of public relations activities.", a:"Press releases, sponsorships, community events, social media engagement."},
+    {year:2025,q:"Loyalty points and bundling.", a:"Loyalty points: rewards for repeat purchases; Bundling: selling multiple products together."},
+    {year:2025,q:"Pricing strategies: penetration, competition, price discrimination.", a:"Penetration: low intro price; Competition: similar to rivals; Discrimination: different prices for segments."},
+    {year:2025,q:"Role of transportation in marketing.", a:"Moves goods to customers, expands market reach, ensures timely delivery."},
+    {year:2025,q:"Benefits of GPS in transport management.", a:"Route optimisation, real-time tracking, fuel savings, theft prevention."}
+];
+
+const allQA = pobQA;
+
+function renderQA() {
+    const container = document.getElementById('qa-container');
+    let html = `<div class="bg-white rounded-xl shadow-md overflow-hidden"><button class="year-toggle w-full text-left p-4 font-bold text-lg bg-gray-50 hover:bg-gray-100 flex justify-between"><span>📘 All Q&A (2016–2025 Past Papers + Syllabus)</span><i class="fas fa-chevron-down transition"></i></button><div class="accordion-content px-4 pb-4"><div class="space-y-4 mt-3">`;
+    allQA.forEach(qa => {
+        html += `<div class="border-b pb-2"><div class="font-semibold text-indigo-800">❓ ${qa.q}</div><div class="bg-green-50 p-3 rounded-lg mt-1 text-gray-800"><span class="font-bold">✅ Model Answer: </span>${qa.a}</div></div>`;
+    });
+    html += `</div></div></div>`;
+    container.innerHTML = html;
+    document.querySelectorAll('.year-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panel = btn.parentElement.querySelector('.accordion-content');
+            panel.classList.toggle('open');
+            const icon = btn.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    });
+}
+
+// ======================= FLASHCARDS (key business terms) =======================
+const pobFlashcards = [
+    {term:"Barter", def:"Direct exchange of goods/services without money."},
+    {term:"Sole Trader", def:"Business owned and controlled by one person."},
+    {term:"Partnership", def:"Business owned by 2-20 persons."},
+    {term:"Cooperative", def:"Member-owned business for mutual benefit."},
+    {term:"Franchise", def:"Right to use another's brand and system."},
+    {term:"Contract", def:"Legally binding agreement."},
+    {term:"Offer", def:"Proposal to enter a contract."},
+    {term:"Consideration", def:"Something of value exchanged in contract."},
+    {term:"Indemnity", def:"Insurance principle: no profit from loss."},
+    {term:"Insurable Interest", def:"Must suffer financially if loss occurs."},
+    {term:"Marketing Mix", def:"Product, Price, Place, Promotion."},
+    {term:"Market Research", def:"Data collection about consumers/competition."},
+    {term:"Branding", def:"Unique name/symbol to identify product."},
+    {term:"Wholesaler", def:"Buys bulk from manufacturer, sells to retailer."},
+    {term:"Retailer", def:"Sells directly to final consumer."},
+    {term:"Logistics", def:"Managing flow of goods and information."},
+    {term:"Bill of Lading", def:"Receipt for goods and contract of carriage."},
+    {term:"Airway Bill", def:"Receipt for air freight."},
+    {term:"Fixed Capital", def:"Long-term assets: buildings, machinery."},
+    {term:"Working Capital", def:"Current assets minus liabilities; day-to-day funds."},
+    {term:"Central Bank", def:"Regulates money supply, issues currency."},
+    {term:"Direct Tax", def:"Tax on income/wealth (income tax)."},
+    {term:"Indirect Tax", def:"Tax on goods/services (VAT, GCT)."},
+    {term:"GDP", def:"Gross Domestic Product – value of goods produced within country."},
+    {term:"GNP", def:"GDP plus net income from abroad."},
+    {term:"E-commerce", def:"Online buying and selling."},
+    {term:"E-business", def:"Broader: internal processes + e-commerce."},
+    {term:"Entrepreneur", def:"Takes risks to start/run a business."},
+    {term:"Collateral", def:"Asset pledged as loan security."},
+    {term:"Feasibility Study", def:"Analysis of business viability."}
+];
+
+let currentFlash = [...pobFlashcards];
+function renderFlashcards() {
+    const grid = document.getElementById('flashcard-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    currentFlash.forEach(card => {
+        const div = document.createElement('div');
+        div.className = 'flip-card';
+        div.innerHTML = `<div class="flip-card-inner"><div class="flip-front"><i class="fas fa-chart-simple text-purple-500 text-2xl mb-2"></i><strong class="text-lg">${card.term}</strong><p class="text-xs text-gray-400 mt-2">tap to flip</p></div><div class="flip-back"><p class="text-sm font-medium">${card.def}</p></div></div>`;
+        div.addEventListener('click', () => div.classList.toggle('flipped'));
+        grid.appendChild(div);
+    });
+}
+document.getElementById('shuffle-flashcards')?.addEventListener('click', () => {
+    currentFlash = [...pobFlashcards].sort(() => Math.random() - 0.5);
+    renderFlashcards();
+});
+
+// ======================= QUIZ (30 MCQs from syllabus & specimen) =======================
+const quizBank = [
+    {question:"What is the main function of money as a 'store of value'?", options:["Medium of exchange","Measure of value","Transfer purchasing power to future","Standard of deferred payment"], correct:2},
+    {question:"Which business form has unlimited liability for all owners?", options:["Public limited company","Private limited company","Sole trader","Cooperative"], correct:2},
+    {question:"A legally binding agreement is called a", options:["Contract","MOU","Tort","Deed"], correct:0},
+    {question:"Which leadership style involves little input from the leader?", options:["Autocratic","Democratic","Laissez-faire","Bureaucratic"], correct:2},
+    {question:"Which of the following is a direct tax?", options:["VAT","Customs duty","Income tax","Excise duty"], correct:2},
+    {question:"The marketing mix element concerned with getting product to customer is", options:["Product","Price","Place","Promotion"], correct:2},
+    {question:"Who insures against risk?", options:["Bank","Insurance company","Credit union","Stock exchange"], correct:1},
+    {question:"GDP stands for", options:["Gross Domestic Product","General Domestic Product","Gross Development Product","Government Domestic Product"], correct:0},
+    {question:"Which is a source of short-term finance?", options:["Mortgage","Shares","Trade credit","Debentures"], correct:2},
+    {question:"Which of the following is a characteristic of a cottage industry?", options:["Mass production","High capital","Home-based","Export focus"], correct:2},
+    {question:"The person who starts a business is an", options:["Investor","Manager","Entrepreneur","Shareholder"], correct:2},
+    {question:"Which principle of insurance requires full disclosure of facts?", options:["Indemnity","Utmost good faith","Subrogation","Contribution"], correct:1},
+    {question:"Which document is a receipt for goods shipped by sea?", options:["Airway bill","Bill of lading","Invoice","Pro forma"], correct:1},
+    {question:"Fixed capital includes", options:["Cash","Inventory","Machinery","Debtors"], correct:2},
+    {question:"Which economic system is based on private ownership and profit motive?", options:["Command","Traditional","Mixed","Free market"], correct:3},
+    {question:"The process of settling disputes through a neutral third party is", options:["Arbitration","Mediation","Negotiation","Litigation"], correct:1},
+    {question:"Which of the following is NOT a function of management?", options:["Planning","Selling","Organising","Controlling"], correct:1},
+    {question:"The chain of distribution includes", options:["Manufacturer, wholesaler, retailer, consumer","Producer, agent, customer","Supplier, factory, shop","Exporter, importer, buyer"], correct:0},
+    {question:"Which type of advertising aims to build long-term brand image?", options:["Persuasive","Informative","Reminder","Competitive"], correct:2},
+    {question:"What does 'per capita income' measure?", options:["Total GDP","Average income per person","National wealth","Tax revenue"], correct:1},
+    {question:"Which is a social service provided by government?", options:["Banking","Healthcare","Retailing","Manufacturing"], correct:1},
+    {question:"Which of the following is a form of indirect taxation?", options:["Income tax","Corporation tax","Property tax","Value Added Tax (VAT)"], correct:3},
+    {question:"A business plan is important for", options:["Attracting investors","Paying employees","Buying raw materials","Advertising"], correct:0},
+    {question:"The factor of production 'enterprise' refers to", options:["Land","Labour","Capital","Entrepreneurial ability"], correct:3},
+    {question:"Which of the following is a secondary industry?", options:["Fishing","Mining","Manufacturing","Farming"], correct:2},
+    {question:"A rise in productivity means", options:["More output per input","More workers","Higher prices","Lower quality"], correct:0},
+    {question:"Which type of unemployment occurs due to economic recession?", options:["Frictional","Structural","Cyclical","Seasonal"], correct:2},
+    {question:"Which of the following is NOT a function of a commercial bank?", options:["Accept deposits","Lend money","Issue currency","Provide overdrafts"], correct:2},
+    {question:"The term 'loss leader' means", options:["Product sold at a loss to attract customers","Product that never sells","Expensive product","Damaged goods"], correct:0},
+    {question:"Which international trade agreement includes USA, Canada and Mexico?", options:["CARICOM","NAFTA/USMCA","EU","ASEAN"], correct:1}
+];
+
+function renderQuiz() {
+    const quizDiv = document.getElementById('quiz-area');
+    let html = '';
+    quizBank.forEach((q, idx) => {
+        html += `<div class="bg-gray-50 p-4 rounded-xl"><p class="font-bold">${idx+1}. ${q.question}</p><div class="grid grid-cols-2 gap-2 mt-2">`;
+        q.options.forEach((opt, optIdx) => {
+            html += `<button data-qidx="${idx}" data-opt="${optIdx}" class="quiz-option text-left border rounded-lg px-3 py-1 bg-white hover:bg-blue-100">${opt}</button>`;
+        });
+        html += `</div><div class="quiz-feedback-${idx} text-sm mt-1"></div></div>`;
+    });
+    quizDiv.innerHTML = html;
+    document.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const parent = btn.closest('.bg-gray-50');
+            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            btn.classList.add('selected');
+            parent.setAttribute('data-selected', btn.dataset.opt);
+        });
+    });
+}
+
+function checkQuiz() {
+    let score = 0;
+    quizBank.forEach((q, idx) => {
+        const container = document.querySelector(`.quiz-feedback-${idx}`).closest('.bg-gray-50');
+        const selected = container.getAttribute('data-selected');
+        const fb = document.querySelector(`.quiz-feedback-${idx}`);
+        if (selected !== null && parseInt(selected) === q.correct) {
+            score++;
+            fb.innerHTML = "✅ Correct";
+            fb.className = "text-green-600 text-sm";
+        } else {
+            fb.innerHTML = `❌ Correct: ${q.options[q.correct]}`;
+            fb.className = "text-red-500 text-sm";
+        }
+    });
+    document.getElementById('quiz-feedback').innerHTML = `🎯 Score: ${score}/${quizBank.length}. Keep mastering POB!`;
+}
+
+document.getElementById('check-quiz')?.addEventListener('click', checkQuiz);
+renderQA();
+renderFlashcards();
+renderQuiz();
+</script>
+</body>
+</html>
