@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx, enumitem}
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\title{\textbf{CSEC Additional Mathematics \\ Comprehensive Past Paper Solutions}}
+\author{Detailed Step-by-Step Breakdown}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ==========================================
+% 2017 PAST PAPER
+% ==========================================
+\section{May/June 2017 Paper 02}
+
+\subsection*{Section I}
+
+\textbf{Question 1}
+
+\textbf{(a)(i) Determine the inverse of $f(x) = \frac{2x+p}{x-1}, x \neq 1$.} \\
+Let $y = f(x)$. Therefore, $y = \frac{2x+p}{x-1}$. \\
+To find the inverse, swap $x$ and $y$ and solve for $y$: \\
+$x = \frac{2y+p}{y-1}$ \\
+$x(y - 1) = 2y + p$ \\
+$xy - x = 2y + p$ \\
+$xy - 2y = x + p$ \\
+$y(x - 2) = x + p$ \\
+$y = \frac{x+p}{x-2}$ \\
+\textbf{Answer:} $f^{-1}(x) = \frac{x+p}{x-2}, x \neq 2$.
+
+\textbf{(a)(ii) If $f^{-1}(8) = 5$, find the value of $p$.} \\
+Substitute $x = 8$ into the inverse function and set it equal to 5: \\
+$\frac{8+p}{8-2} = 5$ \\
+$\frac{8+p}{6} = 5$ \\
+$8 + p = 30$ \\
+$p = 30 - 8 = 22$ \\
+\textbf{Answer:} $p = 22$.
+
+\textbf{(b) Given the remainder when $f(x) = x^3 - x^2 - ax + b$ is divided by $x+1$ is 6, and $x-2$ is a factor, find $a$ and $b$.} \\
+By the Remainder Theorem, $f(-1) = 6$: \\
+$(-1)^3 - (-1)^2 - a(-1) + b = 6$ \\
+$-1 - 1 + a + b = 6$ \\
+$a + b = 8$ \quad --- (Equation 1) \\
+By the Factor Theorem, $f(2) = 0$: \\
+$(2)^3 - (2)^2 - a(2) + b = 0$ \\
+$8 - 4 - 2a + b = 0$ \\
+$4 - 2a + b = 0$ \\
+$-2a + b = -4$ \quad --- (Equation 2) \\
+Subtract Eq 2 from Eq 1: \\
+$(a + b) - (-2a + b) = 8 - (-4)$ \\
+$3a = 12 \implies a = 4$. \\
+Substitute $a = 4$ into Eq 1: $4 + b = 8 \implies b = 4$. \\
+\textbf{Answer:} $a = 4, b = 4$.
+
+\textbf{(c)(i) Use logarithms to reduce $P = Ax^{-k}$ to linear form.} \\
+Take the base 10 logarithm of both sides: \\
+$\log P = \log(Ax^{-k})$ \\
+$\log P = \log A + \log(x^{-k})$ \\
+$\log P = -k \log x + \log A$ \\
+This is in the form $y = mx + c$, where $y = \log P$, $x = \log x$, gradient $m = -k$, and y-intercept $c = \log A$.
+
+\vspace{1em}
+\textbf{Question 2}
+
+\textbf{(a) The quadratic equation $2x^2 + 6x + 7 = 0$ has roots $\alpha$ and $\beta$. Calculate $\frac{1}{\alpha} + \frac{1}{\beta}$.} \\
+Identify coefficients: $a = 2, b = 6, c = 7$. \\
+Sum of roots: $\alpha + \beta = -\frac{b}{a} = -\frac{6}{2} = -3$. \\
+Product of roots: $\alpha\beta = \frac{c}{a} = \frac{7}{2}$. \\
+We need to find $\frac{1}{\alpha} + \frac{1}{\beta} = \frac{\beta + \alpha}{\alpha\beta}$. \\
+Substitute the sum and product values: \\
+$\frac{-3}{\frac{7}{2}} = -3 \times \frac{2}{7} = -\frac{6}{7}$. \\
+\textbf{Answer:} $-\frac{6}{7}$.
+
+\textbf{(b) Determine the range of values of $x$ for which $\frac{2x+3}{x+1} \geq 0$.} \\
+Critical values occur where the numerator is zero and the denominator is zero. \\
+Numerator: $2x + 3 = 0 \implies x = -1.5$ \\
+Denominator: $x + 1 = 0 \implies x = -1$ (Note: $x$ cannot be exactly $-1$ as it makes the fraction undefined). \\
+Test intervals around critical values $x = -1.5$ and $x = -1$: \\
+1. $x < -1.5$ (e.g., $x = -2$): $\frac{-1}{-1} = 1 > 0$ (True) \\
+2. $-1.5 < x < -1$ (e.g., $x = -1.2$): $\frac{0.6}{-0.2} = -3 < 0$ (False) \\
+3. $x > -1$ (e.g., $x = 0$): $\frac{3}{1} = 3 > 0$ (True) \\
+\textbf{Answer:} $x \leq -1.5$ or $x > -1$.
+
+\textbf{(c) Geometric series salary calculation.} \\
+Let the first year salary be $a$ and the common ratio be $r$. \\
+$T_3 = ar^2 = 53982.80$ \\
+$T_5 = ar^4 = 60598.89$ \\
+Divide $T_5$ by $T_3$: \\
+$\frac{ar^4}{ar^2} = \frac{60598.89}{53982.80}$ \\
+$r^2 = 1.122557... \implies r = \sqrt{1.122557} = 1.0595 \approx 1.06$ (6\% annual increase). \\
+(i) First year salary ($a$): $a(1.06)^2 = 53982.80 \implies a = \frac{53982.80}{1.1236} = 48044.50$. \\
+(ii) Total salary for 5 years ($S_5$): \\
+$S_5 = \frac{a(r^5 - 1)}{r - 1} = \frac{48044.50(1.06^5 - 1)}{1.06 - 1} = \frac{48044.50(1.3382 - 1)}{0.06} = 270,827.46$.
+
+\subsection*{Section II}
+
+\textbf{Question 3}
+
+\textbf{(a)(i) Express $x^2 + y^2 + 4x - 2y - 20 = 0$ in the form $(x+f)^2 + (y+g)^2 = r^2$.} \\
+Group $x$ and $y$ terms and complete the square: \\
+$(x^2 + 4x) + (y^2 - 2y) = 20$ \\
+$(x^2 + 4x + 4) + (y^2 - 2y + 1) = 20 + 4 + 1$ \\
+$(x + 2)^2 + (y - 1)^2 = 25$.
+
+\textbf{(a)(ii) State centre and radius.} \\
+From the completed square form, Centre = $(-2, 1)$, Radius = $\sqrt{25} = 5$.
+
+\textbf{(a)(iii) Points of intersection with $y = 4 - x$.} \\
+Substitute $y = 4 - x$ into the circle equation: \\
+$(x + 2)^2 + (4 - x - 1)^2 = 25$ \\
+$(x + 2)^2 + (3 - x)^2 = 25$ \\
+$(x^2 + 4x + 4) + (9 - 6x + x^2) = 25$ \\
+$2x^2 - 2x + 13 = 25$ \\
+$2x^2 - 2x - 12 = 0$ \\
+$x^2 - x - 6 = 0$ \\
+$(x - 3)(x + 2) = 0$ \\
+$x = 3$ or $x = -2$. \\
+When $x = 3, y = 4 - 3 = 1$. Point: $(3, 1)$. \\
+When $x = -2, y = 4 - (-2) = 6$. Point: $(-2, 6)$.
+
+\textbf{(b) Vectors $p = 2i + 3j$ and $q = i + 5j$.} \\
+(i) Dot product $p \cdot q = (2)(1) + (3)(5) = 2 + 15 = 17$. \\
+(ii) Angle between vectors: $\cos \theta = \frac{p \cdot q}{|p||q|}$. \\
+$|p| = \sqrt{2^2 + 3^2} = \sqrt{13}$ \\
+$|q| = \sqrt{1^2 + 5^2} = \sqrt{26}$ \\
+$\cos \theta = \frac{17}{\sqrt{13}\sqrt{26}} = \frac{17}{\sqrt{338}} = \frac{17}{18.38} = 0.9246$ \\
+$\theta = \cos^{-1}(0.9246) = 22.4^{\circ}$.
+
+\subsection*{Section III}
+
+\textbf{Question 5}
+
+\textbf{(a) Differentiate $(1+2x)^3(x+3)$ with respect to $x$.} \\
+Use the Product Rule: $y = uv \implies \frac{dy}{dx} = u\frac{dv}{dx} + v\frac{du}{dx}$. \\
+Let $u = (1+2x)^3 \implies \frac{du}{dx} = 3(1+2x)^2(2) = 6(1+2x)^2$ (Chain Rule). \\
+Let $v = x+3 \implies \frac{dv}{dx} = 1$. \\
+$\frac{dy}{dx} = (1+2x)^3(1) + (x+3)[6(1+2x)^2]$ \\
+Factor out $(1+2x)^2$: \\
+$\frac{dy}{dx} = (1+2x)^2 [ (1+2x) + 6(x+3) ]$ \\
+$= (1+2x)^2 [ 1 + 2x + 6x + 18 ] = (1+2x)^2(8x + 19)$.
+
+\textbf{(b) Equation of the normal to curve $y = 3x^3 + 2x^2 - 24x$ at $P(-2, 0)$.} \\
+First, find the gradient function $\frac{dy}{dx}$: \\
+$\frac{dy}{dx} = 9x^2 + 4x - 24$. \\
+Substitute $x = -2$ to find the gradient of the tangent ($m_t$): \\
+$m_t = 9(-2)^2 + 4(-2) - 24 = 36 - 8 - 24 = 4$. \\
+Gradient of the normal ($m_n$) is the negative reciprocal: $m_n = -\frac{1}{4}$. \\
+Equation of the normal at $(-2, 0)$: \\
+$y - y_1 = m_n(x - x_1)$ \\
+$y - 0 = -\frac{1}{4}(x + 2)$ \\
+$4y = -x - 2 \implies x + 4y + 2 = 0$.
+
+\textbf{(c) Rate of increase of volume.} \\
+Given: radius $r = 15$ cm, rate of change of height $\frac{dh}{dt} = 2$ cm/s. \\
+Volume formula: $V = \pi r^2 h = \pi(15)^2 h = 225\pi h$. \\
+Differentiate volume with respect to time: \\
+$\frac{dV}{dt} = 225\pi \frac{dh}{dt}$ \\
+Substitute $\frac{dh}{dt} = 2$: \\
+$\frac{dV}{dt} = 225\pi(2) = 450\pi$ cm$^3$/s.
+
+% ==========================================
+% 2018 PAST PAPER
+% ==========================================
+\newpage
+\section{May/June 2018 Paper 02}
+
+\subsection*{Section I}
+
+\textbf{Question 1}
+
+\textbf{(a)(i) Given $f(x) = x^2 - 4$ for $x \geq 0$, find $f^{-1}(x)$ and state its domain.} \\
+Let $y = x^2 - 4$. \\
+Swap variables: $x = y^2 - 4$. \\
+Solve for $y$: $y^2 = x + 4 \implies y = \pm\sqrt{x+4}$. \\
+Since the domain of $f(x)$ is $x \geq 0$, the range of $f^{-1}(x)$ must be $\geq 0$. Thus, we take the positive root. \\
+$f^{-1}(x) = \sqrt{x+4}$. \\
+The domain of $f^{-1}(x)$ is the range of $f(x)$. Since minimum value of $f(x)$ at $x=0$ is $-4$, the domain is $x \geq -4$.
+
+\textbf{(b) Derive polynomial $P(x)$ of degree 3 with roots 1, 2, and -4.} \\
+If roots are $x=1, x=2, x=-4$, the factors are $(x-1), (x-2), (x+4)$. \\
+$P(x) = (x-1)(x-2)(x+4)$ \\
+First expand $(x-1)(x-2) = x^2 - 3x + 2$. \\
+Now multiply by $(x+4)$: \\
+$P(x) = (x^2 - 3x + 2)(x+4) = x^3 + 4x^2 - 3x^2 - 12x + 2x + 8$ \\
+\textbf{Answer:} $P(x) = x^3 + x^2 - 10x + 8$.
+
+\textbf{(c)(i) Derive linear equation from $V = ka^t$.} \\
+Take log of both sides: \\
+$\log V = \log(ka^t) = \log k + t \log a$. \\
+This takes the form $y = mx + c$, where $y = \log V$, $x = t$, gradient $m = \log a$, and y-intercept $c = \log k$.
+
+\textbf{Question 2}
+
+\textbf{(a)(i) Express $g(x) = -x^2 + x - 3$ in form $a(x+h)^2 + k$.} \\
+Factor out $-1$ from the $x$ terms: \\
+$g(x) = -(x^2 - x) - 3$. \\
+Complete the square inside parenthesis (half of $-1$ is $-0.5$): \\
+$-(x^2 - x + 0.25 - 0.25) - 3$ \\
+$-((x - 0.5)^2 - 0.25) - 3$ \\
+$-(x - 0.5)^2 + 0.25 - 3$ \\
+\textbf{Answer:} $-(x - 0.5)^2 - 2.75$.
+
+\textbf{(b) Geometric progression: 3rd term = 25, sum of 1st and 2nd = 150, $r > 0$.} \\
+$ar^2 = 25 \implies a = \frac{25}{r^2}$. \\
+$a + ar = 150 \implies a(1+r) = 150$. \\
+Substitute $a$: \\
+$\frac{25}{r^2}(1+r) = 150$ \\
+$25 + 25r = 150r^2$ \\
+$150r^2 - 25r - 25 = 0$ \\
+Divide by 25: $6r^2 - r - 1 = 0$. \\
+Factorize: $(3r + 1)(2r - 1) = 0$. \\
+Since $r > 0$, $r = \frac{1}{2}$. \\
+Find $a$: $a = \frac{25}{(1/2)^2} = \frac{25}{0.25} = 100$. \\
+Sum of first 4 terms ($S_4$): \\
+$S_4 = \frac{a(1 - r^4)}{1 - r} = \frac{100(1 - 0.5^4)}{1 - 0.5} = \frac{100(0.9375)}{0.5} = 187.5$.
+
+\subsection*{Section II}
+
+\textbf{Question 3}
+
+\textbf{(a) Equation of circle with centre (5, -2) passing through origin.} \\
+Since it passes through $(0,0)$, the radius squared $r^2$ is the distance from $(0,0)$ to $(5, -2)$: \\
+$r^2 = (5 - 0)^2 + (-2 - 0)^2 = 25 + 4 = 29$. \\
+Equation: $(x - 5)^2 + (y + 2)^2 = 29$. \\
+Expanded form: $x^2 - 10x + 25 + y^2 + 4y + 4 = 29 \implies x^2 + y^2 - 10x + 4y = 0$.
+
+\textbf{(b) Determine if $x+y=4$ and $3x-2y=-3$ are parallel.} \\
+Line 1: $y = -x + 4$ (Gradient $m_1 = -1$). \\
+Line 2: $2y = 3x + 3 \implies y = \frac{3}{2}x + \frac{3}{2}$ (Gradient $m_2 = \frac{3}{2}$). \\
+Since $m_1 \neq m_2$ ($-1 \neq 1.5$), the lines are \textbf{not parallel}.
+
+\end{document}
