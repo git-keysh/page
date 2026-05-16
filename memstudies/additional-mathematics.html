@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CSEC Add Maths: 2-Day Crash Course | Clear Formulas & Practice</title>
+    <!-- KaTeX CSS + JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f0f7ff;
+            color: #1a2c3e;
+            line-height: 1.5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #0b3b5f, #1b7f7a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .two-day-badge {
+            background: #ffb74d;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #2c3e2f;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #cfdfed;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: #e9f0f5;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px 40px 12px 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1f5068;
+        }
+        .tab-btn.active {
+            background: #1f6e6b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .formula-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 6px solid #1f6e6b;
+        }
+        .formula-card h3 {
+            color: #0f4c5c;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #cbe5ea;
+            display: inline-block;
+        }
+        .formula-card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .formula-card li {
+            margin-bottom: 12px;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 650px;
+        }
+        .flashcard {
+            background: white;
+            width: 100%;
+            min-height: 280px;
+            border-radius: 32px;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 2px solid #cbe0e6;
+        }
+        .flashcard:hover {
+            transform: scale(1.01);
+        }
+        .card-front, .card-back {
+            width: 100%;
+            font-weight: 500;
+        }
+        .card-front {
+            font-size: 1.6rem;
+            color: #1f5068;
+        }
+        .card-back {
+            font-size: 1.2rem;
+            color: #1b6b6b;
+        }
+        .flash-nav {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .flash-nav button, .flip-btn {
+            background: #2c7a6e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .flip-btn {
+            background: #f39c12;
+            margin-top: 16px;
+        }
+        .card-counter {
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        .question-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .question-text {
+            background: #eef2f8;
+            padding: 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .solution-btn {
+            background: #1e5e5a;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .solution-step {
+            display: none;
+            background: #fef9e6;
+            padding: 18px;
+            border-radius: 20px;
+            margin-top: 15px;
+            border-left: 5px solid #f4a261;
+            overflow-x: auto;
+        }
+        .solution-step.show {
+            display: block;
+        }
+        .howto-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .howto-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .howto-card h4 {
+            color: #236b66;
+            margin-bottom: 12px;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: #5a7c8c;
+        }
+        .katex {
+            font-size: 1.05em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📐 CSEC Additional Mathematics</h1>
+        <p>⚡ 2-Day Crash Course • All formulas + flashcards + past-paper solutions with proper math</p>
+        <div class="two-day-badge">🔥 Last-Minute Prep | Paper 02 Strategy 🔥</div>
+    </div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="formulas">📖 Formula Sheet</button>
+        <button class="tab-btn" data-tab="flashcards">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="questions">📝 Exam Qs + Solutions</button>
+        <button class="tab-btn" data-tab="howto">💡 How to Solve / Strategy</button>
+    </div>
+
+    <!-- TAB 1: FORMULAS (all math readable) -->
+    <div id="formulas" class="tab-content active">
+        <h2>📌 Must-Know Formulas (rendered beautifully)</h2>
+        <div class="formula-grid">
+            <div class="formula-card"><h3>📐 Quadratics</h3><ul>
+                <li>✔ Quadratic formula: $$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$</li>
+                <li>✔ Discriminant: \(\Delta = b^2-4ac\)<br> \(\Delta>0\): 2 real roots; \(\Delta=0\): repeated; \(\Delta<0\): no real roots</li>
+                <li>✔ Sum of roots: \(\alpha+\beta = -\frac{b}{a}\) &nbsp;&nbsp; Product: \(\alpha\beta = \frac{c}{a}\)</li>
+                <li>✔ Completing square: \(a(x+h)^2 + k\) &nbsp; where \(h = \frac{b}{2a}, k = c - \frac{b^2}{4a}\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>📈 Sequences & Series</h3><ul>
+                <li>Arithmetic: \(T_n = a+(n-1)d\) &nbsp; \(S_n = \frac{n}{2}[2a+(n-1)d]\)</li>
+                <li>Geometric: \(T_n = ar^{n-1}\) &nbsp; \(S_n = \frac{a(r^n-1)}{r-1}\)</li>
+                <li>Infinite sum (|r|<1): \(S_{\infty} = \frac{a}{1-r}\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>⚫ Circle Geometry</h3><ul>
+                <li>General form: \(x^2+y^2+2fx+2gy+c=0\)<br> Centre: \((-f,-g)\) &nbsp; Radius: \(r = \sqrt{f^2+g^2-c}\)</li>
+                <li>Standard form: \((x-h)^2+(y-k)^2 = r^2\)</li>
+                <li>Tangent at point: radius gradient \(m_r\) → tangent \(m_t = -\frac{1}{m_r}\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>📎 Vectors</h3><ul>
+                <li>Magnitude: \(|\mathbf{v}| = \sqrt{x^2+y^2}\)</li>
+                <li>Dot product: \(\mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta = a_1b_1 + a_2b_2\)</li>
+                <li>Unit vector: \(\hat{v} = \frac{\mathbf{v}}{|\mathbf{v}|}\)</li>
+                <li>Angle between: \(\cos\theta = \frac{\mathbf{a}\cdot\mathbf{b}}{|\mathbf{a}||\mathbf{b}|}\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>📐 Trigonometry</h3><ul>
+                <li>\(\sin^2\theta + \cos^2\theta = 1\) &nbsp; \(\tan\theta = \frac{\sin\theta}{\cos\theta}\)</li>
+                <li>\(\sin(A\pm B) = \sin A\cos B \pm \cos A\sin B\)</li>
+                <li>\(\cos 2A = \cos^2A-\sin^2A = 1-2\sin^2A = 2\cos^2A-1\)</li>
+                <li>\(\sin 2A = 2\sin A\cos A\) &nbsp; \(\tan 2A = \frac{2\tan A}{1-\tan^2 A}\)</li>
+                <li>Arc length: \(l = r\theta\) &nbsp; Sector area: \(\frac{1}{2}r^2\theta\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>🧮 Calculus</h3><ul>
+                <li>\(\frac{d}{dx}x^n = nx^{n-1}\) &nbsp; \(\frac{d}{dx}\sin(ax) = a\cos(ax)\)</li>
+                <li>Chain rule: \(\frac{dy}{dx} = \frac{dy}{du}\cdot\frac{du}{dx}\)</li>
+                <li>\(\int x^n dx = \frac{x^{n+1}}{n+1}+C\;(n\neq -1)\)</li>
+                <li>\(\int \sin(ax)\,dx = -\frac{1}{a}\cos(ax)+C\)</li>
+                <li>Area: \(\int_a^b f(x)dx\) &nbsp; Volume (x-axis): \(\pi\int_a^b [f(x)]^2 dx\)</li>
+            </ul></div>
+            <div class="formula-card"><h3>📊 Probability & Stats</h3><ul>
+                <li>\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\)</li>
+                <li>Conditional: \(P(A|B)=\frac{P(A\cap B)}{P(B)}\)</li>
+                <li>Independent: \(P(A\cap B)=P(A)P(B)\)</li>
+                <li>Mean \(\bar{x}=\frac{\sum x}{n}\) &nbsp; Variance \(\sigma^2 = \frac{\sum(x-\bar{x})^2}{n}\)</li>
+                <li>Log laws: \(\log(ab)=\log a+\log b\), \(\log a^n = n\log a\)</li>
+            </ul></div>
+        </div>
+        <div style="background:#e2f0f0; padding: 12px; border-radius: 30px; margin-top:20px; text-align:center;">
+            ⭐ Linear reduction: \(y = ax^n \Rightarrow \log y = \log a + n\log x\) &nbsp;&nbsp; \(y = ab^x \Rightarrow \log y = \log a + x\log b\)
+        </div>
+    </div>
+
+    <!-- TAB 2: FLASHCARDS with proper math -->
+    <div id="flashcards" class="tab-content">
+        <h2>📇 Interactive Flashcards (tap to flip)</h2>
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcardElement">
+                <div class="card-front" id="cardFront"></div>
+                <div class="card-back" id="cardBack" style="display:none;"></div>
+            </div>
+            <button class="flip-btn" id="flipBtn">🔁 Reveal Answer</button>
+            <div class="flash-nav">
+                <button id="prevCardBtn">◀ Previous</button>
+                <button id="nextCardBtn">Next ▶</button>
+            </div>
+            <div class="card-counter" id="cardCounter"></div>
+        </div>
+        <p style="text-align:center;">💡 Tap card or click button — all formulas rendered with KaTeX.</p>
+    </div>
+
+    <!-- TAB 3: EXAM STYLE QUESTIONS + STEP-BY-STEP SOLUTIONS -->
+    <div id="questions" class="tab-content">
+        <h2>📌 Past-paper style questions with full solutions</h2>
+        <div class="question-card">
+            <div class="question-text"><strong>Q1 (Inverse function)</strong><br>
+            \(f(x)=\frac{2x+p}{x-1},\; x\neq 1\). (i) Find \(f^{-1}(x)\). (ii) Given \(f^{-1}(8)=5\), find \(p\).
+            </div>
+            <button class="solution-btn" data-sol="sol1">Show Solution</button>
+            <div id="sol1" class="solution-step">
+                <strong>✔ Step-by-step:</strong><br>
+                Let \(y = \frac{2x+p}{x-1} \Rightarrow y(x-1)=2x+p \Rightarrow yx - y = 2x + p\)<br>
+                \(yx - 2x = p + y \Rightarrow x(y-2) = p+y \Rightarrow x = \frac{p+y}{y-2}\)<br>
+                Therefore \(f^{-1}(x) = \frac{p+x}{x-2}\).<br>
+                (ii) \(f^{-1}(8)=\frac{p+8}{8-2}=5 \Rightarrow \frac{p+8}{6}=5 \Rightarrow p+8=30 \Rightarrow p=22\).
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-text"><strong>Q2 (Sum & product of roots)</strong><br>
+            Quadratic \(2x^2+6x+7=0\) has roots \(\alpha,\beta\). Find \(\frac{1}{\alpha}+\frac{1}{\beta}\).
+            </div>
+            <button class="solution-btn" data-sol="sol2">Show Solution</button>
+            <div id="sol2" class="solution-step">
+                <strong>✔ Solution:</strong><br>
+                \(\alpha+\beta = -\frac{6}{2} = -3,\quad \alpha\beta = \frac{7}{2}\).<br>
+                \(\frac{1}{\alpha}+\frac{1}{\beta} = \frac{\alpha+\beta}{\alpha\beta} = \frac{-3}{7/2} = -3 \times \frac{2}{7} = -\frac{6}{7}\).
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-text"><strong>Q3 (Geometric series – salary)</strong><br>
+            Year 3 = \$53,982.80, Year 5 = \$60,598.89 (geometric). Find first year and total over 5 years.
+            </div>
+            <button class="solution-btn" data-sol="sol3">Show Solution</button>
+            <div id="sol3" class="solution-step">
+                <strong>✔ Solution:</strong><br>
+                \(T_3 = ar^2 = 53982.80,\; T_5 = ar^4 = 60598.89\).<br>
+                \(r^2 = \frac{60598.89}{53982.80} \approx 1.1225 \Rightarrow r \approx 1.0595\).<br>
+                \(a = \frac{53982.80}{1.1225} \approx 48087.00\) (first year).<br>
+                \(S_5 = a\frac{r^5-1}{r-1} \approx 48087 \times \frac{1.0595^5-1}{0.0595} \approx \$271,110\).
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-text"><strong>Q4 (Differentiation – equation of normal)</strong><br>
+            Point \(P(-2,0)\) lies on \(y=3x^3+2x^2-24x\). Find equation of normal at P.
+            </div>
+            <button class="solution-btn" data-sol="sol4">Show Solution</button>
+            <div id="sol4" class="solution-step">
+                <strong>✔ Solution:</strong><br>
+                \(\frac{dy}{dx}=9x^2+4x-24\). At \(x=-2\): \(9(4)+4(-2)-24 = 36-8-24=4\) (tangent slope).<br>
+                Normal slope \(m_n = -\frac{1}{4}\). Equation: \(y-0 = -\frac{1}{4}(x+2)\) → \(y = -\frac{1}{4}x - \frac{1}{2}\).
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-text"><strong>Q5 (Circle & line intersection)</strong><br>
+            Circle \(x^2+y^2+4x-2y-20=0\) and line \(y=4-x\). Find intersection points.
+            </div>
+            <button class="solution-btn" data-sol="sol5">Show Solution</button>
+            <div id="sol5" class="solution-step">
+                <strong>✔ Solution:</strong><br>
+                Substitute \(y=4-x\): \(x^2+(4-x)^2+4x-2(4-x)-20=0\)<br>
+                \(x^2+16-8x+x^2+4x-8+2x-20=0\) → \(2x^2-2x-12=0\) → \(x^2-x-6=0\)<br>
+                \((x-3)(x+2)=0 \Rightarrow x=3 \Rightarrow y=1;\; x=-2 \Rightarrow y=6\).<br>
+                Points: \((3,1)\) and \((-2,6)\).
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-text"><strong>Q6 (Probability without replacement)</strong><br>
+            Bag: 6 red, 4 green marbles. Two draws without replacement. Probability both same colour.
+            </div>
+            <button class="solution-btn" data-sol="sol6">Show Solution</button>
+            <div id="sol6" class="solution-step">
+                <strong>✔ Solution:</strong><br>
+                P(both red) = \(\frac{6}{10}\times\frac{5}{9}=\frac{30}{90}=\frac{1}{3}\).<br>
+                P(both green) = \(\frac{4}{10}\times\frac{3}{9}=\frac{12}{90}=\frac{2}{15}\).<br>
+                Total = \(\frac{1}{3}+\frac{2}{15}=\frac{5}{15}+\frac{2}{15}=\frac{7}{15}\).
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: HOW TO SOLVE & EXAM STRATEGY -->
+    <div id="howto" class="tab-content">
+        <h2>🧠 Exam Question Patterns & Problem-Solving Steps</h2>
+        <div class="howto-section">
+            <div class="howto-card"><h4>📌 Quadratic Inequalities</h4><p><strong>Example:</strong> \(\frac{2x+3}{x+1} \ge 0\).<br> <strong>Method:</strong> Critical points: numerator=0 → \(x=-1.5\); denominator=0 → \(x=-1\). Sign chart. Exclude \(x=-1\). Solution: \(x \le -1.5\) or \(x > -1\).</p></div>
+            <div class="howto-card"><h4>📌 Circle Tangent</h4><p><strong>Example:</strong> Tangent to \(x^2+y^2-4x+6y+8=0\) at \((3,-1)\).<br> Find centre \((2,-3)\), radius slope = \(\frac{-1+3}{3-2}=2\) → tangent slope \(-\frac12\). Equation: \(y+1 = -\frac12(x-3)\).</p></div>
+            <div class="howto-card"><h4>📌 Vectors Angle</h4><p>Given \(\mathbf{p}=2\mathbf{i}+3\mathbf{j},\mathbf{q}=\mathbf{i}+5\mathbf{j}\).<br> Dot: \(2*1+3*5=17\), magnitudes \(\sqrt{13},\sqrt{26}\). \(\cos\theta = \frac{17}{\sqrt{13\cdot26}}\). Then \(\theta = \cos^{-1}(\frac{17}{\sqrt{338}})\).</p></div>
+            <div class="howto-card"><h4>📌 Kinematics (calculus)</h4><p>\(s=t^3-2t^2+t-1\). \(v=\frac{ds}{dt}=3t^2-4t+1\). Set \(v=0\) to find rest: \((3t-1)(t-1)=0\) → \(t=\frac13,1\).</p></div>
+            <div class="howto-card"><h4>📌 Linear Law (log)</h4><p>Given \(P = A x^{-k}\). Take logs: \(\log P = \log A - k\log x\). Plot \(\log P\) vs \(\log x\) → gradient = \(-k\), intercept = \(\log A\).</p></div>
+            <div class="howto-card"><h4>📌 Volume of revolution</h4><p>Curve \(y=x^2+1\) from \(x=0\) to \(2\), about x-axis: \(V=\pi\int_0^2 (x^2+1)^2 dx = \pi\int_0^2 (x^4+2x^2+1)dx\).</p></div>
+        </div>
+        <hr>
+        <h3>🎯 2-Day Study Plan (last minute)</h3>
+        <ul style="background:#fff3e0; padding: 20px; border-radius: 30px; line-height: 1.7;">
+            <li><strong>Day 1 (Morning):</strong> Quadratics, sequences, log laws, discriminant & sum/product. Practice 5 problems.</li>
+            <li><strong>Day 1 (Afternoon):</strong> Coordinate Geometry (circles) + Vectors (dot product, angle). Do circle intersection and tangent questions.</li>
+            <li><strong>Day 1 (Evening):</strong> Trigonometry: identities, compound angles, solving trig equations (0 to 2π). Flashcards.</li>
+            <li><strong>Day 2 (Morning):</strong> Calculus: differentiation rules, stationary points, integration (area & volume). Kinematics (v = ds/dt).</li>
+            <li><strong>Day 2 (Afternoon):</strong> Probability & Statistics: tree diagrams, conditional probability, variance, box plots.</li>
+            <li><strong>Day 2 (Evening):</strong> Full mock (Paper 02 style, 2h40). Review mistakes using the solutions above.</li>
+        </ul>
+        <div style="background:#d9f0f0; margin-top: 20px; border-radius: 24px; padding: 15px;">
+            ⚡ <strong>Exam tips:</strong> Section I (Algebra/Series) mandatory, Section II (Coord/Trig) mandatory, Section III (Calculus) mandatory, Section IV (Prob/Stats) pick ONE. Show all working, state formulas, check domain restrictions.
+        </div>
+    </div>
+
+    <footer>
+        ⏱️ CSEC Add Maths Crash Course • All formulas and solutions rendered with KaTeX • Practice smart!
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // Helper: render math in an element
+        function renderMath(element) {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(element, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ]
+                });
+            }
+        }
+
+        // Flashcard data
+        const flashcards = [
+            { front: "Quadratic Formula", back: "$$x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$$" },
+            { front: "Discriminant", back: "\\(\\Delta = b^2-4ac\\)<br> \\(\\Delta>0\\): 2 real; \\(\\Delta=0\\): repeated; \\(\\Delta<0\\): no real" },
+            { front: "Sum & Product of Roots", back: "\\(\\alpha+\\beta = -\\frac{b}{a}\\) &nbsp;&nbsp; \\(\\alpha\\beta = \\frac{c}{a}\\)" },
+            { front: "Arithmetic Series (sum)", back: "\\(S_n = \\frac{n}{2}[2a+(n-1)d]\\)" },
+            { front: "Geometric Series (infinite)", back: "\\(S_\\infty = \\frac{a}{1-r}, \\ |r|<1\\)" },
+            { front: "Circle: centre from general", back: "\\(x^2+y^2+2fx+2gy+c=0\\)<br> Centre \\((-f,-g)\\), radius \\(\\sqrt{f^2+g^2-c}\\)" },
+            { front: "Unit vector", back: "\\(\\hat{v} = \\frac{\\mathbf{v}}{|\\mathbf{v}|}\\) where \\(|\\mathbf{v}| = \\sqrt{x^2+y^2}\\)" },
+            { front: "Dot product", back: "\\(\\mathbf{a}\\cdot\\mathbf{b} = |\\mathbf{a}||\\mathbf{b}|\\cos\\theta = a_1b_1+a_2b_2\\)" },
+            { front: "Trig identity: sin2θ", back: "\\(\\sin2\\theta = 2\\sin\\theta\\cos\\theta\\)" },
+            { front: "Derivative of sin(ax)", back: "\\(\\frac{d}{dx}\\sin(ax) = a\\cos(ax)\\)" },
+            { front: "Integration power rule", back: "\\(\\int x^n dx = \\frac{x^{n+1}}{n+1}+C, \\ n\\neq -1\\)" },
+            { front: "Volume of revolution (x-axis)", back: "\\(V = \\pi\\int_a^b [f(x)]^2 dx\\)" },
+            { front: "Conditional probability", back: "\\(P(A|B) = \\frac{P(A\\cap B)}{P(B)}\\)" },
+            { front: "Independent events", back: "\\(P(A\\cap B) = P(A)P(B)\\)" }
+        ];
+
+        let currentCard = 0;
+        let showingBack = false;
+        const cardFront = document.getElementById('cardFront');
+        const cardBack = document.getElementById('cardBack');
+        const flipBtn = document.getElementById('flipBtn');
+        const prevBtn = document.getElementById('prevCardBtn');
+        const nextBtn = document.getElementById('nextCardBtn');
+        const counterSpan = document.getElementById('cardCounter');
+
+        function updateCardDisplay() {
+            const card = flashcards[currentCard];
+            cardFront.innerHTML = card.front;
+            cardBack.innerHTML = card.back;
+            if (!showingBack) {
+                cardFront.style.display = 'block';
+                cardBack.style.display = 'none';
+            } else {
+                cardFront.style.display = 'none';
+                cardBack.style.display = 'block';
+            }
+            counterSpan.innerText = `Card ${currentCard+1} / ${flashcards.length}`;
+            // re-render math on current visible side
+            if (!showingBack) renderMath(cardFront);
+            else renderMath(cardBack);
+        }
+
+        function flipCard() {
+            showingBack = !showingBack;
+            if (showingBack) {
+                cardFront.style.display = 'none';
+                cardBack.style.display = 'block';
+                flipBtn.innerText = '🔍 Show Front';
+                renderMath(cardBack);
+            } else {
+                cardFront.style.display = 'block';
+                cardBack.style.display = 'none';
+                flipBtn.innerText = '🔁 Show Answer';
+                renderMath(cardFront);
+            }
+        }
+
+        function nextCard() {
+            if (currentCard + 1 < flashcards.length) {
+                currentCard++;
+                showingBack = false;
+                cardFront.style.display = 'block';
+                cardBack.style.display = 'none';
+                flipBtn.innerText = '🔁 Show Answer';
+                updateCardDisplay();
+            }
+        }
+
+        function prevCard() {
+            if (currentCard - 1 >= 0) {
+                currentCard--;
+                showingBack = false;
+                cardFront.style.display = 'block';
+                cardBack.style.display = 'none';
+                flipBtn.innerText = '🔁 Show Answer';
+                updateCardDisplay();
+            }
+        }
+
+        flipBtn.addEventListener('click', flipCard);
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+        updateCardDisplay();
+
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        tabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-tab');
+                contents.forEach(c => c.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+                tabs.forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                // re-render math in active tab after small delay
+                setTimeout(() => {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab) renderMath(activeTab);
+                }, 50);
+            });
+        });
+
+        // Solution buttons toggle
+        const solBtns = document.querySelectorAll('.solution-btn');
+        solBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const solId = btn.getAttribute('data-sol');
+                const solDiv = document.getElementById(solId);
+                if (solDiv) {
+                    solDiv.classList.toggle('show');
+                    btn.textContent = solDiv.classList.contains('show') ? 'Hide Solution' : 'Show Solution';
+                    if (solDiv.classList.contains('show')) renderMath(solDiv);
+                }
+            });
+        });
+
+        // initial render math on whole body
+        renderMath(document.body);
+    })();
+</script>
+</body>
+</html>
