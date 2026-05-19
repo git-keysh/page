@@ -1,8 +1,42 @@
-{type:'start',name:'Waterloo Secondary School',coords:[-61.4338805,10.4708118]},
-{type:'walk',name:'Taxi Walk Point',coords:[-61.42133191361708,10.464053396722628]},
-{type:'taxi_pickup',name:'Taxi Pickup',coords:[-61.41105360175546,10.515911661787309]},
-{type:'destination',name:'Naafa Pizza',coords:[-61.4132164,10.5282454]},
-{type:'walk',name:'Walk Point',coords:[-61.409311180766935,10.529467391465097]},
-{type:'destination',name:'Popeyes',coords:[-61.4082303,10.5278447]},
-{type:'destination',name:'Burger King',coords:[-61.4076697,10.5265459]},
-{type:'destination',name:'Little Caesars',coords:[-61.4091912,10.5322341]}
+[
+  {
+    "type": "start",
+    "name": "Waterloo Secondary School",
+    "coords": [-61.4338805, 10.4708118]
+  },
+  {
+    "type": "walk",
+    "name": "Taxi Walk Point",
+    "coords": [-61.42133191361708, 10.464053396722628]
+  },
+  {
+    "type": "taxi_pickup",
+    "name": "Taxi Pickup",
+    "coords": [-61.41105360175546, 10.515911661787309]
+  },
+  {
+    "type": "destination",
+    "name": "Naafa Pizza",
+    "coords": [-61.4132164, 10.5282454]
+  },
+  {
+    "type": "walk",
+    "name": "Walk Point",
+    "coords": [-61.409311180766935, 10.529467391465097]
+  },
+  {
+    "type": "destination",
+    "name": "Popeyes",
+    "coords": [-61.4082303, 10.5278447]
+  },
+  {
+    "type": "destination",
+    "name": "Burger King",
+    "coords": [-61.4076697, 10.5265459]
+  },
+  {
+    "type": "destination",
+    "name": "Little Caesars",
+    "coords": [-61.4091912, 10.5322341]
+  }
+]
