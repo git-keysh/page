@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Price Matrix Editor | Custom Apparel Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060c);
+            font-family: 'Inter', system-ui, 'Segoe UI', 'SF Mono', monospace;
+            padding: 2rem 1.5rem;
+            color: #eef5ff;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .studio-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid rgba(75, 130, 230, 0.4);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #FFFFFF, #7aa9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .badge {
+            background: #0f172ad9;
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            border: 1px solid #2d3a5e;
+        }
+
+        /* section styling */
+        .section-card {
+            background: rgba(15, 25, 45, 0.65);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 1.3rem 1.3rem 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(72, 120, 200, 0.25);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            transition: all 0.2s;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .reset-row {
+            font-size: 0.75rem;
+            background: #1e293b;
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #4b5563;
+        }
+
+        .reset-row:hover {
+            background: #334155;
+            color: #bbd7ff;
+        }
+
+        /* editable table style */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .price-table thead tr {
+            background: #0a0e1a;
+            border-bottom: 2px solid #2d3a60;
+        }
+
+        .price-table th, .price-table td {
+            padding: 12px 10px;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(72, 120, 200, 0.2);
+        }
+
+        .price-table th {
+            font-weight: 600;
+            color: #cbd5ff;
+            letter-spacing: 0.3px;
+        }
+
+        .editable-input {
+            background: #0f1422;
+            border: 1px solid #2c3f66;
+            border-radius: 12px;
+            padding: 8px 10px;
+            color: #f0f3fa;
+            font-weight: 500;
+            font-size: 0.8rem;
+            width: 100%;
+            transition: 0.15s;
+            font-family: monospace;
+        }
+
+        .editable-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.3);
+        }
+
+        .price-cell {
+            min-width: 100px;
+        }
+
+        .json-preview-area {
+            margin-top: 2rem;
+            background: #010409e6;
+            border-radius: 24px;
+            padding: 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 12px;
+            border: 1px solid #2d3e6e;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            border: none;
+            background: linear-gradient(95deg, #1e2a3a, #0f1722);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: #e2e8f0;
+            transition: 0.2s;
+            border: 1px solid #3b4e6e;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #2563eb, #1e40af);
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(95deg, #3b82f6, #1e3a8a);
+            transform: scale(1.01);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #4b6a9b;
+        }
+
+        .status-msg {
+            background: #071126b3;
+            border-radius: 28px;
+            padding: 12px 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            border-left: 5px solid #3b82f6;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .diff-line {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.75rem;
+            line-height: 1.3;
+            margin: 2px 0;
+        }
+
+        .diff-minus {
+            color: #ff9e8f;
+            background: #3b1e1a30;
+            border-left: 3px solid #ff5c4a;
+            padding-left: 8px;
+        }
+
+        .diff-plus {
+            color: #b0ffb0;
+            background: #1f3a1f30;
+            border-left: 3px solid #6fcf97;
+            padding-left: 8px;
+        }
+
+        hr {
+            border-color: #25375e;
+            margin: 0.5rem 0;
+        }
+
+        .image-preview {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #1a1f2e;
+            border: 1px solid #3f5480;
+        }
+
+        @media (max-width: 780px) {
+            .price-table th, .price-table td {
+                padding: 8px 6px;
+            }
+            .editable-input {
+                font-size: 0.7rem;
+                padding: 6px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="studio-header">
+        <div>
+            <h1>⚡ APPAREL PRICE MATRIX <span style="font-size: 0.9rem;">| revision cockpit</span></h1>
+            <div class="badge">live edit → discord diff webhook (ansi +/-)</div>
+        </div>
+        <div style="font-size:0.75rem; background:#0f1a2a; padding:0.3rem 1rem; border-radius:60px;">🎨 screen print | DTG | bulk</div>
+    </div>
+
+    <!-- dynamic sections will be injected -->
+    <div id="sectionsRoot"></div>
+
+    <div class="action-bar">
+        <button class="btn btn-outline" id="resetAllBtn">⟳ RESET ALL CHANGES</button>
+        <button class="btn btn-primary" id="sendDiffBtn">📡 SEND DIFF TO DISCORD →</button>
+    </div>
+    <div id="statusMessage" class="status-msg">💡 ready — edit any field, click send. Diff will show red(-) old / green(+) new line by line.</div>
+</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // Embedded master data (exact from prompt)
+    // we will keep ORIGINAL frozen copy & mutable working copy
+    // ------------------------------------------------------------------
+    const MASTER_DATA = {
+        apparel_products: [
+            { "id": "mt1", "name": "HEATHER SHADOW", "priceTTD": 425.00, "priceUSD": 62.50, "image": "https://liondtf.com/cdn/shop/files/Heather-Grey-T-Shirt.jpg?v=1698021997" },
+            { "id": "mt2", "name": "ETHNIC FRACTURE", "priceTTD": 482.80, "priceUSD": 71.00, "image": "https://lovecraftgift.com/cdn/shop/files/Casual_ethnic_print_t-shirt.jpg?v=1747388882&width=1200" },
+            { "id": "mt3", "name": "CUSTOM BLEED", "priceTTD": 333.13, "priceUSD": 48.99, "image": "https://d1x3eomzsc6lfz.cloudfront.net/apprintab/images/contentimages/images/personalised-T-shirt-printing.jpg?v=5634" },
+            { "id": "mt4", "name": "DUO REALM", "priceTTD": 543.93, "priceUSD": 79.99, "image": "https://gogirgit.com/cdn/shop/files/print-on-back-couple-tshirts_1800x.jpg?v=1704220929" },
+            { "id": "mt5", "name": "STATEMENT NOISE", "priceTTD": 450.50, "priceUSD": 66.25, "image": "https://ucsdguardian.org/wp-content/uploads/2025/05/Michael-Ho-Charlie-Kirk1-1200x800.jpg" },
+            { "id": "mt6", "name": "PSYCHIC GARMENT", "priceTTD": 373.93, "priceUSD": 54.99, "image": "https://printify.com/wp-content/uploads/2023/10/Unisex-Garment-Dyed-T-Shirt-with-design.jpg" }
+        ],
+        screen_printing: [
+            { "service": "Single Color (per shirt)", "priceTTD": 45.00, "priceUSD": 6.62 },
+            { "service": "2-3 Colors", "priceTTD": 65.00, "priceUSD": 9.56 },
+            { "service": "4+ Colors", "priceTTD": 90.00, "priceUSD": 13.24 },
+            { "service": "Setup Fee (per design)", "priceTTD": 120.00, "priceUSD": 17.65 }
+        ],
+        dtg_printing: [
+            { "service": "Full Color Print (front)", "priceTTD": 75.00, "priceUSD": 11.03 },
+            { "service": "Back Print", "priceTTD": 65.00, "priceUSD": 9.56 },
+            { "service": "Sleeve Print", "priceTTD": 40.00, "priceUSD": 5.88 },
+            { "service": "All-over Print (custom)", "priceTTD": 150.00, "priceUSD": 22.06 }
+        ],
+        custom_design_mockup: [
+            { "service": "Graphic Design (per hour)", "priceTTD": 90.00, "priceUSD": 13.24 },
+            { "service": "Full Package (logo+art)", "priceTTD": 350.00, "priceUSD": 51.47 },
+            { "service": "Rush Order (+50%)", "priceTTD": "Quote", "priceUSD": "Quote" }
+        ],
+        bulk_wholesale: [
+            { "item": "50+ pieces T-shirt print", "priceTTD": 22.00, "priceUSD": 3.24, "unit": "per piece" },
+            { "item": "100+ pieces hoodie print", "priceTTD": 65.00, "priceUSD": 9.56, "unit": "per piece" },
+            { "item": "Custom Stickers (50 units)", "priceTTD": 180.00, "priceUSD": 26.47, "unit": "per pack" }
+        ],
+        apparel_blanks: [
+            { "item": "Hoodie M (blank + print)", "priceTTD": 220.00, "priceUSD": 32.35 },
+            { "item": "Women's Cut Tee", "priceTTD": 110.00, "priceUSD": 16.18 },
+            { "item": "Men's Cut Tee", "priceTTD": 85.00, "priceUSD": 12.50 },
+            { "item": "Children's Cut", "priceTTD": 65.00, "priceUSD": 9.56 },
+            { "item": "Custom Design Apparel (all-over)", "priceTTD": 250.00, "priceUSD": 36.76 },
+            { "item": "Custom Stickers (pack of 10)", "priceTTD": 45.00, "priceUSD": 6.62 },
+            { "item": "Full Face Custom Graphic Tee", "priceTTD": 130.00, "priceUSD": 19.12 }
+        ]
+    };
+
+    // deep clone for mutable state
+    let currentData = JSON.parse(JSON.stringify(MASTER_DATA));
+
+    // helper to stringify a SINGLE object as JSON line (compact but with spaces to match spec style)
+    function formatObjectLine(obj, keyNameForItem = null) {
+        // for apparel_products: includes "id" and "image" fields -> special, but generic.
+        // we mimic exactly the style: { "id": "mt1", "name": "...", "priceTTD": 425.00, "priceUSD": 62.50, "image": "..." }
+        let jsonStr = JSON.stringify(obj, null, 0);
+        // but we need consistent spacing as original: after colon space? JSON.stringify uses no spaces. Enhance to look like spec.
+        // Spec: { "id": "mt1", "name": "HEATHER SHADOW", "priceTTD": 425.00, "priceUSD": 62.50, "image": "..." }
+        // we will do a clean replace to make it beautiful but robust. Actually the default stringify is acceptable.
+        // to match exactly the given example: after each colon there's a space.
+        let spaced = jsonStr.replace(/:/g, ': ').replace(/,/g, ', ');
+        // but avoid double spaces
+        spaced = spaced.replace(/:  /g, ': ');
+        return spaced;
+    }
+
+    // generate diff lines for whole category between old array and new array
+    function generateDiffForCategory(categoryKey, oldArr, newArr, idField = null, nameField = "name") {
+        let lines = [];
+        const maxLen = Math.max(oldArr.length, newArr.length);
+        for (let i = 0; i < maxLen; i++) {
+            const oldItem = i < oldArr.length ? oldArr[i] : null;
+            const newItem = i < newArr.length ? newArr[i] : null;
+            if (oldItem && newItem && JSON.stringify(oldItem) === JSON.stringify(newItem)) continue;
+            
+            if (oldItem && !newItem) {
+                // removed (should not happen with edit, but just in case)
+                lines.push({ type: 'minus', line: `-    ${formatObjectLine(oldItem)},` });
+            } else if (!oldItem && newItem) {
+                lines.push({ type: 'plus', line: `+    ${formatObjectLine(newItem)},` });
+            } else if (oldItem && newItem) {
+                // if different, show both minus old / plus new
+                lines.push({ type: 'minus', line: `-    ${formatObjectLine(oldItem)},` });
+                lines.push({ type: 'plus', line: `+    ${formatObjectLine(newItem)},` });
+            }
+        }
+        return lines;
+    }
+
+    // collect all diffs across all sections
+    function collectFullDiff() {
+        const sections = [
+            { key: "apparel_products", idField: "id", nameField: "name" },
+            { key: "screen_printing", idField: "service", nameField: "service" },
+            { key: "dtg_printing", idField: "service", nameField: "service" },
+            { key: "custom_design_mockup", idField: "service", nameField: "service" },
+            { key: "bulk_wholesale", idField: "item", nameField: "item" },
+            { key: "apparel_blanks", idField: "item", nameField: "item" }
+        ];
+        let allDiffBlocks = [];
+        for (let sec of sections) {
+            const oldArr = MASTER_DATA[sec.key];
+            const newArr = currentData[sec.key];
+            if (!oldArr || !newArr) continue;
+            const diffLines = generateDiffForCategory(sec.key, oldArr, newArr, sec.idField);
+            if (diffLines.length > 0) {
+                allDiffBlocks.push(`📁 **${sec.key.replace(/_/g, ' ').toUpperCase()}**`);
+                for (let d of diffLines) {
+                    allDiffBlocks.push(d.line);
+                }
+                allDiffBlocks.push(``);
+            }
+        }
+        if (allDiffBlocks.length === 0) return "✅ No changes detected — everything matches original.";
+        return allDiffBlocks.join('\n');
+    }
+
+    // send to discord webhook as ansi formatted block
+    async function sendDiffToDiscord() {
+        const diffText = collectFullDiff();
+        const hasChanges = diffText !== "✅ No changes detected — everything matches original.";
+        if (!hasChanges) {
+            showStatus("⚠️ No changes to send. Edit some values first.", "#eab308");
+            return;
+        }
+        // Build payload: use ansi codeblock for colors (discord supports ansi)
+        // we need to embed the diff with red/green formatting via ansi escape codes
+        // lines starting with - should be red, + green. we will parse diffText lines.
+        let ansiFormatted = '';
+        const linesArray = diffText.split('\n');
+        for (let ln of linesArray) {
+            if (ln.startsWith('-    ')) {
+                // red ansi: \x1b[31m
+                ansiFormatted += `\x1b[31m${ln}\x1b[0m\n`;
+            } else if (ln.startsWith('+    ')) {
+                ansiFormatted += `\x1b[32m${ln}\x1b[0m\n`;
+            } else if (ln.startsWith('📁')) {
+                ansiFormatted += `\x1b[36;1m${ln}\x1b[0m\n`;
+            } else {
+                ansiFormatted += `${ln}\n`;
+            }
+        }
+        const payload = {
+            content: "```ansi\n" + ansiFormatted + "```\n**🔄 price matrix update**"
+        };
+        const webhookUrl = "https://discord.com/api/webhooks/1491973092472524862/ZRoYZyfXbab9qc40WRWBcTP7J_1jr0L_ezKVSrBI53Iim4Rw4CqoiDoE9zQmW5QTCtCF";
+        try {
+            showStatus("⏳ Sending diff to Discord...", "#3b82f6");
+            const response = await fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                showStatus("✅ Diff sent successfully! Check discord channel (ansi diff).", "#4ade80");
+            } else {
+                const errText = await response.text();
+                showStatus(`❌ Discord error ${response.status}: ${errText.slice(0, 200)}`, "#ff6666");
+            }
+        } catch (err) {
+            showStatus(`❌ Network error: ${err.message}`, "#ff6666");
+            console.error(err);
+        }
+    }
+
+    function showStatus(msg, borderColor = "#3b82f6") {
+        const statusDiv = document.getElementById("statusMessage");
+        statusDiv.style.borderLeftColor = borderColor;
+        statusDiv.innerHTML = `📢 ${msg}`;
+        setTimeout(() => {
+            if (document.getElementById("statusMessage")?.innerHTML === `📢 ${msg}`) {
+                // optional, keep but not overwrite important later
+            }
+        }, 5000);
+    }
+
+    // reset all currentData to original MASTER_DATA and re-render UI
+    function resetAll() {
+        currentData = JSON.parse(JSON.stringify(MASTER_DATA));
+        renderAllSections();
+        showStatus("⟳ All prices & names reset to factory defaults. No pending diff.", "#a78bfa");
+    }
+
+    // Generic update helpers: update nested fields by path: category[index][field]
+    function updateItem(category, idx, field, value) {
+        if (!currentData[category] || !currentData[category][idx]) return;
+        // handle numeric for TTD/USD
+        if (field === 'priceTTD' || field === 'priceUSD') {
+            let num = parseFloat(value);
+            if (!isNaN(num) && typeof num === 'number') {
+                // keep two decimals but safe
+                currentData[category][idx][field] = num;
+            } else if (value === "Quote") {
+                currentData[category][idx][field] = value;
+            } else {
+                currentData[category][idx][field] = value;
+            }
+        } else {
+            currentData[category][idx][field] = value;
+        }
+        // re-render only affected? but easier full render
+        renderAllSections();
+    }
+
+    // Render dynamic forms
+    function renderAllSections() {
+        const root = document.getElementById("sectionsRoot");
+        if (!root) return;
+        root.innerHTML = '';
+        const categories = [
+            { label: "👕 APPAREL PRODUCTS", key: "apparel_products", fields: ["name", "priceTTD", "priceUSD"], extraColumns: ["image"] },
+            { label: "🖨️ SCREEN PRINTING", key: "screen_printing", fields: ["service", "priceTTD", "priceUSD"], extraColumns: [] },
+            { label: "🖨️ DTG PRINTING", key: "dtg_printing", fields: ["service", "priceTTD", "priceUSD"], extraColumns: [] },
+            { label: "🎨 CUSTOM DESIGN / MOCKUP", key: "custom_design_mockup", fields: ["service", "priceTTD", "priceUSD"], extraColumns: [] },
+            { label: "📦 BULK & WHOLESALE", key: "bulk_wholesale", fields: ["item", "priceTTD", "priceUSD"], extraColumns: ["unit"] },
+            { label: "👚 APPAREL BLANKS + CUSTOM", key: "apparel_blanks", fields: ["item", "priceTTD", "priceUSD"], extraColumns: [] }
+        ];
+
+        for (let cat of categories) {
+            const items = currentData[cat.key];
+            if (!items) continue;
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section-card';
+            const titleRow = document.createElement('div');
+            titleRow.className = 'section-title';
+            titleRow.innerHTML = `<h2>${cat.label}</h2><div class="reset-row" data-category="${cat.key}">↺ reset section</div>`;
+            sectionDiv.appendChild(titleRow);
+            const table = document.createElement('table');
+            table.className = 'price-table';
+            const thead = document.createElement('thead');
+            let colHeaders = [];
+            if (cat.key === "apparel_products") colHeaders = ["Image", "ID", "Name", "Price TTD", "Price USD"];
+            else if (cat.key === "bulk_wholesale") colHeaders = ["Item / Service", "Unit", "Price TTD", "Price USD"];
+            else colHeaders = ["Service / Item", "Price TTD", "Price USD"];
+            const tr = document.createElement('tr');
+            colHeaders.forEach(h => { const th = document.createElement('th'); th.textContent = h; tr.appendChild(th); });
+            thead.appendChild(tr);
+            table.appendChild(thead);
+            const tbody = document.createElement('tbody');
+            items.forEach((item, idx) => {
+                const row = document.createElement('tr');
+                if (cat.key === "apparel_products") {
+                    // image col
+                    const imgCell = document.createElement('td');
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = "preview";
+                    img.className = "image-preview";
+                    img.onerror = () => { img.style.opacity = "0.5"; };
+                    imgCell.appendChild(img);
+                    row.appendChild(imgCell);
+                    // id
+                    const idCell = document.createElement('td');
+                    idCell.textContent = item.id;
+                    idCell.style.fontFamily = "monospace";
+                    row.appendChild(idCell);
+                    // editable name
+                    const nameCell = document.createElement('td');
+                    const nameInput = document.createElement('input');
+                    nameInput.type = "text";
+                    nameInput.value = item.name;
+                    nameInput.className = "editable-input";
+                    nameInput.addEventListener('change', (e) => updateItem(cat.key, idx, 'name', e.target.value));
+                    nameCell.appendChild(nameInput);
+                    row.appendChild(nameCell);
+                } else if (cat.key === "bulk_wholesale") {
+                    const serviceCell = document.createElement('td');
+                    const nameInput = document.createElement('input');
+                    nameInput.value = item.item;
+                    nameInput.className = "editable-input";
+                    nameInput.addEventListener('change', (e) => updateItem(cat.key, idx, 'item', e.target.value));
+                    serviceCell.appendChild(nameInput);
+                    row.appendChild(serviceCell);
+                    const unitCell = document.createElement('td');
+                    unitCell.textContent = item.unit || "—";
+                    unitCell.style.fontSize = "0.75rem";
+                    row.appendChild(unitCell);
+                } else {
+                    const serviceCell = document.createElement('td');
+                    let fieldKey = (cat.key === "screen_printing" || cat.key === "dtg_printing" || cat.key === "custom_design_mockup") ? "service" : "item";
+                    const existingVal = item[fieldKey] || item.service || item.item;
+                    const inputService = document.createElement('input');
+                    inputService.value = existingVal;
+                    inputService.className = "editable-input";
+                    inputService.addEventListener('change', (e) => updateItem(cat.key, idx, fieldKey, e.target.value));
+                    serviceCell.appendChild(inputService);
+                    row.appendChild(serviceCell);
+                }
+                // Price TTD & USD cells for all categories
+                const ttdCell = document.createElement('td');
+                const ttdInput = document.createElement('input');
+                ttdInput.type = "text";
+                ttdInput.value = item.priceTTD;
+                ttdInput.className = "editable-input";
+                ttdInput.addEventListener('change', (e) => updateItem(cat.key, idx, 'priceTTD', e.target.value));
+                ttdCell.appendChild(ttdInput);
+                row.appendChild(ttdCell);
+                
+                const usdCell = document.createElement('td');
+                const usdInput = document.createElement('input');
+                usdInput.type = "text";
+                usdInput.value = item.priceUSD;
+                usdInput.className = "editable-input";
+                usdInput.addEventListener('change', (e) => updateItem(cat.key, idx, 'priceUSD', e.target.value));
+                usdCell.appendChild(usdInput);
+                row.appendChild(usdCell);
+                
+                // for apparel_products, no extra field. Bulk already handled.
+                if (cat.key === "apparel_products") {
+                    // nothing else
+                }
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+            sectionDiv.appendChild(table);
+            root.appendChild(sectionDiv);
+            
+            // reset section handler
+            const resetBtn = titleRow.querySelector('.reset-row');
+            resetBtn.addEventListener('click', (e) => {
+                const catKey = resetBtn.getAttribute('data-category');
+                if (catKey && MASTER_DATA[catKey]) {
+                    currentData[catKey] = JSON.parse(JSON.stringify(MASTER_DATA[catKey]));
+                    renderAllSections();
+                    showStatus(`🔄 Reset section: ${cat.label} to original.`, "#a5f3c3");
+                }
+            });
+        }
+    }
+
+    // attach global buttons
+    document.getElementById("resetAllBtn").addEventListener("click", resetAll);
+    document.getElementById("sendDiffBtn").addEventListener("click", sendDiffToDiscord);
+
+    // initial render
+    renderAllSections();
+    showStatus("✨ Ready — edit names, TTD or USD prices. Click SEND to post ansi diff to Discord (red - / green +).", "#3b82f6");
+</script>
+</body>
+</html>
