@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FavTok — TikTok Downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080810;
+      --surface: #0f0f1a;
+      --border: rgba(255,255,255,0.07);
+      --accent: #ff2d55;
+      --accent2: #00f0ff;
+      --accent3: #ffcc00;
+      --text: #f0f0f8;
+      --muted: #666688;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* ── Glow orbs ── */
+    .orb {
+      position: fixed; z-index: 0; border-radius: 50%;
+      filter: blur(100px); pointer-events: none; opacity: 0.35;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .orb1 { width: 500px; height: 500px; background: var(--accent); top: -150px; right: -100px; animation-delay: 0s; }
+    .orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; left: -100px; animation-delay: -6s; }
+    .orb3 { width: 300px; height: 300px; background: var(--accent3); top: 40%; left: 40%; animation-delay: -3s; opacity: 0.15; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    /* ── Layout ── */
+    main {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 20px;
+      gap: 48px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .logo-mark {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Limit badge ── */
+    .limit-bar {
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    }
+
+    .limit-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 20px;
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .limit-dots {
+      display: flex; gap: 4px;
+    }
+
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .dot.used { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    .dot.warn { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
+
+    .limit-count { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; max-width: 620px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    }
+
+    /* ── Input group ── */
+    .input-group {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .input-label {
+      font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex; align-items: center;
+    }
+
+    .url-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 56px 14px 16px;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .url-input::placeholder { color: var(--muted); }
+
+    .url-input:focus {
+      border-color: rgba(255,45,85,0.5);
+      box-shadow: 0 0 0 3px rgba(255,45,85,0.1);
+    }
+
+    .clear-btn {
+      position: absolute; right: 14px;
+      background: none; border: none;
+      color: var(--muted); cursor: pointer;
+      font-size: 18px; line-height: 1;
+      opacity: 0; transition: opacity 0.2s;
+      padding: 4px;
+    }
+    .url-input:not(:placeholder-shown) ~ .clear-btn { opacity: 1; }
+
+    /* ── Download button ── */
+    .dl-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent), #ff6b8a);
+      border: none; border-radius: 10px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .dl-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,45,85,0.4);
+    }
+
+    .dl-btn:active:not(:disabled) { transform: translateY(0); }
+
+    .dl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .dl-btn .btn-text { position: relative; z-index: 1; }
+
+    .dl-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .dl-btn:hover::after { opacity: 1; }
+
+    /* ── Shimmer loader ── */
+    .dl-btn.loading .btn-text::after {
+      content: '';
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Status ── */
+    .status {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      display: none;
+      align-items: flex-start; gap: 10px;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .status.show { display: flex; }
+
+    .status.error {
+      background: rgba(255,45,85,0.1);
+      border: 1px solid rgba(255,45,85,0.2);
+      color: #ff6b8a;
+    }
+
+    .status.success {
+      background: rgba(0,240,255,0.07);
+      border: 1px solid rgba(0,240,255,0.2);
+      color: var(--accent2);
+    }
+
+    .status.warning {
+      background: rgba(255,204,0,0.08);
+      border: 1px solid rgba(255,204,0,0.2);
+      color: var(--accent3);
+    }
+
+    .status-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      margin-top: 16px; display: none;
+    }
+    .progress-wrap.show { display: block; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--muted); margin-bottom: 6px;
+    }
+    .progress-track {
+      height: 4px; background: var(--border); border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 8px var(--accent2);
+    }
+
+    /* ── History ── */
+    .history-section {
+      width: 100%; max-width: 620px;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    }
+
+    .section-title {
+      font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .history-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .history-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px;
+      animation: fadeUp 0.4s ease both;
+      transition: border-color 0.2s;
+    }
+    .history-item:hover { border-color: rgba(255,255,255,0.12); }
+
+    .history-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 700;
+      color: var(--accent);
+      width: 20px; flex-shrink: 0; text-align: center;
+    }
+
+    .history-url {
+      flex: 1; font-size: 11px; color: var(--muted);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+
+    .history-time {
+      font-size: 10px; color: var(--muted); flex-shrink: 0;
+    }
+
+    .history-dl {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: rgba(0,240,255,0.08);
+      border: 1px solid rgba(0,240,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      color: var(--accent2); font-size: 13px;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .history-dl:hover { background: rgba(0,240,255,0.15); }
+
+    /* ── Footer ── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 20px;
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 0.05em;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+    }
+
+    /* ── Confetti burst ── */
+    .confetti-piece {
+      position: fixed; z-index: 9998;
+      width: 6px; height: 6px;
+      border-radius: 2px;
+      pointer-events: none;
+      animation: confettiFall 1s ease-in forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translate(0,0) rotate(0deg) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(720deg) scale(0.3); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Scan line overlay ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 2;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .card { padding: 20px 16px; }
+      h1 { font-size: 2.2rem; }
+      .limit-card { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px 14px; }
+      #resetTimer { width: 100%; text-align: center; }
+      .url-input { font-size: 14px; padding: 14px 46px 14px 14px; }
+      .dl-btn { padding: 16px; font-size: 14px; }
+      .history-url { max-width: 140px; }
+      main { padding: 24px 16px; gap: 32px; }
+    }
+
+    /* Make inputs touch-friendly */
+    input, button { -webkit-tap-highlight-color: transparent; }
+    .url-input { font-size: 16px; } /* prevents iOS zoom on focus */
+  </style>
+</head>
+<body>
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <main>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-mark">
+        <div class="logo-icon">⬇</div>
+        <span class="logo-text">FavTok</span>
+      </div>
+      <h1>TikTok<span>Downloader</span></h1>
+      <p class="tagline">// save your favourite tiktoks</p>
+    </div>
+
+    <!-- Limit bar -->
+    <div class="limit-bar">
+      <div class="limit-card">
+        <div class="limit-dots" id="limitDots"></div>
+        <span id="limitText" class="limit-count">— / 100</span>
+        <span style="color:var(--muted)">downloads today</span>
+        <span id="resetTimer" style="color:var(--muted);font-size:11px;"></span>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="card">
+      <div class="input-group">
+        <span class="input-label">// paste tiktok url</span>
+        <div class="input-wrap">
+          <input
+            type="url"
+            class="url-input"
+            id="urlInput"
+            placeholder="https://www.tiktok.com/@user/video/..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="clear-btn" id="clearBtn" title="Clear">✕</button>
+        </div>
+        <button class="dl-btn" id="dlBtn">
+          <span class="btn-text">Download Video</span>
+        </button>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label">
+          <span id="progressLabel">Fetching video…</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="status" id="statusBox">
+        <span class="status-icon" id="statusIcon"></span>
+        <span id="statusMsg"></span>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="history-section" id="historySection" style="display:none">
+      <div class="section-title">Recent downloads</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+  </main>
+
+  <footer>FavTok · 100 downloads / day per device · resets at midnight UTC</footer>
+
+  <script>
+    // ── Constants ────────────────────────────────────────────────────────────
+    const LIMIT = 100;
+    const API   = 'https://cdn-kjs.pages.dev/api/tdownload';
+
+    // ── Storage helpers ───────────────────────────────────────────────────────
+    function getTodayKey() {
+      return 'dl_' + new Date().toISOString().slice(0, 10);
+    }
+
+    function getUsage() {
+      const key  = getTodayKey();
+      const raw  = localStorage.getItem(key);
+      const data = raw ? JSON.parse(raw) : { count: 0, history: [] };
+      return { key, ...data };
+    }
+
+    function saveUsage(count, history) {
+      localStorage.setItem(getTodayKey(), JSON.stringify({ count, history }));
+    }
+
+    // ── Limit UI ──────────────────────────────────────────────────────────────
+    function renderLimitBar() {
+      const { count } = getUsage();
+      const remaining = LIMIT - count;
+      const dots      = document.getElementById('limitDots');
+      const text      = document.getElementById('limitText');
+      const timer     = document.getElementById('resetTimer');
+
+      // 10 dot indicators
+      dots.innerHTML = '';
+      for (let i = 0; i < 10; i++) {
+        const d   = document.createElement('div');
+        const pct = (i + 1) / 10;
+        d.className = 'dot';
+        if (count / LIMIT >= pct) {
+          d.classList.add(count / LIMIT > 0.8 ? 'warn' : 'used');
+        }
+        dots.appendChild(d);
+      }
+
+      text.textContent = `${count} / ${LIMIT}`;
+      text.style.color = remaining <= 10 ? 'var(--accent3)' : 'var(--text)';
+
+      // countdown to midnight UTC
+      const now       = new Date();
+      const midnight  = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
+      const diff      = midnight - now;
+      const hh        = String(Math.floor(diff / 3.6e6)).padStart(2, '0');
+      const mm        = String(Math.floor((diff % 3.6e6) / 6e4)).padStart(2, '0');
+      const ss        = String(Math.floor((diff % 6e4) / 1e3)).padStart(2, '0');
+      timer.textContent = `· resets in ${hh}:${mm}:${ss}`;
+    }
+
+    setInterval(renderLimitBar, 1000);
+    renderLimitBar();
+
+    // ── History ───────────────────────────────────────────────────────────────
+    function renderHistory() {
+      const { history } = getUsage();
+      const section = document.getElementById('historySection');
+      const list    = document.getElementById('historyList');
+
+      if (!history.length) { section.style.display = 'none'; return; }
+      section.style.display = 'block';
+      list.innerHTML = '';
+
+      [...history].reverse().forEach((item, i) => {
+        const el = document.createElement('div');
+        el.className = 'history-item';
+        el.style.animationDelay = (i * 0.04) + 's';
+        el.innerHTML = `
+          <span class="history-num">${history.length - i}</span>
+          <span class="history-url" title="${item.url}">${item.url}</span>
+          <span class="history-time">${item.time}</span>
+          <a class="history-dl" href="${item.url}" title="Re-download" data-url="${item.url}">↓</a>
+        `;
+        el.querySelector('.history-dl').addEventListener('click', e => {
+          e.preventDefault();
+          document.getElementById('urlInput').value = item.url;
+          triggerDownload(item.url);
+        });
+        list.appendChild(el);
+      });
+    }
+
+    // ── Status helpers ────────────────────────────────────────────────────────
+    function setStatus(type, icon, msg) {
+      const box  = document.getElementById('statusBox');
+      const ico  = document.getElementById('statusIcon');
+      const txt  = document.getElementById('statusMsg');
+      box.className = 'status show ' + type;
+      ico.textContent = icon;
+      txt.textContent = msg;
+    }
+    function clearStatus() {
+      document.getElementById('statusBox').className = 'status';
+    }
+
+    // ── Progress ──────────────────────────────────────────────────────────────
+    function setProgress(show, pct = 0, label = '') {
+      const wrap  = document.getElementById('progressWrap');
+      const fill  = document.getElementById('progressFill');
+      const lbl   = document.getElementById('progressLabel');
+      const pctEl = document.getElementById('progressPct');
+      wrap.className  = show ? 'progress-wrap show' : 'progress-wrap';
+      fill.style.width = pct + '%';
+      lbl.textContent  = label;
+      pctEl.textContent = pct + '%';
+    }
+
+    // ── Confetti ──────────────────────────────────────────────────────────────
+    function burst(x, y) {
+      const colors = ['#ff2d55','#00f0ff','#ffcc00','#fff','#ff6b8a'];
+      for (let i = 0; i < 24; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.cssText = `
+          left:${x}px; top:${y}px;
+          background:${colors[i % colors.length]};
+          --dx:${(Math.random() - 0.5) * 200}px;
+          --dy:${-(Math.random() * 180 + 60)}px;
+        `;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1000);
+      }
+    }
+
+    // ── Core download ─────────────────────────────────────────────────────────
+    async function triggerDownload(url) {
+      const { count, history } = getUsage();
+      const btn = document.getElementById('dlBtn');
+      const txt = btn.querySelector('.btn-text');
+
+      clearStatus();
+
+      if (count >= LIMIT) {
+        setStatus('warning', '⚠', `Daily limit reached (${LIMIT}/day). Resets at midnight UTC.`);
+        return;
+      }
+
+      if (!url) {
+        setStatus('error', '✕', 'Paste a TikTok URL first.');
+        return;
+      }
+
+      // Validate
+      try {
+        const h = new URL(url).hostname;
+        if (!['tiktok.com','www.tiktok.com','vm.tiktok.com','vt.tiktok.com'].includes(h)) throw 0;
+      } catch {
+        setStatus('error', '✕', 'That doesn\'t look like a TikTok URL.');
+        return;
+      }
+
+      // UI: loading
+      btn.disabled = true;
+      btn.classList.add('loading');
+      txt.textContent = 'Fetching…';
+      setProgress(true, 10, 'Connecting to TikTok…');
+
+      try {
+        setProgress(true, 30, 'Resolving video…');
+        const apiUrl = `${API}?url=${encodeURIComponent(url)}`;
+        const res    = await fetch(apiUrl);
+
+        setProgress(true, 60, 'Downloading…');
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `Server error ${res.status}`);
+        }
+
+        setProgress(true, 85, 'Preparing file…');
+
+        const blob     = await res.blob();
+        const blobUrl  = URL.createObjectURL(blob);
+        const a        = document.createElement('a');
+        const filename = (res.headers.get('content-disposition') || '').match(/filename="(.+?)"/)?.[1] || 'tiktok-video.mp4';
+        a.href         = blobUrl;
+        a.download     = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+
+        setProgress(true, 100, 'Done!');
+        setTimeout(() => setProgress(false), 1200);
+
+        // Save usage
+        const now  = new Date();
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const newHistory = [...history, { url, time }].slice(-20);
+        saveUsage(count + 1, newHistory);
+
+        setStatus('success', '✓', `Downloaded successfully! (${count + 1}/${LIMIT} today)`);
+        renderLimitBar();
+        renderHistory();
+
+        // Confetti!
+        const r = btn.getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top);
+
+      } catch (err) {
+        setProgress(false);
+        setStatus('error', '✕', err.message || 'Something went wrong. Try again.');
+      } finally {
+        btn.disabled  = false;
+        btn.classList.remove('loading');
+        txt.textContent = 'Download Video';
+      }
+    }
+
+    // ── Event listeners ───────────────────────────────────────────────────────
+    document.getElementById('dlBtn').addEventListener('click', () => {
+      triggerDownload(document.getElementById('urlInput').value.trim());
+    });
+
+    document.getElementById('urlInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') triggerDownload(e.target.value.trim());
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      document.getElementById('urlInput').value = '';
+      clearStatus();
+      document.getElementById('urlInput').focus();
+    });
+
+    // Auto-paste on focus if clipboard has TikTok URL
+    document.getElementById('urlInput').addEventListener('focus', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        const h    = new URL(text).hostname;
+        if (['tiktok.com','www.tiktok.com','vm.tiktok.com','vt.tiktok.com'].includes(h)) {
+          document.getElementById('urlInput').value = text;
+        }
+      } catch {}
+    });
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    renderHistory();
+  </script>
+</body>
+</html>
