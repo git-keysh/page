@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aplotion Engine Demo</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1a1a1a, #000);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(15px);
+      background: rgba(0,0,0,0.35);
+      z-index: 1000;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      margin-top: 15px;
+      color: #aaa;
+      max-width: 600px;
+    }
+
+    .btn {
+      margin-top: 25px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: none;
+      background: white;
+      color: black;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .section {
+      padding: 120px 10%;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(20px);
+    }
+
+    .grid {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      padding: 25px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: scale(1.04);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .big {
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    .spacer {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <div class="nav aplotion">
+    <div> Aplotion Demo</div>
+    <div>Menu</div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 aplotion>Aplotion Engine</h1>
+    <p aplotion>
+      Apple-style motion system with scroll reveal, parallax, spring motion, and smooth UI physics.
+    </p>
+    <button class="btn aplotion-hover">Get Started</button>
+  </section>
+
+  <!-- GLASS SECTION -->
+  <section class="section">
+    <div class="glass aplotion">
+
+      <div class="big aplotion-parallax" data-speed="0.15">
+        Smooth Motion System
+      </div>
+
+      <p style="margin-top:10px;color:#aaa" aplotion>
+        Everything here is driven by scroll + motion engine.
+      </p>
+
+      <div class="grid">
+        <div class="card aplotion-hover aplotion">
+          Scroll Reveal System
+        </div>
+
+        <div class="card aplotion-hover aplotion">
+          Parallax Engine
+        </div>
+
+        <div class="card aplotion-hover aplotion">
+          Spring Physics
+        </div>
+
+        <div class="card aplotion-hover aplotion">
+          Apple Easing Curves
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXTRA SECTION -->
+  <section class="section">
+    <div class="glass aplotion">
+      <h2 aplotion>Motion Feel Test</h2>
+      <p aplotion>
+        Scroll down and watch elements animate like Apple’s website.
+      </p>
+
+      <div class="spacer"></div>
+
+      <div class="card aplotion-parallax aplotion-hover" data-speed="0.3">
+        Floating Parallax Card
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="card aplotion aplotion-hover">
+        Another Smooth Reveal Card
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ENGINE -->
+  <script src="app.js"></script>
+
+  <script>
+    const motion = new AplotionEngine();
+
+    motion.smoothScroll();
+
+    // extra effects
+    motion.parallax(".hero h1", 0.1);
+    motion.parallax(".hero p", 0.05);
+
+    motion.scale(".btn", 1.06);
+  </script>
+
+</body>
+</html>

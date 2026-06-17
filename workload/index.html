@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1A2035">
+<title>Workload — Mr. Bridgemohan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+:root{
+  --sb:#1A2035;--sb-hover:#222C46;--sb-active:#2B3654;
+  --sb-text:#8FA3C0;--sb-text-hi:#FFFFFF;--sb-accent:#4D8FFF;
+  --sb-w:240px;
+  --bg:#F0F2F6;--surface:#FFFFFF;--surface2:#F7F8FA;
+  --border:#E2E6ED;--border-focus:#3B82F6;
+  --text:#0F1726;--text2:#374151;--muted:#6B7280;--muted2:#9CA3AF;
+  --blue:#2563EB;--blue-h:#1D4ED8;--blue-s:#EFF6FF;
+  --red:#DC2626;--red-s:#FEF2F2;
+  --amber:#D97706;--amber-s:#FFFBEB;
+  --green:#16A34A;--green-s:#F0FDF4;
+  --r:8px;--r-sm:6px;--r-lg:14px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 16px rgba(0,0,0,.10),0 2px 6px rgba(0,0,0,.05);
+  --sh-lg:0 24px 48px rgba(0,0,0,.14),0 8px 20px rgba(0,0,0,.07)
+}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;color:var(--text);background:var(--bg);height:100vh;overflow:hidden;display:flex}
+.sidebar{width:var(--sb-w);background:var(--sb);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow:hidden}
+.sidebar-logo{padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo-icon{width:34px;height:34px;background:var(--sb-accent);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-logo-icon svg{color:#fff;width:18px;height:18px}
+.sb-logo-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.sb-logo-sub{font-size:11px;color:var(--sb-text);margin-top:1px}
+.compose-btn{margin:14px 12px;padding:10px 16px;background:var(--sb-accent);color:#fff;border:none;border-radius:24px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,transform .1s}
+.compose-btn:hover{background:#3D7FEF}
+.compose-btn:active{transform:scale(.98)}
+.compose-btn svg{width:15px;height:15px}
+.sb-section{padding:18px 0 4px}
+.sb-section-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sb-text);padding:0 16px;opacity:.5;margin-bottom:4px}
+.sb-nav-item{display:flex;align-items:center;gap:11px;padding:9px 16px;color:var(--sb-text);cursor:pointer;border:none;background:none;width:100%;font-family:inherit;font-size:13.5px;font-weight:400;text-align:left;position:relative;transition:background .1s,color .1s}
+.sb-nav-item:hover{background:var(--sb-hover);color:#fff}
+.sb-nav-item.active{background:var(--sb-active);color:#fff;font-weight:500}
+.sb-nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--sb-accent);border-radius:0 3px 3px 0}
+.sb-nav-item svg{width:16px;height:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:rgba(77,143,255,.25);color:var(--sb-accent);font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;min-width:18px;text-align:center}
+.sb-footer{margin-top:auto;padding:14px 16px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-footer-text{font-size:11px;color:var(--sb-text);opacity:.5;line-height:1.5}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh;overflow:hidden}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;gap:12px;flex-shrink:0;box-shadow:0 1px 0 var(--border)}
+.topbar-title{font-size:16px;font-weight:600;color:var(--text)}
+.topbar-sub{font-size:12px;color:var(--muted);margin-left:6px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .1s,color .1s;flex-shrink:0}
+.icon-btn:hover{background:var(--bg);color:var(--text)}
+.icon-btn svg{width:18px;height:18px}
+.content{flex:1;overflow:hidden;display:flex;position:relative}
+.view{position:absolute;inset:0;overflow-y:auto;display:none;flex-direction:column}
+.view.active{display:flex}
+
+.compose-wrap{max-width:700px;margin:0 auto;padding:28px 24px 80px;width:100%}
+.compose-header{margin-bottom:24px}
+.compose-header h1{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.compose-header p{font-size:13.5px;color:var(--muted);margin-top:4px}
+.form-card{background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--border);overflow:hidden;margin-bottom:14px;box-shadow:var(--sh)}
+.form-card-head{padding:12px 20px;border-bottom:1px solid var(--border);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.form-card-head svg{width:14px;height:14px}
+.form-card-body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-size:13px;font-weight:500;color:var(--text2);display:flex;align-items:center;gap:5px}
+.opt{font-size:11px;font-weight:400;color:var(--muted2)}
+input[type=text],input[type=date],input[type=url],textarea{font-family:inherit;font-size:14px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;outline:none;transition:border-color .15s,box-shadow .15s;width:100%}
+input:focus,textarea:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+input::placeholder,textarea::placeholder{color:var(--muted2)}
+textarea{resize:vertical;min-height:96px;line-height:1.55}
+.links-list{display:flex;flex-direction:column;gap:8px}
+.link-item{display:flex;gap:8px;align-items:center}
+.link-item input{flex:1}
+.link-remove{width:34px;height:34px;border:1px solid var(--border);background:none;border-radius:var(--r-sm);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .1s,color .1s,border-color .1s}
+.link-remove:hover{background:var(--red-s);color:var(--red);border-color:var(--red)}
+.link-remove svg{width:14px;height:14px}
+.add-link-btn{padding:8px 12px;background:none;border:1.5px dashed var(--border);border-radius:var(--r-sm);color:var(--muted);font-family:inherit;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:border-color .15s,color .15s,background .1s;width:100%;justify-content:center}
+.add-link-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-s)}
+.add-link-btn svg{width:14px;height:14px}
+.dropzone{border:2px dashed var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;position:relative}
+.dropzone.dragover{border-color:var(--blue);background:var(--blue-s)}
+.dropzone-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dz-icon{width:42px;height:42px;background:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--muted)}
+.dz-icon svg{width:20px;height:20px}
+.dz-text{font-size:13.5px;color:var(--text2);font-weight:500}
+.dz-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:10px}
+.preview-item{position:relative;aspect-ratio:1;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--border);background:var(--bg)}
+.preview-item img{width:100%;height:100%;object-fit:cover}
+.preview-item-label{display:flex;align-items:center;justify-content:center;height:100%;padding:6px}
+.preview-item-label span{font-size:10px;color:var(--muted);font-weight:500;word-break:break-all;text-align:center;line-height:1.3}
+.preview-remove{position:absolute;top:3px;right:3px;width:20px;height:20px;background:rgba(0,0,0,.55);border:none;border-radius:50%;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .1s}
+.preview-remove:hover{background:rgba(0,0,0,.8)}
+.preview-remove svg{width:10px;height:10px}
+.form-actions{display:flex;align-items:center;gap:10px;margin-top:4px}
+.btn{padding:9px 20px;border-radius:24px;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .15s;letter-spacing:.01em;flex-shrink:0}
+.btn svg{width:15px;height:15px}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-h)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn-ghost{background:none;color:var(--muted);padding:9px 14px}
+.btn-ghost:hover{background:var(--bg);color:var(--text)}
+.btn-sm{padding:7px 14px;font-size:13px;border-radius:7px}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{background:#B91C1C}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--text2)}
+.btn-outline:hover{background:var(--bg);border-color:var(--text2)}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-amber:hover{background:#B45309}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#15803D}
+
+.cal-wrap{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
+.cal-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cal-title{font-size:19px;font-weight:700;letter-spacing:-.02em;min-width:150px}
+.cal-nav{display:flex;gap:2px}
+.cal-today-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;margin-left:2px}
+.cal-today-btn:hover{background:var(--bg);border-color:var(--text2)}
+.cal-mode-toggle{margin-left:auto;display:flex;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px}
+.cal-mode-btn{padding:5px 14px;border-radius:6px;border:none;background:none;font-family:inherit;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s}
+.cal-mode-btn.active{background:var(--sb);color:#fff;box-shadow:var(--sh)}
+.cal-grid-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column;min-height:0;box-shadow:var(--sh)}
+.cal-dow{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--border);flex-shrink:0}
+.cal-dow-cell{padding:9px 6px;text-align:center;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);flex:1;overflow-y:auto}
+.cal-day{min-height:88px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:7px 6px;cursor:pointer;transition:background .1s;display:flex;flex-direction:column;gap:3px}
+.cal-day:nth-child(7n){border-right:none}
+.cal-day:hover{background:#FAFBFD}
+.cal-day.other-month{background:#FAFAFA;opacity:.55;pointer-events:none}
+.cal-day.today .cal-day-num{background:var(--blue);color:#fff;border-radius:50%}
+.cal-day-num{font-size:12.5px;font-weight:500;color:var(--text2);width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cal-chips{display:flex;flex-direction:column;gap:2px;overflow:hidden;min-height:0}
+.cal-chip{font-size:11px;font-weight:500;padding:2px 6px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;line-height:1.5;transition:filter .1s}
+.cal-chip:hover{filter:brightness(.93)}
+.chip-green{background:#DCFCE7;color:#166534}
+.chip-blue{background:#DBEAFE;color:#1E40AF}
+.chip-amber{background:#FEF3C7;color:#92400E}
+.chip-red{background:#FEE2E2;color:#991B1B}
+.chip-muted{background:#F3F4F6;color:#4B5563;text-decoration:line-through}
+.cal-chip-more{font-size:11px;color:var(--muted);padding:2px 6px}
+
+.year-scroll{flex:1;overflow-y:auto;padding:2px}
+.year-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:12px}
+.mini-month{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.mini-month:hover{border-color:var(--sb-accent);box-shadow:0 0 0 3px rgba(77,143,255,.15)}
+.mini-month-name{font-size:11.5px;font-weight:600;color:var(--text);margin-bottom:8px;text-align:center}
+.mini-dow{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:3px}
+.mini-dow span{font-size:9px;text-align:center;color:var(--muted);font-weight:500}
+.mini-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+.mini-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text2);border-radius:3px;position:relative}
+.mini-day.is-today{background:var(--blue);color:#fff;font-weight:700;border-radius:50%}
+.mini-day.has-task::after{content:'';position:absolute;bottom:1px;width:3px;height:3px;background:var(--amber);border-radius:50%}
+.mini-day.is-today.has-task::after{background:rgba(255,255,255,.7)}
+.mini-day.other-m{color:var(--muted2);opacity:.5}
+
+.hist-wrap{padding:16px 24px 80px;display:flex;flex-direction:column;gap:0}
+.hist-filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filt-chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s;box-shadow:var(--sh)}
+.filt-chip.active{background:var(--sb);color:#fff;border-color:var(--sb)}
+.task-list-wrap{background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh)}
+.task-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.task-row:last-child{border-bottom:none}
+.task-row:hover{background:#FAFBFD}
+.task-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-green{background:var(--green)}
+.dot-amber{background:var(--amber)}
+.dot-red{background:var(--red)}
+.dot-muted{background:var(--muted2)}
+.task-row-main{flex:1;min-width:0}
+.task-row-title{font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.task-row-num{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.task-row-desc{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-row-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.task-row-date{font-size:11.5px;color:var(--muted)}
+.sbadge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.sbadge-pending{background:var(--blue-s);color:var(--blue)}
+.sbadge-overdue{background:var(--red-s);color:var(--red)}
+.sbadge-alerted{background:var(--amber-s);color:var(--amber)}
+.sbadge-complete{background:var(--green-s);color:var(--green)}
+.sbadge-today{background:#F3F4F6;color:#374151}
+
+.empty{text-align:center;padding:72px 24px}
+.empty-icon{width:52px;height:52px;background:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--muted2)}
+.empty-icon svg{width:22px;height:22px}
+.empty h3{font-size:15.5px;font-weight:600;margin-bottom:5px}
+.empty p{font-size:13px;color:var(--muted);line-height:1.5}
+
+.panel-overlay{position:fixed;inset:0;background:rgba(15,23,38,.35);z-index:100;display:none;backdrop-filter:blur(3px)}
+.panel-overlay.open{display:block}
+.panel{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--surface);box-shadow:var(--sh-lg);z-index:101;transform:translateX(102%);transition:transform .26s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.panel.open{transform:translateX(0)}
+.panel-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.panel-close{width:32px;height:32px;border-radius:50%;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .1s;flex-shrink:0}
+.panel-close:hover{background:var(--bg);color:var(--text)}
+.panel-close svg{width:18px;height:18px}
+.panel-title-area{flex:1;min-width:0}
+.panel-num{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.panel-title{font-size:16px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.panel-body{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px}
+.p-field{display:flex;flex-direction:column;gap:4px}
+.p-label{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.p-value{font-size:13.5px;color:var(--text);line-height:1.55}
+.p-value a{color:var(--blue);text-decoration:none;word-break:break-all}
+.p-value a:hover{text-decoration:underline}
+.p-divider{height:1px;background:var(--border);flex-shrink:0}
+.panel-foot{padding:14px 18px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:9px;flex-shrink:0}
+.date-req-form{display:flex;flex-direction:column;gap:9px;padding:13px;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)}
+.date-req-label{font-size:12px;font-weight:600;color:var(--text2)}
+.date-req-actions{display:flex;gap:8px}
+.day-list-item{padding:13px;background:var(--bg);border-radius:var(--r);cursor:pointer;border:1px solid var(--border);transition:border-color .15s,box-shadow .15s}
+.day-list-item:hover{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.day-list-item-meta{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.day-list-item-title{font-size:13.5px;font-weight:500;color:var(--text)}
+.day-list-item-reward{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+.toast-wrap{position:fixed;top:16px;right:16px;z-index:999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{background:#1C2332;color:#fff;padding:11px 15px;border-radius:var(--r);font-size:13.5px;font-weight:500;max-width:320px;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-md);animation:slIn .2s ease-out;pointer-events:all;border-left:3px solid transparent}
+.toast.success{border-left-color:#4ADE80}
+.toast.error{border-left-color:#F87171}
+.toast.info{border-left-color:#60A5FA}
+.toast svg{width:15px;height:15px;flex-shrink:0}
+.toast.success svg{color:#4ADE80}
+.toast.error svg{color:#F87171}
+.toast.info svg{color:#60A5FA}
+@keyframes slIn{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slOut{to{transform:translateX(110%);opacity:0}}
+
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.82);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;backdrop-filter:blur(4px)}
+.loading.show{display:flex}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-msg{font-size:13.5px;font-weight:500;color:var(--text2)}
+.loading-step{font-size:12px;color:var(--muted);margin-top:-6px}
+
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--sb);border-top:1px solid rgba(255,255,255,.07);height:62px;z-index:50}
+.mob-nav-inner{display:flex;height:100%}
+.mob-nav-btn{flex:1;border:none;background:none;color:var(--sb-text);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:inherit;font-size:10px;font-weight:500;transition:color .1s;position:relative}
+.mob-nav-btn.active{color:#fff}
+.mob-nav-btn svg{width:20px;height:20px}
+.mob-badge{position:absolute;top:8px;right:calc(50% - 18px);background:var(--sb-accent);color:#fff;font-size:9px;font-weight:700;padding:0 5px;border-radius:8px;min-width:16px;text-align:center;line-height:16px}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mob-nav{display:block}
+  .main{height:calc(100vh - 62px)}
+  body{flex-direction:column}
+  .cal-wrap{padding:14px 10px 14px}
+  .year-grid{grid-template-columns:repeat(2,1fr)}
+  .cal-day{min-height:58px;padding:5px 4px}
+  .panel{width:100%;top:auto;height:88vh;transform:translateY(102%);border-radius:var(--r-lg) var(--r-lg) 0 0}
+  .panel.open{transform:translateY(0)}
+  .field-row{grid-template-columns:1fr}
+  .compose-wrap{padding:14px 12px 100px}
+  .hist-wrap{padding:12px 12px 80px}
+  .topbar{padding:0 14px}
+  .task-row{padding:12px}
+  .form-actions{flex-wrap:wrap}
+  .cal-header{gap:7px}
+  .cal-title{font-size:16px;min-width:120px}
+}
+@media(max-width:420px){
+  .year-grid{grid-template-columns:repeat(2,1fr)}
+  .hist-filters{gap:6px}
+  .filt-chip{padding:5px 10px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sb-logo-icon"><i data-lucide="briefcase"></i></div>
+    <div>
+      <div class="sb-logo-name">Workload</div>
+      <div class="sb-logo-sub">Mr. Bridgemohan</div>
+    </div>
+  </div>
+  <button class="compose-btn" onclick="switchView('compose')">
+    <i data-lucide="plus"></i> New Assignment
+  </button>
+  <div class="sb-section">
+    <div class="sb-section-label">Workspace</div>
+    <button class="sb-nav-item active" data-nav="calendar" onclick="switchView('calendar')">
+      <i data-lucide="calendar-days"></i> Calendar
+    </button>
+    <button class="sb-nav-item" data-nav="history" onclick="switchView('history')">
+      <i data-lucide="send"></i> Sent
+      <span class="nav-badge" id="sent-badge">0</span>
+    </button>
+  </div>
+  <div class="sb-footer">
+    <div class="sb-footer-text">Assignments sent directly to Keyshaun via Discord.</div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">Calendar</div>
+    <span class="topbar-sub" id="topbar-sub"></span>
+    <div class="topbar-right" id="topbar-right"></div>
+  </div>
+  <div class="content">
+
+    <div class="view" id="view-compose">
+      <div class="compose-wrap">
+        <div class="compose-header">
+          <h1>New Assignment</h1>
+          <p>Complete the form below — it will be sent directly to Keyshaun on Discord.</p>
+        </div>
+        <div class="form-card">
+          <div class="form-card-head"><i data-lucide="file-text"></i> Core Details</div>
+          <div class="form-card-body">
+            <div class="field">
+              <label>Project Title</label>
+              <input type="text" id="f-title" placeholder="e.g. Redesign the landing page" maxlength="100">
+            </div>
+            <div class="field">
+              <label>Description</label>
+              <textarea id="f-desc" placeholder="Describe the task in full detail — what needs to be done and how..."></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Due Date</label>
+                <input type="date" id="f-due">
+              </div>
+              <div class="field">
+                <label>Reward <span class="opt">optional</span></label>
+                <input type="text" id="f-reward" placeholder="e.g. $50 / Extra day off">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-head"><i data-lucide="sticky-note"></i> Notes <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
+          <div class="form-card-body">
+            <div class="field">
+              <textarea id="f-notes" placeholder="Any specific instructions, context, requirements or preferences..." style="min-height:80px"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-head"><i data-lucide="link"></i> Links <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
+          <div class="form-card-body">
+            <div class="links-list" id="links-list">
+              <div class="link-item">
+                <input type="url" placeholder="https://">
+                <button class="link-remove" onclick="removeLink(this)"><i data-lucide="x"></i></button>
+              </div>
+            </div>
+            <button class="add-link-btn" onclick="addLink()"><i data-lucide="plus"></i> Add link</button>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-head"><i data-lucide="paperclip"></i> Assets <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
+          <div class="form-card-body">
+            <div class="dropzone" id="dropzone">
+              <input type="file" class="dropzone-input" id="f-files" accept="image/*,video/*,.pdf,.zip,.doc,.docx" multiple>
+              <div class="dz-icon"><i data-lucide="upload-cloud"></i></div>
+              <div class="dz-text">Drop files here or click to browse</div>
+              <div class="dz-sub">Images, PDFs, videos and documents accepted</div>
+            </div>
+            <div class="preview-grid" id="preview-grid"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="submit-btn" onclick="handleSubmit()">
+            <i data-lucide="send"></i> Send Assignment
+          </button>
+          <button class="btn btn-ghost" onclick="clearForm()">Clear form</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="view active" id="view-calendar">
+      <div class="cal-wrap" id="cal-wrap"></div>
+    </div>
+
+    <div class="view" id="view-history">
+      <div class="hist-wrap" id="hist-wrap"></div>
+    </div>
+
+  </div>
+</div>
+
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <button class="mob-nav-btn" data-nav="compose" onclick="switchView('compose')">
+      <i data-lucide="plus-circle"></i> New
+    </button>
+    <button class="mob-nav-btn active" data-nav="calendar" onclick="switchView('calendar')">
+      <i data-lucide="calendar-days"></i> Calendar
+    </button>
+    <button class="mob-nav-btn" data-nav="history" onclick="switchView('history')">
+      <i data-lucide="send"></i> Sent
+      <span class="mob-badge" id="mob-badge" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+<div class="panel" id="detail-panel">
+  <div class="panel-head">
+    <button class="panel-close" onclick="closePanel()"><i data-lucide="x"></i></button>
+    <div class="panel-title-area">
+      <div class="panel-num" id="p-num"></div>
+      <div class="panel-title" id="p-title"></div>
+    </div>
+    <div id="p-badge"></div>
+  </div>
+  <div class="panel-body" id="p-body"></div>
+  <div class="panel-foot" id="p-foot"></div>
+</div>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-msg" id="loading-msg">Sending assignment...</div>
+  <div class="loading-step" id="loading-step"></div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js"></script>
+<script>
+const WH = 'https://discord.com/api/webhooks/1516923081266954280/oBbD-OkG5y3iKsohHs58h3XS6URVtavTivG_ks3VmZCsqbCUp5VcjbVp6MbxvaaXQAI4';
+const SK = 'wl_v1';
+const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+let tasks = [];
+let calM = new Date().getMonth();
+let calY = new Date().getFullYear();
+let calMode = 'month';
+let selFiles = [];
+let activeView = 'calendar';
+let panelTaskId = null;
+
+function boot() {
+  const r = localStorage.getItem(SK);
+  tasks = r ? JSON.parse(r) : [];
+  lucide.createIcons();
+  updateBadges();
+  renderCal();
+  initDropzone();
+  document.getElementById('f-files').addEventListener('change', e => handleFiles(e.target.files));
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('f-due').min = today;
+}
+
+function persist() {
+  localStorage.setItem(SK, JSON.stringify(tasks));
+}
+
+function updateBadges() {
+  const n = tasks.length;
+  document.getElementById('sent-badge').textContent = n;
+  const mb = document.getElementById('mob-badge');
+  if (n > 0) { mb.textContent = n > 99 ? '99+' : n; mb.style.display = ''; }
+  else mb.style.display = 'none';
+}
+
+function switchView(v) {
+  activeView = v;
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-' + v).classList.add('active');
+  document.querySelectorAll('.sb-nav-item').forEach(b => b.classList.toggle('active', b.dataset.nav === v));
+  document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.nav === v));
+  const tt = document.getElementById('topbar-title');
+  const ts = document.getElementById('topbar-sub');
+  const tr = document.getElementById('topbar-right');
+  if (v === 'calendar') { tt.textContent = 'Calendar'; ts.textContent = ''; tr.innerHTML = ''; renderCal(); }
+  else if (v === 'compose') { tt.textContent = 'New Assignment'; ts.textContent = ''; tr.innerHTML = ''; }
+  else if (v === 'history') { tt.textContent = 'Sent Assignments'; ts.textContent = tasks.length + ' total'; tr.innerHTML = ''; renderHistory(); }
+  lucide.createIcons();
+}
+
+function renderCal() {
+  const w = document.getElementById('cal-wrap');
+  const hdr = `<div class="cal-header">
+    <div class="cal-title">${calMode === 'year' ? calY : MN[calM] + ' ' + calY}</div>
+    <div class="cal-nav">
+      <button class="icon-btn" onclick="navCal(-1)" title="Previous"><i data-lucide="chevron-left"></i></button>
+      <button class="icon-btn" onclick="navCal(1)" title="Next"><i data-lucide="chevron-right"></i></button>
+    </div>
+    <button class="cal-today-btn" onclick="goToday()">Today</button>
+    <div class="cal-mode-toggle">
+      <button class="cal-mode-btn ${calMode==='month'?'active':''}" onclick="setMode('month')">Month</button>
+      <button class="cal-mode-btn ${calMode==='year'?'active':''}" onclick="setMode('year')">Year</button>
+    </div>
+  </div>`;
+  w.innerHTML = hdr + (calMode === 'year' ? buildYear() : buildMonth(calM, calY, true));
+  lucide.createIcons();
+}
+
+function buildMonth(m, y, full) {
+  const today = new Date();
+  const fd = new Date(y, m, 1).getDay();
+  const dim = new Date(y, m + 1, 0).getDate();
+  const prevDim = new Date(y, m, 0).getDate();
+  const mTasks = tasks.filter(t => { const d = new Date(t.due+'T00:00:00'); return d.getMonth()===m && d.getFullYear()===y; });
+  const cells = Math.ceil((fd + dim) / 7) * 7;
+  let grid = '';
+  for (let i = 0; i < cells; i++) {
+    let dn, cur = true;
+    if (i < fd) { dn = prevDim - fd + i + 1; cur = false; }
+    else if (i >= fd + dim) { dn = i - fd - dim + 1; cur = false; }
+    else dn = i - fd + 1;
+    const isTdy = cur && dn===today.getDate() && m===today.getMonth() && y===today.getFullYear();
+    const dt = cur ? mTasks.filter(t => new Date(t.due+'T00:00:00').getDate()===dn) : [];
+    const show = dt.slice(0,3);
+    const extra = dt.length - 3;
+    grid += `<div class="cal-day${!cur?' other-month':''}${isTdy?' today':''}" onclick="${cur?'dayClick('+dn+','+m+','+y+')':''}">
+      <div class="cal-day-num">${dn}</div>
+      <div class="cal-chips">
+        ${show.map(t=>`<div class="cal-chip ${chipClass(t)}" onclick="event.stopPropagation();openTask('${t.id}')" title="${escH(t.title)}">${escH(t.title)}</div>`).join('')}
+        ${extra>0?`<div class="cal-chip-more">+${extra} more</div>`:''}
+      </div>
+    </div>`;
+  }
+  return `<div class="cal-grid-wrap"${full?' style="flex:1;min-height:0"':''}>
+    <div class="cal-dow">${DS.map(d=>`<div class="cal-dow-cell">${d}</div>`).join('')}</div>
+    <div class="cal-grid">${grid}</div>
+  </div>`;
+}
+
+function buildYear() {
+  const today = new Date();
+  let html = '<div class="cal-grid-wrap" style="flex:1;min-height:0;overflow:hidden"><div class="year-scroll"><div class="year-grid">';
+  for (let m = 0; m < 12; m++) {
+    const fd = new Date(calY, m, 1).getDay();
+    const dim = new Date(calY, m+1, 0).getDate();
+    const prevDim = new Date(calY, m, 0).getDate();
+    const mT = tasks.filter(t => { const d = new Date(t.due+'T00:00:00'); return d.getMonth()===m && d.getFullYear()===calY; });
+    const tDays = new Set(mT.map(t => new Date(t.due+'T00:00:00').getDate()));
+    const cells = Math.ceil((fd + dim) / 7) * 7;
+    let g = '';
+    for (let i = 0; i < cells; i++) {
+      let dn, cur = true;
+      if (i < fd) { dn = prevDim - fd + i + 1; cur = false; }
+      else if (i >= fd + dim) { dn = i - fd - dim + 1; cur = false; }
+      else dn = i - fd + 1;
+      const isTdy = cur && dn===today.getDate() && m===today.getMonth() && calY===today.getFullYear();
+      const hT = cur && tDays.has(dn);
+      g += `<div class="mini-day${!cur?' other-m':''}${isTdy?' is-today':''}${hT?' has-task':''}">${dn}</div>`;
+    }
+    html += `<div class="mini-month" onclick="goMonth(${m})">
+      <div class="mini-month-name">${MN[m]}</div>
+      <div class="mini-dow">${DS.map(d=>`<span>${d[0]}</span>`).join('')}</div>
+      <div class="mini-grid">${g}</div>
+    </div>`;
+  }
+  html += '</div></div></div>';
+  return html;
+}
+
+function chipClass(t) {
+  if (t.status === 'complete') return 'chip-muted';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const due = new Date(t.due+'T00:00:00');
+  const diff = Math.floor((due-now)/86400000);
+  if (diff < 0) return 'chip-red';
+  if (diff === 0) return 'chip-amber';
+  if (diff <= 3) return 'chip-amber';
+  if (diff <= 7) return 'chip-blue';
+  return 'chip-green';
+}
+
+function navCal(d) {
+  if (calMode === 'year') { calY += d; }
+  else { calM += d; if (calM>11){calM=0;calY++;} if (calM<0){calM=11;calY--;} }
+  renderCal();
+}
+
+function goToday() { calM=new Date().getMonth(); calY=new Date().getFullYear(); calMode='month'; renderCal(); }
+function setMode(m) { calMode=m; renderCal(); }
+function goMonth(m) { calM=m; calMode='month'; renderCal(); }
+
+function dayClick(dn, m, y) {
+  const dt = tasks.filter(t => {
+    const d = new Date(t.due+'T00:00:00');
+    return d.getDate()===dn && d.getMonth()===m && d.getFullYear()===y;
+  });
+  if (!dt.length) return;
+  if (dt.length === 1) { openTask(dt[0].id); return; }
+  const date = new Date(y,m,dn);
+  const ds = date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('p-num').textContent = ds;
+  document.getElementById('p-title').textContent = dt.length + ' assignments due';
+  document.getElementById('p-badge').innerHTML = '';
+  document.getElementById('p-body').innerHTML = dt.map(t=>`
+    <div class="day-list-item" onclick="openTask('${t.id}')">
+      <div class="day-list-item-meta">
+        <span class="task-row-num">Project #${t.num}</span>
+        <span class="sbadge ${sBadgeCls(t)}">${sLabel(t)}</span>
+      </div>
+      <div class="day-list-item-title">${escH(t.title)}</div>
+      <div class="day-list-item-reward">${t.reward?'Reward: '+escH(t.reward):'No reward set'}</div>
+    </div>
+  `).join('');
+  document.getElementById('p-foot').innerHTML = '';
+  panelTaskId = null;
+  openPanel();
+  lucide.createIcons();
+}
+
+function openTask(id) {
+  const t = tasks.find(x=>x.id===id);
+  if (!t) return;
+  panelTaskId = id;
+  const now = new Date(); now.setHours(0,0,0,0);
+  const due = new Date(t.due+'T00:00:00');
+  const overdue = due < now && t.status !== 'complete';
+  document.getElementById('p-num').textContent = 'Project #'+t.num;
+  document.getElementById('p-title').textContent = t.title;
+  document.getElementById('p-badge').innerHTML = `<span class="sbadge ${sBadgeCls(t)}">${sLabel(t)}</span>`;
+  const links = t.links && t.links.filter(Boolean).length
+    ? t.links.filter(Boolean).map(l=>`<a href="${escH(l)}" target="_blank" rel="noopener">${escH(l)}</a>`).join('<br>')
+    : null;
+  const daysAgo = overdue ? Math.floor((now-due)/86400000) : null;
+  document.getElementById('p-body').innerHTML = `
+    <div class="p-field">
+      <div class="p-label">Description</div>
+      <div class="p-value">${escH(t.description)}</div>
+    </div>
+    <div class="p-divider"></div>
+    <div class="p-field">
+      <div class="p-label">Due Date</div>
+      <div class="p-value">${fDate(t.due)}${overdue?' <span style="color:var(--red);font-size:12px;font-weight:600">('+daysAgo+' day'+(daysAgo!==1?'s':'')+' overdue)</span>':''}</div>
+    </div>
+    ${t.reward?`<div class="p-field"><div class="p-label">Reward</div><div class="p-value">${escH(t.reward)}</div></div>`:''}
+    ${t.notes?`<div class="p-field"><div class="p-label">Notes</div><div class="p-value">${escH(t.notes)}</div></div>`:''}
+    ${links?`<div class="p-field"><div class="p-label">Links</div><div class="p-value">${links}</div></div>`:''}
+    ${t.assetCount?`<div class="p-field"><div class="p-label">Assets Sent</div><div class="p-value">${t.assetCount} file${t.assetCount!==1?'s':''} sent to Discord</div></div>`:''}
+    <div class="p-divider"></div>
+    <div class="p-field">
+      <div class="p-label">Sent At</div>
+      <div class="p-value">${fDateTime(t.sentAt)}</div>
+    </div>
+    ${t.requestedDate?`<div class="p-field"><div class="p-label">Earlier Date Requested</div><div class="p-value">${fDate(t.requestedDate)}</div></div>`:''}
+    ${t.alertSentAt?`<div class="p-field"><div class="p-label">Alert Sent</div><div class="p-value">${fDateTime(t.alertSentAt)}</div></div>`:''}
+  `;
+  const foot = document.getElementById('p-foot');
+  if (t.status !== 'complete') {
+    foot.innerHTML = `
+      <div id="date-req-wrap">
+        <button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')">
+          <i data-lucide="calendar-clock"></i> Request Earlier Date
+        </button>
+      </div>
+      ${overdue?`<button class="btn btn-amber btn-sm" onclick="sendAlert('${id}',this)"><i data-lucide="bell-ring"></i> Send Overdue Alert to Keyshaun</button>`:''}
+      <button class="btn btn-outline btn-sm" style="color:var(--green);border-color:var(--green)" onclick="markDone('${id}')">
+        <i data-lucide="check-circle-2"></i> Mark as Complete
+      </button>
+    `;
+  } else {
+    foot.innerHTML = `<div style="text-align:center;font-size:13px;color:var(--muted);padding:8px 0">This assignment has been marked complete.</div>`;
+  }
+  openPanel();
+  lucide.createIcons();
+}
+
+function showDateReq(id) {
+  const t = tasks.find(x=>x.id===id);
+  const w = document.getElementById('date-req-wrap');
+  const today = new Date().toISOString().split('T')[0];
+  w.innerHTML = `<div class="date-req-form">
+    <div class="date-req-label">Select a new requested due date</div>
+    <input type="date" id="new-date" min="${today}" max="${t.due}" style="font-family:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;outline:none;width:100%;color:var(--text)">
+    <div class="date-req-actions">
+      <button class="btn btn-primary btn-sm" onclick="submitDateReq('${id}',this)"><i data-lucide="send"></i> Send Request</button>
+      <button class="btn btn-ghost btn-sm" onclick="cancelDateReq('${id}')">Cancel</button>
+    </div>
+  </div>`;
+  lucide.createIcons();
+}
+
+function cancelDateReq(id) {
+  const w = document.getElementById('date-req-wrap');
+  w.innerHTML = `<button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')"><i data-lucide="calendar-clock"></i> Request Earlier Date</button>`;
+  lucide.createIcons();
+}
+
+async function submitDateReq(id, btn) {
+  const nd = document.getElementById('new-date').value;
+  if (!nd) { toast('Select a date first','error'); return; }
+  btn.disabled = true;
+  const t = tasks.find(x=>x.id===id);
+  try {
+    const r = await fetch(WH, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        username:'Workload Portal',
+        embeds:[{
+          author:{name:'Earlier Date Requested'},
+          title:`Project #${t.num}: ${t.title}`,
+          color:15105570,
+          fields:[
+            {name:'Original Due Date',value:fDate(t.due),inline:true},
+            {name:'Requested Due Date',value:fDate(nd),inline:true}
+          ],
+          footer:{text:'Workload — Mr. Bridgemohan'},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+    if (!r.ok) throw new Error();
+    t.requestedDate = nd;
+    persist();
+    toast('Date request sent to Keyshaun','success');
+    openTask(id);
+  } catch {
+    toast('Failed to send request','error');
+    btn.disabled = false;
+  }
+}
+
+async function sendAlert(id, btn) {
+  btn.disabled = true;
+  const t = tasks.find(x=>x.id===id);
+  const now = new Date(); now.setHours(0,0,0,0);
+  const due = new Date(t.due+'T00:00:00');
+  const daysOver = Math.floor((now-due)/86400000);
+  try {
+    const r = await fetch(WH, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        username:'Workload Portal',
+        content:'@everyone',
+        embeds:[{
+          author:{name:'Overdue Assignment Alert'},
+          title:`Project #${t.num}: ${t.title}`,
+          description:'This assignment is past its due date and has not been marked complete. Immediate attention required.',
+          color:14427686,
+          fields:[
+            {name:'Was Due',value:fDate(t.due),inline:true},
+            {name:'Days Overdue',value:`${daysOver} day${daysOver!==1?'s':''}`,inline:true}
+          ],
+          footer:{text:'Workload — Mr. Bridgemohan'},
+          timestamp:new Date().toISOString()
+        }]
+      })
+    });
+    if (!r.ok) throw new Error();
+    t.status = 'alerted';
+    t.alertSentAt = new Date().toISOString();
+    persist();
+    toast('Overdue alert sent to Keyshaun','info');
+    openTask(id);
+    if (activeView==='calendar') renderCal();
+    if (activeView==='history') renderHistory();
+  } catch {
+    toast('Failed to send alert','error');
+    btn.disabled = false;
+  }
+}
+
+function markDone(id) {
+  const t = tasks.find(x=>x.id===id);
+  t.status = 'complete';
+  persist();
+  toast('Project #'+t.num+' marked as complete','success');
+  openTask(id);
+  if (activeView==='calendar') renderCal();
+  if (activeView==='history') renderHistory();
+}
+
+function renderHistory() {
+  const w = document.getElementById('hist-wrap');
+  if (!tasks.length) {
+    w.innerHTML = `<div class="empty">
+      <div class="empty-icon"><i data-lucide="inbox"></i></div>
+      <h3>No assignments sent</h3>
+      <p>Once you send an assignment to Keyshaun,<br>it will appear here.</p>
+    </div>`;
+    lucide.createIcons();
+    return;
+  }
+  const sorted = [...tasks].sort((a,b)=>new Date(b.sentAt)-new Date(a.sentAt));
+  const now = new Date(); now.setHours(0,0,0,0);
+  const pending = tasks.filter(t=>t.status==='pending'&&new Date(t.due+'T00:00:00')>=now).length;
+  const overdue = tasks.filter(t=>t.status!=='complete'&&new Date(t.due+'T00:00:00')<now).length;
+  const complete = tasks.filter(t=>t.status==='complete').length;
+  w.innerHTML = `<div class="hist-filters">
+    <button class="filt-chip active" onclick="filt('all',this)">All (${tasks.length})</button>
+    <button class="filt-chip" onclick="filt('pending',this)">Pending (${pending})</button>
+    <button class="filt-chip" onclick="filt('overdue',this)">Overdue (${overdue})</button>
+    <button class="filt-chip" onclick="filt('complete',this)">Complete (${complete})</button>
+  </div>
+  <div class="task-list-wrap" id="task-list">${sorted.map(t=>rowHTML(t)).join('')}</div>`;
+  lucide.createIcons();
+}
+
+function rowHTML(t) {
+  const cc = chipClass(t);
+  const dotMap = {chip_green:'dot-green',chip_blue:'dot-green',chip_amber:'dot-amber',chip_red:'dot-red',chip_muted:'dot-muted'};
+  const dc = cc==='chip-green'?'dot-green':cc==='chip-blue'?'dot-green':cc==='chip-amber'?'dot-amber':cc==='chip-red'?'dot-red':'dot-muted';
+  return `<div class="task-row" onclick="openTask('${t.id}')">
+    <div class="task-dot ${dc}"></div>
+    <div class="task-row-main">
+      <div class="task-row-title"><span class="task-row-num">#${t.num}</span>${escH(t.title)}</div>
+      <div class="task-row-desc">${t.description?escH(t.description.substring(0,90))+(t.description.length>90?'...':''):'No description'}</div>
+    </div>
+    <div class="task-row-right">
+      <div class="task-row-date">Due ${fDate(t.due)}</div>
+      <span class="sbadge ${sBadgeCls(t)}">${sLabel(t)}</span>
+    </div>
+  </div>`;
+}
+
+function filt(f, btn) {
+  document.querySelectorAll('.filt-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  const now = new Date(); now.setHours(0,0,0,0);
+  let list;
+  if (f==='all') list=[...tasks];
+  else if (f==='pending') list=tasks.filter(t=>t.status==='pending'&&new Date(t.due+'T00:00:00')>=now);
+  else if (f==='overdue') list=tasks.filter(t=>t.status!=='complete'&&new Date(t.due+'T00:00:00')<now);
+  else list=tasks.filter(t=>t.status==='complete');
+  const sorted = list.sort((a,b)=>new Date(b.sentAt)-new Date(a.sentAt));
+  document.getElementById('task-list').innerHTML = sorted.length
+    ? sorted.map(t=>rowHTML(t)).join('')
+    : `<div class="empty" style="padding:48px"><div class="empty-icon"><i data-lucide="search-x"></i></div><h3>No results</h3><p>No assignments match this filter.</p></div>`;
+  lucide.createIcons();
+}
+
+function sBadgeCls(t) {
+  if (t.status==='complete') return 'sbadge-complete';
+  if (t.status==='alerted') return 'sbadge-alerted';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const due = new Date(t.due+'T00:00:00');
+  if (due<now) return 'sbadge-overdue';
+  const diff = Math.floor((due-now)/86400000);
+  if (diff===0) return 'sbadge-today';
+  return 'sbadge-pending';
+}
+
+function sLabel(t) {
+  if (t.status==='complete') return 'Complete';
+  if (t.status==='alerted') return 'Alert Sent';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const due = new Date(t.due+'T00:00:00');
+  if (due<now) {
+    const d = Math.floor((now-due)/86400000);
+    return d+'d Overdue';
+  }
+  const diff = Math.floor((due-now)/86400000);
+  if (diff===0) return 'Due Today';
+  if (diff===1) return 'Due Tomorrow';
+  return 'Pending';
+}
+
+async function handleSubmit() {
+  const title = document.getElementById('f-title').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const due = document.getElementById('f-due').value;
+  const notes = document.getElementById('f-notes').value.trim();
+  const reward = document.getElementById('f-reward').value.trim();
+  const links = Array.from(document.querySelectorAll('#links-list input')).map(i=>i.value.trim()).filter(Boolean);
+  if (!title) { toast('Project title is required','error'); document.getElementById('f-title').focus(); return; }
+  if (!desc) { toast('Description is required','error'); document.getElementById('f-desc').focus(); return; }
+  if (!due) { toast('Due date is required','error'); document.getElementById('f-due').focus(); return; }
+  const num = tasks.length + 1;
+  const id = Date.now().toString();
+  const task = { id, num, title, description:desc, due, notes, reward, links, assetCount:selFiles.length, status:'pending', sentAt:new Date().toISOString() };
+  showLoad('Sending assignment to Keyshaun...');
+  try {
+    await sendEmbed(task);
+    if (selFiles.length) {
+      for (let i=0;i<selFiles.length;i++) {
+        setLoadStep('Uploading asset '+(i+1)+' of '+selFiles.length+'...');
+        await sendAsset(task, selFiles[i], i+1, selFiles.length);
+        if (i < selFiles.length-1) await wait(600);
+      }
+    }
+    tasks.push(task);
+    persist();
+    updateBadges();
+    hideLoad();
+    toast('Project #'+num+' sent successfully!','success');
+    clearForm();
+    switchView('calendar');
+  } catch(e) {
+    hideLoad();
+    toast('Failed to send — check your connection','error');
+  }
+}
+
+async function sendEmbed(t) {
+  const fields = [];
+  fields.push({name:'Due Date',value:fDate(t.due),inline:true});
+  if (t.reward) fields.push({name:'Reward',value:t.reward,inline:true});
+  if (t.notes) fields.push({name:'Notes',value:t.notes,inline:false});
+  if (t.links&&t.links.length) fields.push({name:'Links',value:t.links.join('\n'),inline:false});
+  if (t.assetCount) fields.push({name:'Assets',value:t.assetCount+' file'+(t.assetCount!==1?'s':'')+' attached below',inline:true});
+  const r = await fetch(WH,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      username:'Workload Portal',
+      embeds:[{
+        author:{name:'New Assignment from Mr. Bridgemohan'},
+        title:`Project #${t.num}: ${t.title}`,
+        description:t.description,
+        color:2449387,
+        fields,
+        footer:{text:'Workload Assignment Portal'},
+        timestamp:new Date().toISOString()
+      }]
+    })
+  });
+  if (!r.ok) throw new Error('embed failed: '+r.status);
+}
+
+async function sendAsset(t, file, idx, total) {
+  const fd = new FormData();
+  fd.append('payload_json', JSON.stringify({
+    content:`Asset ${idx}/${total} — This goes with **Project #${t.num}: ${t.title}**`
+  }));
+  fd.append('files[0]', file, file.name);
+  const r = await fetch(WH, {method:'POST', body:fd});
+  if (!r.ok) throw new Error('asset failed');
+}
+
+function wait(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+function initDropzone() {
+  const dz = document.getElementById('dropzone');
+  dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('dragover');});
+  dz.addEventListener('dragleave', ()=>dz.classList.remove('dragover'));
+  dz.addEventListener('drop', e=>{e.preventDefault();dz.classList.remove('dragover');handleFiles(e.dataTransfer.files);});
+}
+
+function handleFiles(fl) {
+  for (const f of fl) {
+    if (!selFiles.find(x=>x.name===f.name&&x.size===f.size)) selFiles.push(f);
+  }
+  renderPreviews();
+}
+
+function renderPreviews() {
+  const g = document.getElementById('preview-grid');
+  g.innerHTML = selFiles.map((f,i)=>{
+    const isImg = f.type.startsWith('image/');
+    if (isImg) {
+      return `<div class="preview-item">
+        <img src="${URL.createObjectURL(f)}" alt="${escH(f.name)}">
+        <button class="preview-remove" onclick="rmFile(${i})"><i data-lucide="x"></i></button>
+      </div>`;
+    }
+    const ext = f.name.split('.').pop().toUpperCase();
+    return `<div class="preview-item">
+      <div class="preview-item-label"><span>${escH(f.name.length>14?f.name.substring(0,12)+'..':f.name)}<br><strong style="font-size:11px">${ext}</strong></span></div>
+      <button class="preview-remove" onclick="rmFile(${i})"><i data-lucide="x"></i></button>
+    </div>`;
+  }).join('');
+  lucide.createIcons();
+}
+
+function rmFile(i) { selFiles.splice(i,1); renderPreviews(); }
+
+function addLink() {
+  const list = document.getElementById('links-list');
+  const item = document.createElement('div');
+  item.className = 'link-item';
+  item.innerHTML = `<input type="url" placeholder="https://"><button class="link-remove" onclick="removeLink(this)"><i data-lucide="x"></i></button>`;
+  list.appendChild(item);
+  lucide.createIcons();
+  item.querySelector('input').focus();
+}
+
+function removeLink(btn) {
+  const list = document.getElementById('links-list');
+  if (list.children.length > 1) btn.closest('.link-item').remove();
+  else btn.closest('.link-item').querySelector('input').value='';
+}
+
+function clearForm() {
+  ['f-title','f-desc','f-notes','f-reward'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-due').value='';
+  document.getElementById('links-list').innerHTML=`<div class="link-item"><input type="url" placeholder="https://"><button class="link-remove" onclick="removeLink(this)"><i data-lucide="x"></i></button></div>`;
+  selFiles=[];
+  document.getElementById('preview-grid').innerHTML='';
+  document.getElementById('f-files').value='';
+  lucide.createIcons();
+}
+
+function openPanel() {
+  document.getElementById('panel-overlay').classList.add('open');
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function closePanel() {
+  document.getElementById('panel-overlay').classList.remove('open');
+  document.getElementById('detail-panel').classList.remove('open');
+  panelTaskId = null;
+}
+
+function showLoad(msg) {
+  document.getElementById('loading-msg').textContent = msg||'Loading...';
+  document.getElementById('loading-step').textContent='';
+  document.getElementById('loading').classList.add('show');
+}
+
+function setLoadStep(msg) { document.getElementById('loading-step').textContent=msg; }
+function hideLoad() { document.getElementById('loading').classList.remove('show'); }
+
+function toast(msg, type='info') {
+  const c = document.getElementById('toasts');
+  const el = document.createElement('div');
+  el.className = 'toast '+type;
+  const ic = {success:'check-circle',error:'alert-circle',info:'info'};
+  el.innerHTML = `<i data-lucide="${ic[type]||'info'}"></i>${escH(msg)}`;
+  c.appendChild(el);
+  lucide.createIcons();
+  setTimeout(()=>{
+    el.style.animation='slOut .3s ease-out forwards';
+    setTimeout(()=>el.remove(),300);
+  },3800);
+}
+
+function escH(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fDate(ds) {
+  if (!ds) return '—';
+  return new Date(ds+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+
+function fDateTime(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+}
+
+boot();
+</script>
+</body>
+</html>
