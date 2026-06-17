@@ -277,33 +277,34 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
 <body>
 
 <aside class="sidebar">
-  <div class="sidebar-logo">
+  <!-- Animated sidebar elements -->
+  <div class="sidebar-logo" aplotion>
     <div class="sb-logo-icon"><i data-lucide="briefcase"></i></div>
     <div>
       <div class="sb-logo-name">Workload</div>
       <div class="sb-logo-sub">Mr. Bridgemohan</div>
     </div>
   </div>
-  <button class="compose-btn" onclick="switchView('compose')">
+  <button class="compose-btn" onclick="switchView('compose')" aplotion-hover>
     <i data-lucide="plus"></i> New Assignment
   </button>
   <div class="sb-section">
     <div class="sb-section-label">Workspace</div>
-    <button class="sb-nav-item active" data-nav="calendar" onclick="switchView('calendar')">
+    <button class="sb-nav-item active" data-nav="calendar" onclick="switchView('calendar')" aplotion-hover>
       <i data-lucide="calendar-days"></i> Calendar
     </button>
-    <button class="sb-nav-item" data-nav="history" onclick="switchView('history')">
+    <button class="sb-nav-item" data-nav="history" onclick="switchView('history')" aplotion-hover>
       <i data-lucide="send"></i> Sent
       <span class="nav-badge" id="sent-badge">0</span>
     </button>
   </div>
-  <div class="sb-footer">
+  <div class="sb-footer" aplotion>
     <div class="sb-footer-text">Assignments sent directly to Keyshaun via Discord.</div>
   </div>
 </aside>
 
 <div class="main">
-  <div class="topbar">
+  <div class="topbar" aplotion>
     <div class="topbar-title" id="topbar-title">Calendar</div>
     <span class="topbar-sub" id="topbar-sub"></span>
     <div class="topbar-right" id="topbar-right"></div>
@@ -312,11 +313,11 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
 
     <div class="view" id="view-compose">
       <div class="compose-wrap">
-        <div class="compose-header">
+        <div class="compose-header" aplotion>
           <h1>New Assignment</h1>
           <p>Complete the form below — it will be sent directly to Keyshaun on Discord.</p>
         </div>
-        <div class="form-card">
+        <div class="form-card" aplotion>
           <div class="form-card-head"><i data-lucide="file-text"></i> Core Details</div>
           <div class="form-card-body">
             <div class="field">
@@ -339,7 +340,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
             </div>
           </div>
         </div>
-        <div class="form-card">
+        <div class="form-card" aplotion>
           <div class="form-card-head"><i data-lucide="sticky-note"></i> Notes <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
           <div class="form-card-body">
             <div class="field">
@@ -347,7 +348,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
             </div>
           </div>
         </div>
-        <div class="form-card">
+        <div class="form-card" aplotion>
           <div class="form-card-head"><i data-lucide="link"></i> Links <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
           <div class="form-card-body">
             <div class="links-list" id="links-list">
@@ -359,7 +360,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
             <button class="add-link-btn" onclick="addLink()"><i data-lucide="plus"></i> Add link</button>
           </div>
         </div>
-        <div class="form-card">
+        <div class="form-card" aplotion>
           <div class="form-card-head"><i data-lucide="paperclip"></i> Assets <span class="opt" style="font-size:11px;font-weight:400;color:var(--muted2);text-transform:none;letter-spacing:0">optional</span></div>
           <div class="form-card-body">
             <div class="dropzone" id="dropzone">
@@ -371,7 +372,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
             <div class="preview-grid" id="preview-grid"></div>
           </div>
         </div>
-        <div class="form-actions">
+        <div class="form-actions" aplotion>
           <button class="btn btn-primary" id="submit-btn" onclick="handleSubmit()">
             <i data-lucide="send"></i> Send Assignment
           </button>
@@ -381,11 +382,15 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
     </div>
 
     <div class="view active" id="view-calendar">
-      <div class="cal-wrap" id="cal-wrap"></div>
+      <div class="cal-wrap" id="cal-wrap">
+        <!-- Calendar content will be rendered here with animations -->
+      </div>
     </div>
 
     <div class="view" id="view-history">
-      <div class="hist-wrap" id="hist-wrap"></div>
+      <div class="hist-wrap" id="hist-wrap">
+        <!-- History content will be rendered here -->
+      </div>
     </div>
 
   </div>
@@ -453,6 +458,11 @@ function boot() {
   document.getElementById('f-files').addEventListener('change', e => handleFiles(e.target.files));
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('f-due').min = today;
+  
+  // Initialize Aplotion engine
+  if (window.AplotionEngine) {
+    window.engine = new AplotionEngine();
+  }
 }
 
 function persist() {
@@ -484,7 +494,7 @@ function switchView(v) {
 
 function renderCal() {
   const w = document.getElementById('cal-wrap');
-  const hdr = `<div class="cal-header">
+  const hdr = `<div class="cal-header" aplotion>
     <div class="cal-title">${calMode === 'year' ? calY : MN[calM] + ' ' + calY}</div>
     <div class="cal-nav">
       <button class="icon-btn" onclick="navCal(-1)" title="Previous"><i data-lucide="chevron-left"></i></button>
@@ -498,6 +508,13 @@ function renderCal() {
   </div>`;
   w.innerHTML = hdr + (calMode === 'year' ? buildYear() : buildMonth(calM, calY, true));
   lucide.createIcons();
+  
+  // Animate calendar items
+  if (window.engine) {
+    document.querySelectorAll('.cal-day').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.01) + 's';
+    });
+  }
 }
 
 function buildMonth(m, y, full) {
@@ -517,7 +534,7 @@ function buildMonth(m, y, full) {
     const dt = cur ? mTasks.filter(t => new Date(t.due+'T00:00:00').getDate()===dn) : [];
     const show = dt.slice(0,3);
     const extra = dt.length - 3;
-    grid += `<div class="cal-day${!cur?' other-month':''}${isTdy?' today':''}" onclick="${cur?'dayClick('+dn+','+m+','+y+')':''}">
+    grid += `<div class="cal-day${!cur?' other-month':''}${isTdy?' today':''}" onclick="${cur?'dayClick('+dn+','+m+','+y+')':''}" aplotion>
       <div class="cal-day-num">${dn}</div>
       <div class="cal-chips">
         ${show.map(t=>`<div class="cal-chip ${chipClass(t)}" onclick="event.stopPropagation();openTask('${t.id}')" title="${escH(t.title)}">${escH(t.title)}</div>`).join('')}
@@ -551,7 +568,7 @@ function buildYear() {
       const hT = cur && tDays.has(dn);
       g += `<div class="mini-day${!cur?' other-m':''}${isTdy?' is-today':''}${hT?' has-task':''}">${dn}</div>`;
     }
-    html += `<div class="mini-month" onclick="goMonth(${m})">
+    html += `<div class="mini-month" onclick="goMonth(${m})" aplotion>
       <div class="mini-month-name">${MN[m]}</div>
       <div class="mini-dow">${DS.map(d=>`<span>${d[0]}</span>`).join('')}</div>
       <div class="mini-grid">${g}</div>
@@ -596,7 +613,7 @@ function dayClick(dn, m, y) {
   document.getElementById('p-title').textContent = dt.length + ' assignments due';
   document.getElementById('p-badge').innerHTML = '';
   document.getElementById('p-body').innerHTML = dt.map(t=>`
-    <div class="day-list-item" onclick="openTask('${t.id}')">
+    <div class="day-list-item" onclick="openTask('${t.id}')" aplotion-hover>
       <div class="day-list-item-meta">
         <span class="task-row-num">Project #${t.num}</span>
         <span class="sbadge ${sBadgeCls(t)}">${sLabel(t)}</span>
@@ -651,12 +668,12 @@ function openTask(id) {
   if (t.status !== 'complete') {
     foot.innerHTML = `
       <div id="date-req-wrap">
-        <button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')">
+        <button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')" aplotion-hover>
           <i data-lucide="calendar-clock"></i> Request Earlier Date
         </button>
       </div>
-      ${overdue?`<button class="btn btn-amber btn-sm" onclick="sendAlert('${id}',this)"><i data-lucide="bell-ring"></i> Send Overdue Alert to Keyshaun</button>`:''}
-      <button class="btn btn-outline btn-sm" style="color:var(--green);border-color:var(--green)" onclick="markDone('${id}')">
+      ${overdue?`<button class="btn btn-amber btn-sm" onclick="sendAlert('${id}',this)" aplotion-hover><i data-lucide="bell-ring"></i> Send Overdue Alert to Keyshaun</button>`:''}
+      <button class="btn btn-outline btn-sm" style="color:var(--green);border-color:var(--green)" onclick="markDone('${id}')" aplotion-hover>
         <i data-lucide="check-circle-2"></i> Mark as Complete
       </button>
     `;
@@ -675,7 +692,7 @@ function showDateReq(id) {
     <div class="date-req-label">Select a new requested due date</div>
     <input type="date" id="new-date" min="${today}" max="${t.due}" style="font-family:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;outline:none;width:100%;color:var(--text)">
     <div class="date-req-actions">
-      <button class="btn btn-primary btn-sm" onclick="submitDateReq('${id}',this)"><i data-lucide="send"></i> Send Request</button>
+      <button class="btn btn-primary btn-sm" onclick="submitDateReq('${id}',this)" aplotion-hover><i data-lucide="send"></i> Send Request</button>
       <button class="btn btn-ghost btn-sm" onclick="cancelDateReq('${id}')">Cancel</button>
     </div>
   </div>`;
@@ -684,7 +701,7 @@ function showDateReq(id) {
 
 function cancelDateReq(id) {
   const w = document.getElementById('date-req-wrap');
-  w.innerHTML = `<button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')"><i data-lucide="calendar-clock"></i> Request Earlier Date</button>`;
+  w.innerHTML = `<button class="btn btn-outline btn-sm" style="width:100%" onclick="showDateReq('${id}')" aplotion-hover><i data-lucide="calendar-clock"></i> Request Earlier Date</button>`;
   lucide.createIcons();
 }
 
@@ -777,7 +794,7 @@ function markDone(id) {
 function renderHistory() {
   const w = document.getElementById('hist-wrap');
   if (!tasks.length) {
-    w.innerHTML = `<div class="empty">
+    w.innerHTML = `<div class="empty" aplotion>
       <div class="empty-icon"><i data-lucide="inbox"></i></div>
       <h3>No assignments sent</h3>
       <p>Once you send an assignment to Keyshaun,<br>it will appear here.</p>
@@ -790,7 +807,7 @@ function renderHistory() {
   const pending = tasks.filter(t=>t.status==='pending'&&new Date(t.due+'T00:00:00')>=now).length;
   const overdue = tasks.filter(t=>t.status!=='complete'&&new Date(t.due+'T00:00:00')<now).length;
   const complete = tasks.filter(t=>t.status==='complete').length;
-  w.innerHTML = `<div class="hist-filters">
+  w.innerHTML = `<div class="hist-filters" aplotion>
     <button class="filt-chip active" onclick="filt('all',this)">All (${tasks.length})</button>
     <button class="filt-chip" onclick="filt('pending',this)">Pending (${pending})</button>
     <button class="filt-chip" onclick="filt('overdue',this)">Overdue (${overdue})</button>
@@ -804,7 +821,7 @@ function rowHTML(t) {
   const cc = chipClass(t);
   const dotMap = {chip_green:'dot-green',chip_blue:'dot-green',chip_amber:'dot-amber',chip_red:'dot-red',chip_muted:'dot-muted'};
   const dc = cc==='chip-green'?'dot-green':cc==='chip-blue'?'dot-green':cc==='chip-amber'?'dot-amber':cc==='chip-red'?'dot-red':'dot-muted';
-  return `<div class="task-row" onclick="openTask('${t.id}')">
+  return `<div class="task-row" onclick="openTask('${t.id}')" aplotion-hover>
     <div class="task-dot ${dc}"></div>
     <div class="task-row-main">
       <div class="task-row-title"><span class="task-row-num">#${t.num}</span>${escH(t.title)}</div>
@@ -1044,6 +1061,8 @@ function fDateTime(iso) {
 }
 
 boot();
+
 </script>
+<script src="https://keyshaun.pages.dev/applotion/app.js"></script>
 </body>
 </html>
