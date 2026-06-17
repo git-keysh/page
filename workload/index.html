@@ -299,7 +299,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
     </button>
   </div>
   <div class="sb-footer" aplotion>
-    <div class="sb-footer-text">Assignments sent directly to Keyshaun via Discord.</div>
+    <div class="sb-footer-text">Assignments sent directly to Keyshaun via Payload.</div>
   </div>
 </aside>
 
@@ -315,7 +315,7 @@ textarea{resize:vertical;min-height:96px;line-height:1.55}
       <div class="compose-wrap">
         <div class="compose-header" aplotion>
           <h1>New Assignment</h1>
-          <p>Complete the form below — it will be sent directly to Keyshaun on Discord.</p>
+          <p>Complete the form below — it will be sent directly to Keyshaun.</p>
         </div>
         <div class="form-card" aplotion>
           <div class="form-card-head"><i data-lucide="file-text"></i> Core Details</div>
@@ -655,7 +655,7 @@ function openTask(id) {
     ${t.reward?`<div class="p-field"><div class="p-label">Reward</div><div class="p-value">${escH(t.reward)}</div></div>`:''}
     ${t.notes?`<div class="p-field"><div class="p-label">Notes</div><div class="p-value">${escH(t.notes)}</div></div>`:''}
     ${links?`<div class="p-field"><div class="p-label">Links</div><div class="p-value">${links}</div></div>`:''}
-    ${t.assetCount?`<div class="p-field"><div class="p-label">Assets Sent</div><div class="p-value">${t.assetCount} file${t.assetCount!==1?'s':''} sent to Discord</div></div>`:''}
+    ${t.assetCount?`<div class="p-field"><div class="p-label">Assets Sent</div><div class="p-value">${t.assetCount} file${t.assetCount!==1?'s':''} sent to Keyshaun</div></div>`:''}
     <div class="p-divider"></div>
     <div class="p-field">
       <div class="p-label">Sent At</div>
