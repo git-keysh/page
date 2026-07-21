@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>FAV.CAPITAL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    html, body {
+      background: #000;
+      height: 100%;
+      width: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      font-weight: 400;
+    }
+    #app {
+      height: 100vh;
+      width: 100vw;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px;
+      position: relative;
+    }
+    .hidden { display: none !important; }
+    .lock-screen, .fingerprint-screen, .wallet-screen, .splash-screen {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0 16px;
+      background: #000;
+    }
+    .splash-screen {
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+    }
+    .splash-screen video {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 20px;
+      background: #000;
+    }
+    .lock-screen {
+      justify-content: flex-end;
+      padding-bottom: 40px;
+    }
+    .lock-brand {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeSlide 0.6s ease;
+      margin-top: -20px;
+    }
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      animation: fadeSlide 0.8s ease;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      border: 2px solid #2a2a2a;
+      transition: 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .dot.filled {
+      background: #fff;
+      border-color: #fff;
+      transform: scale(1.2);
+    }
+    .keyboard-container {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .qwerty-row {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+    .key {
+      min-width: 30px;
+      height: 38px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: #d0d0d0;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      touch-action: manipulation;
+      padding: 0 4px;
+      flex: 1;
+      max-width: 42px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      transition: all 0.08s ease;
+      letter-spacing: 0.2px;
+    }
+    .key:active { background: rgba(255,255,255,0.06); transform: scale(0.92); }
+    .key-clear {
+      color: #555;
+      font-size: 16px;
+      flex: 0.5;
+      max-width: 34px;
+    }
+    .pin-error {
+      color: #f87171;
+      text-align: center;
+      font-size: 12px;
+      min-height: 20px;
+      margin-top: 6px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      animation: shake 0.4s ease;
+    }
+    .fingerprint-screen {
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+    .fp-icon {
+      cursor: pointer;
+      touch-action: none;
+      padding: 30px;
+      border-radius: 50%;
+      transition: 0.2s;
+      margin-bottom: 10px;
+    }
+    .fp-icon i {
+      font-size: 80px;
+      color: #fff;
+      filter: drop-shadow(0 0 30px rgba(255,255,255,0.03));
+      transition: 0.2s;
+    }
+    .fp-icon:active i { transform: scale(0.92); color: #888; }
+    .wallet-screen {
+      justify-content: flex-start;
+      padding-top: 40px;
+      padding-bottom: 12px;
+      background: #000;
+    }
+    .wallet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #111;
+      flex-shrink: 0;
+    }
+    .wallet-left { display: flex; flex-direction: column; }
+    .wallet-brand {
+      color: #444;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+    }
+    .wallet-brand span { color: #333; }
+    .wallet-capital {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-top: 1px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+    .wallet-capital:active { opacity: 0.6; transform: scale(0.98); }
+    .wallet-capital-label {
+      color: #444;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+    .wallet-capital-label:active { opacity: 0.6; }
+    .wallet-right {
+      color: #222;
+      font-size: 9px;
+      padding-top: 2px;
+    }
+    .bubble-section {
+      padding: 8px 0 6px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #0d0d0d;
+      animation: fadeSlide 0.5s ease;
+    }
+    .bubble {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #0a0a0a;
+      padding: 4px 10px 4px 6px;
+      border-radius: 30px;
+      border: 1px solid #151515;
+      transition: all 0.2s ease;
+      animation: popIn 0.4s ease backwards;
+    }
+    .bubble:nth-child(1) { animation-delay: 0.05s; }
+    .bubble:nth-child(2) { animation-delay: 0.10s; }
+    .bubble:nth-child(3) { animation-delay: 0.15s; }
+    .bubble:nth-child(4) { animation-delay: 0.20s; }
+    .bubble:nth-child(5) { animation-delay: 0.25s; }
+    .bubble:active { transform: scale(0.95); background: #111; }
+    .bubble-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .bubble-label {
+      font-size: 9px;
+      color: #888;
+      font-weight: 400;
+    }
+    .bubble-pct {
+      font-size: 9px;
+      color: #ccc;
+      font-weight: 500;
+    }
+    .asset-list {
+      flex: 1;
+      margin: 4px 0 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      overflow-y: auto;
+      padding-right: 2px;
+      padding-bottom: 2px;
+    }
+    .asset-item {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #0d0d0d;
+      transition: all 0.15s ease;
+      cursor: default;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .asset-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gradient-color), transparent);
+      opacity: 0.06;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .asset-item:active { background: rgba(255,255,255,0.03); transform: scale(0.99); }
+    .asset-item:active::before { opacity: 0.12; }
+    .asset-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      overflow: visible;
+    }
+    .asset-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #0a0a0a;
+    }
+    .asset-icon[data-id="eth"] {
+      overflow: visible;
+    }
+    .asset-icon[data-id="eth"] img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #0a0a0a;
+    }
+    .asset-info { flex: 1; min-width: 0; z-index: 1; }
+    .asset-name {
+      color: #eee;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: -0.2px;
+    }
+    .asset-balance {
+      color: #555;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+    .asset-value {
+      color: #eee;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 6px;
+      z-index: 1;
+    }
+    .add-asset-item {
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-bottom: 1px solid #0d0d0d;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #555;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    .add-asset-item:active { background: rgba(255,255,255,0.03); transform: scale(0.99); }
+    .add-asset-item i { color: #444; font-size: 16px; }
+    .action-bar {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 6px;
+      border-top: 1px solid #0d0d0d;
+      flex-shrink: 0;
+      gap: 4px;
+      animation: fadeSlide 0.5s ease;
+    }
+    .action-btn {
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 30px;
+      transition: all 0.15s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+    .action-btn:active { background: rgba(255,255,255,0.05); transform: scale(0.92); }
+    .action-btn i { font-size: 18px; color: #aaa; margin-bottom: 1px; transition: 0.2s; }
+    .action-btn:active i { color: #fff; }
+    .action-btn span { font-size: 10px; color: #666; }
+    .wallet-footer {
+      text-align: center;
+      color: #111;
+      font-size: 8px;
+      padding-top: 4px;
+      border-top: 1px solid #0a0a0a;
+      flex-shrink: 0;
+    }
+    .editor-overlay, .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+      animation: fadeIn 0.25s ease;
+    }
+    .modal-overlay { z-index: 200; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    .editor-card, .modal-card {
+      background: #0c0c0c;
+      border: 1px solid #1a1a1a;
+      border-radius: 28px;
+      padding: 18px 18px 22px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      animation: popIn 0.3s ease;
+    }
+    .modal-card { max-width: 340px; }
+    .editor-header, .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #eee;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid #141414;
+      padding-bottom: 8px;
+    }
+    .editor-close, .modal-close {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 4px;
+      transition: 0.1s;
+    }
+    .editor-close:active, .modal-close:active { color: #888; transform: rotate(90deg); }
+    .editor-body, .modal-body { margin-top: 12px; }
+    .editor-row, .modal-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #aaa;
+    }
+    .editor-asset-icon { font-size: 22px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #ddd; }
+    .editor-asset-name { font-weight: 500; font-size: 16px; color: #eee; }
+    .editor-row label, .modal-row label {
+      font-size: 11px;
+      color: #555;
+      width: 70px;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+    .editor-input, .modal-input, .modal-select {
+      flex: 1;
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      border-radius: 60px;
+      padding: 8px 14px;
+      color: #eee;
+      font-size: 14px;
+      outline: none;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      transition: 0.15s;
+    }
+    .editor-input:focus, .modal-input:focus, .modal-select:focus { border-color: #333; background: #0c0c0c; }
+    .modal-select { appearance: none; cursor: pointer; padding-right: 30px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+    .modal-select option { background: #111; color: #eee; }
+    .modal-textarea {
+      flex: 1;
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      border-radius: 16px;
+      padding: 8px 14px;
+      color: #eee;
+      font-size: 13px;
+      outline: none;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      transition: 0.15s;
+      resize: vertical;
+      min-height: 40px;
+    }
+    .modal-textarea:focus { border-color: #333; background: #0c0c0c; }
+    .editor-save, .modal-btn {
+      width: 100%;
+      padding: 10px;
+      background: #fff;
+      border: none;
+      border-radius: 60px;
+      color: #000;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+    .editor-save:active, .modal-btn:active { opacity: 0.7; transform: scale(0.97); }
+    .modal-btn-secondary {
+      background: #1a1a1a;
+      color: #ccc;
+      margin-top: 6px;
+    }
+    .modal-btn-secondary:active { background: #222; }
+    .asset-list::-webkit-scrollbar { width: 2px; }
+    .asset-list::-webkit-scrollbar-track { background: transparent; }
+    .asset-list::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 4px; }
+    .asset-list { scrollbar-width: thin; scrollbar-color: #1a1a1a transparent; }
+    .receive-address {
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: #aaa;
+      word-break: break-all;
+      margin: 2px 0 6px;
+      font-family: monospace;
+    }
+    .receive-label {
+      color: #666;
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      color: #eee;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      z-index: 300;
+      border: 1px solid #2a2a2a;
+      animation: popIn 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      pointer-events: none;
+    }
+    .server-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .server-row .modal-input { flex: 1; }
+    .server-row .modal-btn-sm {
+      padding: 6px 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 30px;
+      color: #aaa;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .server-row .modal-btn-sm:active { background: #2a2a2a; transform: scale(0.95); }
+    .recommended-tag {
+      color: #26a17b;
+      font-size: 9px;
+      background: #0a2a1a;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: 4px;
+    }
+    @media (max-width: 400px) {
+      .key { font-size: 14px; min-width: 26px; height: 34px; max-width: 36px; }
+      .lock-brand { font-size: 22px; }
+      .wallet-capital { font-size: 22px; }
+      .fp-icon i { font-size: 68px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- SPLASH SCREEN -->
+  <div id="splashScreen" class="splash-screen">
+    <video id="splashVideo" muted playsinline preload="auto">
+      <source src="ledger.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- LOCK SCREEN -->
+  <div id="lockScreen" class="lock-screen hidden">
+    <div class="lock-brand">FAV.CAPITAL</div>
+    <div class="pin-dots">
+      <span class="dot" id="dot1"></span>
+      <span class="dot" id="dot2"></span>
+      <span class="dot" id="dot3"></span>
+      <span class="dot" id="dot4"></span>
+    </div>
+    <div class="keyboard-container">
+      <div class="qwerty-row">
+        <button class="key" data-value="Q">Q</button>
+        <button class="key" data-value="W">W</button>
+        <button class="key" data-value="E">E</button>
+        <button class="key" data-value="R">R</button>
+        <button class="key" data-value="T">T</button>
+        <button class="key" data-value="Y">Y</button>
+        <button class="key" data-value="U">U</button>
+        <button class="key" data-value="I">I</button>
+        <button class="key" data-value="O">O</button>
+        <button class="key" data-value="P">P</button>
+      </div>
+      <div class="qwerty-row">
+        <button class="key" data-value="A">A</button>
+        <button class="key" data-value="S">S</button>
+        <button class="key" data-value="D">D</button>
+        <button class="key" data-value="F">F</button>
+        <button class="key" data-value="G">G</button>
+        <button class="key" data-value="H">H</button>
+        <button class="key" data-value="J">J</button>
+        <button class="key" data-value="K">K</button>
+        <button class="key" data-value="L">L</button>
+      </div>
+      <div class="qwerty-row">
+        <button class="key key-clear" data-value="clear">⌫</button>
+        <button class="key" data-value="Z">Z</button>
+        <button class="key" data-value="X">X</button>
+        <button class="key" data-value="C">C</button>
+        <button class="key" data-value="V">V</button>
+        <button class="key" data-value="B">B</button>
+        <button class="key" data-value="N">N</button>
+        <button class="key" data-value="M">M</button>
+      </div>
+    </div>
+    <div id="pinError" class="pin-error"></div>
+  </div>
+
+  <!-- FINGERPRINT -->
+  <div id="fingerprintScreen" class="fingerprint-screen hidden">
+    <div class="fp-icon" id="fpIcon"><i class="fas fa-fingerprint"></i></div>
+  </div>
+
+  <!-- WALLET -->
+  <div id="walletScreen" class="wallet-screen hidden">
+    <div class="wallet-header">
+      <div class="wallet-left">
+        <div class="wallet-brand">FAV.CAPITAL <span>©</span></div>
+        <div class="wallet-capital" id="totalCapital">$0.00</div>
+        <div class="wallet-capital-label" id="currencyToggle">USD ▼</div>
+      </div>
+      <div class="wallet-right"></div>
+    </div>
+    <div class="bubble-section" id="bubbleSection"></div>
+    <div class="asset-list" id="assetList">
+      <!-- assets rendered here -->
+      <div class="add-asset-item" id="addAssetBtn">
+        <i class="fas fa-plus-circle"></i> Add Asset
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="action-btn" id="sendBtn"><i class="fas fa-paper-plane"></i><span>Send</span></button>
+      <button class="action-btn" id="swapBtn"><i class="fas fa-exchange-alt"></i><span>Swap</span></button>
+      <button class="action-btn" id="buyBtn"><i class="fas fa-plus-circle"></i><span>Buy</span></button>
+      <button class="action-btn" id="receiveBtn"><i class="fas fa-arrow-down"></i><span>Receive</span></button>
+    </div>
+    <div class="wallet-footer">—</div>
+  </div>
+
+  <!-- EDITOR -->
+  <div id="editorOverlay" class="editor-overlay hidden">
+    <div class="editor-card">
+      <div class="editor-header"><span>edit amount</span><button class="editor-close" id="editorClose"><i class="fas fa-times"></i></button></div>
+      <div class="editor-body">
+        <div class="editor-row"><span class="editor-asset-icon" id="editorIcon">₿</span><span class="editor-asset-name" id="editorName">Bitcoin</span></div>
+        <div class="editor-row"><label>amount</label><input type="number" step="0.0001" id="editorAmount" class="editor-input" placeholder="0.00"></div>
+        <div class="editor-row" style="opacity:0.5;"><label>usd</label><span id="editorUsdPreview" style="color:#888;font-size:14px;">$0.00</span></div>
+        <button class="editor-save" id="editorSave">save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL container -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal-card" id="modalCard"></div>
+  </div>
+</div>
+<script>
+  (function() {
+    const CORRECT_PIN = 'LOAN';
+    let pin = '';
+    let isUnlocked = false;
+    let isFpVerified = false;
+    let selectedAssetId = null;
+    let currency = 'USD';
+    const TTD_RATE = 7.18;
+    const TOTAL_USD = 2348219.87;
+    const allocations = {
+      btc: 0.18,
+      eth: 0.15,
+      sol: 0.10,
+      usdt: 0.42,
+      ltc: 0.15
+    };
+
+    const receiveAddresses = {
+      btc: 'bc1qxkrjzgl5h9s864qds3ywr0kmum5hmgmvuwzmpz',
+      eth: '0x9D9479b12E769514706D178bE4F9f5CB8ffCD48B',
+      sol: '4saCi3JLigPDsZKPuqj6eDzJAZqgp3aC2JBzNYR2YfTz',
+      usdt: '0x9D9479b12E769514706D178bE4F9f5CB8ffCD48B (ETH)',
+      ltc: 'LLVUhtfy77PV6JTWfHMivYE6qdegnzuJj4'
+    };
+
+    const stored = localStorage.getItem('favAssets');
+    let assets = [
+      { id: 'btc', name: 'Bitcoin', symbol: 'BTC', icon: 'btc.png', gradient: '#f7931a' },
+      { id: 'eth', name: 'Ethereum', symbol: 'ETH', icon: 'eth.png', gradient: '#ffffff' },
+      { id: 'sol', name: 'Solana', symbol: 'SOL', icon: 'sol.png', gradient: '#9945ff' },
+      { id: 'usdt', name: 'USDT', symbol: 'USDT', icon: 'usdt.png', gradient: '#26a17b' },
+      { id: 'ltc', name: 'Litecoin', symbol: 'LTC', icon: 'ltc.png', gradient: '#345d9d' }
+    ];
+
+    // Load custom assets from localStorage
+    const customAssetsKey = 'customAssets';
+    let customAssets = [];
+    try {
+      const ca = localStorage.getItem(customAssetsKey);
+      if (ca) customAssets = JSON.parse(ca);
+    } catch (e) {}
+
+    function initAssets() {
+      const prices = { btc: 60000, eth: 3000, sol: 150, usdt: 1, ltc: 80 };
+      assets.forEach(a => {
+        const usdVal = TOTAL_USD * allocations[a.id];
+        const price = prices[a.id] || 100;
+        a.amount = usdVal / price;
+        a.usd = usdVal;
+      });
+      // Add custom assets
+      customAssets.forEach(ca => {
+        assets.push({
+          id: ca.id,
+          name: ca.name,
+          symbol: ca.symbol || ca.name.slice(0, 4).toUpperCase(),
+          icon: ca.icon || 'default.png',
+          gradient: ca.gradient || '#666',
+          amount: ca.amount || 0,
+          usd: ca.usd || 0,
+          isCustom: true,
+          address: ca.address || '',
+          network: ca.network || '',
+          server: ca.server || '1.1982.3821:FAV'
+        });
+      });
+    }
+    initAssets();
+
+    try {
+      const storedData = localStorage.getItem('favAssets');
+      if (storedData) {
+        const parsed = JSON.parse(storedData);
+        if (Array.isArray(parsed)) {
+          assets = assets.map(a => {
+            const p = parsed.find(p => p.id === a.id);
+            if (p) return { ...a, amount: p.amount, usd: p.usd };
+            return a;
+          });
+        }
+      }
+    } catch (e) {}
+
+    const splashScreen = document.getElementById('splashScreen');
+    const splashVideo = document.getElementById('splashVideo');
+    const lockScreen = document.getElementById('lockScreen');
+    const fingerprintScreen = document.getElementById('fingerprintScreen');
+    const walletScreen = document.getElementById('walletScreen');
+    const dots = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3'), document.getElementById('dot4')];
+    const pinError = document.getElementById('pinError');
+    const totalCapitalEl = document.getElementById('totalCapital');
+    const assetListEl = document.getElementById('assetList');
+    const bubbleSection = document.getElementById('bubbleSection');
+    const editorOverlay = document.getElementById('editorOverlay');
+    const editorIcon = document.getElementById('editorIcon');
+    const editorName = document.getElementById('editorName');
+    const editorAmount = document.getElementById('editorAmount');
+    const editorUsdPreview = document.getElementById('editorUsdPreview');
+    const editorSave = document.getElementById('editorSave');
+    const editorClose = document.getElementById('editorClose');
+    const fpIcon = document.getElementById('fpIcon');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalCard = document.getElementById('modalCard');
+    const currencyToggle = document.getElementById('currencyToggle');
+    const addAssetBtn = document.getElementById('addAssetBtn');
+
+    // --- SPLASH VIDEO ---
+    splashVideo.addEventListener('ended', () => {
+      splashScreen.classList.add('hidden');
+      lockScreen.classList.remove('hidden');
+    });
+    splashVideo.play().catch(() => {});
+
+    function formatMoney(val) {
+      return val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function getCurrencySymbol() { return currency === 'USD' ? '$' : 'TT$'; }
+    function convertValue(usdVal) { return currency === 'USD' ? usdVal : usdVal * TTD_RATE; }
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) dots[i].classList.toggle('filled', i < pin.length);
+    }
+
+    function renderBubbles() {
+      const total = assets.reduce((sum, a) => sum + a.usd, 0);
+      let html = '';
+      const displayAssets = assets.filter(a => a.usd > 0 || a.id !== '');
+      displayAssets.forEach((a, idx) => {
+        const pct = total > 0 ? (a.usd / total * 100) : 0;
+        if (pct > 0.1) {
+          html += `
+            <div class="bubble" style="animation-delay: ${idx * 0.07}s">
+              <span class="bubble-dot" style="background:${a.gradient};"></span>
+              <span class="bubble-label">${a.symbol}</span>
+              <span class="bubble-pct">${pct.toFixed(1)}%</span>
+            </div>
+          `;
+        }
+      });
+      bubbleSection.innerHTML = html;
+    }
+
+    function renderWallet() {
+      let html = '';
+      let total = 0;
+      const displayAssets = assets.filter(a => a.usd > 0 || a.id !== '');
+      displayAssets.forEach(a => {
+        const val = a.usd;
+        total += val;
+        const displayVal = convertValue(val);
+        const displayAmt = a.amount;
+        const ethZoom = a.id === 'eth' ? ' data-id="eth"' : '';
+        html += `
+          <div class="asset-item" data-id="${a.id}" style="--gradient-color:${a.gradient};">
+            <div class="asset-icon"${ethZoom}><img src="${a.icon}" alt="${a.name}" onerror="this.style.display='none'"></div>
+            <div class="asset-info"><div class="asset-name">${a.name}</div><div class="asset-balance">${displayAmt.toFixed(4)} ${a.symbol}</div></div>
+            <div class="asset-value">${getCurrencySymbol()}${formatMoney(displayVal)}</div>
+          </div>
+        `;
+      });
+      // Add Asset button is already in HTML, we keep it
+      const totalDisplay = convertValue(total);
+      totalCapitalEl.textContent = getCurrencySymbol() + formatMoney(totalDisplay);
+      currencyToggle.textContent = currency + ' ▼';
+      // Insert assets before the add button
+      const addBtn = assetListEl.querySelector('.add-asset-item');
+      assetListEl.innerHTML = html;
+      if (addBtn) assetListEl.appendChild(addBtn);
+      renderBubbles();
+      localStorage.setItem('favAssets', JSON.stringify(assets.map(a => ({ id: a.id, amount: a.amount, usd: a.usd }))));
+    }
+
+    function showWallet() {
+      lockScreen.classList.add('hidden');
+      fingerprintScreen.classList.add('hidden');
+      walletScreen.classList.remove('hidden');
+      renderWallet();
+    }
+
+    function handleKey(digit) {
+      if (isUnlocked) return;
+      if (digit === 'clear') {
+        pin = pin.slice(0, -1);
+        updateDots();
+        pinError.textContent = '';
+        return;
+      }
+      if (pin.length < 4) {
+        pin += digit.toUpperCase();
+        updateDots();
+        if (pin.length === 4) {
+          if (pin === CORRECT_PIN) {
+            isUnlocked = true;
+            pinError.textContent = '';
+            lockScreen.classList.add('hidden');
+            fingerprintScreen.classList.remove('hidden');
+            if (navigator.vibrate) navigator.vibrate(10);
+          } else {
+            pinError.textContent = 'wrong key';
+            if (navigator.vibrate) navigator.vibrate([20, 50, 20]);
+            setTimeout(() => { pin = ''; updateDots(); pinError.textContent = ''; }, 500);
+          }
+        }
+      }
+    }
+
+    // --- FINGERPRINT: hold + drag up (no text, just icon) ---
+    let fpStartY = 0;
+    let fpDragging = false;
+    let fpHoldTimer = null;
+    let fpHoldTriggered = false;
+
+    fpIcon.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      fpStartY = t.clientY;
+      fpDragging = true;
+      fpHoldTriggered = false;
+      fpHoldTimer = setTimeout(() => {
+        fpHoldTriggered = true;
+        if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+        fpDragging = false;
+      }, 800);
+    }, { passive: true });
+
+    fpIcon.addEventListener('touchmove', (e) => {
+      if (!fpDragging || isFpVerified) return;
+      const t = e.touches[0];
+      const dy = fpStartY - t.clientY;
+      if (dy > 15 && !fpHoldTriggered) {
+        clearTimeout(fpHoldTimer);
+        isFpVerified = true;
+        if (navigator.vibrate) navigator.vibrate(15);
+        showWallet();
+        fpDragging = false;
+      }
+    }, { passive: true });
+
+    fpIcon.addEventListener('touchend', () => {
+      clearTimeout(fpHoldTimer);
+      fpDragging = false;
+    }, { passive: true });
+
+    fpIcon.addEventListener('touchcancel', () => {
+      clearTimeout(fpHoldTimer);
+      fpDragging = false;
+    }, { passive: true });
+
+    // Mouse support
+    let fpMouseDown = false;
+    fpIcon.addEventListener('mousedown', (e) => {
+      fpStartY = e.clientY;
+      fpDragging = true;
+      fpHoldTriggered = false;
+      fpHoldTimer = setTimeout(() => {
+        fpHoldTriggered = true;
+        if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+        fpDragging = false;
+      }, 800);
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!fpDragging || isFpVerified) return;
+      const dy = fpStartY - e.clientY;
+      if (dy > 15 && !fpHoldTriggered) {
+        clearTimeout(fpHoldTimer);
+        isFpVerified = true;
+        if (navigator.vibrate) navigator.vibrate(15);
+        showWallet();
+        fpDragging = false;
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      clearTimeout(fpHoldTimer);
+      fpDragging = false;
+    });
+
+    function openEditor(assetId) {
+      const asset = assets.find(a => a.id === assetId);
+      if (!asset) return;
+      selectedAssetId = assetId;
+      editorIcon.textContent = asset.symbol;
+      editorName.textContent = asset.name;
+      editorAmount.value = asset.amount;
+      const price = asset.usd / asset.amount;
+      editorUsdPreview.textContent = getCurrencySymbol() + formatMoney(convertValue(asset.amount * price));
+      editorOverlay.classList.remove('hidden');
+    }
+
+    function closeEditor() { editorOverlay.classList.add('hidden'); selectedAssetId = null; }
+
+    function saveEditor() {
+      if (!selectedAssetId) return;
+      const asset = assets.find(a => a.id === selectedAssetId);
+      if (!asset) return;
+      const amt = parseFloat(editorAmount.value);
+      if (!isNaN(amt) && amt >= 0) {
+        const price = asset.usd / asset.amount;
+        asset.amount = amt;
+        asset.usd = amt * price;
+        renderWallet();
+        showToast('Amount updated!');
+      }
+      closeEditor();
+    }
+
+    function updatePreview() {
+      if (!selectedAssetId) return;
+      const asset = assets.find(a => a.id === selectedAssetId);
+      if (!asset) return;
+      const amt = parseFloat(editorAmount.value);
+      if (!isNaN(amt) && amt >= 0) {
+        const price = asset.usd / asset.amount;
+        editorUsdPreview.textContent = getCurrencySymbol() + formatMoney(convertValue(amt * price));
+      }
+    }
+
+    // Hold duration: 10 seconds
+    function initHold() {
+      const wallet = walletScreen;
+      let timer = null;
+      const HOLD_DELAY = 10000;
+      wallet.addEventListener('touchstart', (e) => {
+        const target = e.target.closest('.asset-item');
+        if (!target) return;
+        const id = target.dataset.id;
+        if (!id) return;
+        timer = setTimeout(() => { 
+          openEditor(id); 
+          if (navigator.vibrate) navigator.vibrate(20);
+          showToast('✏️ Editing ' + assets.find(a => a.id === id)?.name);
+        }, HOLD_DELAY);
+      }, { passive: true });
+      wallet.addEventListener('touchend', () => clearTimeout(timer), { passive: true });
+      wallet.addEventListener('touchmove', () => clearTimeout(timer), { passive: true });
+      wallet.addEventListener('mousedown', (e) => {
+        const target = e.target.closest('.asset-item');
+        if (!target) return;
+        const id = target.dataset.id;
+        if (!id) return;
+        timer = setTimeout(() => { 
+          openEditor(id); 
+          if (navigator.vibrate) navigator.vibrate(20);
+          showToast('✏️ Editing ' + assets.find(a => a.id === id)?.name);
+        }, HOLD_DELAY);
+      });
+      wallet.addEventListener('mouseup', () => clearTimeout(timer));
+      wallet.addEventListener('mouseleave', () => clearTimeout(timer));
+    }
+
+    function showModal(html) {
+      modalCard.innerHTML = html;
+      modalOverlay.classList.remove('hidden');
+    }
+
+    function closeModal() { modalOverlay.classList.add('hidden'); }
+
+    function showToast(msg) {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = '0.3s'; setTimeout(() => t.remove(), 300); }, 1800);
+    }
+
+    // --- ADD ASSET ---
+    function actionAddAsset() {
+      const html = `
+        <div class="modal-header"><span>Add Asset</span><button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body">
+          <div class="modal-row"><label>Name</label><input class="modal-input" id="assetName" placeholder="e.g. Cardano"></div>
+          <div class="modal-row"><label>Symbol</label><input class="modal-input" id="assetSymbol" placeholder="e.g. ADA"></div>
+          <div class="modal-row"><label>Address</label><input class="modal-input" id="assetAddress" placeholder="0x..."></div>
+          <div class="modal-row"><label>Network</label><input class="modal-input" id="assetNetwork" placeholder="e.g. Ethereum"></div>
+          <div class="modal-row"><label>Server</label>
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px;">
+              <div class="server-row">
+                <input class="modal-input" id="assetServer" value="1.1982.3821:FAV" style="flex:1;">
+                <span class="recommended-tag">recommended</span>
+              </div>
+              <div class="server-row">
+                <input class="modal-input" id="assetServerAlt" placeholder="Add new server...">
+                <button class="modal-btn-sm" id="addServerBtn">+ Add</button>
+              </div>
+            </div>
+          </div>
+          <button class="modal-btn" id="addAssetConfirm">Save Asset</button>
+          <button class="modal-btn modal-btn-secondary" id="modalClose2">Cancel</button>
+        </div>
+      `;
+      showModal(html);
+      document.getElementById('modalClose')?.addEventListener('click', closeModal);
+      document.getElementById('modalClose2')?.addEventListener('click', closeModal);
+      
+      document.getElementById('addServerBtn')?.addEventListener('click', () => {
+        const alt = document.getElementById('assetServerAlt');
+        const main = document.getElementById('assetServer');
+        if (alt && main && alt.value.trim()) {
+          main.value = alt.value.trim();
+          alt.value = '';
+          showToast('Server updated!');
+        }
+      });
+
+      document.getElementById('addAssetConfirm')?.addEventListener('click', () => {
+        const name = document.getElementById('assetName')?.value.trim();
+        const symbol = document.getElementById('assetSymbol')?.value.trim() || name?.slice(0, 4).toUpperCase();
+        const address = document.getElementById('assetAddress')?.value.trim() || '';
+        const network = document.getElementById('assetNetwork')?.value.trim() || '';
+        const server = document.getElementById('assetServer')?.value.trim() || '1.1982.3821:FAV';
+        if (!name) { showToast('⚠️ Please enter an asset name'); return; }
+        
+        const id = 'custom_' + Date.now();
+        const newAsset = {
+          id: id,
+          name: name,
+          symbol: symbol,
+          icon: 'default.png',
+          gradient: '#666',
+          amount: 0,
+          usd: 0,
+          isCustom: true,
+          address: address,
+          network: network,
+          server: server
+        };
+        assets.push(newAsset);
+        customAssets.push({ id, name, symbol, address, network, server });
+        localStorage.setItem(customAssetsKey, JSON.stringify(customAssets));
+        renderWallet();
+        closeModal();
+        showToast('✅ ' + name + ' added!');
+      });
+    }
+
+    addAssetBtn.addEventListener('click', actionAddAsset);
+
+    // --- ACTION HANDLERS ---
+    function actionSend() {
+      const html = `
+        <div class="modal-header"><span>Send</span><button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body">
+          <div class="modal-row"><label>Asset</label>
+            <select class="modal-select" id="sendAsset">
+              ${assets.map(a => `<option value="${a.id}">${a.name} (${a.symbol})</option>`).join('')}
+            </select>
+          </div>
+          <div class="modal-row"><label>Address</label><input class="modal-input" id="sendAddr" placeholder="0x..."></div>
+          <div class="modal-row"><label>Amount</label><input class="modal-input" id="sendAmount" type="number" step="0.0001" placeholder="0.00"></div>
+          <button class="modal-btn" id="sendConfirm">Send</button>
+          <button class="modal-btn modal-btn-secondary" id="modalClose2">Cancel</button>
+        </div>
+      `;
+      showModal(html);
+      document.getElementById('modalClose')?.addEventListener('click', closeModal);
+      document.getElementById('modalClose2')?.addEventListener('click', closeModal);
+      document.getElementById('sendConfirm')?.addEventListener('click', () => {
+        const amt = parseFloat(document.getElementById('sendAmount').value);
+        if (amt > 0) { showToast('✅ Transaction sent!'); closeModal(); } else { showToast('⚠️ Enter valid amount'); }
+      });
+    }
+
+    function actionSwap() {
+      const html = `
+        <div class="modal-header"><span>Swap</span><button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body">
+          <div class="modal-row"><label>From</label>
+            <select class="modal-select" id="swapFrom">
+              ${assets.map(a => `<option value="${a.id}">${a.name} (${a.symbol})</option>`).join('')}
+            </select>
+          </div>
+          <div class="modal-row"><label>To</label>
+            <select class="modal-select" id="swapTo">
+              ${assets.map(a => `<option value="${a.id}">${a.name} (${a.symbol})</option>`).join('')}
+            </select>
+          </div>
+          <div class="modal-row"><label>Amount (USD)</label><input class="modal-input" id="swapAmount" type="number" step="0.01" placeholder="0.00"></div>
+          <button class="modal-btn" id="swapConfirm">Swap</button>
+          <button class="modal-btn modal-btn-secondary" id="modalClose2">Cancel</button>
+        </div>
+      `;
+      showModal(html);
+      document.getElementById('modalClose')?.addEventListener('click', closeModal);
+      document.getElementById('modalClose2')?.addEventListener('click', closeModal);
+      document.getElementById('swapConfirm')?.addEventListener('click', () => {
+        const amt = parseFloat(document.getElementById('swapAmount').value);
+        if (amt > 0 && amt < 100000) {
+          showToast('✅ Swap successful!');
+          closeModal();
+        } else { showToast('⚠️ Enter valid amount (max 100,000)'); }
+      });
+    }
+
+    function actionBuy() {
+      showToast('🛒 Opening Ledger shop...');
+      setTimeout(() => window.open('https://shop.ledger.com/pages/buy', '_blank'), 300);
+    }
+
+    function actionReceive() {
+      const html = `
+        <div class="modal-header"><span>Receive</span><button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body">
+          ${assets.map(a => `
+            <div style="margin-bottom:8px;">
+              <div class="receive-label">${a.name} (${a.symbol})</div>
+              <div class="receive-address">${receiveAddresses[a.id] || a.address || 'Address not set'}</div>
+            </div>
+          `).join('')}
+          <button class="modal-btn modal-btn-secondary" id="modalClose2">Close</button>
+        </div>
+      `;
+      showModal(html);
+      document.getElementById('modalClose')?.addEventListener('click', closeModal);
+      document.getElementById('modalClose2')?.addEventListener('click', closeModal);
+    }
+
+    // --- CURRENCY TOGGLE ---
+    currencyToggle.addEventListener('click', () => {
+      currency = currency === 'USD' ? 'TTD' : 'USD';
+      renderWallet();
+      showToast(currency === 'USD' ? '💵 USD' : '🇹🇹 TTD');
+    });
+
+    // --- KEYBOARD ---
+    document.querySelectorAll('.key').forEach(btn => {
+      btn.addEventListener('click', (e) => { const val = btn.dataset.value; if (val) handleKey(val); });
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); const val = btn.dataset.value; if (val) handleKey(val); }, { passive: false });
+    });
+
+    // --- EDITOR ---
+    editorClose.addEventListener('click', closeEditor);
+    editorSave.addEventListener('click', saveEditor);
+    editorAmount.addEventListener('input', updatePreview);
+    editorOverlay.addEventListener('click', (e) => { if (e.target === editorOverlay) closeEditor(); });
+
+    // --- MODAL close on overlay ---
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+    // --- ACTION BUTTONS ---
+    document.getElementById('sendBtn').addEventListener('click', actionSend);
+    document.getElementById('swapBtn').addEventListener('click', actionSwap);
+    document.getElementById('buyBtn').addEventListener('click', actionBuy);
+    document.getElementById('receiveBtn').addEventListener('click', actionReceive);
+
+    initHold();
+    renderWallet();
+  })();
+</script>
+</body>
+</html>
