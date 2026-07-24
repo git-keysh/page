@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Trade Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --card:#ffffff;
+    --ink:#16181b;
+    --ink-soft:#5b5e63;
+    --hairline:#e0dccf;
+    --gold:#b3872e;
+    --gold-dim:#e8dcc0;
+    --go:#1f7a4c;
+    --go-bg:#e9f4ee;
+    --nogo:#b23b2e;
+    --nogo-bg:#faeae7;
+    --hold-bg:#fbf3e2;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 80px;
+  }
+
+  .wrap{
+    max-width:640px;
+    margin:0 auto;
+    padding:32px 20px 0;
+  }
+
+  /* ===== Header ===== */
+  header{
+    text-align:center;
+    margin-bottom:22px;
+  }
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    letter-spacing:0.28em;
+    font-size:11px;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    letter-spacing:0.01em;
+    margin:2px 0 4px;
+    text-transform:uppercase;
+  }
+  .subhead{
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  /* ===== Annunciator ===== */
+  .panel{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--card);
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    padding:14px 18px;
+    margin:22px 0;
+  }
+  .light{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    flex-shrink:0;
+    border:1px solid rgba(0,0,0,0.08);
+    transition:background 0.2s ease;
+  }
+  .light.nogo{ background:var(--nogo); }
+  .light.hold{ background:var(--gold); }
+  .light.go{ background:var(--go); }
+
+  .panel-text{ flex:1; min-width:0; }
+  .panel-status{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    line-height:1.1;
+  }
+  .panel-status.nogo{ color:var(--nogo); }
+  .panel-status.hold{ color:#8a6512; }
+  .panel-status.go{ color:var(--go); }
+  .panel-sub{ font-size:11px; color:var(--ink-soft); margin-top:2px; }
+
+  .progress-track{
+    height:6px;
+    background:var(--hairline);
+    border-radius:3px;
+    overflow:hidden;
+    margin:14px 0 4px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--gold);
+    width:0%;
+    transition:width 0.2s ease;
+  }
+  .progress-label{
+    font-size:11px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  /* ===== Checklist cards ===== */
+  .card{
+    background:var(--card);
+    border:1px solid var(--hairline);
+    border-left:3px solid var(--gold);
+    border-radius:8px;
+    padding:16px 18px 8px;
+    margin-bottom:14px;
+  }
+  .card-head{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .card-num{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--gold);
+    letter-spacing:0.05em;
+  }
+  .card-title{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    flex:1;
+  }
+  .card-count{
+    font-size:11px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:8px 2px;
+    border-top:1px solid #f0eee7;
+    cursor:pointer;
+    user-select:none;
+  }
+  .item:first-of-type{ border-top:none; }
+
+  .item input[type="checkbox"]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:18px;
+    height:18px;
+    min-width:18px;
+    border:1.5px solid var(--ink-soft);
+    border-radius:4px;
+    margin-top:1px;
+    cursor:pointer;
+    position:relative;
+    background:#fff;
+  }
+  .item input[type="checkbox"]:checked{
+    background:var(--go);
+    border-color:var(--go);
+  }
+  .item input[type="checkbox"]:checked::after{
+    content:"";
+    position:absolute;
+    left:5px;
+    top:1px;
+    width:5px;
+    height:10px;
+    border:solid white;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .item label{
+    font-size:14px;
+    line-height:1.35;
+    cursor:pointer;
+  }
+  .item.checked label{
+    color:var(--ink-soft);
+    text-decoration:line-through;
+    text-decoration-color:var(--hairline);
+  }
+
+  /* ===== Reminder / psychology boxes ===== */
+  .box{
+    background:var(--card);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .box-title{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    font-size:17px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin-bottom:8px;
+  }
+  .box.rules{ border-left:3px solid var(--nogo); }
+  .box.psych{ border-left:3px solid #6b5c9e; }
+
+  .box ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .box.rules li{
+    font-size:13.5px;
+    padding:5px 0 5px 16px;
+    position:relative;
+    color:var(--ink);
+  }
+  .box.rules li::before{
+    content:"–";
+    position:absolute;
+    left:0;
+    color:var(--nogo);
+  }
+  .box.psych .item{ padding:6px 2px; }
+  .box.psych .item input[type="checkbox"]:checked{
+    background:#6b5c9e;
+    border-color:#6b5c9e;
+  }
+
+  /* ===== Final gate ===== */
+  .gate{
+    background:var(--card);
+    border:1.5px solid var(--ink);
+    border-radius:8px;
+    padding:20px 18px;
+    margin:20px 0;
+    text-align:center;
+  }
+  .gate-title{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.12em;
+    margin-bottom:14px;
+  }
+  .gate .item{
+    justify-content:center;
+    border-top:none;
+    padding:6px 2px 16px;
+  }
+  .gate-verdict{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.04em;
+    padding:12px;
+    border-radius:6px;
+  }
+  .gate-verdict.locked{ background:var(--hold-bg); color:#8a6512; }
+  .gate-verdict.nogo{ background:var(--nogo-bg); color:var(--nogo); }
+  .gate-verdict.go{ background:var(--go-bg); color:var(--go); }
+  .gate-verdict .small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:400;
+    font-size:11.5px;
+    letter-spacing:normal;
+    text-transform:none;
+    margin-top:4px;
+    color:var(--ink-soft);
+  }
+
+  .master-checkbox{ opacity:0.4; pointer-events:none; }
+  .master-checkbox.enabled{ opacity:1; pointer-events:auto; }
+
+  /* ===== Footer actions ===== */
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+  }
+  button{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:11px 14px;
+    border-radius:6px;
+    border:1px solid var(--hairline);
+    background:var(--card);
+    color:var(--ink);
+    cursor:pointer;
+    flex:1;
+  }
+  button:hover{ border-color:var(--ink-soft); }
+  button.reset{ color:var(--nogo); border-color:#e8cec9; }
+  button.reset:hover{ background:var(--nogo-bg); }
+  button.print{ color:var(--ink); }
+
+  .footnote{
+    text-align:center;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+
+  /* ===== Print ===== */
+  @media print{
+    body{ background:#fff; padding:0; }
+    .panel, .actions, .footnote{ display:none; }
+    .card, .box, .gate{ break-inside:avoid; border-color:#999; }
+    button{ display:none; }
+  }
+
+  @media (max-width:420px){
+    h1{ font-size:32px; }
+    .wrap{ padding:22px 14px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Before you touch the order ticket</div>
+    <h1>Pre-Trade Checklist</h1>
+    <div class="subhead">Every box, every time. No exceptions for A+ setups either.</div>
+  </header>
+
+  <div class="panel">
+    <div class="light nogo" id="light"></div>
+    <div class="panel-text">
+      <div class="panel-status nogo" id="panelStatus">NO-GO</div>
+      <div class="panel-sub" id="panelSub">Checklist not started</div>
+    </div>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label"><span id="progressText">0 / 0 checks complete</span><span id="progressPct">0%</span></div>
+
+  <div id="sections"></div>
+
+  <div class="box rules">
+    <div class="box-title">Trading Rules</div>
+    <ul>
+      <li>Never chase candles.</li>
+      <li>Let the trade come to you.</li>
+      <li>Risk 0.5%–1% maximum.</li>
+      <li>Never tighten the stop because of fear.</li>
+      <li>If the setup isn't A+, skip it.</li>
+      <li>Missing a trade is better than forcing one.</li>
+    </ul>
+  </div>
+
+  <div class="box psych" id="psychBox">
+    <div class="box-title">Ask Yourself</div>
+    <div id="psychItems"></div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-title">READY TO ENTER?</div>
+    <div class="item" id="masterItem">
+      <input type="checkbox" id="masterCheck">
+      <label for="masterCheck">Every rule above is satisfied</label>
+    </div>
+    <div class="gate-verdict" id="verdict"></div>
+  </div>
+
+  <div class="actions">
+    <button class="reset" id="resetBtn">Reset checklist</button>
+    <button class="print" id="printBtn">Print</button>
+  </div>
+
+  <div class="footnote">Saved automatically on this device. Nothing is sent anywhere.</div>
+
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = "preflight_checklist_v1";
+
+  const sections = [
+    { id:"trend", title:"Trend Analysis", items:[
+      "Daily trend identified",
+      "Weekly trend agrees",
+      "No conflicting higher-timeframe structure"
+    ]},
+    { id:"volume", title:"Volume Profile", items:[
+      "Price at HVN / LVN / VAH / VAL",
+      "Volume profile shape confirms bias",
+      "No unfilled volume gap nearby"
+    ]},
+    { id:"vwap", title:"VWAP", items:[
+      "Price above/below VWAP, matching bias",
+      "VWAP slope agrees with trend",
+      "No rejection off VWAP band against bias"
+    ]},
+    { id:"entry", title:"Entry Confirmation", items:[
+      "Pullback complete",
+      "Strong confirmation candle",
+      "Volume confirms the move"
+    ]},
+    { id:"risk", title:"Risk Management", items:[
+      "Risk:Reward is 1:2 or better",
+      "Stop placed at technical invalidation",
+      "Position size calculated",
+      "Risk within 0.5%–1% of account"
+    ]},
+    { id:"trademgmt", title:"Trade Management", items:[
+      "No major news due soon",
+      "TP levels / partials planned before entry",
+      "Plan set for managing the trade, not reacting"
+    ]},
+    { id:"personal", title:"Personal Rules", items:[
+      "Setup matches my plan exactly",
+      "Emotion level: calm",
+      "Would take this trade on a demo account",
+      "Not trading to recover a prior loss",
+      "Not trading out of boredom or FOMO"
+    ]}
+  ];
+
+  const psychItems = [
+    "Am I trading because I'm bored?",
+    "Am I trying to recover a loss?",
+    "Am I afraid of missing out?",
+    "Would I take this trade on a demo?",
+    "Does this exactly match my plan?"
+  ];
+
+  const sectionsEl = document.getElementById("sections");
+  const psychEl = document.getElementById("psychItems");
+
+  // Build main sections
+  sections.forEach((sec, sIdx) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="card-num">${String(sIdx+1).padStart(2,"0")}</span>
+        <span class="card-title">${sec.title}</span>
+        <span class="card-count" data-count="${sec.id}">0/${sec.items.length}</span>
+      </div>
+    `;
+    sec.items.forEach((text, iIdx) => {
+      const id = `${sec.id}_${iIdx}`;
+      const row = document.createElement("div");
+      row.className = "item";
+      row.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${text}</label>`;
+      card.appendChild(row);
+    });
+    sectionsEl.appendChild(card);
+  });
+
+  // Build psychology items (own storage namespace, own color, no line-through needed but keep consistent)
+  psychItems.forEach((text, iIdx) => {
+    const id = `psych_${iIdx}`;
+    const row = document.createElement("div");
+    row.className = "item";
+    row.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${text}</label>`;
+    psychEl.appendChild(row);
+  });
+
+  const allCheckboxIds = () => {
+    const ids = [];
+    sections.forEach(sec => sec.items.forEach((_, i) => ids.push(`${sec.id}_${i}`)));
+    return ids;
+  };
+  const psychCheckboxIds = () => psychItems.map((_, i) => `psych_${i}`);
+
+  // ---- Storage ----
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveState(state){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch(e){ /* storage unavailable, fail silently */ }
+  }
+
+  let state = loadState();
+
+  function applyStateToDOM(){
+    allCheckboxIds().concat(psychCheckboxIds()).forEach(id => {
+      const cb = document.getElementById(id);
+      if(!cb) return;
+      cb.checked = !!state[id];
+      cb.parentElement.classList.toggle("checked", cb.checked);
+    });
+    const master = document.getElementById("masterCheck");
+    master.checked = !!state["master"];
+  }
+
+  function updateCounts(){
+    sections.forEach(sec => {
+      const done = sec.items.filter((_, i) => state[`${sec.id}_${i}`]).length;
+      const el = document.querySelector(`[data-count="${sec.id}"]`);
+      if(el) el.textContent = `${done}/${sec.items.length}`;
+    });
+  }
+
+  function updateProgress(){
+    const ids = allCheckboxIds();
+    const done = ids.filter(id => state[id]).length;
+    const total = ids.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+
+    document.getElementById("progressFill").style.width = pct + "%";
+    document.getElementById("progressText").textContent = `${done} / ${total} checks complete`;
+    document.getElementById("progressPct").textContent = pct + "%";
+
+    const allDone = done === total;
+    const masterItem = document.getElementById("masterItem");
+    const master = document.getElementById("masterCheck");
+
+    masterItem.classList.toggle("enabled", allDone);
+    if(!allDone && master.checked){
+      master.checked = false;
+      state["master"] = false;
+    }
+
+    const light = document.getElementById("light");
+    const panelStatus = document.getElementById("panelStatus");
+    const panelSub = document.getElementById("panelSub");
+    const verdict = document.getElementById("verdict");
+
+    if(state["master"] && allDone){
+      light.className = "light go";
+      panelStatus.className = "panel-status go";
+      panelStatus.textContent = "GO";
+      panelSub.textContent = "All checks confirmed. Enter per plan. Do not move the stop.";
+      verdict.className = "gate-verdict go";
+      verdict.innerHTML = "Enter trade.<span class='small'>Do not move stop loss. Manage according to plan only.</span>";
+    } else if(allDone){
+      light.className = "light hold";
+      panelStatus.className = "panel-status hold";
+      panelStatus.textContent = "HOLD";
+      panelSub.textContent = "All checks complete — confirm below to unlock entry.";
+      verdict.className = "gate-verdict locked";
+      verdict.innerHTML = "Confirm the box above to enter.<span class='small'>This is the last gate before the ticket.</span>";
+    } else {
+      light.className = "light nogo";
+      panelStatus.className = "panel-status nogo";
+      panelStatus.textContent = "NO-GO";
+      panelSub.textContent = done === 0 ? "Checklist not started" : `${total - done} check${total-done===1?"":"s"} remaining`;
+      verdict.className = "gate-verdict nogo";
+      verdict.innerHTML = "Do not trade.<span class='small'>Finish every section first — no exceptions.</span>";
+    }
+  }
+
+  function refreshAll(){
+    applyStateToDOM();
+    updateCounts();
+    updateProgress();
+  }
+
+  // Event delegation for all checkboxes
+  document.body.addEventListener("change", (e) => {
+    if(e.target && e.target.type === "checkbox"){
+      const id = e.target.id;
+      state[id] = e.target.checked;
+      e.target.parentElement.classList.toggle("checked", e.target.checked);
+      if(id === "masterCheck"){
+        state["master"] = e.target.checked;
+      }
+      saveState(state);
+      updateCounts();
+      updateProgress();
+    }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if(confirm("Reset the checklist for a new trade? This clears every box.")){
+      state = {};
+      saveState(state);
+      refreshAll();
+    }
+  });
+
+  document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+  refreshAll();
+})();
+</script>
+
+</body>
+</html>
