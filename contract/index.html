@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Command — Client Onboarding</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0a0f1c;
+    --bg-panel:#111a2c;
+    --bg-panel-raised:#16223a;
+    --line:#233150;
+    --cyan:#4cc9f0;
+    --cyan-dim:rgba(76,201,240,0.14);
+    --amber:#f4a259;
+    --amber-dim:rgba(244,162,89,0.14);
+    --text-hi:#e8ecf3;
+    --text-mid:#a9b3c9;
+    --text-low:#647089;
+    --danger:#f26d6d;
+    --radius:14px;
+    --disp:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(76,201,240,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 110%, rgba(244,162,89,0.08), transparent 60%),
+      var(--bg-void);
+    color:var(--text-hi);
+    font-family:var(--body);
+    min-height:100vh;
+    padding:40px 20px 80px;
+    background-attachment:fixed;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(76,201,240,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(76,201,240,0.035) 1px, transparent 1px);
+    background-size:44px 44px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{ max-width:760px; margin:0 auto; position:relative; z-index:1; }
+
+  /* ---------- header ---------- */
+  header{
+    display:flex; align-items:center; gap:16px;
+    margin-bottom:34px;
+  }
+  header img{
+    width:52px; height:52px; border-radius:12px;
+    box-shadow:0 0 0 1px var(--line), 0 8px 24px rgba(76,201,240,0.15);
+  }
+  header .word{ display:flex; flex-direction:column; }
+  header .word .name{
+    font-family:var(--disp); font-weight:700; font-size:22px; letter-spacing:0.5px;
+  }
+  header .word .tag{
+    font-family:var(--mono); font-size:11px; color:var(--cyan); letter-spacing:2px; text-transform:uppercase;
+    margin-top:2px;
+  }
+  header .status{
+    margin-left:auto; text-align:right;
+    font-family:var(--mono); font-size:11px; color:var(--text-low); letter-spacing:1px;
+  }
+  header .status .dot{
+    display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:var(--cyan); margin-right:6px;
+    box-shadow:0 0 8px var(--cyan);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  /* ---------- progress rail ---------- */
+  .rail{
+    display:flex; align-items:center; gap:10px; margin-bottom:28px;
+    font-family:var(--mono); font-size:12px;
+  }
+  .rail .seg{
+    display:flex; align-items:center; gap:8px;
+    color:var(--text-low);
+  }
+  .rail .seg.active, .rail .seg.done{ color:var(--text-hi); }
+  .rail .seg .num{
+    width:22px; height:22px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); font-size:11px; flex-shrink:0;
+  }
+  .rail .seg.active .num{ border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 0 3px var(--cyan-dim); }
+  .rail .seg.done .num{ border-color:var(--amber); color:var(--amber); background:var(--amber-dim); }
+  .rail .bar{ flex:1; height:1px; background:var(--line); }
+  .rail .bar.filled{ background:linear-gradient(90deg, var(--amber), var(--cyan)); }
+
+  /* ---------- panel ---------- */
+  .panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:36px;
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity:0.5;
+  }
+  .step{ display:none; animation:fadein 0.35s ease; }
+  .step.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;
+  }
+  h1{ font-family:var(--disp); font-size:26px; font-weight:600; margin-bottom:8px; line-height:1.25; }
+  .sub{ color:var(--text-mid); font-size:14.5px; margin-bottom:26px; line-height:1.55; }
+
+  /* ---------- service grid ---------- */
+  .svc-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    margin-bottom:26px;
+  }
+  .svc-card{
+    border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+    cursor:pointer; transition:border-color 0.15s, background 0.15s;
+    display:flex; align-items:flex-start; gap:10px;
+    background:var(--bg-panel-raised);
+  }
+  .svc-card:hover{ border-color:#33456e; }
+  .svc-card.selected{ border-color:var(--cyan); background:var(--cyan-dim); }
+  .svc-card .box{
+    width:16px; height:16px; border-radius:4px; border:1px solid var(--text-low);
+    flex-shrink:0; margin-top:2px; position:relative;
+  }
+  .svc-card.selected .box{ border-color:var(--cyan); background:var(--cyan); }
+  .svc-card.selected .box::after{
+    content:""; position:absolute; left:4px; top:1px; width:4px; height:8px;
+    border:solid var(--bg-void); border-width:0 2px 2px 0; transform:rotate(45deg);
+  }
+  .svc-card .label{ font-size:14px; font-weight:500; line-height:1.4; }
+  .svc-card .desc{ font-size:12px; color:var(--text-low); margin-top:2px; line-height:1.4; }
+
+  /* ---------- terms box ---------- */
+  .terms-box{
+    border:1px solid var(--line); border-radius:10px; background:var(--bg-void);
+    padding:18px 20px; max-height:190px; overflow-y:auto; margin-bottom:16px;
+    font-size:13px; line-height:1.7; color:var(--text-mid);
+  }
+  .terms-box h3{ font-family:var(--mono); font-size:11.5px; color:var(--text-hi); letter-spacing:1px; margin:14px 0 6px; text-transform:uppercase; }
+  .terms-box h3:first-child{ margin-top:0; }
+  .terms-box::-webkit-scrollbar{ width:8px; }
+  .terms-box::-webkit-scrollbar-thumb{ background:var(--line); border-radius:8px; }
+
+  .agree-row{
+    display:flex; align-items:flex-start; gap:12px; cursor:pointer;
+    padding:14px 16px; border:1px solid var(--line); border-radius:10px;
+    background:var(--bg-panel-raised); margin-bottom:28px;
+  }
+  .agree-row.checked{ border-color:var(--amber); background:var(--amber-dim); }
+  .agree-row .box{
+    width:18px; height:18px; border-radius:5px; border:1px solid var(--text-low); flex-shrink:0; margin-top:1px; position:relative;
+  }
+  .agree-row.checked .box{ border-color:var(--amber); background:var(--amber); }
+  .agree-row.checked .box::after{
+    content:""; position:absolute; left:5px; top:2px; width:5px; height:9px;
+    border:solid var(--bg-void); border-width:0 2px 2px 0; transform:rotate(45deg);
+  }
+  .agree-row .txt{ font-size:13.5px; color:var(--text-mid); line-height:1.5; }
+  .agree-row .txt b{ color:var(--text-hi); font-weight:500; }
+
+  /* ---------- form ---------- */
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:8px; }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{
+    font-family:var(--mono); font-size:11px; color:var(--text-low); letter-spacing:1px; text-transform:uppercase;
+  }
+  .field input{
+    background:var(--bg-void); border:1px solid var(--line); border-radius:8px;
+    padding:11px 13px; color:var(--text-hi); font-size:14px; font-family:var(--body);
+    outline:none; transition:border-color 0.15s;
+  }
+  .field input:focus{ border-color:var(--cyan); }
+  .field input::placeholder{ color:var(--text-low); }
+  .field-err{ font-size:11.5px; color:var(--danger); min-height:14px; }
+  .divider-label{
+    font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:2px; text-transform:uppercase;
+    margin:26px 0 14px; display:flex; align-items:center; gap:10px;
+  }
+  .divider-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  /* ---------- buttons ---------- */
+  .actions{ display:flex; justify-content:space-between; align-items:center; margin-top:30px; gap:12px; }
+  .btn{
+    font-family:var(--body); font-weight:600; font-size:14px; padding:13px 26px;
+    border-radius:9px; border:1px solid transparent; cursor:pointer;
+    transition:transform 0.1s, opacity 0.15s, box-shadow 0.15s;
+  }
+  .btn:active{ transform:scale(0.98); }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--cyan), #2f9fd6); color:#06131f;
+    box-shadow:0 6px 20px rgba(76,201,240,0.25);
+    margin-left:auto;
+  }
+  .btn-primary:disabled{ opacity:0.35; cursor:not-allowed; box-shadow:none; }
+  .btn-ghost{ background:transparent; border-color:var(--line); color:var(--text-mid); }
+  .btn-ghost:hover{ border-color:#33456e; color:var(--text-hi); }
+
+  /* ---------- contract ---------- */
+  .contract{
+    border:1px solid var(--line); border-radius:12px; background:var(--bg-void);
+    padding:32px; position:relative; margin-bottom:24px;
+  }
+  .contract::before, .contract::after{
+    content:""; position:absolute; width:22px; height:22px; border:1px solid var(--amber); opacity:0.5;
+  }
+  .contract::before{ top:12px; left:12px; border-width:1px 0 0 1px; }
+  .contract::after{ bottom:12px; right:12px; border-width:0 1px 1px 0; }
+  .c-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; }
+  .c-head .ref{ font-family:var(--mono); font-size:11px; color:var(--text-low); }
+  .c-head .ref b{ color:var(--cyan); }
+  .c-title{ font-family:var(--disp); font-size:20px; font-weight:600; margin-bottom:4px; }
+  .c-parties{ font-size:13.5px; color:var(--text-mid); line-height:1.7; margin-bottom:22px; }
+  .c-parties b{ color:var(--text-hi); }
+  .c-section-title{
+    font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:8px; margin-top:20px;
+  }
+  .c-services{ display:flex; flex-wrap:wrap; gap:8px; }
+  .c-chip{
+    font-family:var(--mono); font-size:11.5px; padding:6px 12px; border-radius:20px;
+    border:1px solid var(--cyan); color:var(--cyan); background:var(--cyan-dim);
+  }
+  .c-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; font-size:13px; }
+  .c-grid .k{ font-family:var(--mono); font-size:10.5px; color:var(--text-low); letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
+  .c-grid .v{ color:var(--text-hi); }
+  .c-sign{
+    margin-top:26px; padding-top:20px; border-top:1px dashed var(--line);
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+  }
+  .c-sign .who{ font-size:13px; color:var(--text-mid); }
+  .c-sign .who b{ color:var(--text-hi); display:block; font-family:var(--disp); font-size:15px; }
+  .seal{ width:66px; height:66px; flex-shrink:0; }
+
+  .txn{
+    display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px;
+    color:var(--text-low); margin-top:18px; min-height:18px;
+  }
+  .txn .spinner{
+    width:12px; height:12px; border-radius:50%; border:2px solid var(--line); border-top-color:var(--cyan);
+    animation:spin 0.7s linear infinite; display:none;
+  }
+  .txn.sending .spinner{ display:inline-block; }
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+
+  .confirm{ text-align:center; padding:20px 0 6px; }
+  .confirm .check{
+    width:64px; height:64px; border-radius:50%; margin:0 auto 18px;
+    background:var(--amber-dim); border:1px solid var(--amber);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .confirm h2{ font-family:var(--disp); font-size:22px; margin-bottom:8px; }
+  .confirm p{ color:var(--text-mid); font-size:14px; max-width:420px; margin:0 auto; line-height:1.6; }
+
+  footer{ text-align:center; margin-top:26px; font-family:var(--mono); font-size:11px; color:var(--text-low); letter-spacing:1px; }
+
+  @media (max-width:560px){
+    .svc-grid, .form-grid, .c-grid{ grid-template-columns:1fr; }
+    .panel{ padding:24px 20px; }
+    .rail{ font-size:0; gap:6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="icon.png" alt="Nexus Command">
+    <div class="word">
+      <div class="name">NEXUS COMMAND</div>
+      <div class="tag">Client Onboarding Console</div>
+    </div>
+    <div class="status"><span class="dot"></span>SESSION ACTIVE</div>
+  </header>
+
+  <div class="rail">
+    <div class="seg active" data-rail="1"><span class="num">1</span>SERVICE & TERMS</div>
+    <div class="bar" data-bar="1"></div>
+    <div class="seg" data-rail="2"><span class="num">2</span>CLIENT INFO</div>
+    <div class="bar" data-bar="2"></div>
+    <div class="seg" data-rail="3"><span class="num">3</span>CONTRACT</div>
+  </div>
+
+  <div class="panel">
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+      <div class="eyebrow">Step 01 / Mission Brief</div>
+      <h1>Please select the service(s) you're engaging with Keyshaun Sookdar</h1>
+      <p class="sub">Pick everything that applies. You can combine services under a single agreement.</p>
+
+      <div class="svc-grid" id="svcGrid"></div>
+
+      <div class="divider-label">Terms &amp; Conditions</div>
+      <div class="terms-box" id="termsBox"></div>
+
+      <div class="agree-row" id="agreeRow">
+        <div class="box"></div>
+        <div class="txt">I have read and understood the Terms &amp; Conditions above, and I agree to be bound by them as part of this engagement with <b>Nexus Command</b>.</div>
+      </div>
+
+      <div class="actions">
+        <div></div>
+        <button class="btn btn-primary" id="toStep2" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="eyebrow">Step 02 / Client Information</div>
+      <h1>Who's on the other end of this agreement?</h1>
+      <p class="sub">This information will appear on the contract issued by Nexus Command.</p>
+
+      <div class="divider-label">Company Details</div>
+      <div class="form-grid">
+        <div class="field full">
+          <label>Company Name</label>
+          <input type="text" id="companyName" placeholder="e.g. KFC tt">
+          <div class="field-err"></div>
+        </div>
+        <div class="field">
+          <label>Company Contact №</label>
+          <input type="tel" id="companyContact" placeholder="+1 (868) 000-0000">
+          <div class="field-err"></div>
+        </div>
+        <div class="field">
+          <label>Company Email</label>
+          <input type="email" id="companyEmail" placeholder="office@company.com">
+          <div class="field-err"></div>
+        </div>
+      </div>
+
+      <div class="divider-label">Point of Contact</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" id="pocName" placeholder="Full name">
+          <div class="field-err"></div>
+        </div>
+        <div class="field">
+          <label>Contact № / Email</label>
+          <input type="text" id="pocContact" placeholder="Phone or email">
+          <div class="field-err"></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost" id="toStep1">← Back</button>
+        <button class="btn btn-primary" id="toStep3">Review Contract →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="eyebrow">Step 03 / Final Review</div>
+      <h1 id="contractHeading">Your contract is ready</h1>
+      <p class="sub">Confirm the details below, then submit to finalize the agreement.</p>
+
+      <div class="contract" id="contractView"></div>
+
+      <div class="txn" id="txnStatus"><span class="spinner"></span><span class="txn-msg"></span></div>
+
+      <div class="actions" id="reviewActions">
+        <button class="btn btn-ghost" id="toStep2b">← Back</button>
+        <button class="btn btn-primary" id="submitContract">Submit &amp; Send Contract</button>
+      </div>
+
+      <div class="confirm" id="confirmView" style="display:none">
+        <div class="check">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke="#f4a259" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Agreement transmitted.</h2>
+        <p>Your contract with Nexus Command has been logged and sent to Keyshaun Sookdar. A copy of these details has been recorded under reference <b id="confirmRef" style="color:var(--text-hi); font-family:var(--mono)"></b>.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>NEXUS COMMAND · OWNED &amp; OPERATED BY KEYSHAUN SOOKDAR</footer>
+</div>
+
+<script>
+/* ---------------- config ---------------- */
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1534653978678136933/n41RoXZpofuNnmznAUpbpFsNbt681V1o2-edYPkbyyRwRmzc0CTMSPzgfBnzJOHxu8no";
+
+const SERVICES = [
+  { id:"web-design", label:"Web Design & Development", desc:"Marketing sites, landing pages, brand builds" },
+  { id:"web-app", label:"Web Application Development", desc:"Custom dashboards, portals, internal tools" },
+  { id:"ecommerce", label:"E-Commerce & Online Stores", desc:"Product catalogs, checkout, order tools" },
+  { id:"software", label:"Custom Software", desc:"Bespoke systems built around your workflow" },
+  { id:"bots", label:"Bot & Automation Development", desc:"Discord bots, workflow automation" },
+  { id:"trading", label:"Trading Indicator Development", desc:"Pine Script / TradingView indicators" },
+  { id:"uiux", label:"UI/UX Design", desc:"Interfaces, prototypes, design systems" },
+  { id:"support", label:"Maintenance & Ongoing Support", desc:"Updates, fixes, hosting oversight" },
+];
+
+const TERMS_HTML = `
+  <h3>1. Scope of Work</h3>
+  <p>Nexus Command ("Provider") will deliver the service(s) selected by the Client as outlined in this agreement. Any work outside that scope is treated as a separate request and may involve additional cost and timeline, to be agreed in writing before work begins.</p>
+  <h3>2. Payment Terms</h3>
+  <p>Unless otherwise agreed in writing, an initial deposit is due before work begins, with the balance due on completion or per an agreed milestone schedule. Work may pause if payment is significantly overdue.</p>
+  <h3>3. Timeline & Revisions</h3>
+  <p>Delivery timelines are estimates based on the agreed scope and prompt Client feedback. A reasonable number of revision rounds are included; requests that significantly change the original scope may be treated as new work.</p>
+  <h3>4. Intellectual Property</h3>
+  <p>Ownership of final deliverables transfers to the Client upon full payment. Nexus Command retains the right to showcase completed work in its portfolio unless the Client requests otherwise in writing.</p>
+  <h3>5. Confidentiality</h3>
+  <p>Both parties agree to keep confidential business information, credentials, and materials shared during the engagement private, and to use them only for the purposes of this agreement.</p>
+  <h3>6. Cancellation</h3>
+  <p>Either party may cancel with written notice. Work completed and hours invested up to the cancellation date remain payable; any deposit is non-refundable once work has commenced.</p>
+  <h3>7. Liability</h3>
+  <p>Nexus Command will perform services with reasonable skill and care but is not liable for indirect losses, third-party service outages, or issues arising from Client-supplied content or credentials.</p>
+  <h3>8. Agreement</h3>
+  <p>By checking the box below and submitting the information requested, the Client confirms the details provided are accurate and agrees to enter into this Service Agreement with Keyshaun Sookdar, Owner of Nexus Command.</p>
+`;
+
+/* ---------------- state ---------------- */
+const state = {
+  services: new Set(),
+  agreed: false,
+  companyName:"", companyContact:"", companyEmail:"",
+  pocName:"", pocContact:"",
+  ref: null,
+};
+
+/* ---------------- render service grid ---------------- */
+const svcGrid = document.getElementById("svcGrid");
+SERVICES.forEach(s => {
+  const card = document.createElement("div");
+  card.className = "svc-card";
+  card.dataset.id = s.id;
+  card.innerHTML = `<div class="box"></div><div><div class="label">${s.label}</div><div class="desc">${s.desc}</div></div>`;
+  card.addEventListener("click", () => {
+    if(state.services.has(s.id)){ state.services.delete(s.id); card.classList.remove("selected"); }
+    else { state.services.add(s.id); card.classList.add("selected"); }
+    validateStep1();
+  });
+  svcGrid.appendChild(card);
+});
+
+document.getElementById("termsBox").innerHTML = TERMS_HTML;
+
+const agreeRow = document.getElementById("agreeRow");
+agreeRow.addEventListener("click", () => {
+  state.agreed = !state.agreed;
+  agreeRow.classList.toggle("checked", state.agreed);
+  validateStep1();
+});
+
+function validateStep1(){
+  document.getElementById("toStep2").disabled = !(state.services.size > 0 && state.agreed);
+}
+
+/* ---------------- step nav ---------------- */
+function goTo(n){
+  document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+  document.getElementById("step"+n).classList.add("active");
+  document.querySelectorAll(".rail .seg").forEach(el => {
+    const i = Number(el.dataset.rail);
+    el.classList.toggle("active", i === n);
+    el.classList.toggle("done", i < n);
+  });
+  document.querySelectorAll(".rail .bar").forEach(el => {
+    const i = Number(el.dataset.bar);
+    el.classList.toggle("filled", i < n);
+  });
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.getElementById("toStep2").addEventListener("click", () => goTo(2));
+document.getElementById("toStep1").addEventListener("click", () => goTo(1));
+document.getElementById("toStep2b").addEventListener("click", () => goTo(2));
+
+document.getElementById("toStep3").addEventListener("click", () => {
+  const fields = [
+    ["companyName","Company name is required"],
+    ["companyContact","Company contact is required"],
+    ["companyEmail","Company email is required"],
+    ["pocName","Point of contact name is required"],
+    ["pocContact","Point of contact info is required"],
+  ];
+  let ok = true;
+  fields.forEach(([id,msg]) => {
+    const input = document.getElementById(id);
+    const err = input.parentElement.querySelector(".field-err");
+    if(!input.value.trim()){
+      err.textContent = msg; input.style.borderColor = "var(--danger)"; ok = false;
+    } else {
+      err.textContent = ""; input.style.borderColor = "var(--line)";
+      state[id] = input.value.trim();
+    }
+  });
+  if(!ok) return;
+  buildContract();
+  goTo(3);
+});
+
+/* ---------------- contract render ---------------- */
+function genRef(){
+  const d = new Date();
+  const y = d.getFullYear().toString().slice(-2);
+  const rand = Math.floor(1000 + Math.random()*9000);
+  return `NC-${y}${(d.getMonth()+1).toString().padStart(2,"0")}${d.getDate().toString().padStart(2,"0")}-${rand}`;
+}
+
+function buildContract(){
+  state.ref = genRef();
+  const dateStr = new Date().toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+  const chosenLabels = SERVICES.filter(s => state.services.has(s.id)).map(s => s.label);
+
+  document.getElementById("contractView").innerHTML = `
+    <div class="c-head">
+      <div>
+        <div class="c-title">Service Agreement</div>
+        <div class="ref">Reference <b>${state.ref}</b> · Issued ${dateStr}</div>
+      </div>
+      <img src="icon.png" alt="Nexus Command seal" class="seal">
+    </div>
+    <div class="c-parties">
+      This Service Agreement is entered into between <b>Keyshaun Sookdar</b>, Owner of <b>Nexus Command</b> ("Provider"), and <b>${escapeHtml(state.companyName)}</b> ("Client"), represented by <b>${escapeHtml(state.pocName)}</b>.
+    </div>
+
+    <div class="c-section-title">Services Engaged</div>
+    <div class="c-services">
+      ${chosenLabels.map(l => `<span class="c-chip">${l}</span>`).join("")}
+    </div>
+
+    <div class="c-section-title">Client Details</div>
+    <div class="c-grid">
+      <div><div class="k">Company Name</div><div class="v">${escapeHtml(state.companyName)}</div></div>
+      <div><div class="k">Company Email</div><div class="v">${escapeHtml(state.companyEmail)}</div></div>
+      <div><div class="k">Company Contact</div><div class="v">${escapeHtml(state.companyContact)}</div></div>
+      <div><div class="k">Point of Contact</div><div class="v">${escapeHtml(state.pocName)} — ${escapeHtml(state.pocContact)}</div></div>
+    </div>
+
+    <div class="c-sign">
+      <div class="who">Digitally agreed to the Terms &amp; Conditions on ${dateStr} by<b>${escapeHtml(state.pocName)}, on behalf of ${escapeHtml(state.companyName)}</b></div>
+    </div>
+  `;
+}
+
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ---------------- submit / webhook ---------------- */
+document.getElementById("submitContract").addEventListener("click", async () => {
+  const btn = document.getElementById("submitContract");
+  const txn = document.getElementById("txnStatus");
+  const msg = txn.querySelector(".txn-msg");
+  btn.disabled = true;
+  document.getElementById("toStep2b").disabled = true;
+  txn.classList.add("sending");
+  msg.textContent = "Transmitting contract to Nexus Command…";
+
+  const chosenLabels = SERVICES.filter(s => state.services.has(s.id)).map(s => s.label);
+
+  const payload = {
+    username: "Nexus Command — Contracts",
+    embeds: [{
+      title: `New Contract Agreed — ${state.ref}`,
+      description: `A client has agreed to a Service Agreement with **Keyshaun Sookdar**, Owner of **Nexus Command**.`,
+      color: 5025520,
+      fields: [
+        { name: "Services", value: chosenLabels.join(", ") || "—" },
+        { name: "Company Name", value: state.companyName || "—", inline: true },
+        { name: "Company Email", value: state.companyEmail || "—", inline: true },
+        { name: "Company Contact", value: state.companyContact || "—", inline: true },
+        { name: "Point of Contact", value: state.pocName || "—", inline: true },
+        { name: "POC Contact", value: state.pocContact || "—", inline: true },
+        { name: "Terms Agreed", value: "Yes ✅", inline: true },
+      ],
+      timestamp: new Date().toISOString(),
+      footer: { text: `Reference ${state.ref}` }
+    }]
+  };
+
+  try{
+    await fetch(WEBHOOK_URL, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch(e){
+    // Discord webhooks commonly block reading the response due to CORS even on success,
+    // so a network-level error here is treated as best-effort and not shown as a hard failure.
+    console.warn("Webhook send:", e);
+  }
+
+  txn.classList.remove("sending");
+  msg.textContent = "";
+  document.getElementById("reviewActions").style.display = "none";
+  document.getElementById("confirmView").style.display = "block";
+  document.getElementById("confirmRef").textContent = state.ref;
+});
+</script>
+</body>
+</html>
