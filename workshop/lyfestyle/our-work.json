@@ -1,0 +1,84 @@
+[
+  {
+    "id": "project-001",
+    "title": "Premium Car Audio Installation",
+    "category": "Car Audio",
+    "description": "Custom car audio system with high-end speakers and amplifiers.",
+    "thumbnail": "images/our-work/project-001-thumb.jpg",
+    "images": [
+      "images/our-work/project-001-1.jpg",
+      "images/our-work/project-001-2.jpg",
+      "images/our-work/project-001-3.jpg"
+    ],
+    "date": "2025-11-15",
+    "featured": true
+  },
+  {
+    "id": "project-002",
+    "title": "Home Theater System Setup",
+    "category": "Home Audio",
+    "description": "Immersive home theater with surround sound and subwoofer integration.",
+    "thumbnail": "images/our-work/project-002-thumb.jpg",
+    "images": [
+      "images/our-work/project-002-1.jpg",
+      "images/our-work/project-002-2.jpg",
+      "images/our-work/project-002-3.jpg"
+    ],
+    "date": "2025-10-20",
+    "featured": true
+  },
+  {
+    "id": "project-003",
+    "title": "Studio Monitoring Setup",
+    "category": "Studio",
+    "description": "Professional audio monitoring system for music production.",
+    "thumbnail": "images/our-work/project-003-thumb.jpg",
+    "images": [
+      "images/our-work/project-003-1.jpg",
+      "images/our-work/project-003-2.jpg",
+      "images/our-work/project-003-3.jpg"
+    ],
+    "date": "2025-09-10",
+    "featured": false
+  },
+  {
+    "id": "project-004",
+    "title": "Vehicle Bass System Upgrade",
+    "category": "Car Audio",
+    "description": "Powerful bass upgrade with custom subwoofer enclosure.",
+    "thumbnail": "images/our-work/project-004-thumb.jpg",
+    "images": [
+      "images/our-work/project-004-1.jpg",
+      "images/our-work/project-004-2.jpg"
+    ],
+    "date": "2025-08-25",
+    "featured": false
+  },
+  {
+    "id": "project-005",
+    "title": "Commercial Speaker Installation",
+    "category": "Commercial",
+    "description": "Large-scale speaker system for retail environments with zone control.",
+    "thumbnail": "images/our-work/project-005-thumb.jpg",
+    "images": [
+      "images/our-work/project-005-1.jpg",
+      "images/our-work/project-005-2.jpg",
+      "images/our-work/project-005-3.jpg"
+    ],
+    "date": "2025-08-05",
+    "featured": false
+  },
+  {
+    "id": "project-006",
+    "title": "Portable Amplifier Setup",
+    "category": "Portable",
+    "description": "Compact portable audio system for events and outdoor use.",
+    "thumbnail": "images/our-work/project-006-thumb.jpg",
+    "images": [
+      "images/our-work/project-006-1.jpg",
+      "images/our-work/project-006-2.jpg"
+    ],
+    "date": "2025-07-15",
+    "featured": false
+  }
+]

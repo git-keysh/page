@@ -1,0 +1,102 @@
+[
+  {
+    "id": "a6-sub-124",
+    "name": "A6 Phantom 12 Subwoofer",
+    "brand": "A6 Audio",
+    "category": "Subwoofer",
+    "price": 2299,
+    "description": "High-excursion 12-inch subwoofer designed for deep, tight bass with excellent thermal control. Peak performance with dual voice coils.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Phantom+12"],
+    "features": ["Dual 4-ohm voice coil", "1200W peak handling", "Reinforced cone and surround"]
+  },
+  {
+    "id": "a6-amp-800",
+    "name": "A6 Vector 800.4 Amplifier",
+    "brand": "A6 Audio",
+    "category": "Amplifier",
+    "price": 3199,
+    "description": "Compact Class-D 4-channel amplifier with clean output and efficient heat management. Premium build quality.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Vector+800.4"],
+    "features": ["4 x 100W RMS @ 4 ohm", "High/low pass crossover", "Low profile install design"]
+  },
+  {
+    "id": "a6-spk-65",
+    "name": "A6 Clarity 6.5 Speaker Set",
+    "brand": "A6 Audio",
+    "category": "Speaker",
+    "price": 1499,
+    "description": "Balanced 6.5-inch component speakers tuned for clean mids, crisp highs, and everyday reliability. Premium components.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Clarity+6.5"],
+    "features": ["Silk dome tweeters", "2-way passive crossover", "Moisture-resistant cone"]
+  },
+  {
+    "id": "a6-sub-124-pro",
+    "name": "A6 Phantom Pro 12 Subwoofer",
+    "brand": "A6 Audio",
+    "category": "Subwoofer",
+    "price": 2899,
+    "description": "Professional-grade 12-inch subwoofer with enhanced excursion and power handling. Premium finish and construction.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Phantom+Pro+12"],
+    "features": ["Dual 4-ohm voice coil", "1500W peak handling", "Premium surround technology"]
+  },
+  {
+    "id": "a6-amp-1000",
+    "name": "A6 Vector 1000.1 Amplifier",
+    "brand": "A6 Audio",
+    "category": "Amplifier",
+    "price": 4299,
+    "description": "High-power mono amplifier engineered for subwoofer control and premium audio reproduction. Dedicated monoblock design.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Vector+1000.1"],
+    "features": ["1000W RMS @ 1 ohm", "Advanced thermal management", "Professional-grade components"]
+  },
+  {
+    "id": "a6-spk-component",
+    "name": "A6 Elite Component Speaker System",
+    "brand": "A6 Audio",
+    "category": "Speaker",
+    "price": 2199,
+    "description": "Premium multi-way speaker system with advanced crossover network and high-quality drivers for audiophile-grade sound.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Elite+Component"],
+    "features": ["Premium tweeters", "Advanced crossover", "High-quality finish"]
+  },
+  {
+    "id": "a6-sub-15",
+    "name": "A6 Phantom 15 Subwoofer",
+    "brand": "A6 Audio",
+    "category": "Subwoofer",
+    "price": 3599,
+    "description": "Top-tier 15-inch subwoofer delivering thunderous bass response with precision control and premium cabinet design.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Phantom+15"],
+    "features": ["High-excursion 15-inch driver", "2000W peak handling", "Premium enclosure materials"]
+  },
+  {
+    "id": "a6-processor",
+    "name": "A6 Sonic Processor DSP",
+    "brand": "A6 Audio",
+    "category": "Processor",
+    "price": 1899,
+    "description": "Advanced digital signal processor for precise audio tuning, equalization, and system optimization.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Sonic+Processor"],
+    "features": ["8-channel processing", "Real-time tuning", "Wireless control"]
+  },
+  {
+    "id": "a6-spk-63",
+    "name": "A6 Precision 6.3 Coaxial Speaker",
+    "brand": "A6 Audio",
+    "category": "Speaker",
+    "price": 899,
+    "description": "Compact coaxial speaker system perfect for tight installations. Premium sound in a compact package.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Precision+6.3"],
+    "features": ["Coaxial design", "Easy installation", "Excellent imaging"]
+  },
+  {
+    "id": "a6-amp-400",
+    "name": "A6 Vector 400.2 Amplifier",
+    "brand": "A6 Audio",
+    "category": "Amplifier",
+    "price": 2199,
+    "description": "Powerful 2-channel amplifier designed for mid-range speakers with clean power delivery and compact footprint.",
+    "images": ["https://via.placeholder.com/700x500/111111/8a2be2?text=A6+Vector+400.2"],
+    "features": ["2 x 200W RMS @ 4 ohm", "Low distortion", "Compact design"]
+  }
+]

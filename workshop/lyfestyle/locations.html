@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visit our Couva and Arima showrooms. Click to view map and get directions.">
+  <title>Locations | Simplicity Creations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    /* ----- navigation (dark only) ----- */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      flex-wrap: wrap;
+    }
+    .logo-container img {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+    nav ul {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      padding: 5px 12px;
+      border-radius: 30px;
+      transition: 0.2s;
+    }
+    nav ul li a.active, nav ul li a:hover {
+      color: #fff;
+      background: rgba(138,43,226,0.12);
+    }
+    .cart-icon-only i { font-size: 1rem; }
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger-menu span {
+      width: 26px;
+      height: 2px;
+      background: #fff;
+      border-radius: 4px;
+    }
+    .nav-dropdown {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      padding: 14px 0 8px;
+      gap: 4px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-dropdown a, .nav-dropdown button {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+    .nav-dropdown a.active { background: rgba(138,43,226,0.08); color: #fff; }
+    .nav-dropdown.active { display: flex; }
+    @media (max-width: 780px) {
+      nav ul { display: none; }
+      .hamburger-menu { display: flex; }
+      .nav-dropdown { display: none; }
+      .nav-dropdown.active { display: flex; }
+      nav { padding: 10px 18px; }
+    }
+
+    /* ----- HERO: image at top, smaller, content BELOW ----- */
+    .hero-section {
+      background: #0a0a0a;
+      padding: 20px 20px 0;
+    }
+    .hero-image {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: cover;
+    }
+
+    /* ----- content card (below image) ----- */
+    .hero-card {
+      max-width: 900px;
+      margin: -20px auto 0;          /* slight overlap for elegance */
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      background: rgba(16,16,16,0.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 48px;
+      padding: 40px 40px 50px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      transition: 0.3s;
+    }
+    .hero-card h1 {
+      font-size: 4.2rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      background: linear-gradient(180deg, #1a1a1a 10%, #4a4a4a 60%, #d0d0d0 95%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 40px rgba(255,255,255,0.04);
+    }
+    .hero-card .tagline {
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 600px;
+      margin: 8px auto 36px;
+      line-height: 1.7;
+      letter-spacing: 0.2px;
+    }
+    .hero-card .tagline i {
+      opacity: 0.3;
+      margin: 0 4px;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    .btn-location {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 40px;
+      border-radius: 80px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-location i { color: #8a2be2; font-size: 1.2rem; }
+    .btn-location:hover {
+      background: rgba(138,43,226,0.12);
+      border-color: #8a2be2;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(138,43,226,0.15);
+    }
+
+    /* ----- MODAL (popup) ----- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
+      background: rgba(20,20,20,0.92);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 32px;
+      max-width: 700px;
+      width: 100%;
+      padding: 28px 30px 34px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      transform: scale(0.94) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s;
+      opacity: 0;
+    }
+    .modal-overlay.active .modal-box {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+    .modal-box h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .modal-box h2 i { color: #8a2be2; }
+    .modal-map {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      height: 280px;
+      margin: 12px 0 16px;
+      background: #111;
+    }
+    .modal-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .modal-address {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      padding: 6px 0 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .modal-address i { color: #8a2be2; opacity: 0.7; }
+    .modal-extra {
+      font-style: italic;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      padding: 10px 0 6px;
+    }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .btn-get-location {
+      background: #8a2be2;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(138,43,226,0.3);
+      text-decoration: none;
+    }
+    .btn-get-location:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(138,43,226,0.5);
+    }
+    .btn-close-modal {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 28px;
+      border-radius: 60px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-close-modal:hover {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+    }
+
+    /* footer */
+    footer {
+      background: #0b0b0b;
+      padding: 24px 20px 18px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      margin-top: 40px;
+    }
+    .footer-content { max-width: 1000px; margin: 0 auto; }
+    .footer-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+    .footer-contacts {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      margin: 10px 0;
+    }
+    .footer-contacts a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0;
+    }
+    .social-icons a {
+      color: rgba(255,255,255,0.2);
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+    .social-icons a:hover { color: #8a2be2; }
+    .copyright {
+      color: rgba(255,255,255,0.12);
+      font-size: 0.6rem;
+      margin-top: 8px;
+    }
+    .whatsapp-button {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #25D366;
+      color: #fff;
+      width: 54px;
+      height: 54px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.25);
+      transition: 0.2s;
+      text-decoration: none;
+      z-index: 99;
+    }
+    .whatsapp-button:hover { transform: scale(1.06); }
+
+    @media (max-width: 600px) {
+      .hero-card { padding: 30px 20px 40px; margin-top: -10px; }
+      .hero-card h1 { font-size: 2.8rem; }
+      .btn-location { padding: 12px 24px; font-size: 1rem; }
+      .hero-image { border-radius: 16px; }
+      .hero-image img { max-height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo-container"><img src="images/logos/logo.png.png" alt="Simplicity Creations"></a>
+  <button class="hamburger-menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="shop.html">SHOP</a></li>
+    <li><a href="our-work.html">OUR WORK</a></li>
+    <li><a href="locations.html" class="active">STORES</a></li>
+    <li><a href="installation-support.html">INSTALLATION SUPPORT</a></li>
+    <li><a href="index.html#about-us">ABOUT US</a></li>
+    <li><a href="cart.html" class="cart-icon-only"><i class="fas fa-shopping-bag"></i></a></li>
+  </ul>
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="our-work.html">OUR WORK</a>
+    <a href="locations.html" class="active">STORES</a>
+    <a href="installation-support.html">INSTALLATION SUPPORT</a>
+    <a href="index.html#about-us">ABOUT US</a>
+    <a href="cart.html"><i class="fas fa-shopping-bag"></i> CART</a>
+  </div>
+</nav>
+
+<!-- HERO: image on top, content below -->
+<section class="hero-section">
+  <div class="hero-image">
+    <img src="images/locatiming.png" alt="Simplicity Creations showroom background">
+  </div>
+  <div class="hero-card">
+    <h1>Our Stores</h1>
+    <p class="tagline">
+      <i class="fas fa-quote-left"></i> Visit one of our showrooms to experience the Simplicity Creations difference. Our audio experts are ready to help you find the perfect sound system for your space. <i class="fas fa-quote-right"></i>
+    </p>
+    <div class="btn-group">
+      <button class="btn-location" data-showroom="couva"><i class="fas fa-map-pin"></i> Couva Showroom</button>
+      <button class="btn-location" data-showroom="arima"><i class="fas fa-map-pin"></i> Arima Showroom</button>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="locationModal">
+  <div class="modal-box">
+    <h2 id="modalTitle"><i class="fas fa-store"></i> Couva Showroom</h2>
+    <div class="modal-map">
+      <iframe id="modalMapIframe" src="" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div class="modal-address" id="modalAddress"><i class="fas fa-location-dot"></i> <span id="modalAddressText">109 Southern Main Road, MC Bean, Couva</span></div>
+    <div class="modal-extra" id="modalExtra"></div>
+    <div class="modal-actions">
+      <button class="btn-close-modal" id="closeModalBtn">Close</button>
+      <a class="btn-get-location" id="getLocationBtn" href="#" target="_blank"><i class="fas fa-directions"></i> Get location</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-links"><a href="locations.html">STORES</a></div>
+    <div class="footer-contacts">
+      📞 <a href="tel:+18687044477">Couva: +1 (868) 704-4477</a> | <a href="tel:+18687593037">Arima: +1 (868) 759-3037</a> | <a href="tel:+18687168237">Installer Adrian: +1 (868) 716-8237</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/simplicity_creations/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@simplicity_creations" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.youtube.com/c/SimplicityCreations" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/simplicitycreationsacm/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <p class="copyright">&copy; 2015 SIMPLICITY CREATIONS. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/18687168237?text=Hello%20Simplicity%20Creations%2C%20I%20need%20help%20with%20a%20product%20inquiry" class="whatsapp-button" target="_blank" title="Chat with us"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+  // ---- mobile menu ----
+  function toggleMobileMenu() {
+    document.querySelector('.hamburger-menu').classList.toggle('active');
+    document.getElementById('navDropdown').classList.toggle('active');
+  }
+  document.querySelectorAll('.nav-dropdown a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.hamburger-menu').classList.remove('active');
+      document.getElementById('navDropdown').classList.remove('active');
+    });
+  });
+
+  // ---- showroom data ----
+  const showrooms = {
+    couva: {
+      title: 'Couva Showroom',
+      mapSrc: 'https://www.google.com/maps/embed?pb=!4v1785970766372!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRG04ZERaandF!2m2!1d10.43226178016274!2d-61.4534489336062!3f276.86728!4f0!5f0.7820865974627469',
+      address: '109 Southern Main Road, MC Bean, Couva',
+      extra: '',
+      mapsLink: 'https://maps.app.goo.gl/Yx6h5duYKUbMRS78A?g_st=com.google.maps'
+    },
+    arima: {
+      title: 'Arima Showroom',
+      mapSrc: 'https://www.google.com/maps/embed?pb=!4v1785970955062!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJRG00YUN1S0E.!2m2!1d10.62888614186876!2d-61.31080369596816!3f153.6908445303377!4f-2.2898712379424353!5f0.49659612494120786',
+      address: '1 Mausica Rd, D\'Abadie',
+      extra: 'Showroom is behind the red building in frame',
+      mapsLink: 'https://maps.app.goo.gl/mGXrJ6Ki14mQZ1VL6?g_st=ic'
+    }
+  };
+
+  // ---- modal elements ----
+  const modal = document.getElementById('locationModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMapIframe = document.getElementById('modalMapIframe');
+  const modalAddressText = document.getElementById('modalAddressText');
+  const modalExtra = document.getElementById('modalExtra');
+  const getLocationBtn = document.getElementById('getLocationBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  function openModal(showroomKey) {
+    const data = showrooms[showroomKey];
+    if (!data) return;
+    modalTitle.innerHTML = `<i class="fas fa-store"></i> ${data.title}`;
+    modalMapIframe.src = data.mapSrc;
+    modalAddressText.textContent = data.address;
+    modalExtra.textContent = data.extra || '';
+    modalExtra.style.display = data.extra ? 'block' : 'none';
+    getLocationBtn.href = data.mapsLink;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { modalMapIframe.src = ''; }, 400);
+  }
+
+  document.querySelectorAll('.btn-location').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.showroom;
+      if (key) openModal(key);
+    });
+  });
+
+  closeModalBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+  });
+</script>
+</body>
+</html>

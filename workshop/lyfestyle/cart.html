@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Review your cart and place your order with Simplicity Creations." />
+    <title>Your Cart · Simplicity Creations</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #08090c;
+    --surface: #101217;
+    --surface-2: #151820;
+    --border: #252a34;
+    --text: #f3f4f6;
+    --text-dim: #8d94a3;
+    --accent: #8b5cf6;
+    --accent-soft: rgba(139, 92, 246, .12);
+    --success: #25d366;
+    --danger: #ef4444;
+    --radius: 14px;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --shadow: 0 12px 35px rgba(0,0,0,.28);
+}
+
+html { background: var(--bg); }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    opacity: 1 !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+    padding: 0 6%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(8,9,12,.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-logo { height: 42px; width: auto; display: block; }
+nav ul { display: flex; list-style: none; gap: 26px; align-items: center; }
+nav ul li a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: .2s;
+}
+nav ul li a:hover, nav ul li a.active { color: var(--accent); }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.hamburger span { width: 26px; height: 2px; background: var(--text); }
+
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    width: 100%;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 6%;
+    flex-direction: column;
+}
+.nav-dropdown.active { display: flex; }
+.nav-dropdown a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+}
+.nav-dropdown a:last-child { border-bottom: 0; }
+
+.page-title {
+    max-width: 1360px;
+    margin: 46px auto 30px;
+    padding: 0 6%;
+    font-size: 2.25rem;
+    font-weight: 850;
+    letter-spacing: -.03em;
+}
+.page-title i { color: var(--accent); margin-right: 10px; }
+
+.cart-grid {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 6% 70px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 370px;
+    gap: 42px;
+    align-items: start;
+}
+
+.cart-table-wrap {
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.cart-table th {
+    padding: 16px 18px;
+    text-align: left;
+    color: var(--text-dim);
+    font-size: .64rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+}
+.cart-table th:first-child { width: 46%; }
+.cart-table th:nth-child(2) { width: 16%; }
+.cart-table th:nth-child(3) { width: 16%; }
+.cart-table th:nth-child(4) { width: 16%; }
+.cart-table th:nth-child(5) { width: 6%; }
+
+.cart-table td {
+    padding: 18px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+.cart-table tbody tr:last-child td { border-bottom: 0; }
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+}
+
+.product-thumb {
+    width: 76px;
+    height: 76px;
+    flex: 0 0 76px;
+    border-radius: 12px;
+    background-color: var(--surface-2);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border);
+}
+
+.product-name {
+    font-size: .92rem;
+    font-weight: 750;
+    line-height: 1.3;
+    color: var(--text);
+}
+.product-brand {
+    margin-top: 4px;
+    font-size: .65rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.qty-ctrl {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface-2);
+    overflow: hidden;
+}
+.qty-ctrl button {
+    width: 32px;
+    height: 34px;
+    background: none;
+    border: 0;
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+}
+.qty-ctrl button:hover { background: var(--accent-soft); }
+.qty-ctrl input {
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: 0;
+    color: var(--text);
+    text-align: center;
+    font-weight: 750;
+    outline: none;
+}
+/* REMOVE THE UP/DOWN ARROWS */
+.qty-ctrl input::-webkit-outer-spin-button,
+.qty-ctrl input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.qty-ctrl input[type=text] {
+    -moz-appearance: textfield;
+}
+
+.remove-btn {
+    background: none;
+    border: 0;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 7px;
+}
+.remove-btn:hover { color: var(--danger); }
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 25px;
+    gap: 13px;
+    text-align: center;
+}
+.empty-state i { font-size: 2.6rem; color: var(--text-dim); opacity: .45; }
+.empty-state h3 { font-size: 1.15rem; }
+.empty-state p { color: var(--text-dim); font-size: .86rem; }
+.btn-outline {
+    margin-top: 8px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 25px;
+    border-radius: 9px;
+    font-weight: 750;
+    font-size: .75rem;
+    text-decoration: none;
+}
+.btn-outline:hover { background: var(--accent); color: #fff; }
+
+.summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 25px;
+    position: sticky;
+    top: 100px;
+    box-shadow: var(--shadow);
+}
+.summary-card h2 {
+    font-size: .78rem;
+    font-weight: 850;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    font-size: .9rem;
+}
+.summary-row.total {
+    margin-top: 15px;
+    padding-top: 17px;
+    border-top: 1px solid var(--border);
+    font-size: 1.4rem;
+    font-weight: 850;
+}
+.delivery-fee { color: var(--text-dim); }
+
+.order-form { margin-top: 22px; display: grid; gap: 13px; }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.label-sm {
+    color: var(--text-dim);
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+.label-sm i { width: 16px; }
+
+.input-field, .select-field {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: .88rem;
+    outline: none;
+}
+.input-field:focus, .select-field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.select-field option { background: var(--surface); color: var(--text); }
+
+.btn-whatsapp {
+    width: 100%;
+    margin-top: 21px;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--success);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    cursor: pointer;
+}
+.btn-whatsapp:hover { filter: brightness(1.08); }
+
+.continue-link {
+    display: block;
+    margin-top: 16px;
+    text-align: center;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: .68rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+.continue-link:hover { color: var(--accent); }
+
+.mobile-actions {
+    display: flex;
+    gap: 10px;
+    padding: 18px;
+    border-top: 1px solid var(--border);
+}
+.mobile-actions button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+}
+.mobile-actions button:hover { border-color: var(--accent); }
+
+footer {
+    background: #06070a;
+    border-top: 1px solid var(--border);
+    padding: 42px 6% 30px;
+}
+.footer-inner {
+    max-width: 1360px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+}
+.footer-contacts { color: var(--text-dim); font-size: .76rem; text-align: center; }
+.footer-contacts a { color: var(--text-dim); text-decoration: none; }
+.footer-contacts a:hover { color: var(--accent); }
+.social-links { display: flex; gap: 20px; }
+.social-links a { color: var(--text-dim); font-size: 1.15rem; }
+.social-links a:hover { color: var(--accent); }
+.footer-copy { color: var(--text-dim); opacity: .45; font-size: .62rem; }
+
+.toast-container {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    width: min(380px, calc(100% - 32px));
+}
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 17px;
+    margin-top: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transform: translateX(calc(100% + 30px));
+    opacity: 0;
+    transition: .3s;
+}
+.toast.show { transform: translateX(0); opacity: 1; }
+.toast i { color: var(--accent); }
+.toast-msg { font-size: .84rem; font-weight: 600; }
+.toast-close { margin-left: auto; background: none; border: 0; color: var(--text-dim); cursor: pointer; }
+
+@media (max-width: 1050px) {
+    .cart-grid { grid-template-columns: 1fr; }
+    .summary-card { position: static; }
+}
+
+@media (max-width: 760px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .page-title { font-size: 1.7rem; margin-top: 32px; }
+    .cart-grid { padding: 0 4% 50px; }
+    .cart-table-wrap { overflow-x: auto; }
+    .cart-table { min-width: 700px; }
+    .summary-card { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+    .page-title { font-size: 1.4rem; }
+    .product-thumb { width: 60px; height: 60px; flex-basis: 60px; }
+    .mobile-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html"><img src="images/logos/logo.png.png" alt="Simplicity Creations" class="nav-logo" /></a>
+        <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="our-work.html">Our Work</a></li>
+            <li><a href="locations.html">Stores</a></li>
+            <li><a href="installation-support.html">Support</a></li>
+            <li><a href="index.html#about-us">About</a></li>
+            <li><a href="cart.html" class="active"><i class="fas fa-shopping-bag"></i></a></li>
+        </ul>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="our-work.html">Our Work</a>
+            <a href="locations.html">Stores</a>
+            <a href="installation-support.html">Support</a>
+            <a href="index.html#about-us">About</a>
+            <a href="cart.html" class="active"><i class="fas fa-shopping-bag"></i> Cart</a>
+        </div>
+    </nav>
+
+    <h1 class="page-title"><i class="fas fa-shopping-cart"></i> Your Cart</h1>
+
+    <div class="cart-grid">
+        <div class="cart-table-wrap">
+            <table class="cart-table" id="cartTable">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th style="text-align:center;">Price</th>
+                        <th style="text-align:center;">Qty</th>
+                        <th style="text-align:center;">Total</th>
+                        <th style="text-align:center;"></th>
+                    </tr>
+                </thead>
+                <tbody id="cartBody"></tbody>
+            </table>
+
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-box-open"></i>
+                <h3>Your cart is empty</h3>
+                <p>Browse our collection of premium audio products.</p>
+                <a href="shop.html" class="btn-outline">Start Shopping</a>
+            </div>
+
+            <div class="mobile-actions" id="mobileActions">
+                <button onclick="clearCart()"><i class="fas fa-trash-alt"></i> Clear Cart</button>
+            </div>
+        </div>
+
+        <aside class="summary-card">
+            <h2><i class="fas fa-receipt" style="margin-right:8px;"></i>Order Summary</h2>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotalDisplay">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span> </span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="totalDisplay">$0.00</span>
+            </div>
+
+            <div class="order-form">
+                <div class="field-group">
+                    <span class="label-sm"><i class="fas fa-user"></i> Full name</span>
+                    <input id="checkoutName" type="text" placeholder="e.g. James Carter" class="input-field" />
+                </div>
+                <div class="field-group">
+                    <span class="label-sm"><i class="fas fa-phone-alt"></i> Contact number</span>
+                    <input id="checkoutContact" type="tel" placeholder="868-704-4477" class="input-field" />
+                </div>
+                <div class="field-group hidden-field" id="pickupGroup">
+                    <span class="label-sm"><i class="fas fa-store"></i> Pickup branch</span>
+                    <select id="pickupBranch" class="select-field">
+                        <option value="">Select branch</option>
+                        <option value="Couva Distributor">Couva</option>
+                        <option value="Arima Distributor">Arima</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-whatsapp" onclick="placeOrder()">
+                <i class="fab fa-whatsapp"></i> Place order
+            </button>
+            <a href="shop.html" class="continue-link"><i class="fas fa-arrow-left" style="margin-right:6px;"></i>Continue shopping</a>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-contacts">
+                <i class="fas fa-phone-alt"></i> <a href="tel:+18687044477">Couva +1 (868) 704-4477</a> &middot;
+                <a href="tel:+18687593037">Arima +1 (868) 759-3037</a> &middot;
+                <a href="tel:+18687168237">Installer +1 (868) 716-8237</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/simplicity_creations_tt/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@simplicity_creations" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/c/SimplicityCreations" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.facebook.com/simplicitycreationsacm/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="footer-copy">&copy; 2015 Simplicity Creations. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const WHATSAPP_NUMBER = "18687168237";
+        let toastTimer = null;
+
+        // Sample products
+        const SAMPLE_PRODUCTS = [
+            { id: 's1', name: 'D4S MM1000', price: 299.99, brand: 'D4S', image: 'images/d4sMM1000-GRAY1.png' },
+            { id: 's2', name: 'JL Audio 12W3v3', price: 349.99, brand: 'JL Audio', image: 'images/jl-audio.jpg' },
+            { id: 's3', name: 'Kicker 46CSC654', price: 129.99, brand: 'Kicker', image: 'images/kicker.jpg' }
+        ];
+
+        function getCart() {
+            try { 
+                const data = localStorage.getItem('cart');
+                return data ? JSON.parse(data) : []; 
+            } catch { 
+                return []; 
+            }
+        }
+        function setCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function showToast(message, icon = 'fa-check-circle') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span class="toast-msg">${message}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(toast);
+            requestAnimationFrame(() => { toast.classList.add('show'); });
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                if (toast.parentNode) { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }
+            }, 4200);
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const tbody = document.getElementById('cartBody');
+            const empty = document.getElementById('emptyState');
+            const table = document.getElementById('cartTable');
+
+            tbody.innerHTML = '';
+
+            if (!cart || !cart.length) {
+                empty.style.display = 'flex';
+                table.style.display = 'none';
+                updateSummary(0, 0);
+                return;
+            }
+            empty.style.display = 'none';
+            table.style.display = 'table';
+
+            cart.forEach((item, idx) => {
+                const price = Number(item.price) || 0;
+                const qty = Number(item.qty) || 1;
+                const total = price * qty;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div class="product-cell">
+                            <div class="product-thumb" style="background-image:url('${item.image || 'images/placeholder.png'}');"></div>
+                            <div>
+                                <div class="product-name">${item.name || 'Product'}</div>
+                                <div class="product-brand">${item.brand || 'Simplicity'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="font-weight:600; color:var(--text);">$${price.toFixed(2)}</td>
+                    <td>
+                        <div class="qty-ctrl">
+                            <button onclick="changeQty(${idx}, -1)">−</button>
+                            <input type="text" value="${qty}" readonly />
+                            <button onclick="changeQty(${idx}, 1)">+</button>
+                        </div>
+                    </td>
+                    <td style="font-weight:700; color:var(--text);">$${total.toFixed(2)}</td>
+                    <td><button class="remove-btn" onclick="removeItem(${idx})"><i class="fas fa-times"></i></button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            calculateTotal();
+        }
+
+        function changeQty(idx, delta) {
+            const cart = getCart();
+            if (!cart[idx]) return;
+            cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
+            setCart(cart);
+            renderCart();
+        }
+
+        function removeItem(idx) {
+            const cart = getCart();
+            cart.splice(idx, 1);
+            setCart(cart);
+            renderCart();
+            showToast('Item removed from cart.', 'fa-trash-alt');
+        }
+
+        function calculateTotal() {
+            const cart = getCart();
+            const subtotal = cart.reduce((sum, i) => sum + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
+            updateSummary(subtotal, 0);
+        }
+
+        function formatMoney(amount) {
+            return Number(amount || 0).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function updateSummary(subtotal, fee) {
+            document.getElementById('subtotalDisplay').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryDisplay').textContent = '—';
+            document.getElementById('totalDisplay').textContent = `$${(subtotal + fee).toFixed(2)}`;
+        }
+
+        function placeOrder() {
+            const cart = getCart();
+            if (!cart.length) {
+                showToast('Your cart is empty. Add some products first.', 'fa-exclamation-circle');
+                return;
+            }
+
+            const name = document.getElementById('checkoutName').value.trim();
+            const contact = document.getElementById('checkoutContact').value.trim();
+            const pickup = document.getElementById('pickupBranch').value;
+
+            if (!name) { showToast('Please enter your full name.', 'fa-user'); document.getElementById('checkoutName').focus(); return; }
+            if (!contact) { showToast('Please enter a contact number.', 'fa-phone-alt'); document.getElementById('checkoutContact').focus(); return; }
+            const cleanContact = contact.replace(/\D/g, '');
+            if (cleanContact.length < 7 || cleanContact.length > 15) {
+                showToast('Contact number must be 7–15 digits.', 'fa-phone-alt');
+                document.getElementById('checkoutContact').focus();
+                return;
+            }            if (!pickup) { showToast('Please select a pickup branch.', 'fa-store'); document.getElementById('pickupBranch').focus(); return; }
+
+            // --- Simple, clean order message ---
+            const lines = [];
+            lines.push(`Hello, I would like to place an order for pickup at ${pickup}.`);
+            lines.push('');
+            lines.push(`Order details:`);
+
+            let subtotal = 0;
+            cart.forEach((item, i) => {
+                const price = Number(item.price) || 0;
+                const qty = Number(item.qty) || 1;
+                const total = price * qty;
+                subtotal += total;
+
+                lines.push(`${i+1}. ${item.name} (x${qty}) - $${formatMoney(total)}`);
+            });
+
+            lines.push('');
+            lines.push(`Total: $${formatMoney(subtotal)}`);
+            lines.push(`My contact is ${cleanContact}.`);
+            lines.push('');
+            lines.push(`Thanks, ${name}`);
+
+            const msg = encodeURIComponent(lines.join('\n'));
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        }
+
+        function clearCart() {
+            const cart = getCart();
+            if (!cart.length) { showToast('Cart is already empty.', 'fa-info-circle'); return; }
+            setCart([]);
+            renderCart();
+            showToast('Cart cleared.', 'fa-trash-alt');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('navDropdown').classList.toggle('active');
+        }
+        document.querySelectorAll('.nav-dropdown a, .nav-dropdown button').forEach(el => {
+            el.addEventListener('click', () => {
+                document.getElementById('navDropdown').classList.remove('active');
+            });
+        });
+document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+    </script>
+<style>body{opacity:1!important}</style>
+</body>
+</html>
