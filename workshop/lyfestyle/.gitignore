@@ -1,0 +1,5 @@
+.venv/
+*.pyc
+__pycache__/
+*.mov
+a6/videos/home-hero.mp4

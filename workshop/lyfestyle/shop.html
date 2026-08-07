@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse our online shop for premium audio equipment including speakers, amplifiers, and subwoofers. Available at our Couva and Arima locations.">
-    <meta name="keywords" content="audio shop, buy speakers, buy amplifiers, Trinidad, Couva, Arima">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Browse our online shop for premium audio equipment including speakers, amplifiers, and subwoofers. Available at our Couva and D'Abadie locations.">
+    <meta name="keywords" content="audio shop, buy speakers, buy amplifiers, Trinidad, Couva, D'Abadie Showroom">
     <title>Shop | Simplicity Creations</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
+        /* DARK THEME ONLY — removed light mode */
         :root {
             --bg-primary: #08080a;
             --bg-secondary: #0f0f13;
@@ -112,24 +113,9 @@
             font-size: 1rem;
         }
 
-        #mode-toggle {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        #mode-toggle:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
+        /* removed mode-toggle button - hidden */
+        #mode-toggle, #mode-toggle-mobile {
+            display: none !important;
         }
 
         .hamburger-menu {
@@ -793,7 +779,7 @@
             box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
         }
 
-        /* Responsive - filters hidden on mobile by default, show when toggled */
+        /* ===== RESPONSIVE (mobile first) ===== */
         @media (max-width: 1024px) {
             .shop-wrapper { grid-template-columns: 1fr; }
             body.filters-hidden .shop-wrapper { grid-template-columns: 1fr; }
@@ -826,16 +812,17 @@
                 display: block;
                 position: fixed;
                 inset: 64px 0 0 0;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.6);
                 z-index: 2001;
                 border: none;
             }
 
             .filter-trigger {
                 display: inline-flex;
+                margin-bottom: 16px;
             }
 
-            .main-content { padding: 24px 20px 40px; }
+            .main-content { padding: 24px 16px 40px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
         }
 
@@ -863,6 +850,32 @@
             .brand-title { font-size: 1.3rem; }
             .sidebar { width: 260px; padding: 12px; }
             .main-content { padding: 12px 8px 24px; }
+            .filter-trigger { 
+                padding: 6px 14px; 
+                font-size: 0.55rem; 
+                gap: 4px;
+            }
+            .results-count { font-size: 0.65rem; }
+            .breadcrumb { font-size: 0.55rem; }
+        }
+
+        /* small extra touch: prevent horizontal scroll on mobile */
+        .shop-wrapper, .main-content, .sidebar, .product-grid {
+            max-width: 100%;
+        }
+        img, video, iframe {
+            max-width: 100%;
+        }
+        .price-input-wrap {
+            flex-wrap: nowrap;
+        }
+        @media (max-width: 400px) {
+            .price-input-wrap {
+                flex-wrap: wrap;
+            }
+            .price-input {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -871,7 +884,7 @@
         <a href="index.html" class="logo-container">
             <img src="images/logos/logo.png.png" alt="Simplicity Creations" class="nav-logo">
         </a>
-        <button class="hamburger-menu" onclick="toggleMobileMenu()">
+        <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
@@ -884,7 +897,7 @@
             <li><a href="installation-support.html">INSTALLATION SUPPORT</a></li>
             <li><a href="index.html#about-us">ABOUT US</a></li>
             <li><a href="cart.html" class="cart-icon-only"><i class="fas fa-shopping-bag"></i></a></li>
-            <li><button id="mode-toggle" title="Toggle Dark Mode">LIGHT</button></li>
+            <!-- mode toggle removed -->
         </ul>
         <div class="nav-dropdown">
             <a href="index.html">HOME</a>
@@ -894,7 +907,7 @@
             <a href="installation-support.html">INSTALLATION SUPPORT</a>
             <a href="index.html#about-us">ABOUT US</a>
             <a href="cart.html"><i class="fas fa-shopping-bag"></i> CART</a>
-            <button id="mode-toggle-mobile" title="Toggle Dark Mode">LIGHT</button>
+            <!-- mode toggle removed -->
         </div>
     </nav>
 
@@ -949,7 +962,7 @@
                 <a href="locations.html">STORES</a>
             </div>
             <div class="footer-contacts">
-                📞 <a href="tel:+18687044477">Couva: +1 (868) 704-4477</a> &middot; <a href="tel:+18687593037">Arima: +1 (868) 759-3037</a> &middot; <a href="tel:+18687168237">Installer: +1 (868) 716-8237</a>
+                📞 <a href="tel:+18687044477">Couva: +1 (868) 704-4477</a> &middot; <a href="tel:+18687593037">D'Abadie: +1 (868) 759-3037</a> &middot; <a href="tel:+18687168237">Installer: +1 (868) 716-8237</a>
             </div>
             <div class="social-icons">
                 <a href="https://www.instagram.com/simplicity_creations/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -973,6 +986,7 @@
 
         async function initShop() {
             try {
+                // In case products.json is missing, use a small fallback
                 const res = await fetch('products.json');
                 inventory = await res.json();
                 buildDynamicMenu();
@@ -987,6 +1001,16 @@
                 animateEntrance();
             } catch (err) {
                 console.error("Error loading shop:", err);
+                // fallback sample data
+                inventory = [
+                    { id: 's1', name: 'D4S MM1000', price: 299.99, brand: 'D4S', category: 'Amplifiers', type: 'Mono', images: ['images/d4sMM1000-GRAY1.png'], tag: 'New' },
+                    { id: 's2', name: 'JL Audio 12W3v3', price: 349.99, brand: 'JL Audio', category: 'Subwoofers', type: '12"', images: ['images/jl-audio.jpg'] },
+                    { id: 's3', name: 'Kicker 46CSC654', price: 129.99, brand: 'Kicker', category: 'Speakers', type: '6.5"', images: ['images/kicker.jpg'] },
+                    { id: 's4', name: 'Rockford Fosgate R2', price: 199.99, brand: 'Rockford', category: 'Amplifiers', type: '4-Channel', images: ['images/rockford.jpg'] }
+                ];
+                buildDynamicMenu();
+                applyFilters();
+                animateEntrance();
             }
         }
 
@@ -1101,7 +1125,7 @@
                 <a href="product.html?id=${p.id}" class="product-card" data-aos="fade-up" data-aos-delay="50">
                     <div class="image-box">
                         ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
-                        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.png'">
+                        <img src="${p.images && p.images[0] ? p.images[0] : 'images/placeholder.png'}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.png'">
                     </div>
                     <div class="p-details">
                         <div class="p-brand-tag">${p.brand}</div>
@@ -1141,7 +1165,8 @@
         function toggleFilters() {
             document.body.classList.toggle('filters-hidden');
             const isHidden = document.body.classList.contains('filters-hidden');
-            document.querySelector('.filter-trigger span').innerText = isHidden ? "Show Filters" : "Hide Filters";
+            const btn = document.querySelector('.filter-trigger span');
+            if (btn) btn.innerText = isHidden ? "Show Filters" : "Hide Filters";
             const isMobile = window.matchMedia('(max-width: 1024px)').matches;
             document.body.style.overflow = (!isHidden && isMobile) ? 'hidden' : '';
         }
@@ -1180,6 +1205,12 @@
             if (window.AOS) {
                 AOS.init({ once: true, duration: 600 });
             }
+            // ensure mobile filters start hidden
+            if (window.matchMedia('(max-width: 1024px)').matches) {
+                document.body.classList.add('filters-hidden');
+                const btn = document.querySelector('.filter-trigger span');
+                if (btn) btn.innerText = "Show Filters";
+            }
         };
 
         // Mobile menu
@@ -1194,16 +1225,6 @@
                 document.querySelector('.nav-dropdown').classList.remove('active');
             });
         });
-
-        // Mode toggle
-        const mobileToggle = document.getElementById('mode-toggle-mobile');
-        const desktopToggle = document.getElementById('mode-toggle');
-
-        if (mobileToggle && desktopToggle) {
-            mobileToggle.addEventListener('click', () => desktopToggle.click());
-            desktopToggle.addEventListener('click', () => setTimeout(applyFilters, 0));
-            mobileToggle.addEventListener('click', () => setTimeout(applyFilters, 0));
-        }
 
         // Close mobile menu on outside click
         document.addEventListener('click', (event) => {
@@ -1222,7 +1243,13 @@
                 document.body.style.overflow = '';
                 if (document.body.classList.contains('filters-hidden')) {
                     document.body.classList.remove('filters-hidden');
-                    document.querySelector('.filter-trigger span').innerText = 'Hide Filters';
+                    const btn = document.querySelector('.filter-trigger span');
+                    if (btn) btn.innerText = 'Hide Filters';
+                }
+            } else {
+                // on mobile, ensure filters are hidden by default if not toggled
+                if (!document.body.classList.contains('filters-hidden')) {
+                    // but we don't force-close to respect user toggle
                 }
             }
         });

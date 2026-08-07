@@ -1,0 +1,5 @@
+.venv/
+_originals_before_bg_remove/
+tools/
+*.pyc
+__pycache__/
