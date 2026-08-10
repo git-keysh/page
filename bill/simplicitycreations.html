@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Simplicity Creations · Invoice from KEYSHAUN SOOKDAR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #0b0f17 0%, #03050a 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 55px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,180,120,0.25);
+    }
+    .transfer-btn {
+      background: linear-gradient(135deg, #0f5c3b, #0a462c);
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 18px rgba(0,80,40,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .transfer-btn:hover {
+      background: linear-gradient(135deg, #127a4b, #0d5e36);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0,100,50,0.5);
+    }
+    .transfer-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 5px 12px rgba(0,70,30,0.6);
+    }
+    .badge-bank {
+      background: #e8f5e9;
+      color: #0b4635;
+      border-left: 4px solid #0f5c3b;
+    }
+    .step-indicator {
+      background: #0f5c3b;
+      color: white;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .recipient-highlight {
+      background: linear-gradient(to right, #f0fdf4, #ffffff);
+      border: 1px solid #bbf7d0;
+    }
+  </style>
+</head>
+<body>
+<div class="w-full max-w-4xl mx-auto">
+  <div class="glass-card rounded-3xl p-6 md:p-8 flex flex-col gap-6">
+    
+    <!-- Header with clear recipient indication -->
+    <div class="flex flex-wrap justify-between items-start gap-3 border-b border-gray-200 pb-5">
+      <div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">KEYSHAUN SOOKDAR</span>
+          <span class="text-gray-500 font-semibold text-lg">💻</span>
+          <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">invoicing</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-1 flex items-center gap-2">
+          <span class="step-indicator">🧾</span> 
+          <span class="font-medium text-gray-700">Client: <span class="text-emerald-700 font-bold">Simplicity Creations</span></span>
+          <span class="text-gray-300">|</span>
+          <span class="font-medium text-gray-700">POC: <span class="text-blue-700 font-bold">Justin Joseph</span></span>
+        </div>
+      </div>
+      <div class="bg-emerald-50 px-4 py-1.5 rounded-full text-emerald-700 text-xs font-bold border border-emerald-200 shadow-sm flex items-center gap-1">
+        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> INVOICE READY
+      </div>
+    </div>
+
+    <!-- Invoice Summary + Bank details -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- LEFT: Invoice & amount (from KEYSHAUN to Simplicity Creations) -->
+      <div class="bg-gray-50/80 rounded-2xl p-5 border border-gray-100">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="font-semibold text-gray-800 text-sm uppercase tracking-wide">Invoice #SC-2026-01</h3>
+          <span class="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">Due: Today</span>
+        </div>
+        <div class="text-xs text-gray-500 mb-3 flex items-center gap-1">
+          <span>From: KEYSHAUN SOOKDAR</span>
+          <span class="mx-1">→</span>
+          <span class="font-medium text-emerald-700">To: Simplicity Creations</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex justify-between text-gray-700 text-sm">
+            <span>Web Design & Development</span>
+            <span class="font-medium">250.00 USD</span>
+          </div>
+          <div class="flex justify-between text-gray-700 text-sm">
+            <span>Web Application Development</span>
+            <span class="font-medium">150.00 USD</span>
+          </div>
+          <div class="flex justify-between text-gray-700 text-sm">
+            <span>Maintenance & Ongoing Support</span>
+            <span class="font-medium">100.00 USD</span>
+          </div>
+          <div class="flex justify-between items-center pt-3 mt-2 border-t-2 border-gray-200">
+            <span class="font-bold text-base text-gray-900">Total to pay</span>
+            <span class="text-2xl font-extrabold text-gray-900 tracking-tight">$500.00 USD</span>
+          </div>
+        </div>
+        <div class="mt-4 bg-white rounded-xl p-3 text-xs text-gray-600 border border-gray-200 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Please use exact amount for automatic matching.</span>
+        </div>
+        <div class="mt-3 text-xs text-gray-400 flex flex-wrap gap-x-4">
+          <span>📁 <span class="font-mono">public/*</span> 20+ assets</span>
+          <span>🔗 <a href="https://simplicitycreations.web.app/" target="_blank" class="text-emerald-600 hover:underline">simplicitycreations.web.app</a></span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Bank recipient card (KEYSHAUN's details) -->
+      <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-md flex flex-col recipient-highlight">
+        <div class="badge-bank px-4 py-2 rounded-lg text-sm font-semibold mb-4 flex items-center gap-2">
+          <span>🏦 FIRST CITIZENS BANK LIMITED</span>
+        </div>
+        
+        <div class="space-y-4 flex-1">
+          <div>
+            <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Account Holder (Recipient)</label>
+            <div class="flex items-center justify-between mt-1 bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <span class="font-bold text-gray-900 text-base">KEYSHAUN MALACHI SOOKDAR</span>
+              <button onclick="copyText('KEYSHAUN MALACHI SOOKDAR', this)" class="text-emerald-600 hover:text-emerald-800 text-xs font-semibold bg-white px-3 py-1 rounded-full border border-emerald-200 transition">Copy</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Account Number</label>
+            <div class="flex items-center justify-between mt-1 bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <span class="font-bold text-gray-900 text-lg tracking-wider font-mono">3140535</span>
+              <button onclick="copyText('3140535', this)" class="text-emerald-600 hover:text-emerald-800 text-xs font-semibold bg-white px-3 py-1 rounded-full border border-emerald-200 transition">Copy</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Bank · Branch</label>
+            <div class="mt-1 bg-gray-50 p-3 rounded-lg border border-gray-200 text-gray-800 font-medium">
+              First Citizens Bank Limited · Trinidad & Tobago
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Email</label>
+            <div class="mt-1 bg-gray-50 p-3 rounded-lg border border-gray-200 text-gray-800 font-medium flex items-center gap-2">
+              <span class="font-mono text-sm">KSookdar@proton.me</span>
+              <button onclick="copyText('KSookdar@proton.me', this)" class="text-emerald-600 hover:text-emerald-800 text-xs font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-auto">Copy</button>
+            </div>
+          </div>
+
+          <!-- Client POC info (Justin) -->
+          <div class="mt-2 pt-3 border-t border-dashed border-gray-200">
+            <div class="bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-semibold mb-2 flex items-center gap-2 border-l-4 border-blue-500">
+              <span>📌 CLIENT POC (your contact at Simplicity Creations)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200">
+                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Name</label>
+                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
+                  Justin Joseph
+                  <button onclick="copyText('Justin Joseph', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
+                </div>
+              </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200">
+                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Phone</label>
+                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
+                  +1 (868) 710-0175
+                  <button onclick="copyText('+1 (868) 710-0175', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
+                </div>
+              </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200 col-span-2">
+                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Email</label>
+                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
+                  justinjoseph6682@gmail.com
+                  <button onclick="copyText('justinjoseph6682@gmail.com', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-[10px] text-gray-400 mt-1.5 flex items-center gap-1">
+              <span class="inline-block w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+              Justin is your POC at Simplicity Creations — send payment confirmation to him
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-100 text-[11px] text-gray-500 flex justify-between items-center">
+          <span>🔒 Ticket: NC-260805-4283</span>
+          <span class="font-mono">SWIFT: FCTTTTPS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transfer instructions -->
+    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-5 border border-gray-200">
+      <h4 class="font-semibold text-gray-800 flex items-center gap-2 mb-4">
+        <span class="step-indicator">📋</span> How to pay KEYSHAUN SOOKDAR via bank transfer
+      </h4>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-emerald-700 font-bold text-lg mb-1">①</div>
+          <p class="font-semibold text-gray-800">Log in to your bank</p>
+          <p class="text-gray-500 text-xs mt-1">Online banking or mobile app (First Citizens or any local bank).</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-emerald-700 font-bold text-lg mb-1">②</div>
+          <p class="font-semibold text-gray-800">Send to KEYSHAUN</p>
+          <p class="text-gray-500 text-xs mt-1">Transfer <span class="font-bold text-gray-900">$500.00 USD</span> to account <span class="font-mono font-bold">3140535</span> (First Citizens).</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+          <div class="text-emerald-700 font-bold text-lg mb-1">③</div>
+          <p class="font-semibold text-gray-800">Confirm & notify</p>
+          <p class="text-gray-500 text-xs mt-1">Use reference <span class="font-mono">SC-2026-01</span> and click below to notify <span class="font-medium text-blue-700">Justin</span> (your POC).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-2">
+      <button id="confirmTransferBtn" class="transfer-btn flex-1 text-white rounded-xl py-4 px-6 font-bold text-base md:text-lg flex items-center justify-center gap-2 shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+        I've paid — notify Justin (POC)
+      </button>
+      <button id="copyAllDetailsBtn" class="bg-white border-2 border-emerald-700 text-emerald-800 rounded-xl py-4 px-6 font-bold text-base flex items-center justify-center gap-2 hover:bg-emerald-50 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy all bank details
+      </button>
+    </div>
+
+    <!-- Contact info -->
+    <div class="text-center text-xs text-gray-500 mt-1 flex flex-wrap justify-center gap-x-4 gap-y-1">
+      <span>⚡ WhatsApp KEYSHAUN: <span class="font-mono text-emerald-700 font-medium">+1 (868) 739-3193</span></span>
+      <span class="hidden sm:inline">•</span>
+      <span>📧 Email: <span class="font-mono text-emerald-700 font-medium">KSookdar@proton.me</span></span>
+      <span class="hidden sm:inline">•</span>
+      <span>📌 Client POC: <span class="font-mono text-blue-700 font-medium">Justin Joseph</span></span>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="mt-5 text-center text-gray-500 text-[11px] flex flex-wrap justify-center gap-x-6 gap-y-1">
+    <span>© 2026 KEYSHAUN SOOKDAR</span>
+    <span class="hidden md:inline">•</span>
+    <span>Invoice for Simplicity Creations · Ticket NC-260805-4283</span>
+    <span class="hidden md:inline">•</span>
+    <span>🔐 TLS 1.3 · No card data stored</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // YOUR details (KEYSHAUN - the recipient)
+    const BANK_ACCOUNT = "3140535";
+    const ACCOUNT_HOLDER = "KEYSHAUN MALACHI SOOKDAR";
+    const BANK_NAME = "FIRST CITIZENS BANK LIMITED";
+    const RECIPIENT_EMAIL = "KSookdar@proton.me";
+    const TOTAL_AMOUNT = "$500.00 USD";
+    const INVOICE_REF = "SC-2026-01";
+    const YOUR_PHONE = "18687393193"; // Your WhatsApp
+
+    // Client POC (Justin at Simplicity Creations)
+    const POC_NAME = "Justin Joseph";
+    const POC_PHONE = "18687100175";
+    const POC_EMAIL = "justinjoseph6682@gmail.com";
+    const TICKET = "NC-260805-4283";
+    const SITE = "https://simplicitycreations.web.app/";
+
+    // Copy function
+    window.copyText = function(text, buttonElement) {
+      navigator.clipboard.writeText(text).then(() => {
+        if (buttonElement) {
+          const originalText = buttonElement.innerText;
+          buttonElement.innerText = '✓ Copied';
+          buttonElement.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            buttonElement.innerText = originalText;
+            buttonElement.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 1800);
+        }
+      }).catch(() => {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (buttonElement) {
+          buttonElement.innerText = 'Copied';
+          setTimeout(() => { buttonElement.innerText = 'Copy'; }, 1500);
+        }
+      });
+    };
+
+    // Copy all bank details
+    function copyAllBankDetails() {
+      const detailsBlock = `💻 KEYSHAUN SOOKDAR - Payment Details\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `RECIPIENT (Pay to):\n` +
+        `  Account Holder: ${ACCOUNT_HOLDER}\n` +
+        `  Account Number: ${BANK_ACCOUNT}\n` +
+        `  Bank: ${BANK_NAME}\n` +
+        `  SWIFT: FCTTTTPS\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `CLIENT POC (Justin at Simplicity Creations):\n` +
+        `  Name: ${POC_NAME}\n` +
+        `  Phone: +1 (868) 710-0175\n` +
+        `  Email: ${POC_EMAIL}\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Invoice: ${INVOICE_REF}\n` +
+        `Ticket: ${TICKET}\n` +
+        `Amount: ${TOTAL_AMOUNT}\n` +
+        `Site: ${SITE}`;
+      
+      navigator.clipboard.writeText(detailsBlock).then(() => {
+        const btn = document.getElementById('copyAllDetailsBtn');
+        if (btn) {
+          const origHTML = btn.innerHTML;
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> All details copied!`;
+          btn.classList.add('bg-emerald-50');
+          setTimeout(() => {
+            btn.innerHTML = origHTML;
+            btn.classList.remove('bg-emerald-50');
+          }, 2200);
+        }
+      }).catch(() => {
+        alert('Please manually copy the account details shown on screen.');
+      });
+    }
+
+    // WhatsApp message to Justin (POC at Simplicity Creations) after they pay
+    function buildWhatsAppMessage() {
+      const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return `Hello Justin (POC at Simplicity Creations),%0A%0A` +
+        `✅ I have completed the bank transfer for invoice ${INVOICE_REF} from KEYSHAUN SOOKDAR.%0A` +
+        `📄 Ticket: ${TICKET}%0A` +
+        `💰 Amount: ${TOTAL_AMOUNT}%0A` +
+        `🏦 Bank: ${BANK_NAME}%0A` +
+        `👤 Recipient: ${ACCOUNT_HOLDER} (${BANK_ACCOUNT})%0A` +
+        `📅 Transfer date: ${dateStr}%0A%0A` +
+        `Please confirm receipt and let KEYSHAUN know at ${RECIPIENT_EMAIL}.%0A` +
+        `(Reference: ${INVOICE_REF})%0A%0A` +
+        `Thank you.`;
+    }
+
+    function handleTransferConfirmation() {
+      const phone = POC_PHONE; // Justin's phone
+      const whatsappURL = `https://wa.me/${phone}?text=${buildWhatsAppMessage()}`;
+      window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+      console.log('[KEYSHAUN] Payment confirmation sent to POC (Justin) via WhatsApp.');
+    }
+
+    // Attach listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      const confirmBtn = document.getElementById('confirmTransferBtn');
+      const copyAllBtn = document.getElementById('copyAllDetailsBtn');
+
+      if (confirmBtn) {
+        confirmBtn.addEventListener('click', handleTransferConfirmation);
+      }
+      if (copyAllBtn) {
+        copyAllBtn.addEventListener('click', copyAllBankDetails);
+      }
+
+      const allActionBtns = document.querySelectorAll('button');
+      allActionBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          this.style.transform = 'scale(0.97)';
+          setTimeout(() => { this.style.transform = ''; }, 120);
+        });
+      });
+    });
+
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.height = 'auto';
+    document.documentElement.style.height = 'auto';
+  })();
+</script>
+</body>
+</html>
