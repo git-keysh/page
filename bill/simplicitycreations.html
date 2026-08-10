@@ -69,7 +69,7 @@
 <div class="w-full max-w-4xl mx-auto">
   <div class="glass-card rounded-3xl p-6 md:p-8 flex flex-col gap-6">
     
-    <!-- Header with clear recipient indication -->
+    <!-- Header -->
     <div class="flex flex-wrap justify-between items-start gap-3 border-b border-gray-200 pb-5">
       <div>
         <div class="flex items-center gap-2 flex-wrap">
@@ -80,8 +80,6 @@
         <div class="text-sm text-gray-500 mt-1 flex items-center gap-2">
           <span class="step-indicator">🧾</span> 
           <span class="font-medium text-gray-700">Client: <span class="text-emerald-700 font-bold">Simplicity Creations</span></span>
-          <span class="text-gray-300">|</span>
-          <span class="font-medium text-gray-700">POC: <span class="text-blue-700 font-bold">Justin Joseph</span></span>
         </div>
       </div>
       <div class="bg-emerald-50 px-4 py-1.5 rounded-full text-emerald-700 text-xs font-bold border border-emerald-200 shadow-sm flex items-center gap-1">
@@ -92,7 +90,7 @@
     <!-- Invoice Summary + Bank details -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       
-      <!-- LEFT: Invoice & amount (from KEYSHAUN to Simplicity Creations) -->
+      <!-- LEFT: Invoice & amount -->
       <div class="bg-gray-50/80 rounded-2xl p-5 border border-gray-100">
         <div class="flex justify-between items-center mb-3">
           <h3 class="font-semibold text-gray-800 text-sm uppercase tracking-wide">Invoice #SC-2026-01</h3>
@@ -168,40 +166,6 @@
               <button onclick="copyText('KSookdar@proton.me', this)" class="text-emerald-600 hover:text-emerald-800 text-xs font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-auto">Copy</button>
             </div>
           </div>
-
-          <!-- Client POC info (Justin) -->
-          <div class="mt-2 pt-3 border-t border-dashed border-gray-200">
-            <div class="bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-semibold mb-2 flex items-center gap-2 border-l-4 border-blue-500">
-              <span>📌 CLIENT POC (your contact at Simplicity Creations)</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200">
-                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Name</label>
-                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
-                  Justin Joseph
-                  <button onclick="copyText('Justin Joseph', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
-                </div>
-              </div>
-              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200">
-                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Phone</label>
-                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
-                  +1 (868) 710-0175
-                  <button onclick="copyText('+1 (868) 710-0175', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
-                </div>
-              </div>
-              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-200 col-span-2">
-                <label class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Email</label>
-                <div class="font-semibold text-gray-800 text-sm flex items-center gap-1">
-                  justinjoseph6682@gmail.com
-                  <button onclick="copyText('justinjoseph6682@gmail.com', this)" class="text-emerald-600 hover:text-emerald-800 text-[10px] font-semibold bg-white px-2 py-0.5 rounded-full border border-emerald-200 transition ml-1">Copy</button>
-                </div>
-              </div>
-            </div>
-            <div class="text-[10px] text-gray-400 mt-1.5 flex items-center gap-1">
-              <span class="inline-block w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-              Justin is your POC at Simplicity Creations — send payment confirmation to him
-            </div>
-          </div>
         </div>
 
         <div class="mt-4 pt-4 border-t border-gray-100 text-[11px] text-gray-500 flex justify-between items-center">
@@ -230,7 +194,7 @@
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
           <div class="text-emerald-700 font-bold text-lg mb-1">③</div>
           <p class="font-semibold text-gray-800">Confirm & notify</p>
-          <p class="text-gray-500 text-xs mt-1">Use reference <span class="font-mono">SC-2026-01</span> and click below to notify <span class="font-medium text-blue-700">Justin</span> (your POC).</p>
+          <p class="text-gray-500 text-xs mt-1">Use reference <span class="font-mono">SC-2026-01</span> and click below to notify <span class="font-medium text-emerald-700">Keyshaun Sookdar</span>.</p>
         </div>
       </div>
     </div>
@@ -239,7 +203,7 @@
     <div class="flex flex-col sm:flex-row gap-4 mt-2">
       <button id="confirmTransferBtn" class="transfer-btn flex-1 text-white rounded-xl py-4 px-6 font-bold text-base md:text-lg flex items-center justify-center gap-2 shadow-lg">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
-        I've paid — notify Justin (POC)
+        I've paid — notify Keyshaun
       </button>
       <button id="copyAllDetailsBtn" class="bg-white border-2 border-emerald-700 text-emerald-800 rounded-xl py-4 px-6 font-bold text-base flex items-center justify-center gap-2 hover:bg-emerald-50 transition">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -253,7 +217,7 @@
       <span class="hidden sm:inline">•</span>
       <span>📧 Email: <span class="font-mono text-emerald-700 font-medium">KSookdar@proton.me</span></span>
       <span class="hidden sm:inline">•</span>
-      <span>📌 Client POC: <span class="font-mono text-blue-700 font-medium">Justin Joseph</span></span>
+      <span>📧 Business: <span class="font-mono text-blue-700 font-medium">simplicity_creations@hotmail.com</span></span>
     </div>
   </div>
   
@@ -277,11 +241,7 @@
     const TOTAL_AMOUNT = "$500.00 TTD";
     const INVOICE_REF = "SC-2026-01";
     const YOUR_PHONE = "18687393193"; // Your WhatsApp
-
-    // Client POC (Justin at Simplicity Creations)
-    const POC_NAME = "Justin Joseph";
-    const POC_PHONE = "18687100175";
-    const POC_EMAIL = "justinjoseph6682@gmail.com";
+    const BUSINESS_EMAIL = "simplicity_creations@hotmail.com";
     const TICKET = "NC-260805-4283";
     const SITE = "https://simplicitycreations.web.app/";
 
@@ -321,15 +281,11 @@
         `  Bank: ${BANK_NAME}\n` +
         `  SWIFT: FCTTTTPS\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `CLIENT POC (Justin at Simplicity Creations):\n` +
-        `  Name: ${POC_NAME}\n` +
-        `  Phone: +1 (868) 710-0175\n` +
-        `  Email: ${POC_EMAIL}\n` +
-        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
         `Invoice: ${INVOICE_REF}\n` +
         `Ticket: ${TICKET}\n` +
         `Amount: ${TOTAL_AMOUNT}\n` +
-        `Site: ${SITE}`;
+        `Site: ${SITE}\n` +
+        `Business Email: ${BUSINESS_EMAIL}`;
       
       navigator.clipboard.writeText(detailsBlock).then(() => {
         const btn = document.getElementById('copyAllDetailsBtn');
@@ -347,26 +303,26 @@
       });
     }
 
-    // WhatsApp message to Justin (POC at Simplicity Creations) after they pay
+    // WhatsApp message to Keyshaun (you) after they pay
     function buildWhatsAppMessage() {
       const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-      return `Hello Justin (POC at Simplicity Creations),%0A%0A` +
-        `✅ I have completed the bank transfer for invoice ${INVOICE_REF} from KEYSHAUN SOOKDAR.%0A` +
+      return `Hello Keyshaun,%0A%0A` +
+        `✅ I have completed the bank transfer for invoice ${INVOICE_REF}.%0A` +
         `📄 Ticket: ${TICKET}%0A` +
         `💰 Amount: ${TOTAL_AMOUNT}%0A` +
         `🏦 Bank: ${BANK_NAME}%0A` +
         `👤 Recipient: ${ACCOUNT_HOLDER} (${BANK_ACCOUNT})%0A` +
         `📅 Transfer date: ${dateStr}%0A%0A` +
-        `Please confirm receipt and let KEYSHAUN know at ${RECIPIENT_EMAIL}.%0A` +
+        `Please confirm receipt.%0A` +
         `(Reference: ${INVOICE_REF})%0A%0A` +
         `Thank you.`;
     }
 
     function handleTransferConfirmation() {
-      const phone = POC_PHONE; // Justin's phone
+      const phone = YOUR_PHONE; // Your phone
       const whatsappURL = `https://wa.me/${phone}?text=${buildWhatsAppMessage()}`;
       window.open(whatsappURL, '_blank', 'noopener,noreferrer');
-      console.log('[KEYSHAUN] Payment confirmation sent to POC (Justin) via WhatsApp.');
+      console.log('[KEYSHAUN] Payment confirmation sent to Keyshaun via WhatsApp.');
     }
 
     // Attach listeners
