@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Command - Payment Receipt Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #0b0f17 0%, #03050a 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 55px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,180,120,0.25);
+    }
+    .generate-btn {
+      background: linear-gradient(135deg, #0f5c3b, #0a462c);
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 18px rgba(0,80,40,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .generate-btn:hover {
+      background: linear-gradient(135deg, #127a4b, #0d5e36);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0,100,50,0.5);
+    }
+    .generate-btn:active { transform: translateY(1px); }
+    input, textarea, select {
+      transition: all 0.2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #0f5c3b;
+      box-shadow: 0 0 0 3px rgba(15, 92, 59, 0.15);
+    }
+    @media print {
+      body { background: white !important; padding: 0 !important; }
+      .no-print { display: none !important; }
+      .pdf-content { box-shadow: none !important; border-radius: 0 !important; padding: 40px !important; }
+      .glass-card { box-shadow: none !important; background: white !important; backdrop-filter: none !important; }
+    }
+    .receipt-check {
+      color: #0f5c3b;
+      font-size: 3rem;
+    }
+    .receipt-line {
+      border-top: 2px dashed #e2e8f0;
+      margin: 16px 0;
+    }
+    .watermark-text {
+      opacity: 0.08;
+      font-size: 6rem;
+      font-weight: 900;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-25deg);
+      white-space: nowrap;
+      pointer-events: none;
+      color: #0f5c3b;
+      font-family: 'Inter', sans-serif;
+    }
+    .receipt-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .stamp {
+      display: inline-block;
+      border: 3px solid #0f5c3b;
+      color: #0f5c3b;
+      padding: 4px 16px;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transform: rotate(-8deg);
+      opacity: 0.7;
+    }
+    .icon-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      color: #0f5c3b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Controls - Hidden in PDF -->
+  <div class="no-print mb-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-receipt text-white text-xl"></i>
+        <h1 class="text-white font-bold text-xl">Nexus Command · Receipt Generator</h1>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button onclick="generatePDF()" class="generate-btn text-white rounded-xl py-3 px-8 font-bold text-sm flex items-center gap-2 shadow-lg">
+          <i class="fas fa-file-pdf"></i>
+          Generate PDF Receipt
+        </button>
+        <button onclick="resetForm()" class="bg-white/10 text-white hover:bg-white/20 rounded-xl py-3 px-5 font-medium text-sm transition border border-white/20">
+          <i class="fas fa-undo-alt mr-1"></i> Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Content -->
+  <div class="glass-card rounded-3xl p-6 md:p-8" id="receiptContainer">
+    <div class="pdf-content receipt-container" id="pdfContent">
+
+      <!-- Watermark -->
+      <div class="watermark-text">PAID</div>
+
+      <!-- Header -->
+      <div class="flex justify-between items-start border-b-2 border-emerald-600 pb-5">
+        <div>
+          <div class="flex items-center gap-2">
+            <i class="fas fa-bolt text-emerald-600 text-xl"></i>
+            <span class="text-2xl font-extrabold text-gray-900">NEXUS COMMAND</span>
+            <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold"><i class="fas fa-check-circle mr-1"></i>PAID</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-0.5"><i class="fas fa-map-pin mr-1"></i>Trinidad & Tobago</p>
+        </div>
+        <div class="text-right">
+          <div class="receipt-check"><i class="fas fa-check-circle"></i></div>
+          <div class="text-[10px] text-gray-400 font-medium uppercase tracking-wider mt-1">Payment Confirmed</div>
+        </div>
+      </div>
+
+      <!-- Receipt Title -->
+      <div class="text-center py-4">
+        <h2 class="text-2xl font-bold text-gray-900">PAYMENT RECEIPT</h2>
+        <p class="text-xs text-gray-400 mt-0.5"><i class="far fa-file-alt mr-1"></i>Official confirmation of payment received</p>
+      </div>
+
+      <!-- Receipt Number & Date -->
+      <div class="flex flex-wrap justify-between bg-gray-50 rounded-xl px-5 py-3 text-sm border border-gray-200">
+        <div>
+          <span class="text-xs text-gray-400 uppercase tracking-wider"><i class="far fa-hashtag mr-1"></i>Receipt #</span>
+          <span class="font-bold text-gray-800 block" id="displayReceiptNumber">RCP-2026-001</span>
+        </div>
+        <div>
+          <span class="text-xs text-gray-400 uppercase tracking-wider"><i class="far fa-calendar-alt mr-1"></i>Date</span>
+          <span class="font-bold text-gray-800 block" id="displayDate">September 25, 2026</span>
+        </div>
+        <div>
+          <span class="text-xs text-gray-400 uppercase tracking-wider"><i class="fas fa-circle mr-1"></i>Status</span>
+          <span class="font-bold text-emerald-600 block flex items-center gap-1">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full inline-block"></span>
+            PAID
+          </span>
+        </div>
+      </div>
+
+      <!-- From / To -->
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div>
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold"><i class="fas fa-user mr-1"></i>Received From</p>
+          <p class="font-bold text-gray-800" id="displayClient">Simplicity Creations</p>
+          <p class="text-xs text-gray-500" id="displayClientContact"><i class="far fa-envelope mr-1"></i>justinjoseph6682@gmail.com</p>
+        </div>
+        <div class="text-right">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold"><i class="fas fa-user-check mr-1"></i>Received By</p>
+          <p class="font-bold text-gray-800">Nexus Command</p>
+          <p class="text-xs text-gray-500">Keyshaun Sookdar</p>
+        </div>
+      </div>
+
+      <!-- Amount -->
+      <div class="mt-4 bg-emerald-50 rounded-2xl p-5 border-2 border-emerald-200 text-center">
+        <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold"><i class="fas fa-dollar-sign mr-1"></i>Total Amount Received</p>
+        <p class="text-4xl font-extrabold text-emerald-700" id="displayAmount">$300.00</p>
+        <p class="text-xs text-gray-400 mt-0.5">Trinidad & Tobago Dollars (TTD)</p>
+      </div>
+
+      <!-- Payment Details -->
+      <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+        <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold"><i class="fas fa-credit-card mr-1"></i>Payment Method</p>
+          <p class="font-medium text-gray-800">Bank Transfer</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold"><i class="fas fa-tag mr-1"></i>Reference</p>
+          <p class="font-medium text-gray-800 font-mono text-xs" id="displayReference">SC-2026-01</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200 col-span-2">
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold"><i class="fas fa-university mr-1"></i>Paid To</p>
+          <p class="font-medium text-gray-800">First Citizens Bank · Account: <span class="font-mono" id="displayAccount">3140535</span></p>
+        </div>
+      </div>
+
+      <!-- Line Items -->
+      <div class="mt-4">
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-2"><i class="fas fa-list-ul mr-1"></i>Items / Services</p>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-2 text-xs text-gray-400 font-semibold">Description</th>
+              <th class="text-right py-2 text-xs text-gray-400 font-semibold">Amount (TTD)</th>
+            </tr>
+          </thead>
+          <tbody id="receiptItemsBody">
+            <!-- Injected by JS -->
+          </tbody>
+          <tfoot>
+            <tr class="border-t-2 border-emerald-600">
+              <td class="py-3 font-bold text-gray-900"><i class="fas fa-calculator mr-1"></i>TOTAL PAID</td>
+              <td class="py-3 text-right font-bold text-emerald-700 text-lg" id="displayTotalReceipt">$300.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Footer -->
+      <div class="receipt-line mt-5"></div>
+      <div class="flex flex-wrap justify-between items-center text-[10px] text-gray-400">
+        <div>
+          <i class="fas fa-bolt mr-1"></i>Nexus Command
+          <span class="mx-2">•</span>
+          <i class="fas fa-user mr-1"></i>Keyshaun Sookdar
+        </div>
+        <div class="text-right">
+          <i class="far fa-envelope mr-1"></i>KSookdar@proton.me
+          <span class="mx-2">•</span>
+          <i class="fas fa-phone mr-1"></i>+1 (868) 739-3193
+        </div>
+      </div>
+
+      <!-- Thank You -->
+      <div class="text-center mt-4 pt-3 border-t border-gray-200">
+        <p class="text-sm font-semibold text-emerald-700"><i class="fas fa-handshake mr-1"></i>Thank you for your business!</p>
+        <p class="text-[10px] text-gray-400"><i class="fas fa-robot mr-1"></i>This is a system-generated receipt. No signature required.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Editable Form - Hidden in PDF -->
+  <div class="no-print mt-6 glass-card rounded-3xl p-6 md:p-8">
+    <h2 class="font-bold text-lg text-gray-800 mb-5 flex items-center gap-2">
+      <i class="fas fa-edit text-emerald-600"></i> Edit Receipt Details
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="fas fa-user mr-1"></i>Client Name</label>
+        <input type="text" id="inputClient" value="Simplicity Creations" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="far fa-envelope mr-1"></i>Client Contact</label>
+        <input type="text" id="inputClientContact" value="justinjoseph6682@gmail.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="far fa-hashtag mr-1"></i>Receipt Number</label>
+        <input type="text" id="inputReceiptNumber" value="RCP-2026-001" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="far fa-calendar-alt mr-1"></i>Date</label>
+        <input type="text" id="inputDate" value="September 25, 2026" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="fas fa-tag mr-1"></i>Reference / Invoice #</label>
+        <input type="text" id="inputReference" value="SC-2026-01" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+      <div>
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1"><i class="fas fa-university mr-1"></i>Account Number</label>
+        <input type="text" id="inputAccount" value="3140535" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
+      </div>
+
+    </div>
+
+    <!-- Line Items Editor -->
+    <div class="mt-5 pt-5 border-t border-gray-200">
+      <div class="flex items-center justify-between mb-3">
+        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider"><i class="fas fa-list-ul mr-1"></i>Items / Services</label>
+        <button onclick="addLineItem()" class="bg-emerald-600 text-white text-xs font-bold px-4 py-1.5 rounded-full hover:bg-emerald-700 transition">
+          <i class="fas fa-plus mr-1"></i> Add Item
+        </button>
+      </div>
+      <div id="lineItemsEditor" class="space-y-2">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <div class="mt-5 flex gap-3">
+      <button onclick="updateReceipt()" class="bg-emerald-600 text-white rounded-xl py-3 px-8 font-bold text-sm hover:bg-emerald-700 transition shadow-lg flex-1">
+        <i class="fas fa-sync-alt mr-1"></i> Update Receipt
+      </button>
+      <button onclick="addLineItem()" class="bg-gray-200 text-gray-700 rounded-xl py-3 px-6 font-bold text-sm hover:bg-gray-300 transition">
+        <i class="fas fa-plus mr-1"></i> Item
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // DATA
+  // ============================================================
+  let lineItems = [
+    { description: 'Web Design & Development', amount: 200.00 },
+    { description: 'Maintenance', amount: 100.00 }
+  ];
+
+  // ============================================================
+  // RENDER FUNCTIONS
+  // ============================================================
+  function renderLineItems() {
+    const tbody = document.getElementById('receiptItemsBody');
+    if (!tbody) return;
+    let html = '';
+    lineItems.forEach((item) => {
+      html += `
+        <tr class="border-b border-gray-100">
+          <td class="py-2 text-gray-700 text-sm">${item.description}</td>
+          <td class="py-2 text-right text-gray-700 text-sm font-medium">${item.amount.toFixed(2)}</td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+    updateTotal();
+    renderEditorItems();
+  }
+
+  function updateTotal() {
+    const total = lineItems.reduce((sum, item) => sum + item.amount, 0);
+    document.getElementById('displayTotalReceipt').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('displayAmount').textContent = `$${total.toFixed(2)}`;
+  }
+
+  function renderEditorItems() {
+    const container = document.getElementById('lineItemsEditor');
+    if (!container) return;
+    let html = '';
+    lineItems.forEach((item, index) => {
+      html += `
+        <div class="flex gap-2 items-center">
+          <input type="text" value="${item.description}" 
+            class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm"
+            onchange="updateLineItem(${index}, 'description', this.value)">
+          <input type="number" step="0.01" value="${item.amount}" 
+            class="w-28 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-right"
+            onchange="updateLineItem(${index}, 'amount', parseFloat(this.value) || 0)">
+          <button onclick="removeLineItem(${index})" class="text-red-400 hover:text-red-600 text-sm font-bold px-2">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      `;
+    });
+    container.innerHTML = html || '<p class="text-gray-400 text-sm"><i class="fas fa-info-circle mr-1"></i>No items added yet.</p>';
+  }
+
+  // ============================================================
+  // EDITOR FUNCTIONS
+  // ============================================================
+  function addLineItem() {
+    lineItems.push({ description: 'Service', amount: 0 });
+    renderLineItems();
+    updateReceipt();
+  }
+
+  function removeLineItem(index) {
+    if (lineItems.length <= 1) {
+      alert('You need at least one line item.');
+      return;
+    }
+    lineItems.splice(index, 1);
+    renderLineItems();
+    updateReceipt();
+  }
+
+  function updateLineItem(index, field, value) {
+    if (field === 'amount') {
+      lineItems[index].amount = parseFloat(value) || 0;
+    } else {
+      lineItems[index].description = value;
+    }
+    renderLineItems();
+    updateReceipt();
+  }
+
+  // ============================================================
+  // UPDATE RECEIPT DISPLAY
+  // ============================================================
+  function updateReceipt() {
+    const client = document.getElementById('inputClient').value || 'Simplicity Creations';
+    const clientContact = document.getElementById('inputClientContact').value || 'justinjoseph6682@gmail.com';
+    const receiptNum = document.getElementById('inputReceiptNumber').value || 'RCP-2026-001';
+    const date = document.getElementById('inputDate').value || 'September 25, 2026';
+    const reference = document.getElementById('inputReference').value || 'SC-2026-01';
+    const account = document.getElementById('inputAccount').value || '3140535';
+
+    document.getElementById('displayClient').textContent = client;
+    document.getElementById('displayClientContact').textContent = clientContact;
+    document.getElementById('displayReceiptNumber').textContent = receiptNum;
+    document.getElementById('displayDate').textContent = date;
+    document.getElementById('displayReference').textContent = reference;
+    document.getElementById('displayAccount').textContent = account;
+
+    renderLineItems();
+  }
+
+  // ============================================================
+  // RESET
+  // ============================================================
+  function resetForm() {
+    document.getElementById('inputClient').value = 'Simplicity Creations';
+    document.getElementById('inputClientContact').value = 'justinjoseph6682@gmail.com';
+    document.getElementById('inputReceiptNumber').value = 'RCP-2026-001';
+    document.getElementById('inputDate').value = 'September 25, 2026';
+    document.getElementById('inputReference').value = 'SC-2026-01';
+    document.getElementById('inputAccount').value = '3140535';
+    lineItems = [
+      { description: 'Web Design & Development', amount: 200.00 },
+      { description: 'Maintenance', amount: 100.00 }
+    ];
+    updateReceipt();
+  }
+
+  // ============================================================
+  // GENERATE PDF
+  // ============================================================
+  function generatePDF() {
+    updateReceipt();
+
+    const element = document.getElementById('receiptContainer');
+    const opt = {
+      margin:        [0.4, 0.4, 0.4, 0.4],
+      filename:     `Receipt_${document.getElementById('inputReceiptNumber').value || 'RCP-2026-001'}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    const btn = document.querySelector('.generate-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
+    btn.disabled = true;
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      alert('PDF generation failed. Please try again.');
+    });
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    renderLineItems();
+    updateReceipt();
+
+    document.querySelectorAll('#inputClient, #inputClientContact, #inputReceiptNumber, #inputDate, #inputReference, #inputAccount').forEach(el => {
+      el.addEventListener('input', updateReceipt);
+    });
+  });
+</script>
+
+</body>
+</html>
