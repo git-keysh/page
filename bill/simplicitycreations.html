@@ -63,6 +63,9 @@
       background: linear-gradient(to right, #f0fdf4, #ffffff);
       border: 1px solid #bbf7d0;
     }
+    .break-all {
+      word-break: break-all;
+    }
   </style>
 </head>
 <body>
@@ -93,7 +96,7 @@
       <!-- LEFT: Invoice & amount -->
       <div class="bg-gray-50/80 rounded-2xl p-5 border border-gray-100">
         <div class="flex justify-between items-center mb-3">
-          <h3 class="font-semibold text-gray-800 text-sm uppercase tracking-wide">Invoice #SC-2026-02</h3>
+          <h3 class="font-semibold text-gray-800 text-sm uppercase tracking-wide">Invoice #SC-2026-03</h3>
           <span class="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">Due: Today</span>
         </div>
         <div class="text-xs text-gray-500 mb-3 flex items-center gap-1">
@@ -103,25 +106,38 @@
         </div>
         <div class="space-y-3">
           <div class="flex justify-between text-gray-700 text-sm">
-            <span>Web Design & Development</span>
-            <span class="font-medium">200.00 TTD</span>
+            <span>Cross-platform application development &amp; ancillary engineering (iOS + Android)</span>
+            <span class="font-medium">150.00 TTD</span>
           </div>
           <div class="flex justify-between text-gray-700 text-sm">
-            <span>Maintenance</span>
-            <span class="font-medium">100.00 TTD</span>
+            <span>Android platform build waiver</span>
+            <span class="font-medium text-emerald-600">FREE</span>
+          </div>
+          <div class="flex justify-between text-gray-700 text-sm">
+            <span>Production deployment &amp; release pipeline engineering</span>
+            <span class="font-medium">650.00 TTD</span>
           </div>
           <div class="flex justify-between items-center pt-3 mt-2 border-t-2 border-gray-200">
             <span class="font-bold text-base text-gray-900">Total to pay</span>
-            <span class="text-2xl font-extrabold text-gray-900 tracking-tight">$300.00 TTD</span>
+            <span class="text-2xl font-extrabold text-gray-900 tracking-tight">$800.00 TTD</span>
           </div>
         </div>
         <div class="mt-4 bg-white rounded-xl p-3 text-xs text-gray-600 border border-gray-200 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <span>Please use exact amount for automatic matching.</span>
         </div>
-        <div class="mt-3 text-xs text-gray-400 flex flex-wrap gap-x-4">
-          <span>📁 <span class="font-mono">shop page and Our work page layout update</span></span>
-          <span>🔗 <a href="https://simplicitycreations.web.app/" target="_blank" class="text-emerald-600 hover:underline">simplicitycreations.web.app</a></span>
+        <!-- Updated delivery details -->
+        <div class="mt-3 text-xs text-gray-500 flex flex-col gap-1.5">
+          <span class="flex items-start gap-1.5">
+            <span class="shrink-0">🤖</span>
+            <span>Android APK: 
+              <a href="https://expo.dev/artifacts/eas/2jqIZLykRLF9wDrhzpD6bQm1hdDgNgmcIAEMO7jccvI.apk" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:underline font-mono break-all">https://expo.dev/artifacts/eas/2jqIZLykRLF9wDrhzpD6bQm1hdDgNgmcIAEMO7jccvI.apk</a>
+            </span>
+          </span>
+          <span class="flex items-start gap-1.5">
+            <span class="shrink-0">🍎</span>
+            <span>iOS: URL not available — please check the zip folder for instructions.</span>
+          </span>
         </div>
       </div>
 
@@ -151,7 +167,7 @@
           <div>
             <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Bank · Branch</label>
             <div class="mt-1 bg-gray-50 p-3 rounded-lg border border-gray-200 text-gray-800 font-medium">
-              First Citizens Bank Limited · Trinidad & Tobago
+              First Citizens Bank Limited · Trinidad &amp; Tobago
             </div>
           </div>
 
@@ -185,12 +201,12 @@
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
           <div class="text-emerald-700 font-bold text-lg mb-1">②</div>
           <p class="font-semibold text-gray-800">Send to KEYSHAUN</p>
-          <p class="text-gray-500 text-xs mt-1">Transfer <span class="font-bold text-gray-900">$300.00 TTD</span> to account <span class="font-mono font-bold">3140535</span> (First Citizens).</p>
+          <p class="text-gray-500 text-xs mt-1">Transfer <span class="font-bold text-gray-900">$800.00 TTD</span> to account <span class="font-mono font-bold">3140535</span> (First Citizens).</p>
         </div>
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
           <div class="text-emerald-700 font-bold text-lg mb-1">③</div>
-          <p class="font-semibold text-gray-800">Confirm & notify</p>
-          <p class="text-gray-500 text-xs mt-1">Use reference <span class="font-mono">SC-2026-02</span> and click below to notify <span class="font-medium text-emerald-700">Keyshaun Sookdar</span>.</p>
+          <p class="font-semibold text-gray-800">Confirm &amp; notify</p>
+          <p class="text-gray-500 text-xs mt-1">Use reference <span class="font-mono">SC-2026-03</span> and click below to notify <span class="font-medium text-emerald-700">Keyshaun Sookdar</span>.</p>
         </div>
       </div>
     </div>
@@ -234,8 +250,8 @@
     const ACCOUNT_HOLDER = "KEYSHAUN MALACHI SOOKDAR";
     const BANK_NAME = "FIRST CITIZENS BANK LIMITED";
     const RECIPIENT_EMAIL = "KSookdar@proton.me";
-    const TOTAL_AMOUNT = "$300.00 TTD";
-    const INVOICE_REF = "SC-2026-02";
+    const TOTAL_AMOUNT = "$800.00 TTD";
+    const INVOICE_REF = "SC-2026-03";
     const YOUR_PHONE = "18687393193"; // Your WhatsApp
     const BUSINESS_EMAIL = "simplicity_creations@hotmail.com";
     const TICKET = "NC-260925-4283";
